@@ -36,8 +36,10 @@ import json
 import os
 import re
 import sys
+import threading
 import time
 import urllib.error
+from concurrent.futures import ThreadPoolExecutor
 import urllib.request
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
@@ -80,6 +82,10 @@ OK_CHECKS = [
     ("no_duplicates", "defect", "같은 사람이 한 그림에 두 번 나오는 것처럼 복제된 인물이 없는가?", ()),
     ("framing_ok", "defect", "주요 인물의 머리나 얼굴이 화면 가장자리에서 어색하게 잘리지 않았는가?", ()),
 ]
+
+# The first pass asks only these (plus identity/continuity when switched on); --checks full
+# asks everything. Fewer questions per panel is most of the speed.
+CORE = {"matches_spec", "people_count", "hands_ok", "face_ok", "no_text", "identity", "continuity"}
 
 DEFAULT_MAP = {
     "panels": None, "id": None, "image": None, "image_pattern": "p{n:02d}.png",
@@ -341,6 +347,7 @@ class Identity:
         self.backend = fc.InsightFaceBackend(gpu=gpu)
         self.members, self.problems = fc.load_cast_faces(cast_path, self.backend)
         self.threshold = threshold
+        self.lock = threading.Lock()          # one face model, shared by the panel workers
         self.by_name = {}
         for m in self.members:
             self.by_name[m.name] = m.id
@@ -351,7 +358,9 @@ class Identity:
         if img is None:
             return 1.0, ""
         expected = [self.by_name[n] for n in cast_names if n in self.by_name]
-        return identity_verdict(self.fc.assign(self.backend.faces(img), self.members, self.threshold), expected)
+        with self.lock:
+            faces = self.backend.faces(img)
+        return identity_verdict(self.fc.assign(faces, self.members, self.threshold), expected)
 
 
 # ---------------------------------------------------------------- run
@@ -365,10 +374,14 @@ RANK = {"bad": 0, "check": 1, "ok": 2}
 
 
 def review_panel(backend, img: Path, spec: Dict[str, str], prev: Optional[Tuple[Path, Dict]] = None,
-                 identity: Optional[Identity] = None, continuity: bool = False) -> Dict[str, Dict]:
+                 identity: Optional[Identity] = None, continuity: bool = False,
+                 only: Optional[set] = None) -> Dict[str, Dict]:
     state = "콘티 설명:\n" + spec_text(spec)
+    use = (lambda name: True) if only is None else (lambda name: name in only)
     oks = {}
     for name, group, q, needs in OK_CHECKS:
+        if not use(name):
+            continue
         if needs == ("any",):
             if not spec:
                 continue
@@ -377,10 +390,10 @@ def review_panel(backend, img: Path, spec: Dict[str, str], prev: Optional[Tuple[
         oks[name] = q.format(**{k: v[:120] for k, v in spec.items()})
     choices: Dict[str, Tuple[str, List[str]]] = {}
     exp_shot = shot_index(spec.get("shot", ""))
-    if exp_shot is not None:
+    if exp_shot is not None and use("shot_size"):
         choices["shot_size"] = ("이 그림의 샷 크기는?", SHOTS)
     n_cast = len(as_names(spec.get("cast"))) if spec.get("cast") else None
-    if n_cast:
+    if n_cast and use("people_count"):
         choices["people_count"] = ("그림에 얼굴이나 몸이 보이는 사람은 몇 명인가?", PEOPLE)
 
     if isinstance(backend, DecisionBackend):
@@ -405,10 +418,10 @@ def review_panel(backend, img: Path, spec: Dict[str, str], prev: Optional[Tuple[
         seen = max(d, key=d.get)
         checks["people_count"] = {"group": "context", "p_bad": round(1.0 - d.get(want, 0.0), 4),
                                   "note": f"expected {want}, looks {seen}"}
-    if identity is not None and spec.get("cast"):
+    if identity is not None and spec.get("cast") and use("identity"):
         p, why = identity.check(img, as_names(spec["cast"]))
         checks["identity"] = {"group": "identity", "p_bad": round(1.0 - p, 4), "note": why}
-    if continuity and prev is not None:
+    if continuity and prev is not None and use("continuity"):
         prev_img, prev_spec = prev
         shared = set(as_names(spec.get("cast"))) & set(as_names(prev_spec.get("cast")))
         if shared or not (spec.get("cast") or prev_spec.get("cast")):
@@ -461,15 +474,16 @@ def cmd_run(a) -> int:
     review.setdefault("board", str(board.resolve()))
     review.setdefault("panels", {})
     backend = DecisionBackend(a.url, a.timeout) if a.backend == "decision" else \
-        LogprobBackend(a.url, 1 if a.fast else "adaptive", a.timeout)
+        LogprobBackend(a.url, "adaptive" if a.careful else 1, a.timeout)
+    only = None if a.checks == "full" else CORE
     identity = Identity(Path(a.cast), a.face_threshold, a.gpu) if a.cast else None
     if identity is not None:
         for pr in identity.problems:
             print("CAST " + pr)
     want = {s.strip() for s in a.ids.split(",") if s.strip()} if a.ids else None
     t_all = time.perf_counter()
+    jobs = []
     prev = None
-    done = 0
     for n, panel in enumerate(panels, start=1):
         pid = str(panel.get(m["id"]) if m.get("id") and panel.get(m["id"]) is not None else f"p{n:02d}")
         img = panel_image(board, panel, m, n)
@@ -480,27 +494,39 @@ def cmd_run(a) -> int:
             prev = None
             continue
         small = prepared(img, out / "cache", a.max_side)
-        if (want and pid not in want) or (a.limit and done >= a.limit) or (pid in review["panels"] and not a.force
-                                                                            and not review["panels"][pid].get("error")):
-            prev = (small, spec)
-            continue
+        skip = (want and pid not in want) or (a.limit and len(jobs) >= a.limit) or \
+            (pid in review["panels"] and not a.force and not review["panels"][pid].get("error"))
+        if not skip:
+            jobs.append((pid, n, img, small, spec, prev))
+        prev = (small, spec)
+
+    lock = threading.Lock()
+
+    def work(job) -> None:
+        pid, n, img, small, spec, prev_panel = job
         t0 = time.perf_counter()
         try:
-            checks = review_panel(backend, small, spec, prev, identity, a.continuity)
+            checks = review_panel(backend, small, spec, prev_panel, identity, a.continuity, only)
             err = ""
         except LLMError as e:
             checks, err = {}, str(e)
         worst = max((c["p_bad"] for c in checks.values() if c["p_bad"] == c["p_bad"]), default=float("nan"))
         st = "check" if err else status_of(worst, a.bad, a.check)
-        review["panels"][pid] = {"n": n, "image": str(img.resolve()), "spec": spec, "checks": checks,
-                                 "status": st, "worst": worst if worst == worst else None,
-                                 "ms": round((time.perf_counter() - t0) * 1000), "error": err}
-        done += 1
+        rec = {"n": n, "image": str(img.resolve()), "spec": spec, "checks": checks, "status": st,
+               "worst": worst if worst == worst else None, "ms": round((time.perf_counter() - t0) * 1000),
+               "error": err}
         flagged = [f"{LABELS.get(k, k)} {c['p_bad']:.0%}" for k, c in checks.items()
                    if c["p_bad"] == c["p_bad"] and c["p_bad"] >= a.check]
-        print(f"{pid:>6} {st:5s} {(time.perf_counter() - t0):5.1f}s  {'; '.join(flagged) or err}")
-        rpath.write_text(json.dumps(review, ensure_ascii=False, indent=1), encoding="utf-8")
-        prev = (small, spec)
+        with lock:
+            review["panels"][pid] = rec
+            print(f"{pid:>6} {st:5s} {(time.perf_counter() - t0):5.1f}s  {'; '.join(flagged) or err}", flush=True)
+            rpath.write_text(json.dumps(review, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    # Panels are independent, so several go to the server at once; each panel's own
+    # questions stay in order in one worker, which keeps its image in one slot's cache.
+    with ThreadPoolExecutor(max_workers=max(1, a.workers)) as ex:
+        list(ex.map(work, jobs))
+    done = len(jobs)
     review.update({"backend": backend.name, "thresholds": {"bad": a.bad, "check": a.check},
                    "updated": time.strftime("%Y-%m-%d %H:%M:%S")})
     rpath.write_text(json.dumps(review, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -684,7 +710,10 @@ def main(argv=None) -> int:
     p.add_argument("--out", default=None)
     p.add_argument("--url", default="http://127.0.0.1:5678")
     p.add_argument("--backend", choices=("logprobs", "decision"), default="logprobs")
-    p.add_argument("--fast", action="store_true", help="logprobs: one reading per question instead of two")
+    p.add_argument("--checks", choices=("core", "full"), default="core",
+                   help="core: overall match, people count, hands, face, text/bubble (fast); full: all checks")
+    p.add_argument("--careful", action="store_true", help="logprobs: read each question in both answer orders")
+    p.add_argument("--workers", type=int, default=3, help="panels in flight at once (server slots)")
     p.add_argument("--max-side", type=int, default=1024)
     p.add_argument("--cast", default=None, help="h3-multicast cast.yaml for the face identity check")
     p.add_argument("--face-threshold", type=float, default=0.35)

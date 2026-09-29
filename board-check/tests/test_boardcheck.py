@@ -82,7 +82,8 @@ def test_map_guesses_keys(tmp_path, capsys):
 def test_run_logprobs_and_feedback(tmp_path, mock, capsys):
     board = make_board(tmp_path / "b")
     out = tmp_path / "out"
-    assert bc.main(["run", "--board", str(board), "--out", str(out), "--url", mock.url, "--continuity"]) == 0
+    assert bc.main(["run", "--board", str(board), "--out", str(out), "--url", mock.url, "--continuity",
+                    "--checks", "full"]) == 0
     r = json.loads((out / "review.json").read_text(encoding="utf-8"))
     p1, p2, p3 = (r["panels"][f"p{n:02d}"] for n in (1, 2, 3))
     assert p1["status"] == "ok" and p1["checks"]["shot_size"]["p_bad"] < 0.2
@@ -143,7 +144,7 @@ def test_decision_backend(tmp_path):
         out = tmp_path / "out"
         url = f"http://127.0.0.1:{srv.server_address[1]}/v1"
         assert bc.main(["run", "--board", str(board), "--out", str(out), "--url", url, "--backend", "decision",
-                        "--ids", "p01"]) == 0
+                        "--ids", "p01", "--checks", "full"]) == 0
         path, body = seen[0]
         assert path == "/decision" and len(seen) == 1                       # every question in one call
         assert set(body) >= {"instructions", "schema", "contexts", "images"}
@@ -165,3 +166,17 @@ def test_identity_rules():
     assert bc.identity_verdict([(F(80), "B", 0.6, None)], ["A"])[0] < 0.2
     assert bc.identity_verdict([(F(80), None, 0.1, None)], ["A"])[0] < 0.5
     assert bc.identity_verdict([(F(10), "B", 0.6, None)], ["A"])[0] == 1.0     # too small to judge
+
+
+def test_core_checks_in_parallel(tmp_path, mock):
+    board = make_board(tmp_path / "b")
+    out = tmp_path / "out"
+    assert bc.main(["run", "--board", str(board), "--out", str(out), "--url", mock.url, "--workers", "3"]) == 0
+    r = json.loads((out / "review.json").read_text(encoding="utf-8"))["panels"]
+    assert len(r) == 3
+    for p in r.values():
+        assert set(p["checks"]) <= bc.CORE
+    assert {"hands_ok", "face_ok", "no_text", "matches_spec"} <= set(r["p01"]["checks"])
+    assert "shot_size" not in r["p01"]["checks"] and "body_ok" not in r["p01"]["checks"]
+    # one reading per question by default: 5 core questions, no second order
+    assert len(mock.requests) == 5 + 5 + 4          # p01: 4 yes/no + count, p02: same, p03: 4 yes/no

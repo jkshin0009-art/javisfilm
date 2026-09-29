@@ -75,8 +75,27 @@ Get-ChildItem $P -Recurse -Include *.py -ErrorAction SilentlyContinue |
 - 콘티 폴더 수, 전체 컷 수, 검수기 판정이 남은 컷 수, 한 번 이상 다시 그린 컷 수
 - 가장 최근 콘티 하나를 골라 컷마다 한 줄씩 표로 적는다. 칸은 컷 번호 / 콘티 설명 있음 / 프롬프트 저장됨 / 검수 판정(통과·실패·없음) / 다시 그린 횟수이고, 내용은 적지 않는다.
 
-## S5. 보고
+## S5. 속도 재기 (컷 10개, 5678 모델이 한가할 때만)
 
-`C:\Users\Administrator\Desktop\film_assistant\javisfilm\board-check\reports\QC_SURVEY.md`에 S1~S4를 적는다. 끝에 **분석 담당에게 묻고 싶은 것**을 3개 이내로 적는다.
+사용자 기준은 "1컷에 오래 걸리면 안 쓴다"이다. 추정이 아니라 실제 컷으로 잰다. 영화 작업이 LLM을 쓰는 중이면 사용자에게 먼저 묻는다. 결과(그림, 설명)는 `board-check\work\`에만 남고 올라가지 않는다.
+
+```powershell
+$R = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm'
+$Py = "$R\chat-upgrade\.venv\Scripts\python.exe"
+$B = '<S4에서 고른 가장 최근 콘티 폴더 (manifest.json 이 있는 곳)>'
+git -C $R pull --rebase
+& $Py -m pip install -q pillow
+& $Py "$R\board-check\boardcheck.py" map "$B\manifest.json" --out "$R\board-check\work\board_map.json"
+& $Py "$R\board-check\boardcheck.py" run --board $B --map "$R\board-check\work\board_map.json" --limit 10 --out "$R\board-check\work\speed_core"
+& $Py "$R\board-check\boardcheck.py" run --board $B --map "$R\board-check\work\board_map.json" --limit 10 --checks full --careful --out "$R\board-check\work\speed_full"
+```
+
+- `map`이 추측한 키가 틀렸으면(예: 콘티 설명 키를 못 찾음) `board_map.json`을 S1에서 확인한 키 이름으로 고친 뒤 다시 돌린다. 이 파일은 우리 작업 파일이다.
+- 두 번의 `RESULT` 줄에 나오는 **컷당 초**를 보고서에 적는다. 기본(핵심 5문항, 한 번 읽기, 3컷 동시)과 전체(모든 문항, 두 번 읽기)를 비교한다.
+- 사용자에게 `speed_core\review.html`을 열어 보라고 한다. 문제로 올라온 컷이 실제로 문제인지 한눈에 보인다.
+
+## S6. 보고
+
+`C:\Users\Administrator\Desktop\film_assistant\javisfilm\board-check\reports\QC_SURVEY.md`에 S1~S5를 적는다. 끝에 **분석 담당에게 묻고 싶은 것**을 3개 이내로 적는다.
 
 사용자에게 보여 주고, 허락하면 `board-check/reports`만 add해서 커밋·push한다. push가 실패하면 보고서 전문을 화면에 출력한다(사용자가 분석 담당에게 붙여 넣는다).
