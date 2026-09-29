@@ -3,7 +3,9 @@
 목표는 RTX 3090(GPU0)에서 `Swift15-27B-MTP-150K.bat`으로 llama-server를 띄우고, 150K 컨텍스트·8비트 KV·MTP가 실제로 동작하는지와 속도(tok/s)를 측정해 보고서로 남기는 것이다.
 분석은 다른 담당이 하므로, 이 문서는 **실행하고 결과를 그대로 기록**하는 것까지만 한다.
 
-작업 폴더는 git 저장소 `D:\llama.cpp\javisfilm`이다. 배치 파일은 `D:\llama.cpp\javisfilm\llama-swift15`에 있고, 경로가 절대경로로 들어 있어서 이 폴더에서 바로 실행해도 된다.
+작업 폴더는 프로젝트 폴더 `C:\Users\Administrator\Desktop\film_assistant` 안의 git 저장소 `C:\Users\Administrator\Desktop\film_assistant\javisfilm`이다(아래 `$R`). 배치 파일은 `C:\Users\Administrator\Desktop\film_assistant\javisfilm\llama-swift15`에 있다.
+
+llama.cpp 프로그램(`D:\llama.cpp\src_mtp`), 모델(`D:\LM-Studio\models`), 서버 로그(`D:\llama.cpp\swift15_150k_server.log`)는 원래 있던 D 드라이브 위치를 그대로 쓴다. 이 경로들은 바꾸지 않는다.
 
 ## 반드시 지킬 규칙
 
@@ -16,7 +18,7 @@
 ## 1단계: 저장소 받기 (이미 있으면 최신으로 갱신)
 
 ```powershell
-$R = 'D:\llama.cpp\javisfilm'
+$R = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm'
 if (Test-Path "$R\.git") { git -C $R pull } else { git clone -b claude/affectionate-brahmagupta-24a19d https://github.com/jkshin0009-art/javisfilm $R }
 git -C $R log --oneline -3
 Get-ChildItem "$R\llama-swift15\*.bat" | Select-Object Name, Length
@@ -54,7 +56,7 @@ nvidia-smi --query-gpu=index,name,memory.used,memory.free,memory.total --format=
 ## 4단계: 서버 시작 (MTP 드래프트 2개)
 
 ```powershell
-$B = 'D:\llama.cpp\javisfilm\llama-swift15'
+$B = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\llama-swift15'
 $env:SPEC_N = '2'
 Start-Process -FilePath "$B\Swift15-27B-MTP-150K.bat"
 $log = 'D:\llama.cpp\swift15_150k_server.log'
@@ -86,7 +88,7 @@ nvidia-smi --query-gpu=index,memory.used,memory.total --format=csv
 ## 6단계: 짧은 벤치 (프롬프트 3개)
 
 ```powershell
-$B = 'D:\llama.cpp\javisfilm\llama-swift15'
+$B = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\llama-swift15'
 $env:BENCH_DIR = "$B\"; $env:BENCH_ARGS = ''
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ([IO.File]::ReadAllText('$B\Swift15-bench.bat'))"
 ```
@@ -98,7 +100,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ([IO.File]::ReadAllT
 ## 7단계: 긴 벤치 (150K 컨텍스트, 5~15분 걸림)
 
 ```powershell
-$B = 'D:\llama.cpp\javisfilm\llama-swift15'
+$B = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\llama-swift15'
 $env:BENCH_DIR = "$B\"; $env:BENCH_ARGS = 'long'
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ([IO.File]::ReadAllText('$B\Swift15-bench.bat'))"
 ```
@@ -123,7 +125,7 @@ Start-Sleep -Seconds 5
 
 ## 9단계: 보고서 작성
 
-`D:\llama.cpp\javisfilm\llama-swift15\reports\SWIFT15_REPORT.md`를 만든다. 아래 항목마다 해당 단계의 출력을 **원문 그대로** 붙인다.
+`C:\Users\Administrator\Desktop\film_assistant\javisfilm\llama-swift15\reports\SWIFT15_REPORT.md`를 만든다. 아래 항목마다 해당 단계의 출력을 **원문 그대로** 붙인다.
 
 1. 1단계: `git log` 3줄
 2. 2단계: exe 경로, `--version`, 옵션별 True/False
@@ -139,7 +141,7 @@ Start-Sleep -Seconds 5
 ## 10단계: 보고서를 저장소에 올리기
 
 ```powershell
-$R = 'D:\llama.cpp\javisfilm'
+$R = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm'
 New-Item -ItemType Directory -Force "$R\llama-swift15\reports" | Out-Null
 Move-Item "$R\llama-swift15\swift15_bench_*.txt" "$R\llama-swift15\reports\" -Force -ErrorAction SilentlyContinue
 git -C $R pull

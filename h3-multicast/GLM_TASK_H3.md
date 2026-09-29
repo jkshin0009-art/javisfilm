@@ -8,7 +8,7 @@
 - **B단계 (사용자):** ComfyUI에서 클립 6개 렌더
 - **C단계 (실행 담당):** 얼굴 검사, 보고서 작성, push
 
-작업 폴더는 `D:\llama.cpp\javisfilm\h3-multicast`이다(아래 `$H`).
+작업 폴더는 프로젝트 폴더 `C:\Users\Administrator\Desktop\film_assistant` 안의 git 저장소 `C:\Users\Administrator\Desktop\film_assistant\javisfilm`의 `h3-multicast`이다(아래 `$H`).
 
 ## 반드시 지킬 규칙
 
@@ -25,7 +25,7 @@
 ### A1. 저장소 갱신
 
 ```powershell
-$R = 'D:\llama.cpp\javisfilm'
+$R = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm'
 if (Test-Path "$R\.git") { git -C $R pull } else { git clone -b claude/affectionate-brahmagupta-24a19d https://github.com/jkshin0009-art/javisfilm $R }
 $H = "$R\h3-multicast"
 git -C $R log --oneline -3
@@ -36,7 +36,7 @@ git -C $R log --oneline -3
 ### A2. 파이썬 환경
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 py -0p
 py -3 -c "import sys; print(sys.version)"
 py -3 -m venv "$H\.venv"
@@ -53,7 +53,7 @@ py -3 -m venv "$H\.venv"
 ### A3. 자체 테스트
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Set-Location $H
 & "$H\.venv\Scripts\python" -m pytest tests -q -p no:cacheprovider
 ```
@@ -63,7 +63,7 @@ Set-Location $H
 ### A4. ComfyUI와 Extender 조사
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 New-Item -ItemType Directory -Force "$H\reports" | Out-Null
 Invoke-RestMethod http://127.0.0.1:8189/system_stats | ConvertTo-Json -Depth 6
 $o = Invoke-RestMethod http://127.0.0.1:8189/object_info
@@ -95,7 +95,7 @@ Get-ChildItem "$C\models" -Recurse -File | Where-Object { $_.Name -match 'minima
 - `experiment\looks.txt`: 필수. 한 줄에 한 명씩 `A: 이름 / 외모 설명`.
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Get-ChildItem "$H\experiment\assets" | Select-Object Name, Length
 Get-Content "$H\experiment\looks.txt" -Encoding utf8
 ```
@@ -117,7 +117,7 @@ Get-Content "$H\experiment\looks.txt" -Encoding utf8
 ### A7. 인물 얼굴 구분도
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Set-Location $H
 & "$H\.venv\Scripts\python" face_check.py cast --cast experiment\cast.yaml
 ```
@@ -127,7 +127,7 @@ Set-Location $H
 ### A8. 시험 프롬프트 생성
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Set-Location $H
 & "$H\.venv\Scripts\python" h3_scene.py build examples\EXP_multicast.yaml --cast experiment\cast.yaml --out experiment\out --check-files
 "exit code: $LASTEXITCODE"
@@ -178,7 +178,7 @@ Get-ChildItem experiment\out\EXP | Select-Object Name
 ### C1. 렌더 파일 확인
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Get-ChildItem "$H\experiment\renders" | Select-Object Name, Length
 ```
 
@@ -187,7 +187,7 @@ Get-ChildItem "$H\experiment\renders" | Select-Object Name, Length
 ### C2. 얼굴 검사
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Set-Location $H
 & "$H\.venv\Scripts\python" face_check.py videos --cast experiment\cast.yaml --scene examples\EXP_multicast.yaml --in experiment\renders --out experiment\face --fps 2
 ```
@@ -211,14 +211,14 @@ Set-Location $H
 그리고 CSV를 `reports`로 복사한다.
 
 ```powershell
-$H = 'D:\llama.cpp\javisfilm\h3-multicast'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Copy-Item "$H\experiment\face\face_report.csv" "$H\reports\EXP_face_report.csv"
 ```
 
 ### C4. 보고서 올리기
 
 ```powershell
-$R = 'D:\llama.cpp\javisfilm'
+$R = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm'
 git -C $R pull
 git -C $R add h3-multicast/reports
 git -C $R status --short
