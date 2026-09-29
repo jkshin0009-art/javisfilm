@@ -1,0 +1,11 @@
+# Your frames, renders and fonts stay local.
+work/
+out/
+.venv/
+__pycache__/
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.ttf
+*.otf

@@ -1,0 +1,7 @@
+# Same libraries ComfyUI-BubbleText itself needs. torch is not required:
+# bubble_doctor.py stands in a tiny stub when torch is missing.
+numpy
+scipy
+Pillow
+fonttools
+pytest
