@@ -1,0 +1,10 @@
+# Downloaded videos, frames and clips are third-party content: they stay on the PC.
+# local/ holds the wrapper that calls the project's own reverse-prompt code.
+work/
+local/
+__pycache__/
+*.mp4
+*.webm
+*.mkv
+*.jpg
+*.png

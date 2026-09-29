@@ -9,13 +9,33 @@ Three calls:
 """
 from __future__ import annotations
 
+import base64
 import json
+import os
 import socket
 import threading
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 from typing import Dict, Iterator, List, Optional, Sequence, Tuple
+
+
+def image_part(path: str) -> Dict:
+    """An OpenAI-style image content part (data URL) for a vision model behind
+    llama-server (started with --mmproj)."""
+    ext = os.path.splitext(path)[1].lower()
+    mime = {".png": "image/png", ".webp": "image/webp"}.get(ext, "image/jpeg")
+    with open(path, "rb") as f:
+        data = base64.b64encode(f.read()).decode("ascii")
+    return {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{data}"}}
+
+
+def with_images(text: str, images: Sequence[str] = ()) -> object:
+    """Message content: plain text, or the images first and the text last, so
+    several questions about the same images share a cacheable prefix."""
+    if not images:
+        return text
+    return [image_part(p) for p in images] + [{"type": "text", "text": text}]
 
 
 class LLMError(RuntimeError):

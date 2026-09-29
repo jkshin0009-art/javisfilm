@@ -32,6 +32,8 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass
 from typing import Dict, List, Optional, Sequence, Tuple, Union
 
+from chatup.llm import with_images
+
 LETTERS = string.ascii_uppercase
 MAX_OPTIONS = 12
 
@@ -316,21 +318,22 @@ class Decider:
             return order[: max(1, min(q.k, self.rotations))]
         return order
 
-    def _ask(self, state: str, q: Question, perm: Sequence[int]):
+    def _ask(self, state: str, q: Question, perm: Sequence[int], images: Sequence[str] = ()):
         messages = [{"role": "system", "content": self.system},
-                    {"role": "user", "content": build_user(state, q, perm)}]
+                    {"role": "user", "content": with_images(build_user(state, q, perm), images)}]
         return self.client.first_token_logprobs(messages, top_n=self.top_n)
 
-    def _ask_many(self, state: str, q: Question, perms: List[List[int]]):
+    def _ask_many(self, state: str, q: Question, perms: List[List[int]], images: Sequence[str] = ()):
         if len(perms) == 1:
-            return [self._ask(state, q, perms[0])]
+            return [self._ask(state, q, perms[0], images)]
         with self._lock:
             if self._pool is None:
                 self._pool = ThreadPoolExecutor(max_workers=self.parallel, thread_name_prefix="decide")
             pool = self._pool
-        return list(pool.map(lambda perm: self._ask(state, q, perm), perms))
+        return list(pool.map(lambda perm: self._ask(state, q, perm, images), perms))
 
-    def decide(self, state: str, q: Question) -> Decision:
+    def decide(self, state: str, q: Question, images: Sequence[str] = ()) -> Decision:
+        """images: paths shown to a vision model before the question (needs --mmproj)."""
         t0 = time.perf_counter()
         orders = self._orders(q)
         adaptive = self.rotations == "adaptive" and q.kind == "choice"
@@ -347,7 +350,7 @@ class Decider:
         stop = False
         while pending and not stop:
             batch, pending = pending[: self.parallel], pending[self.parallel:]
-            answers = self._ask_many(state, q, batch)
+            answers = self._ask_many(state, q, batch, images)
             calls += len(batch)
             for perm, ft in zip(batch, answers):
                 if not ft.has_logprobs:
