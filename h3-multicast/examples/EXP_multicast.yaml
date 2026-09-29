@@ -1,0 +1,103 @@
+# Experiment: how far does MiniMax H3 keep six identities, and does loading
+# refs of people who are NOT on screen hurt a two-person shot?
+#
+# Uses the cast file experiment/cast.yaml (your six real characters, ids A-F)
+# and a plain studio so the background does not interfere. X3a/X3b/X3c share a
+# seed and the same shot; only the reference policy differs.
+#
+#   X1   wide, 6 people           identity by costume only (faces tiny)
+#   X2   medium, 6 people         deliberately too many faces: where it breaks
+#   X3a  two-shot A+B, only A and B loaded                   (load: clip)
+#   X3b  two-shot A+B, all six loaded, others not described  (load: scene, unused: omit)
+#   X3c  two-shot A+B, all six loaded, others marked absent  (load: scene, unused: define_absent)
+#   X4   wide 6 -> close-up A -> close-up B in one clip, with dialogue
+
+scene: EXP
+title: Multi-cast identity test
+location: studio
+style: Live-action, neutral documentary look, soft even key light, true-to-life colour, no film grain
+resolution: [1024, 576]
+blocking: [A, B, C, D, E, F]
+soundscape: Quiet studio room tone with faint shuffling footsteps
+music: N/A
+
+policy:
+  slots: fixed
+  load: scene
+  unused: omit
+
+clips:
+  - id: X1
+    duration: 6
+    seed: 1001
+    shots:
+      - framing: wide
+        cast: [A, B, C, D, E, F]
+        camera: The camera is static at chest height
+        action: All six stand in a loose line facing the camera, then each turns their head to the right one after another
+
+  - id: X2
+    duration: 6
+    seed: 1002
+    shots:
+      - framing: medium
+        cast: [A, B, C, D, E, F]
+        camera: The camera is static at eye level and frames all six from the waist up
+        action: All six stand shoulder to shoulder facing the camera and give a small nod together
+
+  - id: X3a
+    duration: 6
+    seed: 1003
+    policy: {load: clip}
+    shots:
+      - framing: medium
+        cast: [A, B]
+        camera: The camera is static at eye level
+        action: "{A} and {B} stand side by side facing the camera; {A} turns to {B} and smiles, and {B} nods back"
+
+  - id: X3b
+    duration: 6
+    seed: 1003
+    policy: {load: scene, unused: omit}
+    shots:
+      - framing: medium
+        cast: [A, B]
+        camera: The camera is static at eye level
+        action: "{A} and {B} stand side by side facing the camera; {A} turns to {B} and smiles, and {B} nods back"
+
+  - id: X3c
+    duration: 6
+    seed: 1003
+    policy: {load: scene, unused: define_absent}
+    shots:
+      - framing: medium
+        cast: [A, B]
+        camera: The camera is static at eye level
+        action: "{A} and {B} stand side by side facing the camera; {A} turns to {B} and smiles, and {B} nods back"
+
+  - id: X4
+    duration: 12
+    seed: 1004
+    shots:
+      - framing: wide
+        cast: [A, B, C, D, E, F]
+        camera: The camera is static at chest height
+        action: All six stand in a loose line and look toward {A}
+      - at: 4
+        framing: close-up
+        cast: [A]
+        action: "{A} looks into the lens"
+        lines:
+          - who: A
+            lang: Korean
+            text: 우리 여섯 명, 다 모였네.
+            delivery: warmly
+      - at: 8
+        framing: close-up
+        cast: [B]
+        action: "{B} raises an eyebrow and smiles"
+        lines:
+          - who: B
+            lang: Korean
+            text: 그러게, 오랜만이다.
+            delivery: relaxed

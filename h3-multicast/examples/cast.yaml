@@ -1,0 +1,72 @@
+# Character bible for the whole film.
+#
+# slot  : the Extender <Picture N> slot this character always uses (1-9, unique).
+#         Keep 7 for locations, 8 for a scene's group plate, 9 as a per-clip spare.
+# look  : a noun phrase used the first time the character appears in a clip.
+#         Make the six looks easy to tell apart: hair colour/length, one strong
+#         costume colour, one accessory. Identical wording every time.
+# short : a shorter noun phrase for later mentions in the same clip.
+# sheet : character sheet image (e.g. Qwen Image 2.1 character design sheet).
+# face  : face close-up. face_check.py uses it; `ref: face` also sends it to H3.
+# voice : 2-15 s voice sample, used as <Audio N> when the character speaks.
+# Paths are relative to this file.
+
+characters:
+  - id: A
+    name: Minji
+    slot: 1
+    look: a woman in her late twenties with a short silver bob, a red wool coat and round gold glasses
+    short: the woman in the red coat
+    sheet: assets/A_sheet.png
+    face: assets/A_face.png
+    voice: assets/A_voice.wav
+    voice_desc: a calm, low female voice
+
+  - id: B
+    name: Junho
+    slot: 2
+    look: a tall man in his thirties with a black undercut, a navy denim jacket and a thin moustache
+    short: the man in the denim jacket
+    sheet: assets/B_sheet.png
+    face: assets/B_face.png
+    voice: assets/B_voice.wav
+    voice_desc: a warm baritone voice
+
+  - id: C
+    name: Sora
+    slot: 3
+    look: a young woman with long wavy auburn hair, a mustard-yellow knit sweater and silver hoop earrings
+    short: the woman in the yellow sweater
+    sheet: assets/C_sheet.png
+    face: assets/C_face.png
+
+  - id: D
+    name: Taewon
+    slot: 4
+    look: a stocky older man with a grey buzz cut, a white chef's jacket and black-rimmed glasses
+    short: the man in the chef's jacket
+    sheet: assets/D_sheet.png
+    face: assets/D_face.png
+
+  - id: E
+    name: Hana
+    slot: 5
+    look: a teenage girl with a high black ponytail, a green school blazer and a red scarf
+    short: the girl in the green blazer
+    sheet: assets/E_sheet.png
+    face: assets/E_face.png
+
+  - id: F
+    name: Dohyun
+    slot: 6
+    look: a lean man in his forties with shoulder-length grey hair, a brown leather jacket and a silver ring
+    short: the man in the leather jacket
+    sheet: assets/F_sheet.png
+    face: assets/F_face.png
+
+locations:
+  - id: diner
+    slot: 7
+    look: a narrow 1980s diner at night with teal vinyl booths, a long chrome counter and pink neon window signs
+    short: the diner
+    image: assets/diner.png

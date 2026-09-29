@@ -1,0 +1,12 @@
+# h3_scene.py
+pyyaml>=6
+
+# face_check.py
+numpy
+opencv-python
+scipy
+onnxruntime          # use onnxruntime-gpu instead for --gpu
+insightface>=2.0     # pure-Python wheel; downloads the buffalo_l model on first use
+
+# tests
+pytest

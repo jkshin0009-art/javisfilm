@@ -1,0 +1,16 @@
+# Film assets, renders and anything describing the real cast stay local.
+experiment/
+out/
+renders/
+assets/
+.venv/
+__pycache__/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.webp

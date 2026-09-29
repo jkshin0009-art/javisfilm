@@ -1,0 +1,19 @@
+# Template for experiment/cast.yaml. Copy it to experiment/cast.yaml and fill in
+# your six real characters. experiment/ is git-ignored, so images and
+# descriptions of your film stay on your machine.
+#
+# look / short must be English noun phrases (they go into the H3 prompt).
+# Paths are relative to experiment/cast.yaml.
+
+characters:
+  - {id: A, name: CHAR_A, slot: 1, look: "a ... with ..., ... and ...", short: "the ...", sheet: assets/A_sheet.png, face: assets/A_face.png}
+  - {id: B, name: CHAR_B, slot: 2, look: "a ... with ..., ... and ...", short: "the ...", sheet: assets/B_sheet.png, face: assets/B_face.png}
+  - {id: C, name: CHAR_C, slot: 3, look: "a ... with ..., ... and ...", short: "the ...", sheet: assets/C_sheet.png, face: assets/C_face.png}
+  - {id: D, name: CHAR_D, slot: 4, look: "a ... with ..., ... and ...", short: "the ...", sheet: assets/D_sheet.png, face: assets/D_face.png}
+  - {id: E, name: CHAR_E, slot: 5, look: "a ... with ..., ... and ...", short: "the ...", sheet: assets/E_sheet.png, face: assets/E_face.png}
+  - {id: F, name: CHAR_F, slot: 6, look: "a ... with ..., ... and ...", short: "the ...", sheet: assets/F_sheet.png, face: assets/F_face.png}
+  # Optional voices for X4 (2-15 s each): add  voice: assets/A_voice.wav  to A and B.
+
+locations:
+  # No image: the studio is described in text only, so no Picture slot is used.
+  - {id: studio, look: "a plain photo studio with a light grey seamless backdrop", short: "the studio"}

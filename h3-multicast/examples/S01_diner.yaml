@@ -1,0 +1,84 @@
+# A six-person scene shot the way a film crew would cover it:
+# one establishing shot for the whole group (faces small, identity by costume
+# and position), then two-shots and close-ups where faces carry identity.
+#
+# Placeholders like {A} in action/camera text become that character's
+# <Subject N> label; {LOC} becomes the location's label.
+
+scene: S01
+title: Late dinner argument
+location: diner
+style: Live-action, cinematic, warm tungsten practical lighting with pink neon spill, shallow depth of field, 35 mm film grain
+resolution: [1344, 768]
+
+# Left-to-right screen order for the whole scene (keeps the 180-degree rule).
+blocking: [E, C, A, B, D, F]
+
+group_plate:
+  image: assets/S01_group.png   # all six placed as in `blocking`, made with Qwen Image
+  slot: 8
+  role: anchor                  # anchor | first_frame
+  desc: All six sit around the long booth table, Hana at the window end
+
+policy:
+  slots: fixed      # Picture N = the cast slot; the Extender remaps to H3's order
+  load: scene       # one Extender project per scene, all scene refs as global refs
+  unused: omit      # characters loaded but off screen are not described
+
+soundscape: Diner room tone with clinking cutlery, a humming refrigerator and rain on the window
+music: N/A
+
+clips:
+  - id: C01
+    duration: 10
+    motion_context: false
+    shots:
+      - framing: wide
+        cast: [E, C, A, B, D, F]
+        group_plate: true
+        camera: The camera holds a slow, steady dolly-in from the aisle at seated eye level
+        action: Plates of half-eaten noodles sit on the table; {D} taps his glass with a spoon and everyone turns toward {A}
+      - at: 5.5
+        framing: close-up
+        cast: [A]
+        camera: The camera is static, framed slightly below eye level
+        action: "{A} sets down her chopsticks, adjusts her gold glasses and looks straight across the table"
+        lines:
+          - who: A
+            lang: Korean
+            text: 이제 다들 솔직하게 말할 때야.
+            delivery: quietly, with steady resolve
+
+  - id: C02
+    duration: 9
+    shots:
+      - framing: medium
+        cast: [A, B]
+        camera: A static two-shot across the table corner
+        action: "{B} leans back against the teal booth and folds his arms while {A} waits for an answer"
+        lines:
+          - who: B
+            lang: Korean
+            text: 나는 숨긴 거 없어.
+            delivery: defensive, a little too fast
+            to: A
+      - at: 4.5
+        framing: close-up
+        cast: [A]
+        action: "{A} tilts her head, unconvinced"
+        lines:
+          - who: A
+            lang: Korean
+            text: 그럼 왜 눈을 피해?
+
+  - id: C03
+    duration: 8
+    shots:
+      - framing: medium
+        cast: [C, D, F]
+        camera: A slow pan from left to right along the booth
+        action: "{C} glances nervously at {F}; {D} stops chewing; {F} turns his silver ring and stares at the rain on the window"
+      - at: 4.5
+        framing: close-up
+        cast: [E]
+        action: "{E} pulls her red scarf up to her chin and watches the adults in silence"
