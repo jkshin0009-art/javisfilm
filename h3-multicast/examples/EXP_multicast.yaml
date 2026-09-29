@@ -11,6 +11,9 @@
 #   X3b  two-shot A+B, all six loaded, others not described  (load: scene, unused: omit)
 #   X3c  two-shot A+B, all six loaded, others marked absent  (load: scene, unused: define_absent)
 #   X4   wide 6 -> close-up A -> close-up B in one clip, with dialogue
+#   X5a  two-shot C+D from a new angle, no master shot reference
+#   X5b  the same with X1's render as <Video 1> (master shot reference)
+#        -> render X1 first; X5a/X5b go in their own project after it
 
 scene: EXP
 title: Multi-cast identity test
@@ -26,6 +29,12 @@ policy:
   load: scene
   unused: omit
 
+# Only X5b uses it (use_master: true); every other clip opts out so the
+# earlier comparisons are not changed. Path is relative to the cast file.
+master:
+  clip: X1
+  video: renders/EXP_X1.mp4
+
 clips:
   - id: X1
     duration: 6
@@ -37,6 +46,7 @@ clips:
         action: All six stand in a loose line facing the camera, then each turns their head to the right one after another
 
   - id: X2
+    use_master: false
     duration: 6
     seed: 1002
     shots:
@@ -46,6 +56,7 @@ clips:
         action: All six stand shoulder to shoulder facing the camera and give a small nod together
 
   - id: X3a
+    use_master: false
     duration: 6
     seed: 1003
     policy: {load: clip}
@@ -56,6 +67,7 @@ clips:
         action: "{A} and {B} stand side by side facing the camera; {A} turns to {B} and smiles, and {B} nods back"
 
   - id: X3b
+    use_master: false
     duration: 6
     seed: 1003
     policy: {load: scene, unused: omit}
@@ -66,6 +78,7 @@ clips:
         action: "{A} and {B} stand side by side facing the camera; {A} turns to {B} and smiles, and {B} nods back"
 
   - id: X3c
+    use_master: false
     duration: 6
     seed: 1003
     policy: {load: scene, unused: define_absent}
@@ -76,6 +89,7 @@ clips:
         action: "{A} and {B} stand side by side facing the camera; {A} turns to {B} and smiles, and {B} nods back"
 
   - id: X4
+    use_master: false
     duration: 12
     seed: 1004
     shots:
@@ -101,3 +115,23 @@ clips:
             lang: Korean
             text: 그러게, 오랜만이다.
             delivery: relaxed
+
+  - id: X5a
+    duration: 6
+    seed: 1005
+    use_master: false
+    shots:
+      - framing: medium
+        cast: [C, D]
+        camera: The camera is static at eye level, placed to the right of the group
+        action: "{C} and {D} stand side by side; {C} glances at {D}, and {D} crosses both arms"
+
+  - id: X5b
+    duration: 6
+    seed: 1005
+    use_master: true
+    shots:
+      - framing: medium
+        cast: [C, D]
+        camera: The camera is static at eye level, placed to the right of the group
+        action: "{C} and {D} stand side by side; {C} glances at {D}, and {D} crosses both arms"

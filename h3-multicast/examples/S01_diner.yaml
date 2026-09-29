@@ -20,6 +20,14 @@ group_plate:
   role: anchor                  # anchor | first_frame
   desc: All six sit around the long booth table, Hana at the window end
 
+# Establishing (master) shot: once C01 is rendered, later clips reference its
+# video as <Video 1> so the room layout and seats stay put when the camera
+# moves in for coverage (idea from SatoDive's "Seed Ref Video"). Path is
+# relative to the cast file. Remove this block until C01 exists.
+master:
+  clip: C01
+  video: renders/S01_C01.mp4
+
 policy:
   slots: fixed      # Picture N = the cast slot; the Extender remaps to H3's order
   load: scene       # one Extender project per scene, all scene refs as global refs

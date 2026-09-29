@@ -5,7 +5,7 @@
 
 진행은 세 단계다.
 - **A단계 (실행 담당):** 준비와 조사
-- **B단계 (사용자):** ComfyUI에서 클립 6개 렌더
+- **B단계 (사용자):** ComfyUI에서 클립 8개 렌더
 - **C단계 (실행 담당):** 얼굴 검사, 보고서 작성, push
 
 작업 폴더는 프로젝트 폴더 `C:\Users\Administrator\Desktop\film_assistant` 안의 git 저장소 `C:\Users\Administrator\Desktop\film_assistant\javisfilm`의 `h3-multicast`이다(아래 `$H`).
@@ -58,7 +58,7 @@ Set-Location $H
 & "$H\.venv\Scripts\python" -m pytest tests -q -p no:cacheprovider
 ```
 
-확인 기준: `33 passed`이고 skipped가 0이다.
+확인 기준: failed가 0이다. `43 passed, 1 skipped`가 정상이다. 건너뛴 1개는 Extender 호환 검사이고, A4에서 따로 돌린다.
 
 ### A4. ComfyUI와 Extender 조사
 
@@ -78,7 +78,10 @@ Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'main\.py' 
 
 ```powershell
 $C = '<ComfyUI 폴더>'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Get-Content "$C\custom_nodes\ComfyUI_MiniMax_H3_Extender\pyproject.toml" | Select-String '^version'
+$env:EXTENDER_DIR = "$C\custom_nodes\ComfyUI_MiniMax_H3_Extender"
+& "$H\.venv\Scripts\python" -m pytest "$H\tests\test_comfy_node.py" -q -p no:cacheprovider
 git -C "$C\custom_nodes\ComfyUI_MiniMax_H3_Extender" log --oneline -1
 Get-ChildItem "$C\models" -Recurse -File | Where-Object { $_.Name -match 'minimax|h3' } | Select-Object FullName, @{n='GB';e={[math]::Round($_.Length/1GB,2)}}
 ```
@@ -137,7 +140,25 @@ Get-ChildItem experiment\out\EXP | Select-Object Name
 - `--llm`은 쓰지 않는다. X3a/X3b/X3c는 참조 방식만 달라야 하는데, LLM이 조건마다 묘사를 다르게 쓰면 비교가 흐려진다.
 - X2의 경고("6 people … medium shot")는 일부러 넣은 조건이라 정상이다.
 
-확인 기준: `exit code: 0`이고, 클립 6개의 `.prompt.txt`와 `.refs.txt`가 있다.
+- X5b의 경고("master shot not rendered yet")도 정상이다. X1을 렌더한 뒤에 만드는 클립이다.
+
+확인 기준: `exit code: 0`이고, 클립 8개의 `.prompt.txt`와 `.refs.txt`, 그리고 `order.json`이 있다.
+
+### A8b. (선택) Prompt Pack 노드 설치
+
+- 이 노드가 있으면 사용자가 프롬프트를 클립마다 붙여 넣지 않아도 된다. Extender의 `prompt_pack` 입력에 연결하면 클립 카드가 만들어지고 프롬프트가 채워진다.
+- 사용자에게 설치 여부를 먼저 묻는다. 설치는 ComfyUI `custom_nodes`에 폴더 링크를 하나 만드는 것뿐이고, 저장소를 `git pull`하면 노드도 같이 갱신된다.
+
+```powershell
+$C = '<ComfyUI 폴더>'
+$H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
+cmd /c mklink /J "$C\custom_nodes\javisfilm-h3-scene" "$H\comfyui_node"
+Get-ChildItem "$C\custom_nodes\javisfilm-h3-scene"
+```
+
+- 설치했으면 사용자에게 ComfyUI 재시작을 요청한다.
+- 재시작 후 노드 목록에 `H3 Scene Prompt Pack (javisfilm)`이 보이는지 확인한다(MiniMax H3 분류).
+- 되돌리기: `cmd /c rmdir "$C\custom_nodes\javisfilm-h3-scene"`. 링크만 지우고 원본 폴더는 남는다.
 
 ### A9. 사용자에게 렌더 요청하고 멈추기
 
@@ -156,20 +177,35 @@ Get-ChildItem experiment\out\EXP | Select-Object Name
 - 모드: Ref2VA
 - 시드는 `refs.txt`에 적힌 값으로 고정한다. X3a·X3b·X3c는 같은 시드여야 한다.
 
+**프롬프트 넣는 법** (둘 중 하나)
+- **노드 사용(A8b 설치 시):** `H3 Scene Prompt Pack` 노드를 추가하고 연결합니다.
+  - `scene_folder`: `C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast\experiment\out\EXP`
+  - `clips`: 아래 프로젝트별 목록
+  - 연결: `prompt_pack` 출력 → Extender `prompt_pack` 입력
+  - 카드별 길이와 시드: `card_settings` 출력에 나오는 대로 맞춥니다.
+- **직접 붙여넣기:** 각 클립 카드에 `experiment\out\EXP\<클립>.prompt.txt` 내용을 통째로 붙여 넣고, 길이와 시드를 맞춥니다.
+
 **프로젝트 1** (Extender에서 New Project)
 - 공통 참조: 슬롯 1~6에 A~F. `refs.txt`에 적힌 파일을 넣는다(시트가 있으면 시트).
-- 클립 5개를 이 순서로 만든다: X1, X2, X3b, X3c, X4.
-- 각 클립에는 `experiment\out\EXP\<클립>.prompt.txt` 내용을 통째로 붙여 넣고, 길이와 시드를 맞춘다.
+- 클립 5개를 이 순서로 만든다(노드의 `clips`: `X1,X2,X3b,X3c,X4`).
 - X4: A·B 음성 파일이 있으면 그 클립의 클립별 참조에 Audio 1 = A, Audio 2 = B로 넣는다.
 - Final Decode에서 **Save Individual Clips**를 켜고 Full Batch를 실행한다.
 
 **프로젝트 2** (New Project)
 - 공통 참조: 슬롯 1 = A, 슬롯 2 = B만 넣는다. 나머지는 비워 둔다.
-- 클립 1개: X3a.
+- 클립 1개: X3a (노드의 `clips`: `X3a`).
+
+**프로젝트 3** (프로젝트 1의 X1을 저장한 뒤, New Project)
+- 공통 참조는 프로젝트 1과 같다(슬롯 1~6에 A~F).
+- 클립 2개: X5a, X5b (노드의 `clips`: `X5a,X5b`).
+- X5b 카드의 클립별 참조(Refs)에 **Video 1** = `experiment\renders\EXP_X1.mp4`를 넣는다(fps 24). X5a에는 넣지 않는다.
+- 두 클립은 시드가 같고, 차이는 마스터 샷 영상 참조뿐이다.
 
 **결과 저장**
-- 클립 영상 6개를 `experiment\renders\`에 `EXP_X1.mp4`, `EXP_X2.mp4`, `EXP_X3a.mp4`, `EXP_X3b.mp4`, `EXP_X3c.mp4`, `EXP_X4.mp4`로 저장한다. 이름에 클립 id가 꼭 들어가야 한다.
-- 선택: `experiment\notes.txt`에 클립마다 눈으로 본 소감을 한 줄씩 적는다(예: `X1: 옷으로 구분됨, C와 E 얼굴 비슷함`). 얼굴이 작은 와이드 샷은 기계 판정이 안 되므로 이 메모가 중요하다.
+- 클립 영상 8개를 `experiment\renders\`에 `EXP_X1.mp4`, `EXP_X2.mp4`, `EXP_X3a.mp4`, `EXP_X3b.mp4`, `EXP_X3c.mp4`, `EXP_X4.mp4`, `EXP_X5a.mp4`, `EXP_X5b.mp4`로 저장한다. 이름에 클립 id가 꼭 들어가야 한다.
+- 선택: `experiment\notes.txt`에 클립마다 눈으로 본 소감을 한 줄씩 적는다(예: `X1: 옷으로 구분됨, C와 E 얼굴 비슷함`).
+  - 얼굴이 작은 와이드 샷은 기계 판정이 안 되므로 이 메모가 중요하다.
+  - X5a와 X5b는 배경과 두 사람의 위치가 X1과 얼마나 같은지도 적는다. 얼굴 검사기는 배치를 보지 못한다.
 
 ---
 
@@ -182,7 +218,7 @@ $H = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm\h3-multicast'
 Get-ChildItem "$H\experiment\renders" | Select-Object Name, Length
 ```
 
-확인 기준: X1, X2, X3a, X3b, X3c, X4 id가 들어간 영상 6개가 있다. 이름이 다르면 사용자에게 어느 파일이 어느 클립인지 묻고, 이름만 바꾼다.
+확인 기준: X1, X2, X3a, X3b, X3c, X4, X5a, X5b id가 들어간 영상 8개가 있다. 이름이 다르면 사용자에게 어느 파일이 어느 클립인지 묻고, 이름만 바꾼다. X5a/X5b가 없으면(프로젝트 3을 안 했으면) 6개로 진행하고 그 사실을 적는다.
 
 ### C2. 얼굴 검사
 
@@ -205,8 +241,9 @@ Set-Location $H
 5. A8: `experiment\out\EXP\report.md` 전체
 6. C2 `face_report.md` 전체
 7. X3 비교표: `face_report.csv`에서 X3a, X3b, X3c 행의 `verdict`, `A_hit_ratio`, `A_median_sim`, `B_hit_ratio`, `B_median_sim`, `unknown_faces`, `duplicates`를 표로 옮긴다.
-8. `experiment\notes.txt`가 있으면 그 내용
-9. 멈춘 단계가 있으면 그 단계와 이유
+8. X5 비교표: X5a, X5b 행의 `verdict`, `C_hit_ratio`, `C_median_sim`, `D_hit_ratio`, `D_median_sim`, `unknown_faces`, `duplicates`
+9. `experiment\notes.txt`가 있으면 그 내용
+10. 멈춘 단계가 있으면 그 단계와 이유
 
 그리고 CSV를 `reports`로 복사한다.
 

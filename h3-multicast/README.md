@@ -6,6 +6,7 @@ MiniMax H3(Hailuo 3.0)와 ComfyUI MiniMax H3 Extender로 영화를 만들 때, �
 |---|---|
 | `h3_scene.py` | 캐스트 파일과 장면 파일을 읽어 클립마다 H3 공식 형식(여섯 구간) 프롬프트와 슬롯 배치표를 만들고, 규칙 위반을 검사 |
 | `face_check.py` | 만들어진 영상의 얼굴을 인물 참조 얼굴과 비교해 샷마다 PASS / CHECK / REDO를 판정하고 다시 만들 클립을 뽑음 |
+| `comfyui_node/` | ComfyUI 노드 `H3 Scene Prompt Pack`: 생성된 프롬프트를 Extender의 `prompt_pack` 입력에 한꺼번에 넣음 |
 | `GLM_TASK_H3.md` | PC의 실행 담당(GLM)이 6인 시험을 돌리는 지시서 |
 
 ## 설계 근거 (원문 확인)
@@ -30,7 +31,7 @@ MiniMax H3(Hailuo 3.0)와 ComfyUI MiniMax H3 Extender로 영화를 만들 때, �
 ```
 python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt      (Linux/macOS: .venv/bin/pip)
-.venv\Scripts\python -m pytest tests -q            33개 통과해야 정상
+.venv\Scripts\python -m pytest tests -q            44개 통과 (EXTENDER_DIR 없으면 43개 + 1개 건너뜀)
 ```
 
 `face_check.py`는 처음 실행할 때 InsightFace `buffalo_l` 모델(약 280MB)을 `~/.insightface`에 자동으로 받습니다.
@@ -116,6 +117,40 @@ python h3_scene.py build ... --llm http://127.0.0.1:5678     # 로컬 LLM으로 
 - 결과에서 라벨, `(Sx)`, 대사, `[Shot N]` 시간 중 하나라도 바뀌면 한 번 다시 요청하고, 그래도 안 되면 템플릿 문장을 그대로 씁니다.
 - 공식 가이드(`ref-en.txt`)는 라이선스 때문에 저장소에 넣지 않았습니다. 실행할 때 GitHub에서 받아 `out/.cache`에 저장합니다. `--guide`로 로컬 파일을 지정할 수도 있습니다.
 
+## 마스터 샷 참조 (SatoDive의 Seed Ref Video 방식)
+
+[SatoDive/Minimax-H3-Latent-Continuation](https://github.com/SatoDive/Minimax-H3-Latent-Continuation)(레딧 "latent continuation v2" 글의 저장소로 보임)에서 가져온 방식입니다. 그 노드는 앞서 찍은 와이드 마스터 샷을 `seed_ref_video`로 넘겨, 카메라 각도가 바뀌어도 방 배치가 유지되게 합니다.
+
+우리 쪽에서는 장면 파일에 적습니다.
+
+```yaml
+master:
+  clip: C01                     # 단체 설정 샷
+  video: renders/S01_C01.mp4    # 그 클립을 렌더한 파일 (캐스트 파일 기준 경로)
+```
+
+- **적용 범위:** 마스터 클립 뒤에 오는 클립들이 자동으로 `<Video 1>`을 참조합니다. `use_master: false`로 끌 수 있습니다.
+- **프롬프트:** 공식 가이드 규칙대로 장소 Subject를 "`<Video 1>`의 배치와 자리를 따른다"로 정의하고, `retention_analysis`에는 배치만 따르는 `weak_reference`로 적습니다.
+- **Extender에 넣는 법:** 해당 클립 카드의 클립별 참조(Refs)에 Video 1로 넣습니다. 배치표(`refs.txt`)에 적혀 나옵니다.
+- **렌더 순서:** 마스터 샷을 먼저 렌더해야 해서, `--check-files`는 아직 없는 마스터 영상을 오류 대신 경고로 알려 줍니다.
+
+**SatoDive에 있지만 우리 Extender에는 없는 것**
+- **참조별 강도:** 1 미만이면 참조 잠재값에 노이즈를 섞어 영향을 약하게 합니다.
+- **슬롯 순서 가설:** 작성자는 코드 주석에 "첫 번째 슬롯 이미지가 가장 강하게 작용한다"고 적었습니다. 공식 문서로 확인되지 않은 관찰이지만, 사실이라면 슬롯 1 인물이 늘 가장 강하게 반영됩니다. 6인 시험 결과를 보고 필요하면 따로 비교 시험을 하겠습니다.
+
+## Prompt Pack 노드 (`comfyui_node/`)
+
+- **하는 일:** 레딧 글이 v2 계획으로 소개한 "프롬프트 하나에서 여러 클립을 한 번에"를, 우리 쪽에서는 생성기와 이 노드로 합니다.
+- **설치:** 폴더를 ComfyUI `custom_nodes`에 복사하거나 링크한 뒤 ComfyUI를 재시작합니다.
+- **입력:**
+  - `scene_folder`: 생성기 출력 폴더(`out\S01`처럼 `order.json`이 있는 곳)
+  - `clips`: 넣을 클립 id를 순서대로(비우면 전부)
+- **출력:**
+  - `prompt_pack`: Extender의 `prompt_pack` 입력에 연결합니다. 카드 수가 맞춰지고 프롬프트가 채워집니다.
+  - `card_settings`: 카드별 길이, 시드, Motion Context입니다. Extender가 묶음에서 이 값들은 받지 않으므로 이 목록을 보고 맞춥니다.
+- **안전장치:** `report.md`에 오류가 있는 클립은 넣지 않고 멈춥니다.
+- **호환성:** 묶음 형식과 서명은 Extender v2.9.1의 `prompt_bridge.py`와 같습니다(테스트에서 실제 파일로 대조).
+
 ## 3. 얼굴 일관성 검사
 
 ```
@@ -148,7 +183,7 @@ python face_check.py videos --cast examples/cast.yaml --scene examples/S01_diner
 
 ## 시험 결과 (클라우드에서 확인한 것)
 
-- **프롬프트 생성기:** 테스트 22개가 통과했습니다.
+- **프롬프트 생성기:** 테스트 28개가 통과했습니다(마스터 샷 참조 6개 포함).
   - 예제 식당 장면 3클립이 오류 없이 만들어졌습니다.
   - 가짜 LLM 서버로 두 경우를 확인했습니다. 규칙을 지킨 확장은 채택되고, 라벨을 망가뜨린 응답은 두 번 거절 후 원래 템플릿으로 돌아갑니다.
 - **얼굴 검사:** 테스트 11개가 통과했습니다.
@@ -161,4 +196,6 @@ python face_check.py videos --cast examples/cast.yaml --scene examples/S01_diner
 | A 클로즈업 → B 클로즈업 | 두 샷 모두 PASS |
 | B 자리에 D가 나옴 | REDO: B 사라짐, D 등장 |
 
-실제 H3 렌더로는 아직 확인하지 못했습니다. 그 시험이 `GLM_TASK_H3.md`입니다.
+- **Prompt Pack 노드:** 테스트 5개가 통과했습니다. Extender 소스의 서명 함수와 결과가 같습니다.
+
+실제 H3 렌더로는 아직 확인하지 못했습니다. 그 시험이 `GLM_TASK_H3.md`이고, 마스터 샷 참조 비교(X5a/X5b)도 들어 있습니다.

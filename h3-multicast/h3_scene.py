@@ -150,6 +150,7 @@ class Clip:
     motion_context: bool = False
     policy: Policy = field(default_factory=Policy)
     seed: int | None = None
+    use_master: bool | None = None  # None: clips after the master clip use it
 
 
 @dataclass
@@ -168,17 +169,19 @@ class Scene:
     plate_slot: int = 8
     plate_role: str = "anchor"  # anchor | first_frame
     plate_desc: str = ""
+    master_clip: str | None = None  # establishing shot of the scene
+    master_video: str | None = None  # its render, used as <Video 1> by later clips
 
 
 @dataclass
 class Ref:
     """One reference asset loaded for a clip."""
 
-    kind: str  # character | location | plate | voice
-    key: str  # character id, location id, "plate", or character id for voices
+    kind: str  # character | location | plate | voice | video
+    key: str  # character id, location id, "plate", "master", or character id for voices
     file: str | None
     logical_slot: int  # stable slot in the cast/scene
-    label_no: int = 0  # number used in the prompt (<Picture n> / <Audio n>)
+    label_no: int = 0  # number used in the prompt (<Picture n> / <Video n> / <Audio n>)
     subject_no: int = 0  # <Subject n>, 0 for plate and voices
     used: bool = True  # False when loaded (scene-global) but not on screen in this clip
 
@@ -269,6 +272,7 @@ def load_scene(path: Path, chars: dict[str, Character], locs: dict[str, Location
         if cid not in chars:
             raise SceneError(f"{where}: blocking lists unknown character {cid!r}")
     plate = data.get("group_plate") or {}
+    master = data.get("master") or {}
     base_policy = _policy(data.get("policy"), Policy(), f"{where}: policy")
     scene = Scene(
         id=str(_req(data, "scene", where)),
@@ -285,6 +289,8 @@ def load_scene(path: Path, chars: dict[str, Character], locs: dict[str, Location
         plate_slot=int(plate.get("slot") or 8),
         plate_role=str(plate.get("role") or "anchor"),
         plate_desc=str(plate.get("desc") or "").strip(),
+        master_clip=str(master["clip"]) if master.get("clip") else None,
+        master_video=master.get("video"),
     )
     if scene.plate_role not in ("anchor", "first_frame"):
         raise SceneError(f"{where}: group_plate.role must be anchor or first_frame")
@@ -341,10 +347,26 @@ def load_scene(path: Path, chars: dict[str, Character], locs: dict[str, Location
             motion_context=bool(c.get("motion_context", False)),
             policy=clip_policy,
             seed=int(c["seed"]) if c.get("seed") is not None else None,
+            use_master=bool(c["use_master"]) if c.get("use_master") is not None else None,
         ))
     if not scene.clips:
         raise SceneError(f"{where}: no clips")
+    ids = [c.id for c in scene.clips]
+    if scene.master_clip and scene.master_clip not in ids:
+        raise SceneError(f"{where}: master.clip {scene.master_clip!r} is not one of the clips")
+    if scene.master_clip and not scene.master_video:
+        raise SceneError(f"{where}: master.video (the rendered establishing shot) is missing")
     return scene
+
+
+def uses_master(scene: Scene, clip: Clip) -> bool:
+    """Clips after the establishing shot reference it, unless they opt out."""
+    if not scene.master_video or clip.id == scene.master_clip:
+        return False
+    if clip.use_master is not None:
+        return clip.use_master
+    ids = [c.id for c in scene.clips]
+    return ids.index(clip.id) > ids.index(scene.master_clip)
 
 
 # --------------------------------------------------------------------------- helpers
@@ -438,6 +460,10 @@ def _clip_refs(scene: Scene, clip: Clip, chars: dict[str, Character]) -> tuple[l
     refs.sort(key=lambda r: r.logical_slot)
     for i, r in enumerate(refs, start=1):
         r.label_no = r.logical_slot if clip.policy.slots == "fixed" else i
+    if clip.use_master and clip.id == scene.master_clip:
+        errors.append(f"{clip.id}: the master clip cannot reference its own render")
+    if uses_master(scene, clip):
+        refs.append(Ref("video", "master", scene.master_video, 1, label_no=1))
 
     # Voices: one <Audio n> per speaker that has a voice file, in speaker order.
     speakers: list[str] = []
@@ -454,7 +480,10 @@ def _clip_refs(scene: Scene, clip: Clip, chars: dict[str, Character]) -> tuple[l
 
 
 def _label_maps(refs: list[Ref], clip: Clip) -> tuple[dict[str, int], int | None, int | None]:
-    """Assign <Subject n>: characters and location, contiguous in slot order."""
+    """Assign <Subject n>: characters and location, contiguous in slot order.
+
+    A location without an image still becomes a subject when the master shot
+    video is loaded, because the video is then what defines it."""
     subj: dict[str, int] = {}
     n = 0
     loc_subject = None
@@ -467,6 +496,9 @@ def _label_maps(refs: list[Ref], clip: Clip) -> tuple[dict[str, int], int | None
             n += 1
             r.subject_no = n
             loc_subject = n
+    if loc_subject is None and any(r.kind == "video" for r in refs):
+        n += 1
+        loc_subject = n
     plate_pic = next((r.label_no for r in refs if r.kind == "plate" and r.used), None)
     return subj, loc_subject, plate_pic
 
@@ -494,16 +526,21 @@ def build_clip(scene: Scene, clip: Clip, chars: dict[str, Character]) -> Result:
     refs, ref_errors = _clip_refs(scene, clip, chars)
     errors += ref_errors
     subj, loc_subject, plate_pic = _label_maps(refs, clip)
-    pictures = [r for r in refs if r.kind != "voice"]
+    pictures = [r for r in refs if r.kind not in ("voice", "video")]
     voices = [r for r in refs if r.kind == "voice"]
+    videos = [r for r in refs if r.kind == "video"]
+    master = videos[0] if videos else None
 
     # ---- reference limits
     if len(pictures) > MAX_PICTURES:
         errors.append(f"{clip.id}: {len(pictures)} reference images, H3 Ref2VA takes at most {MAX_PICTURES}")
     if len(voices) > MAX_AUDIO:
         errors.append(f"{clip.id}: {len(voices)} voice references, H3 Ref2VA takes at most {MAX_AUDIO}")
-    if len(pictures) + len(voices) > MAX_MIXED:
-        errors.append(f"{clip.id}: {len(pictures) + len(voices)} reference files, H3 Ref2VA takes at most {MAX_MIXED}")
+    if len(videos) > MAX_VIDEOS:
+        errors.append(f"{clip.id}: {len(videos)} reference videos, H3 Ref2VA takes at most {MAX_VIDEOS}")
+    total = len(pictures) + len(voices) + len(videos)
+    if total > MAX_MIXED:
+        errors.append(f"{clip.id}: {total} reference files, H3 Ref2VA takes at most {MAX_MIXED}")
     for r in pictures:
         if not r.file:
             errors.append(f"{clip.id}: no image file for {r.kind} {r.key!r} (Picture slot {r.logical_slot})")
@@ -576,8 +613,16 @@ def build_clip(scene: Scene, clip: Clip, chars: dict[str, Character]) -> Result:
                 line += f" <Subject {r.subject_no}> does not appear in this clip."
             sd.append(line)
         elif r.kind == "location":
-            sd.append(f"<Subject {r.subject_no}> is {scene.location.look}, from <Picture {r.label_no}>, "
-                      f"used as the environment of every shot.")
+            line = (f"<Subject {r.subject_no}> is {scene.location.look}, from <Picture {r.label_no}>, "
+                    f"used as the environment of every shot.")
+            if master:
+                line += (f" Its layout, lighting and where each person sits follow <Video {master.label_no}>, "
+                         f"the establishing master shot of this scene.")
+            sd.append(line)
+    if master and not any(r.kind == "location" for r in pictures):
+        sd.append(f"<Subject {loc_subject}> is {scene.location.look}, as established in <Video {master.label_no}>, "
+                  f"the establishing master shot of this scene; its layout, lighting and where each person sits "
+                  f"follow that shot.")
     if plate_pic:
         plate_shots = [s for s in clip.shots if s.plate]
         shot_list = _join_names([f"[Shot {s.index}]" for s in plate_shots])
@@ -615,6 +660,9 @@ def build_clip(scene: Scene, clip: Clip, chars: dict[str, Character]) -> Result:
         parts = [head]
         if shot.plate and plate_pic:
             parts.append(f"The staging follows <Picture {plate_pic}>, which fixes where each person is placed.")
+        if master and shot.index == 1:
+            parts.append(f"The room layout and seat positions match the establishing shot <Video {master.label_no}>, "
+                         f"seen now from a new camera position.")
         if len(people) > 1:
             parts.append("From left to right: " + "; ".join(f"{lab}, {desc}" for lab, desc in people) + ".")
         elif people:
@@ -656,6 +704,8 @@ def build_clip(scene: Scene, clip: Clip, chars: dict[str, Character]) -> Result:
     auto += "."
     summary = f"[{' + '.join(types)}] The target video shows {_join_names(on_screen_labels) or locS} in {locS}. "
     summary += (fill(clip.summary) + " " if clip.summary else "") + auto
+    if master:
+        summary += f" The room layout follows <Video {master.label_no}>, the establishing master shot."
     if voices:
         summary += " " + " ".join(
             f"<Audio {r.label_no}> guides the voice of {S(r.key)}." for r in voices)
@@ -679,6 +729,12 @@ def build_clip(scene: Scene, clip: Clip, chars: dict[str, Character]) -> Result:
         elif r.kind == "location":
             ra.append(f"{locS} (appears in " + ", ".join(f"[Shot {s.index}]" for s in clip.shots)
                       + f"): fully_preserved - the look of {scene.location.short} is retained.")
+    if master:
+        if not any(r.kind == "location" for r in pictures):
+            ra.append(f"{locS} (appears in " + ", ".join(f"[Shot {s.index}]" for s in clip.shots)
+                      + f"): fully_preserved - the look of {scene.location.short} from <Video {master.label_no}> is retained.")
+        ra.append(f"<Video {master.label_no}> (room layout and seating reference): weak_reference - only the layout, "
+                  f"lighting and where each person sits are followed; the camera angle, framing and action are new.")
     if plate_pic:
         first = next(s for s in clip.shots if s.plate)
         if scene.plate_role == "first_frame":
@@ -702,7 +758,7 @@ def build_clip(scene: Scene, clip: Clip, chars: dict[str, Character]) -> Result:
     })
 
     # ---- final checks on the text
-    errors += check_prompt(prompt, pictures, voices, clip.id)
+    errors += check_prompt(prompt, pictures, voices, clip.id, videos)
     words = len(re.sub(r"<d>.*?</d>", "", detailed, flags=re.S).split())
     if words < DESC_WORDS[0]:
         notes.append(f"{clip.id}: detailed_description is {words} words; the official guide suggests "
@@ -732,7 +788,8 @@ def split_sections(prompt: str) -> dict[str, str]:
     return out
 
 
-def check_prompt(prompt: str, pictures: list[Ref], voices: list[Ref], clip_id: str) -> list[str]:
+def check_prompt(prompt: str, pictures: list[Ref], voices: list[Ref], clip_id: str,
+                 videos: list[Ref] | tuple = ()) -> list[str]:
     """Structural checks that apply to both template and LLM output."""
     errors = []
     names = [m.group(1) for m in re.finditer(r"^(" + "|".join(SECTIONS) + r"):", prompt, re.M)]
@@ -743,6 +800,10 @@ def check_prompt(prompt: str, pictures: list[Ref], voices: list[Ref], clip_id: s
         if int(m.group(1)) not in pic_nos:
             errors.append(f"{clip_id}: <Picture {m.group(1)}> has no loaded image; the Extender leaves it "
                           f"unmapped and the reference silently does not bind")
+    vid_nos = {r.label_no for r in videos}
+    for m in re.finditer(r"<Video (\d+)>", prompt):
+        if int(m.group(1)) not in vid_nos:
+            errors.append(f"{clip_id}: <Video {m.group(1)}> has no loaded video")
     aud_nos = {r.label_no for r in voices}
     for m in re.finditer(r"<Audio (\d+)>", prompt):
         if int(m.group(1)) not in aud_nos:
@@ -762,7 +823,7 @@ def make_manifest(scene: Scene, clip: Clip, refs: list[Ref], subj: dict[str, int
     scope = "global (scene project)" if clip.policy.load == "scene" else "local (this clip)"
     pics = []
     for r in refs:
-        if r.kind == "voice":
+        if r.kind in ("voice", "video"):
             continue
         who = chars[r.key].name if r.kind == "character" else (scene.location.id if r.kind == "location" else "group plate")
         pics.append({
@@ -780,6 +841,13 @@ def make_manifest(scene: Scene, clip: Clip, refs: list[Ref], subj: dict[str, int
         "file": r.file,
         "load_as": "local (this clip)",
     } for r in refs if r.kind == "voice"]
+    videos = [{
+        "extender_slot": r.label_no,
+        "prompt_label": f"<Video {r.label_no}>",
+        "what": f"establishing master shot ({scene.master_clip})",
+        "file": r.file,
+        "load_as": "local (this clip)",
+    } for r in refs if r.kind == "video"]
     return {
         "scene": scene.id,
         "clip": clip.id,
@@ -789,6 +857,7 @@ def make_manifest(scene: Scene, clip: Clip, refs: list[Ref], subj: dict[str, int
         "seed": clip.seed,
         "policy": {"slots": clip.policy.slots, "load": clip.policy.load, "unused": clip.policy.unused},
         "pictures": pics,
+        "videos": videos,
         "audio": audio,
         "speakers": {f"S{n}": chars[c].name for c, n in speaker_ids.items()},
     }
@@ -800,6 +869,8 @@ def manifest_text(m: dict) -> str:
     for p in m["pictures"]:
         flag = "" if p["on_screen"] else "   (loaded, not on screen)"
         out.append(f"  Picture slot {p['extender_slot']}: {p['file']}  <- {p['what']}  [{p['load_as']}]{flag}")
+    for v in m.get("videos", []):
+        out.append(f"  Video slot {v['extender_slot']}: {v['file']}  <- {v['what']}  [{v['load_as']}]")
     for a in m["audio"]:
         out.append(f"  Audio slot {a['extender_slot']}: {a['file']}  <- {a['what']}  [{a['load_as']}]")
     return "\n".join(out) + "\n"
@@ -929,6 +1000,11 @@ def run(args: argparse.Namespace) -> int:
                 f = item["file"]
                 if f and not (base / f).exists() and not Path(f).exists():
                     res.errors.append(f"{res.clip.id}: file not found: {f}")
+            for item in res.manifest.get("videos", []):
+                f = item["file"]
+                if f and not (base / f).exists() and not Path(f).exists():
+                    res.warnings.append(f"{res.clip.id}: master shot not rendered yet ({f}); render "
+                                        f"{scene.master_clip} first, then this clip")
 
     if args.command == "build" and args.llm:
         guide = load_guide(args.guide, Path(args.out) / ".cache")
@@ -959,6 +1035,12 @@ def run(args: argparse.Namespace) -> int:
             (out / f"{res.clip.id}.refs.txt").write_text(manifest_text(res.manifest), encoding="utf-8")
             (out / f"{res.clip.id}.refs.json").write_text(json.dumps(res.manifest, indent=2, ensure_ascii=False), encoding="utf-8")
         (out / "report.md").write_text(report_text, encoding="utf-8")
+        # clip order and card settings for the ComfyUI "H3 Scene Prompt Pack" node
+        order = [{"clip": r.clip.id, "prompt_file": f"{r.clip.id}.prompt.txt", "duration_s": r.clip.duration,
+                  "seed": r.clip.seed, "motion_context": r.manifest["motion_context"], "ok": not r.errors}
+                 for r in results]
+        (out / "order.json").write_text(json.dumps({"scene": scene.id, "clips": order}, indent=2, ensure_ascii=False),
+                                        encoding="utf-8")
         print(f"wrote {len(results)} clip prompts to {out}")
     return 1 if total_err else 0
 

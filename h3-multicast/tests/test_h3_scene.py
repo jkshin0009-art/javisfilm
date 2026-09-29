@@ -260,3 +260,68 @@ def test_cli_build_writes_files(tmp_path):
     assert (tmp_path / "S01" / "report.md").exists()
     rc = hs.main(["check", str(EX / "S01_diner.yaml"), "--cast", str(EX / "cast.yaml"), "--check-files"])
     assert rc == 1  # example asset files do not exist in the repo
+
+
+# ------------------------------------------------------------------ master shot reference
+
+
+def test_master_shot_is_video_1_for_later_clips_only():
+    res = build()
+    assert res["C01"].manifest["videos"] == []
+    for cid in ("C02", "C03"):
+        r = res[cid]
+        assert r.errors == [], r.errors
+        assert [v["prompt_label"] for v in r.manifest["videos"]] == ["<Video 1>"]
+        sections = hs.split_sections(r.prompt)
+        assert "<Video 1>, the establishing master shot" in sections["subject_definitions"]
+        assert "<Video 1> (room layout and seating reference): weak_reference" in sections["retention_analysis"]
+        assert "<Video 1>" in sections["detailed_description"]
+
+
+def test_master_opt_out_and_self_reference(tmp_path):
+    cast = small_cast(2)
+    clips = [{"id": "m", "duration": 6, "shots": [{"framing": "wide", "cast": ["P0", "P1"]}]},
+             {"id": "a", "duration": 6, "use_master": False, "shots": [{"framing": "medium", "cast": ["P0"]}]},
+             {"id": "b", "duration": 6, "shots": [{"framing": "medium", "cast": ["P1"]}]}]
+    res = run_scene(tmp_path, cast, clips, master={"clip": "m", "video": "renders/m.mp4"})
+    assert [len(r.manifest["videos"]) for r in res] == [0, 0, 1]
+    clips[0]["use_master"] = True
+    res = run_scene(tmp_path, cast, clips, master={"clip": "m", "video": "renders/m.mp4"})
+    assert any("cannot reference its own render" in e for e in res[0].errors)
+    with pytest.raises(hs.SceneError):
+        run_scene(tmp_path, cast, clips, master={"clip": "nope", "video": "x.mp4"})
+
+
+def test_master_defines_a_location_without_image(tmp_path):
+    cast = small_cast(1)
+    del cast["locations"][0]["image"]
+    clips = [{"id": "m", "duration": 6, "shots": [{"framing": "wide", "cast": ["P0"]}]},
+             {"id": "c", "duration": 6, "shots": [{"framing": "close-up", "cast": ["P0"]}]}]
+    res = run_scene(tmp_path, cast, clips, master={"clip": "m", "video": "renders/m.mp4"})
+    first, second = res
+    assert "<Subject 2>" not in first.prompt  # no picture, no video: plain text location
+    assert second.errors == []
+    assert "<Subject 2> is a small white room, as established in <Video 1>" in second.prompt
+
+
+def test_unloaded_video_label_is_an_error():
+    res = build()["C02"]
+    bad = res.prompt.replace("<Video 1>", "<Video 2>", 1)
+    videos = [hs.Ref("video", "master", "x.mp4", 1, label_no=1)]
+    assert any("<Video 2> has no loaded video" in e for e in hs.check_prompt(bad, [], [], "C02", videos))
+
+
+def test_check_files_warns_for_unrendered_master(tmp_path, capsys):
+    rc = hs.main(["check", str(EX / "EXP_multicast.yaml"), "--cast", str(EX / "EXP_cast_template.yaml"),
+                  "--check-files"])
+    out = capsys.readouterr().out
+    assert "master shot not rendered yet" in out
+    assert "file not found: renders/EXP_X1.mp4" not in out
+
+
+def test_order_json_lists_clips_in_scene_order(tmp_path):
+    assert hs.main(["build", str(EX / "EXP_multicast.yaml"), "--cast", str(EX / "EXP_cast_template.yaml"),
+                    "--out", str(tmp_path)]) == 0
+    order = json.loads((tmp_path / "EXP" / "order.json").read_text(encoding="utf-8"))
+    assert [c["clip"] for c in order["clips"]] == ["X1", "X2", "X3a", "X3b", "X3c", "X4", "X5a", "X5b"]
+    assert order["clips"][0]["seed"] == 1001 and order["clips"][5]["duration_s"] == 12
