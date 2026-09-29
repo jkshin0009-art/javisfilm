@@ -17,6 +17,16 @@ from chatup.decide import Decider, Decision, Question
 SILENCE = "아무도 말하지 않는다 (잠시 조용히)"
 EVERYONE = "모두에게 / 특정한 사람 없음"
 
+# should_speak asks what state the conversation is in, which the model can read off
+# the last lines, instead of "is it natural to speak", which it could not (probe:
+# p 0.51 / 0.52 on both test cases). Each state maps to speak or wait.
+STATE_WAITING = "등장인물이 사용자에게 묻거나 말을 걸었고, 사용자의 대답을 기다리는 중이다"
+STATE_ONGOING = "등장인물들이 이야기하던 중이고, 이어서 할 말이 남아 있다"
+STATE_WRAPPED = "한 이야기가 마무리되어, 새 화제를 꺼낼 때다"
+STATE_RESTING = "사용자가 쉬자고 하거나, 조용히 해 달라고 했다"
+CONVERSATION_STATES = (STATE_WAITING, STATE_ONGOING, STATE_WRAPPED, STATE_RESTING)
+SPEAK_STATES = (STATE_ONGOING, STATE_WRAPPED)
+
 DEFAULT_ACTIONS = (
     "대화를 그대로 이어간다",
     "지금 이야기하는 장면을 이미지로 만든다",
@@ -32,6 +42,7 @@ DEFAULT_THRESHOLDS: Dict[str, float] = {
     "emotion": 0.5,
     "stuck": 0.7,
     "wants_stop": 0.8,
+    "wants_image": 0.8,
     "reply_bad": 0.8,
 }
 
@@ -100,14 +111,15 @@ class ConversationJudge:
         d = self.decider.decide(self._state(lines), q)
         return Verdict(d.accept(self.th["next_speaker"]), d)
 
-    def should_speak(self, lines: Sequence[Line], idle_seconds: float) -> Verdict:
-        """Autonomous speech gate: is it natural for someone to speak up now?
-        value "Yes"/"No", None = not sure."""
-        q = Question.noul(f"{self.user_name}는 {idle_seconds:.0f}초째 아무 말이 없다. 지금 등장인물 중 누군가가 "
-                          "먼저 말을 이어가는 것이 자연스러운가? (방금 대화가 마무리되었거나, 사용자의 대답을 "
-                          "기다리는 중이면 아니다)", name="should_speak")
-        d = self.decider.decide(self._state(lines), q)
-        return Verdict(_noul_verdict(d, self.th["should_speak"]), d)
+    def should_speak(self, lines: Sequence[Line], idle_seconds: float = 0.0) -> Verdict:
+        """Autonomous speech gate. value "Yes"/"No" (None = not sure); the state the
+        judge read is decision.answer, so a caller can add a new-topic note when it
+        is STATE_WRAPPED."""
+        q = Question.choice("최근 대화를 보고, 지금 대화가 어떤 상태인지 고른다. 마지막 줄이 누구의 말이고 "
+                            "무엇으로 끝났는지를 가장 중요하게 본다.", CONVERSATION_STATES, name="conversation_state")
+        extra = f"({self.user_name}는 {idle_seconds:.0f}초째 말이 없다.)" if idle_seconds else ""
+        d = self.decider.decide(self._state(lines, extra=extra), q)
+        return Verdict(_group_verdict(d, SPEAK_STATES, self.th["should_speak"]), d)
 
     def addressed(self, lines: Sequence[Line], candidates: Sequence[str]) -> Verdict:
         """Whom the user's last line was meant for. EVERYONE counts as an answer."""
@@ -122,6 +134,15 @@ class ConversationJudge:
         q = Question.choice("지금 시점에 이 대화 프로그램이 할 일로 가장 알맞은 것은?", self.actions, name="route")
         d = self.decider.decide(self._state(lines), q)
         return Verdict(d.accept(self.th["route"]), d)
+
+    def wants_image(self, lines: Sequence[Line]) -> Verdict:
+        """Image gate for a keyword trigger: does the user's last line ask for a new
+        picture? "장면" or "보여" alone do not make it a picture request."""
+        q = Question.noul(f"{self.user_name}의 마지막 말이 그림(이미지)을 새로 그려서 보여 달라는 요청인가? "
+                          "'장면', '보여' 같은 말이 들어 있어도 그림을 원하는 것이 아니면 아니다.",
+                          name="wants_image")
+        d = self.decider.decide(self._state(lines), q)
+        return Verdict(_noul_verdict(d, self.th["wants_image"]), d)
 
     def stuck(self, lines: Sequence[Line]) -> Verdict:
         q = Question.noul("최근 대화가 같은 말을 되풀이하거나, 새로운 내용 없이 제자리를 맴돌고 있는가?",
@@ -157,6 +178,19 @@ class ConversationJudge:
         if q.kind == "noul":
             return Verdict(_noul_verdict(d, threshold), d)
         return Verdict(d.accept(threshold), d)
+
+
+def _group_verdict(d: Decision, yes_options: Sequence[str], threshold: float) -> Optional[str]:
+    """"Yes" when the options in yes_options together reach threshold, "No" when
+    the others do, else None."""
+    if d.answer is None or d.confidence is None:
+        return None
+    p_yes = sum(d.p(o) for o in yes_options)
+    if p_yes >= threshold:
+        return "Yes"
+    if 1.0 - p_yes >= threshold:
+        return "No"
+    return None
 
 
 def _noul_verdict(d: Decision, threshold: float) -> Optional[str]:

@@ -24,13 +24,13 @@ def oracle(body):
             yes = "그래, 맞아." in user
         elif "대신 말하거나" in user:                   # reply_bad
             yes = user.count("강릉과 태안이에요.") >= 2
-        else:                                          # should_speak
-            yes = "결말은" not in user
+        else:                                          # wants_image
+            yes = "그림으로 한번 그려" in user
         p = 0.8 if yes else 0.2
         return [("Yes", math.log(p)), ("No", math.log(1 - p))]
     opts = re.findall(r"^([A-Z])\. (.*)$", user, re.M)
     want = None
-    for key, opt in (("도윤아", "도윤"), ("미래 씨가", "미래"), ("하나야, 조명", "하나"), ("다들", "모두에게"),
+    for key, opt in (("결말은", "대답을 기다리는"), ("후보지가 두 군데", "이어서 할 말"), ("도윤아", "도윤"), ("미래 씨가", "미래"), ("하나야, 조명", "하나"), ("다들", "모두에게"),
                      ("그림으로", "이미지로"), ("점심", "그대로"), ("본선", "happy"), ("허전", "sad")):
         if key in user:
             want = opt

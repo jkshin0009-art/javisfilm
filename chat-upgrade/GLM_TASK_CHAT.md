@@ -43,7 +43,7 @@ Push-Location $C
 Pop-Location
 ```
 
-확인 기준: 마지막 줄이 `50 passed`이다.
+확인 기준: 마지막 줄이 `63 passed`이다(이 지시서를 처음 실행한 때는 50).
 
 ## C3. 챗봇이 쓰는 LLM 확인
 

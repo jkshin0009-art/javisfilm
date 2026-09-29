@@ -11,6 +11,7 @@ film_assistant의 챗봇(여러 인물이 대화하고, 사용자가 말하지 �
 | `chatup/voice.py` | 인물별·감정별 dots.tts 참조 음성 고르기, 말하는 중 끊기(끼어들기) | little-gemma-tools의 `--route-emotion`, voicecat 끼어들기 |
 | `chatup/llm.py` | 기존 LLM 서버 연결: 스트리밍, 취소, 멈춤 감지, 첫 토큰 확률 | 새로 작성(표준 라이브러리만) |
 | `chatup/loop.py` | 위 부품을 묶은 참고용 루프. 프로젝트 루프에는 필요한 부품만 옮겨 붙임 | little-gemma 자율 대화 데모의 상한 규칙 |
+| `chatup/bridge.py` | **프로젝트에 붙이는 관문.** 자리마다 off / observe / act 스위치, 오류·시간 초과면 원래 값 | 새로 작성 |
 | `python -m chatup probe` | 우리 LLM에서 판단이 제대로 되는지, 몇 ms 걸리는지 재는 점검 | |
 
 ## Jev가 무엇이고 어떻게 적용했나
@@ -30,7 +31,8 @@ Jev 자체는 클라우드 API라서 로컬 영화 프로젝트에는 맞지 않
 |---|---|---|---|
 | `next_speaker` 다음에 누가 말할까 | 선택 | 자율 발화, 사용자 말 뒤 | 가장 오래 말 안 한 인물 |
 | `addressed` 사용자가 누구에게 말했나 | 선택(+모두) | 사용자 말 뒤 | 이름이 나오면 그 인물 |
-| `should_speak` 지금 먼저 말을 꺼내도 되나 | 예/아니오 | 자율 발화 시작 전 | 말함 |
+| `should_speak` 지금 대화 상태(대답 기다림 / 이야기 중 / 마무리됨 / 쉬자고 함) | 선택 → 말함·기다림 | 자율 발화 시작 전 | 말함 |
+| `wants_image` 사용자가 정말 그림을 원하나 | 예/아니오 | 키워드 트리거가 맞았을 때 | 트리거대로 |
 | `wants_stop` 사용자가 그만하라고 했나 | 예/아니오 | 사용자 말 뒤 | 계속 |
 | `stuck` 대화가 제자리를 도나 | 예/아니오 | 자율 발화 몇 턴마다(반복도가 높을 때만) | 그대로 |
 | `route` 지금 할 일(대화 계속 / 이미지 / 시나리오 메모 / 사용자에게 묻기) | 선택 | 몇 턴마다 | 대화 계속 |
@@ -51,7 +53,7 @@ Jev 자체는 클라우드 API라서 로컬 영화 프로젝트에는 맞지 않
 
 ```powershell
 cd C:\Users\Administrator\Desktop\film_assistant\javisfilm\chat-upgrade
-python -m pytest -q tests                                   # 50 passed
+python -m pytest -q tests                                   # 63 passed
 python -m chatup probe --url http://127.0.0.1:5678 --report reports\CHAT_PROBE.md
 python -m chatup chat --url http://127.0.0.1:5678 --show-decisions   # 예시 인물 3명, 글자만
 python -m chatup voices --bank D:\voices --personas hana,doyun      # 참조 음성 폴더 점검
@@ -69,5 +71,27 @@ judge = ConversationJudge(Decider(client, log_path="logs/decisions.jsonl"), rost
 v = judge.next_speaker([Line("사용자", "..."), Line("하나", "...")], ["하나", "도윤", "미래"])
 speaker = v.value or fallback_rule()        # v.decision.confidence, v.decision.level 로 근거 확인
 ```
+
+### 프로젝트에 붙이기: JudgeBridge
+
+프로젝트 코드는 원래 값을 넘기고, 돌아온 값을 쓴다. 스위치가 `off`면 원래 값이 그대로 돌아온다.
+
+```python
+from chatup.bridge import JudgeBridge
+jb = JudgeBridge.from_env("http://127.0.0.1:5678/v1")      # FJ_JUDGE=off|observe|act, FJ_JUDGE_<자리>, FJ_JUDGE_FILE, FJ_JUDGE_LOG
+if IMAGE_FORCE_RE.search(user_text):
+    make_image = jb.image(recent_lines, baseline=True)        # observe: 기록만 / act: 확신할 때만 판단대로
+speaker = jb.speaker(recent_lines, allowed, baseline=speaker)
+```
+
+- `observe`는 판단을 뒤에서 돌려 기록만 한다. 그래서 대화 속도가 그대로이고, 한 번 대화해 보면 자리마다 원래 동작과 얼마나 다른지 나온다(`python -m chatup report --log hooks.jsonl`).
+- 모드 파일(`{"default": "observe", "image": "act"}`)은 2초마다 다시 읽는다. 앱을 끄지 않고 바꿀 수 있다.
+- 연결 순서와 자리는 `GLM_TASK_INTEGRATE.md`에 있다.
+
+### 실제 모델 점검 결과 (2026-09-29, UD-Q4_K_XL, 슬롯 4)
+
+- 16건 중 14건 정답. 기준 이상으로 확신한 14건은 모두 정답이었다.
+- 틀린 2건은 `should_speak`(p 0.51 / 0.52)였고, 기준 미만이라 원래 규칙으로 넘어갔을 경우다. 그래서 질문을 "대화 상태 고르기"로 바꿨다.
+- 판단 한 번에 median 1.2 s, max 3.1 s(순서 2개를 차례로 보낸 결과, MV 배치와 함께 돈 시간). 이제 두 순서를 동시에 보낸다.
 
 `logs/decisions*.jsonl`에는 판단마다 상태·분포·답이 쌓입니다. 나중에 맞고 틀림을 표시하면 AnyJev의 L1/L2(보정, 가벼운 판단 머리)로 올릴 수 있는 재료가 됩니다. 로그에는 대화 내용이 들어가므로 git에 올리지 않습니다(`.gitignore`).

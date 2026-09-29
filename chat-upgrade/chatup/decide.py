@@ -28,6 +28,7 @@ import os
 import string
 import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass
 from typing import Dict, List, Optional, Sequence, Tuple, Union
 
@@ -257,12 +258,15 @@ class Decider:
     stop_p:    adaptive stops once the running winner has at least this probability.
     min_label_mass: an order whose labels hold less of the next-token mass than this
                is treated as no signal (thinking left on, the model starting with
-               "**", a template that eats the answer)."""
+               "**", a template that eats the answer).
+    parallel:  orders sent at once. llama-server with -np 2 or more answers them in
+               the same batch, so two orders cost about the time of one."""
 
     def __init__(self, client, *, rotations: Union[str, int] = "adaptive", top_n: int = 20,
                  stop_p: float = 0.85, min_label_mass: float = 0.3, prior_correction: bool = True,
                  min_prior_n: int = 8, system: str = DEFAULT_SYSTEM,
-                 log_path: Optional[str] = None, state_chars_in_log: int = 1500) -> None:
+                 log_path: Optional[str] = None, state_chars_in_log: int = 1500,
+                 parallel: int = 2) -> None:
         self.client = client
         self.rotations = rotations
         self.top_n = top_n
@@ -276,6 +280,8 @@ class Decider:
         self._prior: Dict[Tuple[str, int], Tuple[List[float], int]] = {}
         self._lock = threading.Lock()
         self._counter = 0
+        self.parallel = max(1, int(parallel))
+        self._pool: Optional[ThreadPoolExecutor] = None
 
     # ---------------- prior (choice only: position preference, not answer base rate)
     def _prior_for(self, q: Question) -> Optional[List[float]]:
@@ -315,6 +321,15 @@ class Decider:
                     {"role": "user", "content": build_user(state, q, perm)}]
         return self.client.first_token_logprobs(messages, top_n=self.top_n)
 
+    def _ask_many(self, state: str, q: Question, perms: List[List[int]]):
+        if len(perms) == 1:
+            return [self._ask(state, q, perms[0])]
+        with self._lock:
+            if self._pool is None:
+                self._pool = ThreadPoolExecutor(max_workers=self.parallel, thread_name_prefix="decide")
+            pool = self._pool
+        return list(pool.map(lambda perm: self._ask(state, q, perm), perms))
+
     def decide(self, state: str, q: Question) -> Decision:
         t0 = time.perf_counter()
         orders = self._orders(q)
@@ -328,36 +343,41 @@ class Decider:
         parsed: Optional[str] = None
         dist: Optional[List[float]] = None
 
-        for idx, perm in enumerate(orders):
-            ft = self._ask(state, q, perm)
-            calls += 1
-            if not ft.has_logprobs:
-                parsed = _parse_text(ft.text, q)
-                break
-            lps, mass, _ = read_labels(ft.top, q)
-            if mass < self.min_label_mass:
-                masses.append(mass)
-                continue
-            masses.append(mass)
-            pos = _softmax(lps)              # indexed by label position
-            raw_rows.append(pos)
-            if prior is not None:
-                adj = [p / max(pr, 1e-6) for p, pr in zip(pos, prior)]
-                s = sum(adj)
-                pos = [a / s for a in adj]
-            if q.kind == "noul":
-                opt = pos                    # Yes/No labels stay attached to their meaning
-            else:
-                opt = [0.0] * q.k
-                for j, i in enumerate(perm):
-                    opt[i] = pos[j]
-            per_option.append(opt)
-            winners.append(max(range(q.k), key=lambda i: opt[i]))
-            dist = _combine_logmean(per_option)
-            if adaptive and len(per_option) >= 2 and idx + 1 < len(orders):
-                lead = max(range(q.k), key=lambda i: dist[i])
-                if dist[lead] >= self.stop_p and winners[-1] == winners[-2] == lead:
+        pending = list(orders)
+        stop = False
+        while pending and not stop:
+            batch, pending = pending[: self.parallel], pending[self.parallel:]
+            answers = self._ask_many(state, q, batch)
+            calls += len(batch)
+            for perm, ft in zip(batch, answers):
+                if not ft.has_logprobs:
+                    parsed = _parse_text(ft.text, q)
+                    stop = True
                     break
+                lps, mass, _ = read_labels(ft.top, q)
+                masses.append(mass)
+                if mass < self.min_label_mass:
+                    continue
+                pos = _softmax(lps)              # indexed by label position
+                raw_rows.append(pos)
+                if prior is not None:
+                    adj = [p / max(pr, 1e-6) for p, pr in zip(pos, prior)]
+                    total = sum(adj)
+                    pos = [a / total for a in adj]
+                if q.kind == "noul":
+                    opt = pos                    # Yes/No labels stay attached to their meaning
+                else:
+                    opt = [0.0] * q.k
+                    for j, i in enumerate(perm):
+                        opt[i] = pos[j]
+                per_option.append(opt)
+                winners.append(max(range(q.k), key=lambda i: opt[i]))
+                dist = _combine_logmean(per_option)
+                if adaptive and len(per_option) >= 2:
+                    lead = max(range(q.k), key=lambda i: dist[i])
+                    if dist[lead] >= self.stop_p and winners[-1] == winners[-2] == lead:
+                        stop = True
+                        break
 
         ms = (time.perf_counter() - t0) * 1000.0
         self._counter += 1

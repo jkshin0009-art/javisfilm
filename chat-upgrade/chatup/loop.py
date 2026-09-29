@@ -20,7 +20,7 @@ import time
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Optional, Sequence
 
-from chatup.judge import ConversationJudge, Line, Verdict
+from chatup.judge import STATE_WRAPPED, ConversationJudge, Line, Verdict
 from chatup.llm import Cancelled, CancelToken, LLMError, StallError
 from chatup.policy import TurnPolicy, loop_score
 from chatup.shaper import Clause, ReplyShaper
@@ -62,6 +62,7 @@ class LoopConfig:
     emotions: Sequence[str] = ("neutral", "happy", "sad", "angry")
     barge_note: str = "끼어듦"
     stuck_note: str = "(연출 메모: 대화가 제자리를 돌고 있다. 새 화제나 새 사건을 꺼내라.)"
+    new_topic_note: str = "(연출 메모: 앞 이야기는 마무리됐다. 자연스럽게 새 화제를 꺼내라.)"
     rules: str = RULES
 
 
@@ -227,6 +228,8 @@ class ConversationLoop:
             if v is not None and v.value == "No":
                 self._touch()             # wait another idle period before asking again
                 return None
+            if v is not None and v.value == "Yes" and v.decision.answer == STATE_WRAPPED:
+                self._director_note = self.cfg.new_topic_note
         if self.judge is not None and self._auto_turns and self._auto_turns % max(1, self.cfg.stuck_every) == 0:
             if loop_score([l.text for l in self.lines]) >= self.cfg.stuck_pre:
                 v = self._ask("stuck", lambda: self.judge.stuck(self.lines))

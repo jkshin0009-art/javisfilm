@@ -287,3 +287,18 @@ def test_barge_in_during_playback_trims_to_what_was_heard(tmp_path):
     hana = [l for l in loop.lines if l.speaker == "하나"][0]
     assert hana.note == "끼어듦" and hana.text == "첫 문장입니다."
     voice.close()
+
+
+def test_wrapped_conversation_gets_new_topic_note():
+    from chatup.judge import STATE_WRAPPED
+
+    class WrappedJudge(FakeJudge):
+        def should_speak(self, lines, idle):
+            self.asked.append("should_speak")
+            v = V("Yes", "conversation_state")
+            v.decision.answer = STATE_WRAPPED
+            return v
+
+    loop, _ = make(judge=WrappedJudge())
+    loop.step()
+    assert "새 화제" in loop.llm.messages[0][-1]["content"]

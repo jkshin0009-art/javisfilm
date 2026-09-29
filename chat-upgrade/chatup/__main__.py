@@ -6,6 +6,7 @@ probe   measure Jev-style decisions on the chatbot's LLM: do logprobs come back,
 chat    terminal run of the reference loop with example characters (text only,
         or with voices when --voices and a TTS engine are given)
 voices  check a voice bank folder, optionally render one sample per emotion
+report  summarize a JudgeBridge hooks.jsonl (counts, agreement, time; no text)
 """
 from __future__ import annotations
 
@@ -19,7 +20,7 @@ import time
 from typing import List
 
 from chatup.decide import Decider
-from chatup.judge import EVERYONE, ConversationJudge, Line
+from chatup.judge import EVERYONE, STATE_ONGOING, STATE_WAITING, ConversationJudge, Line
 from chatup.llm import LLMClient, LLMError
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -56,9 +57,9 @@ def probe_cases():
          lambda j: j.addressed(base + L(("사용자", "하나야, 조명 말고 카메라는 뭐 쓸 거야?")), NAMES)),
         ("addressed: 모두에게", EVERYONE,
          lambda j: j.addressed(base + L(("사용자", "다들 오늘 저녁은 뭐 먹을래?")), NAMES)),
-        ("should_speak: 사용자에게 질문한 뒤", "No",
+        ("should_speak: 사용자에게 질문한 뒤", STATE_WAITING,
          lambda j: j.should_speak(base + L(("도윤", "그래서, 결말은 열린 결말이 좋으세요, 닫힌 결말이 좋으세요?")), 12)),
-        ("should_speak: 의논 중 잠시 멈춤", "Yes",
+        ("should_speak: 의논 중 잠시 멈춤", STATE_ONGOING,
          lambda j: j.should_speak(base + L(("미래", "바닷가 후보지가 두 군데 있는데요,"),
                                            ("도윤", "둘 다 장단점이 있어서 아직 못 골랐어요.")), 12)),
         ("wants_stop: 조용히 해 달라", "Yes",
@@ -71,6 +72,12 @@ def probe_cases():
         ("stuck: 진행 중인 대화", "No",
          lambda j: j.stuck(base + L(("미래", "바닷가 후보지는 강릉과 태안이에요."),
                                     ("도윤", "그럼 강릉 쪽으로 대본의 새벽 장면을 옮길게요.")))),
+        ("wants_image: 그림을 그려 달라", "Yes",
+         lambda j: j.wants_image(base + L(("사용자", "방금 말한 새벽 바닷가 장면, 그림으로 한번 그려 줘.")))),
+        ("wants_image: '장면'이 들어간 질문", "No",
+         lambda j: j.wants_image(base + L(("사용자", "3번 장면에서 도윤이는 왜 화를 낸 거야?")))),
+        ("wants_image: '보여'가 들어간 부탁", "No",
+         lambda j: j.wants_image(base + L(("사용자", "아까 고친 대사 한 번만 다시 보여 줘.")))),
         ("route: 그림 요청", "지금 이야기하는 장면을 이미지로 만든다",
          lambda j: j.route(base + L(("사용자", "방금 말한 새벽 바닷가 장면, 어떤 느낌인지 그림으로 한번 보여 줘.")))),
         ("route: 잡담", "대화를 그대로 이어간다",
@@ -104,7 +111,7 @@ def cmd_probe(a) -> int:
         ok = d.answer == expected
         rows.append((name, expected, d, ok, v.value))
         conf = "-" if d.confidence is None else f"{d.confidence:.2f}"
-        print(f"{'OK  ' if ok else 'MISS'} {name:34s} -> {str(d.answer):24s} p={conf:5s} {d.level:6s} "
+        print(f"{'OK  ' if ok else 'MISS'} {name:34s} -> {str(d.answer)[:24]:24s} p={conf:5s} {d.level:6s} "
               f"mass={d.label_mass:.2f} calls={d.calls} {d.ms:7.0f} ms")
     total = time.time() - t_start
     n_ok = sum(1 for r in rows if r[3])
@@ -234,6 +241,18 @@ def cmd_voices(a) -> int:
     return 1 if problems and a.strict else 0
 
 
+def cmd_report(a) -> int:
+    from chatup.bridge import summarize
+    text = summarize(a.log)
+    print(text)
+    if a.out:
+        os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
+        with open(a.out, "w", encoding="utf-8") as f:
+            f.write(text)
+        print(f"Saved: {a.out}")
+    return 0
+
+
 def main(argv=None) -> int:
     _utf8_console()
     ap = argparse.ArgumentParser(prog="python -m chatup")
@@ -272,6 +291,11 @@ def main(argv=None) -> int:
     p.add_argument("--language", default="ko")
     p.add_argument("--strict", action="store_true")
     p.set_defaults(fn=cmd_voices)
+
+    p = sub.add_parser("report")
+    p.add_argument("--log", required=True, help="hooks.jsonl written by JudgeBridge")
+    p.add_argument("--out", default=None)
+    p.set_defaults(fn=cmd_report)
 
     a = ap.parse_args(argv)
     return a.fn(a)

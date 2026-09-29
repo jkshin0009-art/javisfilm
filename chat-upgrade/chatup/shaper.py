@@ -268,6 +268,58 @@ class ReplyShaper:
         return out
 
 
+class ThinkFilter:
+    """Just the <think> and special-token removal, for a project that keeps its own
+    token loop: text = f.feed(delta) for each delta, then text = f.flush().
+
+    assume_open=True is for templates that open <think> inside the prompt, so the
+    reply starts in the middle of the thinking and only "</think>" ever arrives.
+    llama-server with reasoning parsing on moves thinking out of `content`
+    altogether; this filter is the safety net for when it does not."""
+
+    def __init__(self, assume_open: bool = False) -> None:
+        self._raw = ""
+        self._in = assume_open
+
+    def feed(self, chunk: str) -> str:
+        if not chunk:
+            return ""
+        self._raw += chunk
+        return self._drain(final=False)
+
+    def flush(self) -> str:
+        out = self._drain(final=True)
+        self._raw = ""
+        return out
+
+    def _drain(self, final: bool) -> str:
+        out: List[str] = []
+        while self._raw:
+            if self._in:
+                end = self._raw.find("</think>")
+                if end < 0:
+                    keep = 0 if final else _partial_suffix(self._raw, "</think>")
+                    self._raw = self._raw[len(self._raw) - keep:] if keep else ""
+                    break
+                self._raw = self._raw[end + len("</think>"):]
+                self._in = False
+                continue
+            start = self._raw.find("<think>")
+            if start >= 0:
+                out.append(self._raw[:start])
+                self._raw = self._raw[start + len("<think>"):]
+                self._in = True
+                continue
+            la = self._raw.rfind("<")
+            hold = 0
+            if not final and la >= 0 and ">" not in self._raw[la:] and len(self._raw) - la <= 20:
+                hold = len(self._raw) - la
+            out.append(self._raw[: len(self._raw) - hold])
+            self._raw = self._raw[len(self._raw) - hold:]
+            break
+        return _SPECIAL.sub("", "".join(out)).replace("</think>", "")
+
+
 # ---------------------------------------------------------------- helpers
 def _partial_suffix(s: str, token: str) -> int:
     """Length of the longest suffix of s that is a proper prefix of token."""
