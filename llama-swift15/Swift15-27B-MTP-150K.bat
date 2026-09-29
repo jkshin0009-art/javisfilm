@@ -40,13 +40,13 @@ set "MODEL_DIR=D:\LM-Studio\models\ajgazin\Swift-1.5-Qwen3.8-27B-Uncensored-Dyna
 set "ORCA_DIR=D:\LM-Studio\models\RentedNoodle\Qwen3.8-27B-OrcaRouter-GSQ-RCO-IQ3_XXS-Uncensored"
 set "LOG=D:\llama.cpp\swift15_150k_server.log"
 
-rem ---- knobs -----------------------------------------------------------------
-set "CTX=150000"
-set "NSLOT=1"
+rem ---- knobs (an environment variable of the same name overrides each) ------
+if not defined CTX set "CTX=150000"
+if not defined NSLOT set "NSLOT=1"
 rem MTP draft depth. 2 = old file. Try 3 and compare with Swift15-bench.bat.
-set "SPEC_N=2"
+if not defined SPEC_N set "SPEC_N=2"
 rem 1 = load the vision projector (costs VRAM; q8 may then not fit)
-set "VISION=0"
+if not defined VISION set "VISION=0"
 rem first KV mode to try: q8 / q8k4v / q4 / q4ub1k
 if not defined KV_MODE set "KV_MODE=q8"
 set "VRAM_MIN=23000"

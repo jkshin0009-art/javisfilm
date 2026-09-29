@@ -7,13 +7,14 @@ rem Swift15-bench.bat - health check + speed test for Swift15-27B-MTP-150K.bat
 rem   Swift15-bench.bat         3 short prompts: decode tok/s, MTP acceptance
 rem   Swift15-bench.bat long    + one 110K-135K token prompt, 150K ctx + needle test
 rem Other server:  set SWIFT_URL=http://127.0.0.1:5678  before running.
+rem No pause at the end (for scripts/agents):  set BENCH_NOPAUSE=1
 rem Writes swift15_bench_DATE_TIME.txt next to this file - paste it into the chat.
 rem ============================================================================
 set "BENCH_ARGS=%*"
 set "BENCH_DIR=%~dp0"
 powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ([IO.File]::ReadAllText('%~f0'))"
 echo.
-pause
+if not defined BENCH_NOPAUSE pause
 exit /b
 #>
 
