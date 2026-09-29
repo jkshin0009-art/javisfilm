@@ -261,14 +261,17 @@ class Decider:
     min_label_mass: an order whose labels hold less of the next-token mass than this
                is treated as no signal (thinking left on, the model starting with
                "**", a template that eats the answer).
-    parallel:  orders sent at once. llama-server with -np 2 or more answers them in
-               the same batch, so two orders cost about the time of one."""
+    parallel:  orders sent at once (default 1). Sequential is faster on llama-server:
+               the orders share everything up to the option list, so the second one
+               reuses the first one's cached prefix in the same slot and costs only
+               its last lines. Sent at once they land in different slots and both
+               pay the full prefill (probe: median 1.2 s sequential, 1.8 s parallel)."""
 
     def __init__(self, client, *, rotations: Union[str, int] = "adaptive", top_n: int = 20,
                  stop_p: float = 0.85, min_label_mass: float = 0.3, prior_correction: bool = True,
                  min_prior_n: int = 8, system: str = DEFAULT_SYSTEM,
                  log_path: Optional[str] = None, state_chars_in_log: int = 1500,
-                 parallel: int = 2) -> None:
+                 parallel: int = 1) -> None:
         self.client = client
         self.rotations = rotations
         self.top_n = top_n

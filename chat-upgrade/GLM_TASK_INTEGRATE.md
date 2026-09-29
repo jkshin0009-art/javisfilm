@@ -317,3 +317,25 @@ Pop-Location
 - H2의 `user_text`가 자율 턴에서 무엇인지
 
 사용자에게 보여 주고, 허락하면 `chat-upgrade/reports`만 add해서 커밋·push한다. push가 실패하면 `CHAT_PROBE2.md`와 `INTEGRATE_REPORT.md` 전문을 화면에 출력한다.
+
+## I9. 복사본 다시 맞추기 (분석 담당이 chatup을 고쳤을 때만)
+
+분석 담당이 `chat-upgrade/chatup`을 고치면, 프로젝트 안의 복사본(`film_assistant\chatup`)도 같게 맞춘다. 스위치 설정(`judge_modes.json`)과 연결 코드는 건드리지 않는다.
+
+```powershell
+$R = 'C:\Users\Administrator\Desktop\film_assistant\javisfilm'
+$P = 'C:\Users\Administrator\Desktop\film_assistant'
+$Py = 'python'   # I4 에서 확인한 프로젝트 파이썬 경로로 바꾼다
+git -C $R pull --rebase
+$h = git -C $R rev-parse --short HEAD
+robocopy "$R\chat-upgrade\chatup" "$P\chatup" /MIR /XD __pycache__ /XF VENDORED_FROM.txt /NFL /NDL /NJH /NJS
+"vendored from javisfilm chat-upgrade/chatup at $h" | Set-Content -Encoding utf8 "$P\chatup\VENDORED_FROM.txt"
+Push-Location $P
+& $Py -c "from core.judge_hook import bridge, mode; b = bridge(); print('parallel', b.judge.decider.parallel, 'image', mode('image'))"
+git -C $P status --short -- chatup
+git -C $P add chatup
+git -C $P commit -m "chatup: resync vendored copy ($h)"
+Pop-Location
+```
+
+확인 기준: `parallel 1`이 나오고, 커밋이 하나 생긴다. `image` 모드는 그대로다.

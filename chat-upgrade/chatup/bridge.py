@@ -60,7 +60,7 @@ class JudgeBridge:
     def __init__(self, base_url: str, modes=None, *, roster: str = "", user_name: str = "사용자",
                  thresholds: Optional[Dict[str, float]] = None, log_dir: Optional[str] = None,
                  modes_file: Optional[str] = None, timeout: float = 6.0, max_lines: int = 10,
-                 parallel: int = 2, max_pending: int = 4, log_states: bool = False,
+                 parallel: int = 1, max_pending: int = 4, log_states: bool = False,
                  client=None) -> None:
         self.client = client or LLMClient(base_url, timeout=timeout)
         state_log = os.path.join(log_dir, "decisions.jsonl") if (log_dir and log_states) else None
