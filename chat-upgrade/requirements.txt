@@ -1,0 +1,7 @@
+# Core (chatup.llm/decide/judge/shaper/policy/loop): standard library only.
+# Tests:
+pytest>=7
+# Voice, only for `chatup chat --voices` / `chatup voices --synth` (dots.tts brings torch):
+# numpy
+# sounddevice
+# dots.tts  (https://github.com/rednote-hilab/dots.tts)

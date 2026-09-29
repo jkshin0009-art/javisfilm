@@ -1,0 +1,10 @@
+# Decision logs hold conversation text; voices and renders are personal assets.
+logs/
+out/
+voices/
+.venv/
+__pycache__/
+*.wav
+*.flac
+*.mp3
+*.ogg

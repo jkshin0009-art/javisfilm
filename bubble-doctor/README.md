@@ -1,5 +1,7 @@
 # bubble-doctor: ComfyUI-BubbleText 말풍선 진단과 수정
 
+> **보류 (2026-09-29 조사 결과):** 프로젝트에는 ComfyUI-BubbleText가 설치되어 있지 않습니다. 대사 말풍선은 웹 화면(`static/storyboard.html`)이 HTML 층으로 그리고, 이미지에는 말풍선을 넣지 않도록 설계되어 있습니다. 검은 `pNN_bubble.png`는 SAM3가 "말풍선 없음"을 확인한 마스크로, 정상 산출물입니다. 그래서 이 도구와 지시서는 **실행하지 않습니다.** 말풍선 균형 문제는 웹 층의 배치 코드에서 따로 봅니다.
+
 [ComfyUI-BubbleText](https://github.com/arturor1990/ComfyUI-BubbleText)를 Qwen Image 2.1 결과에 쓸 때 생기는 문제를 찾고 고치는 도구입니다. 사용자 PC에 설치된 노드 코드를 그대로 불러와 쓰기 때문에, 여기서 보이는 결과가 곧 ComfyUI에서 노드가 하는 동작입니다.
 
 ## 확인한 원인 (노드 소스와 재현으로 확인)

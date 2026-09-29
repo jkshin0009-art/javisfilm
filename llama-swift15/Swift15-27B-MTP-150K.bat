@@ -35,7 +35,9 @@ rem   MTP KV  : q8_0 311 MiB, q4_0 165 MiB, f16 586 MiB
 rem ============================================================================
 
 set "HOST=127.0.0.1"
+rem SWIFT_PORT: run beside the project LLM on another port, e.g. set SWIFT_PORT=5679
 set "PORT=5678"
+if defined SWIFT_PORT set "PORT=%SWIFT_PORT%"
 set "MODEL_DIR=D:\LM-Studio\models\ajgazin\Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-GGUF"
 set "ORCA_DIR=D:\LM-Studio\models\RentedNoodle\Qwen3.8-27B-OrcaRouter-GSQ-RCO-IQ3_XXS-Uncensored"
 set "LOG=D:\llama.cpp\swift15_150k_server.log"
