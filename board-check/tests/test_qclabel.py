@@ -75,3 +75,14 @@ def test_labels_report(tmp_path, capsys):
     assert "the gate failed 2/3" in text and "the gate failed 2/2 (false alarms)" in text
     assert "| legs_ok | 2 | 1 | 67% | 표본 부족 |" in text
     assert "1 judged pictures have no gate verdict" in text
+
+
+def test_rebake_after_fix_keeps_reason(tmp_path):
+    d = tmp_path / "look"
+    d.mkdir()
+    root = tmp_path / "labels"
+    p = pic(d, "p05.png", b"x")
+    qclabel.record("redo", p, source="fix_panel", note="손가락", root=root)
+    qclabel.record("redo", p, source="rebake", root=root)
+    (r,) = gr.read_labels(root)
+    assert r["source"] == "rebake" and r["note"] == "손가락"

@@ -416,7 +416,11 @@ def read_labels(folder: Path) -> List[Dict]:
             continue
         if r.get("verdict") not in ("redo", "ok"):
             continue
-        last[r.get("sha1") or r.get("id")] = r
+        key = r.get("sha1") or r.get("id")
+        prev = last.get(key)
+        if prev and not r.get("note") and prev.get("note") and prev["verdict"] == r["verdict"]:
+            r = dict(r, note=prev["note"])             # a re-bake after a prompt fix keeps the fix's reason
+        last[key] = r
     return list(last.values())
 
 
