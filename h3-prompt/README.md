@@ -23,8 +23,10 @@ IAMCCS-nodes(GPL-3.0, `iamccs_prompter.py`, `iamccs_minimax_h3_shotboard_core.py
 ```powershell
 python h3lint.py check work\h3_prompts.jsonl --frames 90 --chunk-ends 3.75,7.5 --report reports\H3LINT_CURRENT.md --details work\h3lint_details.jsonl
 python h3lint.py shape work\h3_prompts.jsonl --n 3      # 글자 없이 뼈대만: 제목, [Shot N], 태그, 시각, (N단어)
-python -m pytest -q tests      # 15 passed (h3lint 10 + h3compose 5)
+python -m pytest -q tests      # 16 passed (h3lint 11 + h3compose 5)
 ```
+
+일부러 다른 형식을 쓰는 곳(예: MV의 대사 형식과 사고 방지 부정 조항)은 `--ignore dialogue_format,negative_language`로 빼고 회귀 검사로 쓴다.
 
 입력은 `.txt`(프롬프트 하나), `.json`(문자열 목록이나 `prompt` 키가 있는 객체), `.jsonl`, 또는 이런 파일이 든 폴더다.
 
@@ -41,7 +43,7 @@ LLM은 내용 칸(장면, 시간별 동작, 연기, 카메라, 빛, 소리, 음�
 ```powershell
 python h3compose.py try work\cut01.json --judge --out work
 ew     # {shot, facts} 하나로 새 프롬프트 만들기
-python -m pytest -q tests                                            # 15 passed
+python -m pytest -q tests                                            # 16 passed
 ```
 
 ## 순서

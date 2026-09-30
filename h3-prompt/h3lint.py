@@ -213,7 +213,7 @@ def check(prompt: str, duration: Optional[float] = None, chunk_ends: Sequence[fl
             break
 
     # timeline
-    times = timeline(text)
+    times = timeline(described)                  # a pasted copy restarts the clock; read only the real text
     starts = [a for a, _, _ in times]
     if starts != sorted(starts):
         bad["timeline_order"] = "timed lines do not rise"
@@ -340,6 +340,7 @@ def main(argv=None) -> int:
     p.add_argument("--pictures", type=int, default=None, help="reference pictures connected")
     p.add_argument("--report", default=None)
     p.add_argument("--details", default=None)
+    p.add_argument("--ignore", default="", help="rules to leave out, e.g. dialogue_format,negative_language")
     p = sub.add_parser("shape", help="print the skeleton of the first N prompts (no words)")
     p.add_argument("paths", nargs="+")
     p.add_argument("--n", type=int, default=3)
@@ -359,7 +360,9 @@ def main(argv=None) -> int:
     results = []
     for path in a.paths:
         for name, prompt in prompts_from(Path(path)):
-            results.append((name, check(prompt, duration, ends, a.pictures)))
+            ignore = {x.strip() for x in a.ignore.split(",") if x.strip()}
+            results.append((name, {k: v for k, v in check(prompt, duration, ends, a.pictures).items()
+                                   if k not in ignore}))
     if not results:
         print("no prompts found")
         return 1

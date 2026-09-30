@@ -147,3 +147,16 @@ def test_pasted_copy_and_retention_references():
         "while the room light stays warm and even.")
     r = rules(pasted)
     assert "nested_heading" in r and "repeated_text" in r and "shot_numbers" not in r
+
+
+def test_pasted_copy_does_not_fake_timeline_order(tmp_path):
+    pasted = BASE_OK.replace("3.30s-end: <Subject 1> stops it with two fingers.",
+                             "3.30s-end: <Subject 1> stops it with two fingers. detailed_description: "
+                             "0.00-1.40s: hold both subjects across the booth.")
+    r = rules(pasted)
+    assert "nested_heading" in r and "timeline_order" not in r
+    f = tmp_path / "p.txt"
+    f.write_text(BASE_OK.replace("One slow push-in", "Never cut. One slow push-in"), encoding="utf-8")
+    rep = tmp_path / "r.md"
+    assert h3lint.main(["check", str(f), "--ignore", "negative_language", "--report", str(rep)]) == 0
+    assert "clean: 1" in rep.read_text(encoding="utf-8")
