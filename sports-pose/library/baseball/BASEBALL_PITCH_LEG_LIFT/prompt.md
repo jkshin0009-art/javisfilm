@@ -11,7 +11,7 @@ Right-handed baseball pitcher at the balance point: standing on the right leg on
 1. SYSTEM_INDEX_CODE: #BASEBALL_PITCH_LEG_LIFT
 
 2. ANATOMICAL_BONES:
-- Gaze & head: head tilted down 60 deg, turned 38 deg to the athlete's left of the chest line; face pointing to the athlete's left and down. Eyes on the catcher's mitt over the left shoulder.
+- Gaze & head: head tilted down 24 deg, turned 80 deg to the athlete's left of the chest line; face pointing to the athlete's left. Eyes on the catcher's mitt over the left shoulder.
 - Torso: trunk line (hips to shoulders) 15 deg forward of vertical, leaning 9 deg to the athlete's right; spine flexed 10 deg over the pelvis; shoulders square with the hips.
 - Right arm (throwing arm): upper arm raised 32 deg from the side of the trunk, pointing down; elbow fully folded (122 deg flexion); forearm pointing to the athlete's left and up and slightly forward; palm facing down and slightly to the athlete's left; wrist flexed 17 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.28 m above the floor.
 - Left arm (glove arm): upper arm raised 19 deg from the side of the trunk, pointing down; elbow fully folded (113 deg flexion); forearm pointing to the athlete's right and forward and slightly up; palm facing to the athlete's right and slightly backward and slightly up; wrist extended (cocked back) 20 deg; hand: cupped, fingers slightly curled and spread; fingertips 1.23 m above the floor.
@@ -58,7 +58,7 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 
 ## Checks
 
-- warn: head.flex = 60 is beyond the usual range -65..56
+- warn: head.rot = 80 is beyond the usual range -75..75
 
 ## Sport rules (measured on this skeleton)
 

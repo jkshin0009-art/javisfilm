@@ -1,0 +1,246 @@
+{
+  "code": "BOXING_GUARD_STANCE",
+  "technique": "stance",
+  "phase": "guard",
+  "summary": "Orthodox boxing guard: left foot and left hand forward, feet about shoulder width, knees soft, rear heel slightly raised, gloves at the cheekbones, elbows tucked, chin down.",
+  "names": {
+    "ko": [
+      "권투 가드 자세",
+      "복싱 기본 자세",
+      "오소독스 스탠스",
+      "복싱 가드"
+    ],
+    "en": [
+      "boxing guard stance",
+      "orthodox stance",
+      "fighting stance boxing",
+      "high guard"
+    ]
+  },
+  "keywords": [
+    "boxing",
+    "guard",
+    "stance",
+    "orthodox"
+  ],
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "l_arm": "lead hand",
+      "r_arm": "rear hand",
+      "l_leg": "lead leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -35,
+      "tilt": 6
+    },
+    "trunk": {
+      "flex": 6,
+      "side": 0,
+      "rot": -5
+    },
+    "head": {
+      "flex": 15,
+      "side": 0,
+      "rot": 30
+    },
+    "r_arm": {
+      "elev": 45,
+      "plane": 95,
+      "rot": -30,
+      "elbow": 130,
+      "pron": 25,
+      "wrist": 0,
+      "hand": "fist",
+      "reach": {
+        "to": "r_guard",
+        "w": 0.4,
+        "fix": [
+          "wrist"
+        ],
+        "tol_m": 0.03,
+        "range": {
+          "elev": [
+            15,
+            65
+          ],
+          "elbow": [
+            100,
+            145
+          ],
+          "pron": [
+            -10,
+            60
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 45,
+      "plane": 95,
+      "rot": -30,
+      "elbow": 130,
+      "pron": 25,
+      "wrist": 0,
+      "hand": "fist",
+      "reach": {
+        "to": "l_guard",
+        "w": 0.4,
+        "fix": [
+          "wrist"
+        ],
+        "tol_m": 0.07,
+        "range": {
+          "elev": [
+            15,
+            65
+          ],
+          "elbow": [
+            100,
+            145
+          ],
+          "pron": [
+            -10,
+            60
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 22,
+      "abd": 6,
+      "rot": 5,
+      "knee": 22,
+      "ankle": "flat"
+    },
+    "r_leg": {
+      "flex": -8,
+      "abd": 12,
+      "rot": 25,
+      "knee": 20,
+      "ankle": "toes:12",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            8,
+            35
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "front",
+      "azimuth": 0,
+      "elevation": 0,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Opponent's view, gloves framing the eyes."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Profile: stance width and tucked elbows."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -40,
+      "height_m": 0.8,
+      "lens_mm": 24,
+      "fill": 0.7,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame, ring ropes and lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "min": 115,
+      "why": "rear glove held at the cheek, elbow tucked",
+      "src": "EST"
+    },
+    {
+      "m": "l_elbow_flex",
+      "min": 100,
+      "why": "lead glove up at eye height",
+      "src": "EST"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 10,
+      "max": 40,
+      "why": "knees soft, never locked",
+      "src": "EST"
+    },
+    {
+      "m": "stance_over_shoulders",
+      "min": 0.9,
+      "max": 1.8,
+      "why": "feet about shoulder width apart, staggered",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a boxer in an orthodox guard stance",
+    "core": "Left foot forward and right foot back about shoulder width apart, knees soft, rear heel slightly raised; body turned side-on about 35 degrees; both gloves up at the cheekbones, elbows tucked against the ribs; chin down, eyes looking up through the brows.",
+    "gaze": "Eyes on the opponent.",
+    "cues": [
+      "chin down, hands up to the cheekbones, elbows in",
+      "weight balanced on the balls of the feet",
+      "lead foot toe points at the opponent"
+    ],
+    "kinetic": [
+      "sweat on the shoulders under the ring lights",
+      "hand wraps visible at the wrists",
+      "slight bounce in the knees"
+    ],
+    "avoid": [
+      "open hands inside the gloves",
+      "bent wrist at impact",
+      "gloves merged together",
+      "both feet together",
+      "chin up",
+      "southpaw stance"
+    ]
+  },
+  "ref_query": "boxing stance",
+  "sources": [
+    {
+      "id": "EST",
+      "cite": "Estimate from standard boxing coaching (no measured joint angle found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "boxing"
+}

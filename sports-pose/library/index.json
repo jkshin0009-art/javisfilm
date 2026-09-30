@@ -1,6 +1,140 @@
 {
  "assets": [
   {
+   "code": "BADMINTON_BACKHAND_SERVE",
+   "sport": "badminton",
+   "technique": "serve",
+   "phase": "contact",
+   "summary": "Right-handed badminton low backhand serve (doubles): right foot forward, racket in front of the waist, shuttle held by the feathers and struck on the cork well below 1.15 m.",
+   "names": {
+    "ko": [
+     "배드민턴 백핸드 서브",
+     "숏 서브",
+     "로우 서브",
+     "복식 서브"
+    ],
+    "en": [
+     "badminton backhand serve",
+     "low short serve",
+     "doubles serve",
+     "backhand low serve"
+    ]
+   },
+   "keywords": [
+    "badminton",
+    "serve",
+    "backhand",
+    "doubles"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "BWF 9.1.6 service_height",
+    "BWF 9.1.4 service_feet",
+    "BWF 9.1.5 service_base_first",
+    "BWF 13.3.7 sling"
+   ],
+   "prompt_md": "badminton/BADMINTON_BACKHAND_SERVE/prompt.md",
+   "openpose": [
+    "badminton/BADMINTON_BACKHAND_SERVE/openpose_net_view.png",
+    "badminton/BADMINTON_BACKHAND_SERVE/openpose_side.png",
+    "badminton/BADMINTON_BACKHAND_SERVE/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "net_view",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "BADMINTON_JUMP_SMASH",
+   "sport": "badminton",
+   "technique": "smash",
+   "phase": "contact",
+   "summary": "Right-handed badminton jump smash at contact: airborne with a scissor kick, racket arm reaching up in front of the hitting shoulder, forearm pronating, left arm pulled down, shuttle hit high in front.",
+   "names": {
+    "ko": [
+     "배드민턴 점프 스매시",
+     "스매시 타점",
+     "점프 스매싱",
+     "배드민턴 공격"
+    ],
+    "en": [
+     "badminton jump smash",
+     "smash contact",
+     "jumping smash",
+     "overhead smash"
+    ]
+   },
+   "keywords": [
+    "badminton",
+    "smash",
+    "jump",
+    "overhead",
+    "shuttlecock"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "BWF 13.4.1 net_touch",
+    "BWF 13.4.2 over_the_net",
+    "BWF 13.3.7 sling"
+   ],
+   "prompt_md": "badminton/BADMINTON_JUMP_SMASH/prompt.md",
+   "openpose": [
+    "badminton/BADMINTON_JUMP_SMASH/openpose_net_view.png",
+    "badminton/BADMINTON_JUMP_SMASH/openpose_side.png",
+    "badminton/BADMINTON_JUMP_SMASH/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "net_view",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "BADMINTON_NET_LUNGE",
+   "sport": "badminton",
+   "technique": "net_shot",
+   "phase": "lunge",
+   "summary": "Right-handed badminton forehand lunge to the net: long step with the right foot landing heel first, front knee over the ankle, rear leg extended, racket reaching forward with the face nearly level.",
+   "names": {
+    "ko": [
+     "배드민턴 네트 런지",
+     "헤어핀 런지",
+     "네트 앞 런지",
+     "배드민턴 네트샷"
+    ],
+    "en": [
+     "badminton net lunge",
+     "forehand net shot lunge",
+     "hairpin lunge",
+     "lunge to the net"
+    ]
+   },
+   "keywords": [
+    "badminton",
+    "lunge",
+    "net shot",
+    "footwork"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "BWF 13.4.1 net_touch",
+    "BWF 13.4.2 over_the_net",
+    "BWF 13.3.7 sling"
+   ],
+   "prompt_md": "badminton/BADMINTON_NET_LUNGE/prompt.md",
+   "openpose": [
+    "badminton/BADMINTON_NET_LUNGE/openpose_net_view.png",
+    "badminton/BADMINTON_NET_LUNGE/openpose_side.png",
+    "badminton/BADMINTON_NET_LUNGE/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "net_view",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
    "code": "BASEBALL_BAT_CONTACT",
    "sport": "baseball",
    "technique": "swing",
@@ -576,6 +710,352 @@
    ]
   },
   {
+   "code": "BOXING_CROSS",
+   "sport": "boxing",
+   "technique": "cross",
+   "phase": "extension",
+   "summary": "Orthodox boxer landing a right cross: rear heel up and pivoting, hips and shoulders turned square, rear arm extended to the opponent's chin, lead glove back at the chin.",
+   "names": {
+    "ko": [
+     "권투 크로스",
+     "라이트 스트레이트",
+     "원투 펀치",
+     "복싱 스트레이트"
+    ],
+    "en": [
+     "boxing cross",
+     "right straight",
+     "rear straight punch",
+     "one-two"
+    ]
+   },
+   "keywords": [
+    "boxing",
+    "cross",
+    "straight",
+    "punch",
+    "power"
+   ],
+   "sequence": {
+    "id": "BOXING_ONE_TWO",
+    "order": 2,
+    "phases": [
+     "BOXING_JAB",
+     "BOXING_CROSS"
+    ]
+   },
+   "game_rules": [
+    "World Boxing Fouls: hitting below the belt below_belt",
+    "World Boxing Scoring blows; Fouls: open glove closed_glove",
+    "World Boxing Fouls: head, shoulder, forearm, elbow head_elbow",
+    "World Boxing Fouls: back of the head, neck, kidneys back_of_head",
+    "World Boxing Fouls: holding, pushing, wrestling holding"
+   ],
+   "prompt_md": "boxing/BOXING_CROSS/prompt.md",
+   "openpose": [
+    "boxing/BOXING_CROSS/openpose_ringside.png",
+    "boxing/BOXING_CROSS/openpose_over_shoulder.png",
+    "boxing/BOXING_CROSS/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "ringside",
+    "over_shoulder",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BOXING_GUARD_STANCE",
+   "sport": "boxing",
+   "technique": "stance",
+   "phase": "guard",
+   "summary": "Orthodox boxing guard: left foot and left hand forward, feet about shoulder width, knees soft, rear heel slightly raised, gloves at the cheekbones, elbows tucked, chin down.",
+   "names": {
+    "ko": [
+     "권투 가드 자세",
+     "복싱 기본 자세",
+     "오소독스 스탠스",
+     "복싱 가드"
+    ],
+    "en": [
+     "boxing guard stance",
+     "orthodox stance",
+     "fighting stance boxing",
+     "high guard"
+    ]
+   },
+   "keywords": [
+    "boxing",
+    "guard",
+    "stance",
+    "orthodox"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "World Boxing Scoring blows; Fouls: open glove closed_glove",
+    "World Boxing Fouls: holding, pushing, wrestling holding",
+    "World Boxing Fouls: ducking below the belt ducking_low"
+   ],
+   "prompt_md": "boxing/BOXING_GUARD_STANCE/prompt.md",
+   "openpose": [
+    "boxing/BOXING_GUARD_STANCE/openpose_front.png",
+    "boxing/BOXING_GUARD_STANCE/openpose_side.png",
+    "boxing/BOXING_GUARD_STANCE/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "front",
+    "side",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BOXING_JAB",
+   "sport": "boxing",
+   "technique": "jab",
+   "phase": "extension",
+   "summary": "Orthodox boxer landing a jab: lead arm extended at shoulder height, fist turned palm down on the opponent's face, lead shoulder raised to protect the chin, rear glove guarding the chin.",
+   "names": {
+    "ko": [
+     "권투 잽",
+     "복싱 잽 펀치",
+     "잽 임팩트",
+     "리드 스트레이트"
+    ],
+    "en": [
+     "boxing jab",
+     "lead straight punch",
+     "jab landing",
+     "jab extension"
+    ]
+   },
+   "keywords": [
+    "boxing",
+    "jab",
+    "punch",
+    "straight"
+   ],
+   "sequence": {
+    "id": "BOXING_ONE_TWO",
+    "order": 1,
+    "phases": [
+     "BOXING_JAB",
+     "BOXING_CROSS"
+    ]
+   },
+   "game_rules": [
+    "World Boxing Fouls: hitting below the belt below_belt",
+    "World Boxing Scoring blows; Fouls: open glove closed_glove",
+    "World Boxing Fouls: head, shoulder, forearm, elbow head_elbow",
+    "World Boxing Fouls: back of the head, neck, kidneys back_of_head",
+    "World Boxing Fouls: holding, pushing, wrestling holding"
+   ],
+   "prompt_md": "boxing/BOXING_JAB/prompt.md",
+   "openpose": [
+    "boxing/BOXING_JAB/openpose_ringside.png",
+    "boxing/BOXING_JAB/openpose_over_shoulder.png",
+    "boxing/BOXING_JAB/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "ringside",
+    "over_shoulder",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BOXING_LEAD_HOOK",
+   "sport": "boxing",
+   "technique": "hook",
+   "phase": "impact",
+   "summary": "Orthodox boxer landing a left hook: elbow bent about 90 degrees with the forearm horizontal at shoulder height, pivoting on the lead foot, trunk turning right, fist on the opponent's jaw.",
+   "names": {
+    "ko": [
+     "권투 훅",
+     "레프트 훅",
+     "복싱 훅 펀치",
+     "리드 훅"
+    ],
+    "en": [
+     "boxing lead hook",
+     "left hook",
+     "hook punch",
+     "hook to the jaw"
+    ]
+   },
+   "keywords": [
+    "boxing",
+    "hook",
+    "punch"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "World Boxing Fouls: hitting below the belt below_belt",
+    "World Boxing Scoring blows; Fouls: open glove closed_glove",
+    "World Boxing Fouls: head, shoulder, forearm, elbow head_elbow",
+    "World Boxing Fouls: back of the head, neck, kidneys back_of_head",
+    "World Boxing Fouls: holding, pushing, wrestling holding"
+   ],
+   "prompt_md": "boxing/BOXING_LEAD_HOOK/prompt.md",
+   "openpose": [
+    "boxing/BOXING_LEAD_HOOK/openpose_ringside.png",
+    "boxing/BOXING_LEAD_HOOK/openpose_over_shoulder.png",
+    "boxing/BOXING_LEAD_HOOK/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "ringside",
+    "over_shoulder",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "FISHING_CAST_BACK",
+   "sport": "fishing",
+   "technique": "cast",
+   "phase": "back_stop",
+   "summary": "Right-handed overhead cast at the back stop: spinning rod stopped at the 1 o'clock position behind the shoulder, rod hand beside the ear, left hand on the butt, weight on the back foot.",
+   "names": {
+    "ko": [
+     "낚시 캐스팅 백스윙",
+     "오버헤드 캐스팅 준비",
+     "낚싯대 뒤로 젖히기",
+     "캐스팅 1시 방향"
+    ],
+    "en": [
+     "fishing cast back stop",
+     "overhead cast back cast",
+     "rod loaded at 1 o'clock",
+     "casting wind-up"
+    ]
+   },
+   "keywords": [
+    "fishing",
+    "angling",
+    "cast",
+    "casting",
+    "rod",
+    "spinning"
+   ],
+   "sequence": {
+    "id": "FISHING_CAST",
+    "order": 1,
+    "phases": [
+     "FISHING_CAST_BACK",
+     "FISHING_CAST_RELEASE"
+    ]
+   },
+   "game_rules": [
+    "IGFA Acts that disqualify a catch one_line",
+    "IGFA Equipment Regulations, Reels power_reel"
+   ],
+   "prompt_md": "fishing/FISHING_CAST_BACK/prompt.md",
+   "openpose": [
+    "fishing/FISHING_CAST_BACK/openpose_side.png",
+    "fishing/FISHING_CAST_BACK/openpose_front_three_quarter.png",
+    "fishing/FISHING_CAST_BACK/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "front_three_quarter",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "FISHING_CAST_RELEASE",
+   "sport": "fishing",
+   "technique": "cast",
+   "phase": "release",
+   "summary": "Right-handed overhead cast at release: rod swept forward and stopped at 10 o'clock, rod arm extended toward the target, weight on the front foot, line shooting out toward the water.",
+   "names": {
+    "ko": [
+     "낚시 캐스팅 릴리스",
+     "캐스팅 던지는 순간",
+     "낚싯대 10시 방향",
+     "루어 던지기"
+    ],
+    "en": [
+     "fishing cast release",
+     "forward cast",
+     "rod at 10 o'clock",
+     "casting a lure"
+    ]
+   },
+   "keywords": [
+    "fishing",
+    "angling",
+    "cast",
+    "release",
+    "rod"
+   ],
+   "sequence": {
+    "id": "FISHING_CAST",
+    "order": 2,
+    "phases": [
+     "FISHING_CAST_BACK",
+     "FISHING_CAST_RELEASE"
+    ]
+   },
+   "game_rules": [
+    "IGFA Acts that disqualify a catch one_line",
+    "IGFA Equipment Regulations, Reels power_reel"
+   ],
+   "prompt_md": "fishing/FISHING_CAST_RELEASE/prompt.md",
+   "openpose": [
+    "fishing/FISHING_CAST_RELEASE/openpose_side.png",
+    "fishing/FISHING_CAST_RELEASE/openpose_front_three_quarter.png",
+    "fishing/FISHING_CAST_RELEASE/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "front_three_quarter",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "FISHING_FIGHT",
+   "sport": "fishing",
+   "technique": "fight",
+   "phase": "pumping",
+   "summary": "Angler fighting a fish with a spinning rod: rod butt against the belly, rod raised about 50-60 degrees and bent deeply, right hand on the fore grip, left hand cranking the reel, knees bent and leaning back.",
+   "names": {
+    "ko": [
+     "낚시 파이팅",
+     "고기 걸린 순간",
+     "낚싯대 휨",
+     "릴링 파이팅"
+    ],
+    "en": [
+     "fighting a fish",
+     "rod bent pumping",
+     "angler reeling in",
+     "fish on"
+    ]
+   },
+   "keywords": [
+    "fishing",
+    "angling",
+    "fight",
+    "reel",
+    "rod bent"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "IGFA Angling Regulations; Acts that disqualify a catch angler_alone",
+    "IGFA Acts that disqualify a catch rod_rest",
+    "IGFA Acts that disqualify a catch handline",
+    "IGFA Acts that disqualify a catch one_line",
+    "IGFA Equipment Regulations, Reels power_reel"
+   ],
+   "prompt_md": "fishing/FISHING_FIGHT/prompt.md",
+   "openpose": [
+    "fishing/FISHING_FIGHT/openpose_side.png",
+    "fishing/FISHING_FIGHT/openpose_front_three_quarter.png",
+    "fishing/FISHING_FIGHT/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "front_three_quarter",
+    "wide_cinema"
+   ]
+  },
+  {
    "code": "SOCCER_GOALKEEPER_DIVE",
    "sport": "soccer",
    "technique": "goalkeeper_dive",
@@ -819,6 +1299,200 @@
    "cameras": [
     "front",
     "low_three_quarter",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "TENNIS_FOREHAND",
+   "sport": "tennis",
+   "technique": "forehand",
+   "phase": "contact",
+   "summary": "Right-handed tennis forehand at contact from an open stance: feet parallel to the baseline, knees bent, hips and shoulders turned toward the net, ball met in front at waist height, left arm across the body.",
+   "names": {
+    "ko": [
+     "테니스 포핸드",
+     "포핸드 임팩트",
+     "오픈 스탠스 포핸드",
+     "테니스 스트로크"
+    ],
+    "en": [
+     "tennis forehand",
+     "forehand contact",
+     "open stance forehand",
+     "groundstroke"
+    ]
+   },
+   "keywords": [
+    "tennis",
+    "forehand",
+    "groundstroke",
+    "open stance"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "ITF 24 (i) ball_touches_player",
+    "ITF 24 (g) net_touch",
+    "ITF 24 (h), 25 reach_over",
+    "ITF 24 (e) double_hit"
+   ],
+   "prompt_md": "tennis/TENNIS_FOREHAND/prompt.md",
+   "openpose": [
+    "tennis/TENNIS_FOREHAND/openpose_net_view.png",
+    "tennis/TENNIS_FOREHAND/openpose_side.png",
+    "tennis/TENNIS_FOREHAND/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "net_view",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "TENNIS_SERVE_CONTACT",
+   "sport": "tennis",
+   "technique": "serve",
+   "phase": "contact",
+   "summary": "Right-handed tennis serve at ball contact: airborne, racket arm extended high, ball struck well above the head, left arm tucked in, shoulder over shoulder.",
+   "names": {
+    "ko": [
+     "테니스 서브 임팩트",
+     "서브 타점",
+     "테니스 서브 순간",
+     "서브 점프"
+    ],
+    "en": [
+     "tennis serve contact",
+     "serve impact",
+     "serve at full reach",
+     "tennis serve hit"
+    ]
+   },
+   "keywords": [
+    "tennis",
+    "serve",
+    "contact",
+    "airborne",
+    "impact"
+   ],
+   "sequence": {
+    "id": "TENNIS_SERVE",
+    "order": 2,
+    "phases": [
+     "TENNIS_SERVE_TROPHY",
+     "TENNIS_SERVE_CONTACT"
+    ]
+   },
+   "game_rules": [
+    "ITF 24 (i) ball_touches_player",
+    "ITF 24 (g) net_touch",
+    "ITF 24 (e) double_hit"
+   ],
+   "prompt_md": "tennis/TENNIS_SERVE_CONTACT/prompt.md",
+   "openpose": [
+    "tennis/TENNIS_SERVE_CONTACT/openpose_net_view.png",
+    "tennis/TENNIS_SERVE_CONTACT/openpose_side.png",
+    "tennis/TENNIS_SERVE_CONTACT/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "net_view",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "TENNIS_SERVE_TROPHY",
+   "sport": "tennis",
+   "technique": "serve",
+   "phase": "trophy",
+   "summary": "Right-handed tennis serve at the trophy position: side-on behind the baseline, knees bent, tossing arm straight up, racket arm cocked with the racket up behind the head, left shoulder higher.",
+   "names": {
+    "ko": [
+     "테니스 서브 트로피 자세",
+     "서브 준비 자세",
+     "토스 후 무릎 굽힘",
+     "테니스 서브 백스윙"
+    ],
+    "en": [
+     "tennis serve trophy position",
+     "serve toss",
+     "serve loading",
+     "tennis serve wind-up"
+    ]
+   },
+   "keywords": [
+    "tennis",
+    "serve",
+    "trophy",
+    "toss",
+    "baseline"
+   ],
+   "sequence": {
+    "id": "TENNIS_SERVE",
+    "order": 1,
+    "phases": [
+     "TENNIS_SERVE_TROPHY",
+     "TENNIS_SERVE_CONTACT"
+    ]
+   },
+   "game_rules": [
+    "ITF 16, 18 foot_fault",
+    "ITF 24 (g) net_touch",
+    "ITF 24 (e) double_hit"
+   ],
+   "prompt_md": "tennis/TENNIS_SERVE_TROPHY/prompt.md",
+   "openpose": [
+    "tennis/TENNIS_SERVE_TROPHY/openpose_net_view.png",
+    "tennis/TENNIS_SERVE_TROPHY/openpose_side.png",
+    "tennis/TENNIS_SERVE_TROPHY/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "net_view",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "TENNIS_TWO_HANDED_BACKHAND",
+   "sport": "tennis",
+   "technique": "backhand",
+   "phase": "contact",
+   "summary": "Right-handed tennis two-handed backhand at contact: right foot stepped forward, both hands on the grip (left above right), ball met in front of the front hip at waist height, arms nearly straight.",
+   "names": {
+    "ko": [
+     "테니스 양손 백핸드",
+     "투핸드 백핸드",
+     "백핸드 임팩트",
+     "테니스 백핸드"
+    ],
+    "en": [
+     "two-handed backhand",
+     "tennis backhand contact",
+     "double-handed backhand",
+     "backhand drive"
+    ]
+   },
+   "keywords": [
+    "tennis",
+    "backhand",
+    "two-handed",
+    "groundstroke"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "ITF 24 (i) ball_touches_player",
+    "ITF 24 (g) net_touch",
+    "ITF 24 (h), 25 reach_over",
+    "ITF 24 (e) double_hit"
+   ],
+   "prompt_md": "tennis/TENNIS_TWO_HANDED_BACKHAND/prompt.md",
+   "openpose": [
+    "tennis/TENNIS_TWO_HANDED_BACKHAND/openpose_net_view.png",
+    "tennis/TENNIS_TWO_HANDED_BACKHAND/openpose_side.png",
+    "tennis/TENNIS_TWO_HANDED_BACKHAND/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "net_view",
+    "side",
     "wide_cinema"
    ]
   },

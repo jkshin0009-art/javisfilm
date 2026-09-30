@@ -1,0 +1,224 @@
+{
+  "code": "TENNIS_SERVE_CONTACT",
+  "technique": "serve",
+  "phase": "contact",
+  "summary": "Right-handed tennis serve at ball contact: airborne, racket arm extended high, ball struck well above the head, left arm tucked in, shoulder over shoulder.",
+  "names": {
+    "ko": [
+      "테니스 서브 임팩트",
+      "서브 타점",
+      "테니스 서브 순간",
+      "서브 점프"
+    ],
+    "en": [
+      "tennis serve contact",
+      "serve impact",
+      "serve at full reach",
+      "tennis serve hit"
+    ]
+  },
+  "keywords": [
+    "tennis",
+    "serve",
+    "contact",
+    "airborne",
+    "impact"
+  ],
+  "sequence": {
+    "id": "TENNIS_SERVE",
+    "order": 2,
+    "phases": [
+      "TENNIS_SERVE_TROPHY",
+      "TENNIS_SERVE_CONTACT"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.88,
+    "hand": "right",
+    "roles": {
+      "r_arm": "racket arm",
+      "l_arm": "tucked tossing arm"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -35,
+      "tilt": 12,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 10,
+      "side": -22,
+      "rot": 15
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 150,
+      "plane": 60,
+      "rot": 20,
+      "elbow": 25,
+      "pron": 60,
+      "wrist": -5,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 45,
+      "plane": 110,
+      "rot": -40,
+      "elbow": 110,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "l_leg": {
+      "flex": 15,
+      "abd": 5,
+      "rot": 10,
+      "knee": 15,
+      "ankle": 45
+    },
+    "r_leg": {
+      "flex": -10,
+      "abd": 8,
+      "rot": 10,
+      "knee": 35,
+      "ankle": 45
+    }
+  },
+  "support": {
+    "airborne_m": 0.12
+  },
+  "objects": [
+    {
+      "name": "racket",
+      "kind": "racket",
+      "hand": "r",
+      "length_m": 0.685,
+      "head_m": [
+        0.32,
+        0.26
+      ],
+      "tilt_deg": 25
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.067,
+      "touch": "racket_face",
+      "relate": [
+        "racket_face"
+      ]
+    }
+  ],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "net_view",
+      "azimuth": 0,
+      "elevation": -4,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "From across the net, telephoto compression, racket strings sharp."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Side view along the baseline."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 6,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the player, court lines and net ahead, stadium blurred."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "max": 45,
+      "why": "elbow about 30 deg at contact, nearly straight",
+      "src": "META24"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 95,
+      "max": 165,
+      "why": "shoulder elevation about 111 deg (world-class arm abduction 101 deg)",
+      "src": "META24, FL03"
+    },
+    {
+      "m": "z:ball",
+      "min": 2.5,
+      "max": 2.95,
+      "why": "contact high above the head, about 1.4-1.55 x body height",
+      "src": "EST (Li Na 2.5 m = 1.48 x height)"
+    },
+    {
+      "m": "lowest_z",
+      "min": 0.05,
+      "why": "both feet off the ground at contact (jump about 12 cm)",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a right-handed tennis player hitting a serve at full reach, airborne",
+    "core": "Both feet off the court, legs extended and toes pointed; body rising and tilted so the right shoulder is above the left; right racket arm reaching up almost straight, racket face meeting the ball well above and slightly in front of the head; left arm folded into the chest.",
+    "gaze": "Eyes on the contact point.",
+    "cues": [
+      "hit up and out at full reach",
+      "shoulder over shoulder rotation",
+      "tossing arm folds in as the racket arm extends"
+    ],
+    "kinetic": [
+      "racket head motion blur, ball flattened on the strings",
+      "hair and shirt lifted by the jump",
+      "chalk dust at the baseline"
+    ],
+    "avoid": [
+      "racket without strings",
+      "two rackets",
+      "ball merged into the strings",
+      "left-handed player",
+      "bent racket arm at 90 degrees",
+      "ball behind the head"
+    ]
+  },
+  "ref_query": "tennis serve",
+  "sources": [
+    {
+      "id": "META24",
+      "cite": "Jacquier-Bret & Gorce 2024, meta-analysis of tennis serve kinematics (front knee 64.5 +/- 9.7 deg at trophy; shoulder elevation 110.7 +/- 16.9 deg and elbow 30.1 +/- 15.9 deg at contact) - search extract",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11260724/"
+    },
+    {
+      "id": "FL03",
+      "cite": "Fleisig et al. 2003: world-class servers, arm abduction 101 deg and trunk 48 deg above horizontal at contact, peak external rotation 172 deg",
+      "url": "https://research-repository.uwa.edu.au/en/publications/kinematics-used-by-word-class-tennis-players-to-produce-high-velo/"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "tennis"
+}

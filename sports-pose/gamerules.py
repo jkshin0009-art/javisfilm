@@ -19,6 +19,10 @@ Check kinds (all measured on the placed skeleton):
   facing           the chest faces a point within max_deg
   on_floor         the listed feet touch the floor
   higher_than      at least one of the points is above a reference point
+  all_above        every listed point is above a reference point (e.g. a punch above the belt)
+  near             a point lies within max_m of a target point (a kick landing on the trunk protector)
+  max_height       a point (plus its half size extent_m) stays below max_m above the floor
+  hand_shape       a hand has one of the allowed finger shapes (a punch lands with a closed fist)
   both_touch       every listed body point lies on the object's surface (within tol_m) at once
 """
 from __future__ import annotations
@@ -142,11 +146,14 @@ def run_check(sc, foul: Dict, rules: Dict) -> Tuple[Optional[bool], str]:
             line = sc.point(ck["line"])[0] + ck.get("tol_m", 0.0)
             bad = []
             for group in ck["groups"]:
-                near = []
+                near, far = [], []
                 for ref in group:
                     p, r = _point_or_object(sc, ref)
                     near.append(p[0] - r)
-                if min(near) > line:
+                    far.append(p[0] + r)
+                if ck.get("all") and max(far) > line:          # every point must stay behind the line
+                    bad.append(f"{'/'.join(group)} {100 * (max(far) - line):.0f} cm onto or past the line")
+                elif min(near) > line:
                     bad.append(f"{'/'.join(group)} {100 * (min(near) - line):.0f} cm past")
             return (not bad), ("; ".join(bad) or "all on the near side")
         if kind == "not_touching":
@@ -176,6 +183,19 @@ def run_check(sc, foul: Dict, rules: Dict) -> Tuple[Optional[bool], str]:
             ref = sc.point(ck["ref"])[2]
             top = max(sc.point(x)[2] for x in ck["points"])
             return top > ref, f"highest of {'/'.join(ck['points'])} {100 * (top - ref):+.0f} cm against the {ck['ref'].replace('_', ' ')}"
+        if kind == "all_above":
+            ref = sc.point(ck["ref"])[2] + ck.get("tol_m", 0.0)
+            low = min(sc.point(x)[2] for x in ck["points"])
+            return low >= ref, f"lowest of {'/'.join(ck['points'])} {100 * (low - ref):+.0f} cm against the {ck['ref'].replace('_', ' ')}"
+        if kind == "hand_shape":
+            shape = sc.body.pose[ck["hand"] + "_arm"].get("hand", "relaxed")
+            return shape in ck["allowed"], f"{ck['hand']} hand is {shape}"
+        if kind == "max_height":
+            top = sc.point(ck["point"])[2] + ck.get("extent_m", 0.0)
+            return top <= ck["max_m"], f"top of the {ck['point']} {top:.2f} m (limit {ck['max_m']} m)"
+        if kind == "near":
+            d = _dist(sc.point(ck["point"]), sc.point(ck["target"]))
+            return d <= ck["max_m"], f"{ck['point'].replace('_', ' ')} {d * 100:.0f} cm from {ck['target'].replace('_', ' ')}"
         if kind == "both_touch":
             c, r = _point_or_object(sc, ck["object"])
             gaps = [_dist(sc.point(x), c) - r for x in ck["points"]]

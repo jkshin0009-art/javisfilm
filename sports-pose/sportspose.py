@@ -268,6 +268,23 @@ class Body:
         for s in "rl":
             self._arm(s)
             self._leg(s)
+        self._trunk_surface()
+
+    def _trunk_surface(self) -> None:
+        """Points on the body surface that another athlete grips or strikes, or that touch the mat."""
+        P, H = self.points, self.h
+        pel, thx = self.frames["pelvis"], self.frames["thorax"]
+        spine = sub(P["neck"], P["pelvis"])
+        P["chest"] = comb((1, P["neck"]), (0.07 * H, thx.x), (-0.10 * H, thx.z))
+        P["belly"] = comb((1, P["pelvis"]), (0.35, spine), (0.075 * H, thx.x))
+        P["belt_front"] = comb((1, P["pelvis"]), (0.075 * H, pel.x), (0.03 * H, pel.z))
+        P["belt_back"] = comb((1, P["pelvis"]), (-0.065 * H, pel.x), (0.03 * H, pel.z))
+        P["sacrum"] = comb((1, P["pelvis"]), (-0.06 * H, pel.x), (-0.01 * H, pel.z))
+        P["back_upper"] = comb((1, P["neck"]), (-0.06 * H, thx.x), (-0.08 * H, thx.z))
+        for s, sg in SIDES.items():
+            P[s + "_lapel"] = comb((1, P["neck"]), (0.065 * H, thx.x), (-0.05 * H, thx.z), (sg * 0.05 * H, thx.y))
+            P[s + "_ribs"] = comb((1, P["pelvis"]), (0.45, spine), (sg * 0.085 * H, thx.y))
+            P[s + "_side"] = comb((1, P["pelvis"]), (0.2, spine), (sg * 0.09 * H, thx.y))
 
     def _head(self, look: Optional[Vec] = None) -> None:
         p = self.pose["head"]
@@ -285,9 +302,12 @@ class Body:
                 d = X
             rot_ = math.degrees(math.atan2(d[1], d[0]))
             flex = -math.degrees(math.asin(max(-1.0, min(1.0, d[2]))))
-            if abs(rot_) > 90:                     # target over the crown or behind: tip the head back instead
-                rot_ = math.copysign(180 - abs(rot_), rot_) * 0.5
-                flex = -75.0 if d[2] > 0 else 60.0
+            if abs(rot_) > 90:
+                if d[2] > 0.8:                     # target over the crown: tip the head back instead
+                    rot_ = math.copysign(180 - abs(rot_), rot_) * 0.5
+                    flex = -75.0
+                else:                              # target behind: turn as far as the neck goes, eyes do the rest
+                    rot_ = math.copysign(80.0, rot_)
             rot_ = max(-80.0, min(80.0, rot_))
             flex = max(-75.0, min(60.0, flex))
             p["rot"], p["flex"] = round(rot_, 1), round(flex, 1)
@@ -312,6 +332,12 @@ class Body:
             self.points[s + "_ear"] = at((r[0], sg * r[1], r[2]))
         self.vecs["head_fwd"] = hd.x
         self.vecs["head_up"] = hd.z
+        self.points["occiput"] = at((-0.06, 0.0, 0.0))
+        for s, sg in SIDES.items():
+            self.points[s + "_jaw"] = at((0.03, sg * 0.035, -0.045))
+            self.points[s + "_cheek"] = at((0.045, sg * 0.032, -0.008))
+            # where the fist sits in a glove held against the cheekbone (boxing, taekwondo guard)
+            self.points[s + "_guard"] = at((0.085, sg * 0.045, -0.035))
 
     def _arm(self, s: str) -> None:
         a = self.pose[s + "_arm"]
@@ -342,6 +368,8 @@ class Body:
         hl = self.L("hand")
         self.points[s + "_palm"] = add(add(wr, mul(hand_dir, 0.36 * hl)), mul(pn2, 0.012 * self.h))
         self.points[s + "_fingertip"] = add(wr, mul(hand_dir, hl))
+        self.points[s + "_sleeve"] = add(el_pt, mul(w, 0.15 * self.L("forearm")))
+        self.points[s + "_knuckles"] = add(wr, mul(hand_dir, 0.5 * hl))
         self.vecs[s + "_upper_arm"] = u
         self.vecs[s + "_forearm"] = w
         self.vecs[s + "_hand"] = hand_dir
@@ -419,6 +447,9 @@ class Body:
         self.points[s + "_ball"] = comb((1, ankle), (0.55 * fl, foot), (-ah, foot_up))
         self.points[s + "_toe"] = comb((1, ankle), (0.78 * fl, foot), (-0.75 * ah, foot_up))
         self.points[s + "_instep"] = comb((1, ankle), (0.32 * fl, foot), (-0.1 * ah, foot_up))
+        self.points[s + "_knee_back"] = add(knee, mul(pel.to_world(a_t), -0.035 * self.h))
+        self.points[s + "_knee_front"] = add(knee, mul(pel.to_world(a_t), 0.03 * self.h))
+        self.points[s + "_thigh_mid"] = add(hip, mul(t, 0.5 * self.L("thigh")))
         self.vecs[s + "_thigh"] = t
         self.vecs[s + "_shank"] = shank
         self.vecs[s + "_foot"] = foot
@@ -446,14 +477,25 @@ BALLS = {"volleyball": 0.21, "soccer": 0.22, "basketball": 0.24, "baseball": 0.0
 class Scene:
     """Body + support (floor contact or flight) + objects + environment, solved together."""
 
-    def __init__(self, asset: Dict):
+    def __init__(self, asset: Dict, parent: Optional["Scene"] = None):
         self.asset = asset
+        self.parent = parent
         ath = asset.get("athlete") or {}
         self.height = float(ath.get("height_m", 1.8))
         self.body = Body(asset.get("pose") or {}, self.height)
         self.objects: Dict[str, Dict] = {}
         self.env_points: Dict[str, Vec] = {}
         self.env: List[Dict] = list(asset.get("environment") or [])
+        self.partners: Dict[str, "Scene"] = {}
+        for pa in asset.get("partners") or []:     # other athletes in the same picture (opponent, uke ...)
+            sub_asset = {"code": f"{asset.get('code', 'X')}.{pa['id']}", "sport": asset.get("sport"),
+                         "technique": asset.get("technique"), "phase": asset.get("phase"),
+                         "athlete": pa.get("athlete") or {}, "pose": pa.get("pose") or {},
+                         "support": pa.get("support") or {"contacts": ["r_foot", "l_foot"]},
+                         "objects": pa.get("objects") or [], "ground": asset.get("ground"),
+                         "water_m": asset.get("water_m"), "role": pa.get("role", pa["id"]),
+                         "text": pa.get("text", "")}
+            self.partners[pa["id"]] = Scene(sub_asset, parent=self)
         for e in self.env:
             k = e.get("kind")
             if k == "net":
@@ -464,13 +506,31 @@ class Scene:
                                           float(e.get("height_m", 3.05)))
             elif k == "point":
                 self.env_points[e["name"]] = tuple(float(v) for v in e["at"])  # type: ignore[assignment]
-        self._place()
+        if parent is None:
+            for _ in range(3 if self.partners else 1):     # athletes that hold each other settle together
+                self._place()
+                for ps in self.partners.values():
+                    ps._place()
+            if self.partners:
+                self._place()
+
+    def people(self) -> List["Scene"]:
+        return [self] + list(self.partners.values())
 
     def ground(self, p: Vec) -> float:
         """Floor height under a point. Flat at 0 unless the asset gives a pitching mound:
         {"kind": "mound", "top_x_m": x where the flat top ends, "slope": 1/12, "drop_m": 0.254}."""
         g = self.asset.get("ground")
-        if not g or g.get("kind") != "mound":
+        if not g:
+            return 0.0
+        if g.get("kind") == "pool":                # in the water: the pool floor is far below
+            return float(self.asset.get("water_m") or 0.0) - float(g.get("depth_m", 2.5))
+        if g.get("kind") == "block":               # starting block over the water; nothing else to stand on
+            (x0, x1), (y0, y1) = g["x"], g["y"]
+            if x0 - 0.02 <= p[0] <= x1 + 0.02 and y0 - 0.02 <= p[1] <= y1 + 0.02:
+                return float(g["height_m"]) - max(0.0, p[0] - x0) * math.tan(math.radians(g.get("slope_deg", 0.0)))
+            return float(self.asset.get("water_m") or 0.0) - float(g.get("depth_m", 2.5))
+        if g.get("kind") != "mound":
             return 0.0
         x0 = float(g.get("top_x_m", 0.0))
         return -min(float(g.get("drop_m", 0.254)), max(0.0, p[0] - x0) * float(g.get("slope", 1 / 12)))
@@ -483,6 +543,14 @@ class Scene:
     def point(self, ref) -> Vec:
         if isinstance(ref, (list, tuple)):
             return (float(ref[0]), float(ref[1]), float(ref[2]))
+        if "." in ref:                             # A.r_wrist (main athlete), B.l_lapel (partner B)
+            who, rest = ref.split(".", 1)
+            if who == "A":
+                return self.parent.point(rest) if self.parent else self.point(rest)
+            if who in self.partners:
+                return self.partners[who].point(rest)
+            if self.parent and who in self.parent.partners:
+                return self.parent.partners[who].point(rest)
         b = self.body
         if ref in b.points:
             return b.points[ref]
@@ -501,6 +569,11 @@ class Scene:
         if ref in pairs:
             a, c = pairs[ref]
             return mul(add(b.points[a], b.points[c]), 0.5)
+        for suffix in ("_face", "_butt", "_seat", "_reel", "_fore", "_head"):
+            if ref.endswith(suffix) and ref[: -len(suffix)] in self.objects:
+                return self.objects[ref[: -len(suffix)]][suffix[1:]]
+        if self.parent is not None:                # a partner sees the main scene's objects and places
+            return self.parent.point(ref)
         raise KeyError(f"unknown point '{ref}'")
 
     def _object(self, o: Dict) -> Dict:
@@ -521,8 +594,71 @@ class Scene:
                        tip=add(knob, mul(d, L_)), sweet=add(knob, mul(d, L_ - float(o.get("sweet_from_tip_m", 0.16)))),
                        dir=d)
             return out
+        if o.get("kind") == "racket":              # tennis / badminton racket held in one hand
+            h = o.get("hand", "r")
+            palm, hd_, pn = b.points[h + "_palm"], b.vecs[h + "_hand"], b.vecs[h + "_palm_normal"]
+            thumb = b.vecs[h + "_thumb_side"]
+            if "yaw" in o or "pitch" in o:
+                yw, pt = math.radians(o.get("yaw", 0)), math.radians(o.get("pitch", 0))
+                d = (math.cos(pt) * math.cos(yw), math.cos(pt) * math.sin(yw), math.sin(pt))
+            else:                                  # the shaft leaves the hand between thumb and index finger
+                tilt = math.radians(o.get("tilt_deg", 40))
+                d = unit(comb((math.cos(tilt), hd_), (math.sin(tilt), thumb)))
+            L_ = float(o.get("length_m", 0.685))
+            head_len = float((o.get("head_m") or [0.32, 0.25])[0])
+            butt = add(palm, mul(d, -float(o.get("grip_from_butt_m", 0.07))))
+            fn = pn if o.get("face", "palm") == "palm" else mul(pn, -1)
+            fn = unit(sub(fn, mul(d, dot(fn, d))))
+            out.update(center=add(butt, mul(d, L_ - head_len / 2)), butt=butt, tip=add(butt, mul(d, L_)),
+                       face=add(butt, mul(d, L_ - head_len / 2)), head=add(butt, mul(d, L_ - head_len)),
+                       hand2=add(butt, mul(d, 0.17)), dir=d, face_normal=fn)
+            return out
+        if o.get("kind") == "rod":                 # fishing rod: straight butt section, bending tip section
+            if "yaw" in o or "pitch" in o:
+                yw, pt = math.radians(o.get("yaw", 0)), math.radians(o.get("pitch", 0))
+                d = (math.cos(pt) * math.cos(yw), math.cos(pt) * math.sin(yw), math.sin(pt))
+            else:
+                d = unit(sub(self.point(o["toward"]), self.point(o.get("hold", o.get("at")))))
+            L_ = float(o.get("length_m", 2.4))
+            seat_m = float(o.get("seat_m", 0.35))
+            if o.get("hold"):                      # the hand holds the reel seat
+                butt = add(self.point(o["hold"]), mul(d, -seat_m))
+            else:
+                off = o.get("offset_m", [0, 0, 0])
+                butt = add(self.point(o.get("at", "belly")), tuple(float(v) for v in off))  # type: ignore[arg-type]
+            bend_to = unit(sub(DOWN, mul(d, dot(DOWN, d)))) if abs(dot(d, DOWN)) < 0.99 else X
+            if o.get("bend_to"):
+                bt = tuple(float(v) for v in o["bend_to"])
+                bend_to = unit(sub(bt, mul(d, dot(bt, d))))  # type: ignore[arg-type]
+            bend = math.radians(float(o.get("bend_deg", 0.0)))
+            pts, cur, n = [butt], butt, 24
+            for i in range(n):                     # the bend grows toward the tip
+                u = (i + 0.5) / n
+                ang = bend * max(0.0, (u - 0.35) / 0.65) ** 2
+                seg_d = comb((math.cos(ang), d), (math.sin(ang), bend_to))
+                cur = add(cur, mul(seg_d, L_ / n))
+                pts.append(cur)
+            below = mul(bend_to, 1.0) if not o.get("baitcaster") else mul(bend_to, -1.0)
+            out.update(butt_len_m=round(seat_m, 3), tip_len_m=round(L_ - seat_m, 3))  # IGFA measures both from the reel
+            out.update(center=add(butt, mul(d, seat_m)), butt=butt, seat=add(butt, mul(d, seat_m)),
+                       reel=add(add(butt, mul(d, seat_m)), mul(below, 0.09)),
+                       fore=add(butt, mul(d, seat_m + 0.14)), tip=pts[-1], curve=pts, dir=d,
+                       line_to=self.point(o["line_to"]) if o.get("line_to") else None)
+            return out
+        if o.get("kind") == "shuttle":             # badminton shuttle: cork first along `dir`
+            off = o.get("offset_m", [0, 0, 0])
+            c = add(self.point(o.get("at", [0, 0, 0])), tuple(float(v) for v in off))  # type: ignore[arg-type]
+            dv = o.get("dir", [1, 0, 0])
+            out.update(center=c, dir=unit(tuple(float(v) for v in dv)))  # type: ignore[arg-type]
+            return out
         if "touch" in o:                           # a ball resting on a body surface
             t = o["touch"]
+            if t.endswith("_face") and t[:-5] in self.objects:        # on a racket's strings
+                rk = self.objects[t[:-5]]
+                sgn = -1.0 if o.get("touch_side") == "back" else 1.0
+                c = add(rk["face"], mul(rk["face_normal"], sgn * (r + 0.012)))
+                out["center"] = c
+                return out
             if t.endswith("_palm"):
                 c = add(b.points[t], mul(b.vecs[t[:-5] + "_palm_normal"], r + 0.005))
             elif t == "palms":
@@ -566,12 +702,20 @@ class Scene:
         elif "pelvis_z_m" in sup:                  # pelvis height given; the feet are placed by reach targets
             z = self._pel_z if sup["pelvis_z_m"] == "auto" else float(sup["pelvis_z_m"])
             dz = z - b.points["pelvis"][2]
+        elif "float" in sup:                       # swimming: a body point sits at a depth below the water line
+            fl = sup["float"]
+            water = float(self.asset.get("water_m") or 0.0)
+            dz = water - float(fl.get("depth_m", 0.0)) - b.points[fl.get("point", "pelvis")][2]
         else:
             cs: List[Vec] = []
             for c in sup.get("contacts", []):
                 cs += b.foot_points(c[0]) if c.endswith("_foot") else [b.points[c]]
             dz = -min(self.above_ground(p) for p in (cs or b.all_points()))
         xy = sup.get("root_xy", [0.0, 0.0])
+        if sup.get("root_from"):                   # stand relative to another athlete: [dx, dy] from their point
+            base = self.point(sup["root_from"])
+            off = sup.get("root_offset", [0.0, 0.0])
+            xy = [base[0] + float(off[0]), base[1] + float(off[1])]
         pel = b.points["pelvis"]
         b.shift((float(xy[0]) - pel[0], float(xy[1]) - pel[1], dz))
 
@@ -848,6 +992,9 @@ class Metrics:
     def get(self, name: str) -> float:
         if name in self.m:
             return self.m[name]
+        if "." in name.split(":")[0] and name.split(".", 1)[0] in self.sc.partners:     # B.r_knee_flex
+            who, rest = name.split(".", 1)
+            return Metrics(self.sc.partners[who]).get(rest)
         parts = name.split(":")
         if len(parts) == 3 and parts[0] in ("dist", "gap", "fwd", "left", "up"):
             a, b = self.sc.point(parts[1]), self.sc.point(parts[2])
@@ -878,10 +1025,64 @@ def fill(text: str, met: "Metrics") -> str:
 
 
 def validate(sc: Scene) -> List[Tuple[str, str]]:
+    issues = _validate_body(sc)
+    for pid, ps in sc.partners.items():            # the other athletes obey the same body checks
+        issues += [(lv, f"{pid}: {m}") for lv, m in _validate_body(ps)]
+    issues += overlap_issues(sc)
+    import gamerules
+    issues += [("error", e) for e in gamerules.evaluate(sc)["errors"]]
+    met = Metrics(sc)
+    for r in sc.asset.get("rules") or []:
+        try:
+            v = met.get(r["m"])
+        except KeyError as e:
+            issues.append(("error", f"rule {r['m']}: {e}"))
+            continue
+        lo, hi = r.get("min", -1e9), r.get("max", 1e9)
+        if not lo <= v <= hi:
+            issues.append(("error", f"rule {r['m']} = {v:.1f} not in {lo}..{hi} ({r.get('why', '')})"))
+    return issues
+
+
+# body parts that must not pass through another athlete's body (hands and forearms may grip)
+SOLID = ("trunk", "head", "r_thigh", "l_thigh", "r_shank", "l_shank", "r_upper_arm", "l_upper_arm")
+
+
+def overlap_issues(sc: Scene) -> List[Tuple[str, str]]:
+    """Two athletes may touch, but no solid body part may sink into the other body."""
+    if not sc.partners:
+        return []
+    import gamerules
+    out = []
+    tol = float(sc.asset.get("overlap_tol_m", 0.04))
+    people = [("A", sc)] + list(sc.partners.items())
+    for i in range(len(people)):
+        for j in range(i + 1, len(people)):
+            (na, a), (nb, b_) = people[i], people[j]
+            sa = [x for x in gamerules.segments(a) if x[0] in SOLID]
+            sb = [x for x in gamerules.segments(b_) if x[0] in SOLID]
+            worst = (1e9, "", "")
+            for n1, p1, q1, r1 in sa:
+                for n2, p2, q2, r2 in sb:
+                    d = min(gamerules.seg_point_dist(p2, q2, gamerules._lerp(p1, q1, k / 6)) for k in range(7))
+                    d = min(d, min(gamerules.seg_point_dist(p1, q1, gamerules._lerp(p2, q2, k / 6)) for k in range(7)))
+                    d -= r1 + r2
+                    if d < worst[0]:
+                        worst = (d, n1, n2)
+            if worst[0] < -tol:
+                out.append(("error", f"{na} {worst[1].replace('_', ' ')} sinks {-worst[0] * 100:.0f} cm into "
+                                     f"{nb} {worst[2].replace('_', ' ')} (bodies pass through each other)"))
+    return out
+
+
+def _validate_body(sc: Scene) -> List[Tuple[str, str]]:
     issues = check_rom(sc.body.pose)
     b = sc.body
     met = Metrics(sc)
     sup = sc.asset.get("support") or {"contacts": ["r_foot", "l_foot"]}
+    if "float" in sup or set(sup.get("contacts", [])) - {"r_foot", "l_foot"}:
+        # swimming or lying: the pelvis tilt is the body's orientation in the world, not a joint
+        issues = [i for i in issues if not i[1].startswith("pelvis.")]
     tol = 0.03
     for k, p in b.points.items():
         if sc.above_ground(p) < -tol:
@@ -889,7 +1090,7 @@ def validate(sc: Scene) -> List[Tuple[str, str]]:
     for s, hand in b.hands.items():
         if min(sc.above_ground(p) for p in hand) < -tol:
             issues.append(("error", f"{s} hand goes below the floor"))
-    if "airborne_m" not in sup:
+    if "airborne_m" not in sup and "float" not in sup:
         for c in sup.get("contacts", []):
             z = (min(sc.above_ground(p) for p in b.foot_points(c[0])) if c.endswith("_foot")
                  else sc.above_ground(b.points[c]))
@@ -906,17 +1107,6 @@ def validate(sc: Scene) -> List[Tuple[str, str]]:
             if abs(gap) > spec.get("tol_m", 0.03):
                 issues.append(("error", f"{limb} ends {gap * 100:.0f} cm from {spec['to']} "
                                         "(cannot reach it: move the object or change the start angles)"))
-    import gamerules
-    issues += [("error", e) for e in gamerules.evaluate(sc)["errors"]]
-    for r in sc.asset.get("rules") or []:
-        try:
-            v = met.get(r["m"])
-        except KeyError as e:
-            issues.append(("error", f"rule {r['m']}: {e}"))
-            continue
-        lo, hi = r.get("min", -1e9), r.get("max", 1e9)
-        if not lo <= v <= hi:
-            issues.append(("error", f"rule {r['m']} = {v:.1f} not in {lo}..{hi} ({r.get('why', '')})"))
     return issues
 
 
@@ -969,12 +1159,18 @@ class Camera:
         self.distance = hi
 
     def _frame_points(self, sc: Scene) -> List[Vec]:
-        pts = list(sc.body.all_points())
-        for o in sc.objects.values():
+        pts = [p for ps in sc.people() for p in ps.body.all_points()]
+        for o in [o for ps in sc.people() for o in ps.objects.values()]:
             if not o.get("in_frame", True):
                 continue
             if o.get("kind") == "bat":
                 pts += [o["knob"], o["tip"]]
+            elif o.get("kind") == "racket":
+                pts += [o["butt"], o["tip"]]
+            elif o.get("kind") == "rod":
+                pts += o["curve"][:: max(1, len(o["curve"]) // 6)] + [o["tip"]]
+            elif o.get("kind") == "shuttle":
+                pts.append(o["center"])
             elif o.get("kind") == "ball":
                 r = o.get("diameter_m", 0) / 2
                 c = o["center"]
@@ -1011,6 +1207,12 @@ class Camera:
 
 
 def keypoints(sc: Scene, cam: Camera) -> Dict:
+    """Keypoints of the main athlete (body, hands) and of everyone in the picture (people)."""
+    people = [person_keypoints(ps, cam) for ps in sc.people()]
+    return {**people[0], "people": people}
+
+
+def person_keypoints(sc: Scene, cam: Camera) -> Dict:
     b = sc.body
     P = b.points
     kp = []
@@ -1040,10 +1242,10 @@ def openpose_json(kp: Dict, cam: Camera) -> Dict:
     def flat(ps):
         return [round(v, 2) if c else 0 for x, y, c in ps for v in (x, y, c)]
     return {"canvas_width": cam.W, "canvas_height": cam.H,
-            "people": [{"pose_keypoints_2d": flat(kp["body"]),
-                        "hand_left_keypoints_2d": flat(kp["hands"]["l"]),
-                        "hand_right_keypoints_2d": flat(kp["hands"]["r"]),
-                        "face_keypoints_2d": []}]}
+            "people": [{"pose_keypoints_2d": flat(pk["body"]),
+                        "hand_left_keypoints_2d": flat(pk["hands"]["l"]),
+                        "hand_right_keypoints_2d": flat(pk["hands"]["r"]),
+                        "face_keypoints_2d": []} for pk in kp.get("people", [kp])]}
 
 
 def _ellipse_poly(p, q, half_w: float, n: int = 36) -> List[Tuple[float, float]]:
@@ -1062,6 +1264,12 @@ def draw_openpose(kp: Dict, W: int, H: int, hands: bool = True):
     d = ImageDraw.Draw(img)
     scale = max(1.0, min(W, H) / 512)
     stick = 4 * scale
+    for person in kp.get("people", [kp]):
+        _draw_person(d, person, scale, stick, hands)
+    return img
+
+
+def _draw_person(d, kp: Dict, scale: float, stick: float, hands: bool) -> None:
     body = kp["body"]
     for i, (a, b_) in enumerate(LIMBS):
         p, q = body[a - 1], body[b_ - 1]
@@ -1083,10 +1291,28 @@ def draw_openpose(kp: Dict, W: int, H: int, hands: bool = True):
             for x, y, c in pts:
                 if x == x:
                     d.ellipse([x - hr, y - hr, x + hr, y + hr], fill=(0, 0, 255))
-    return img
 
 
 # ---------------------------------------------------------------- preview sheet
+def _clip_segment(p0, p1, box):
+    """The part of the 2D segment p0-p1 inside box (x0, y0, x1, y1), or None (Liang-Barsky)."""
+    (x0, y0), (dx, dy) = p0, (p1[0] - p0[0], p1[1] - p0[1])
+    t0, t1 = 0.0, 1.0
+    for p, q in ((-dx, x0 - box[0]), (dx, box[2] - x0), (-dy, y0 - box[1]), (dy, box[3] - y0)):
+        if p == 0:
+            if q < 0:
+                return None
+            continue
+        t = q / p
+        if p < 0:
+            t0 = max(t0, t)
+        else:
+            t1 = min(t1, t)
+    if t0 > t1:
+        return None
+    return [(x0 + t0 * dx, y0 + t0 * dy), (x0 + t1 * dx, y0 + t1 * dy)]
+
+
 def draw_preview(sc: Scene, title: str, issues: List[Tuple[str, str]], cam_imgs: Sequence = ()):
     from PIL import Image, ImageDraw
     panel = 360
@@ -1103,7 +1329,9 @@ def draw_preview(sc: Scene, title: str, issues: List[Tuple[str, str]], cam_imgs:
            fill=(200, 0, 0) if bad else (0, 120, 0))
     b = sc.body
     P = b.points
-    allp = b.all_points() + [o["center"] for o in sc.objects.values()]
+    allp = [q for ps in sc.people() for q in ps.body.all_points()] + [o["center"] for o in sc.objects.values()]
+    for o in sc.objects.values():
+        allp += [o[k] for k in ("tip", "butt") if k in o]
     for i, (name, f) in enumerate(views):
         ox, oy = i * panel, 50
         xy = [f(p) for p in allp]
@@ -1125,6 +1353,14 @@ def draw_preview(sc: Scene, title: str, issues: List[Tuple[str, str]], cam_imgs:
             pts = [T((x, 0, sc.ground((x, 0, 0)))) for x in xs]
             pts = [(min(max(x, ox + 2), ox + panel - 2), y) for x, y in pts]
             d.line(pts, fill=(150, 110, 60), width=2)
+        if sc.asset.get("water_m") is not None and i < 2:
+            wz = T((P["pelvis"][0], P["pelvis"][1], float(sc.asset["water_m"])))
+            d.line([(ox + 2, wz[1]), (ox + panel - 2, wz[1])], fill=(60, 140, 230), width=2)
+        g = sc.asset.get("ground") or {}
+        if g.get("kind") == "block" and i == 1:
+            (x0, x1) = g["x"]
+            top0, top1 = T((x0, 0, g["height_m"])), T((x1, 0, sc.ground((x1, 0, 0))))
+            d.line([top0, top1], fill=(120, 120, 120), width=4)
         for e in sc.env:
             if e.get("kind") == "net" and i == 1:
                 x0 = e.get("x_m", 1.0)
@@ -1134,19 +1370,38 @@ def draw_preview(sc: Scene, title: str, issues: List[Tuple[str, str]], cam_imgs:
             if e.get("kind") == "rim" and i == 1:
                 c = T((e.get("x_m", 1.0), 0, e.get("height_m", 3.05)))
                 d.line([(c[0] - 0.23 * k, c[1]), (c[0] + 0.23 * k, c[1])], fill=(230, 90, 0), width=3)
-        segs = [("neck", "pelvis", (60, 60, 60)), ("neck", "head", (60, 60, 60)), ("r_hip", "l_hip", (60, 60, 60)),
-                ("r_shoulder", "l_shoulder", (60, 60, 60))]
-        for s, col in (("r", (220, 40, 40)), ("l", (40, 80, 220))):
-            segs += [(s + "_shoulder", s + "_elbow", col), (s + "_elbow", s + "_wrist", col),
-                     (s + "_wrist", s + "_fingertip", col), (s + "_hip", s + "_knee", col),
-                     (s + "_knee", s + "_ankle", col), (s + "_heel", s + "_toe", col), (s + "_ankle", s + "_heel", col)]
-        for a_, b_, col in segs:
-            d.line([T(P[a_]), T(P[b_])], fill=col, width=3)
-        hc = T(P["head"])
-        hr = 0.07 * sc.height * k
-        d.ellipse([hc[0] - hr, hc[1] - hr, hc[0] + hr, hc[1] + hr], outline=(60, 60, 60), width=2)
-        d.line([T(P["head"]), T(P["nose"])], fill=(0, 150, 0), width=2)
+        for pi, ps in enumerate(sc.people()):
+            PP = ps.body.points
+            dark = (60, 60, 60) if pi == 0 else (150, 150, 150)
+            segs = [("neck", "pelvis", dark), ("neck", "head", dark), ("r_hip", "l_hip", dark),
+                    ("r_shoulder", "l_shoulder", dark)]
+            cols = (("r", (220, 40, 40)), ("l", (40, 80, 220))) if pi == 0 else \
+                   (("r", (240, 160, 160)), ("l", (160, 180, 240)))
+            for s, col in cols:
+                segs += [(s + "_shoulder", s + "_elbow", col), (s + "_elbow", s + "_wrist", col),
+                         (s + "_wrist", s + "_fingertip", col), (s + "_hip", s + "_knee", col),
+                         (s + "_knee", s + "_ankle", col), (s + "_heel", s + "_toe", col), (s + "_ankle", s + "_heel", col)]
+            for a_, b_, col in segs:
+                d.line([T(PP[a_]), T(PP[b_])], fill=col, width=3)
+            hc = T(PP["head"])
+            hr = 0.07 * ps.height * k
+            d.ellipse([hc[0] - hr, hc[1] - hr, hc[0] + hr, hc[1] + hr], outline=dark, width=2)
+            d.line([T(PP["head"]), T(PP["nose"])], fill=(0, 150, 0), width=2)
         for o in sc.objects.values():
+            if o.get("kind") == "racket":
+                d.line([T(o["butt"]), T(o["tip"])], fill=(90, 90, 90), width=3)
+                hc_ = T(o["face"])
+                rr = 0.12 * k
+                d.ellipse([hc_[0] - rr, hc_[1] - rr, hc_[0] + rr, hc_[1] + rr], outline=(90, 90, 90), width=2)
+            elif o.get("kind") == "rod":
+                d.line([T(q) for q in o["curve"]], fill=(110, 70, 30), width=3)
+                if o.get("line_to"):               # the line runs far off the panel: cut it at the frame
+                    seg = _clip_segment(T(o["tip"]), T(o["line_to"]), (ox + 2, oy, ox + panel - 2, oy + panel - 4))
+                    if seg:
+                        d.line(seg, fill=(160, 160, 160), width=1)
+            elif o.get("kind") == "shuttle":
+                c_ = T(o["center"])
+                d.ellipse([c_[0] - 4, c_[1] - 4, c_[0] + 4, c_[1] + 4], outline=(230, 140, 0), width=2)
             c = T(o["center"])
             if o.get("kind") == "ball":
                 r = o.get("diameter_m", 0.2) / 2 * k
@@ -1270,9 +1525,21 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
     if "airborne_m" in sup:
         lines.append(f"- Airborne: lowest point of the body {sup['airborne_m'] * 100:.0f} cm above the floor; "
                      "neither foot touches the ground.")
+    elif "float" in sup:
+        wl = float(a.get("water_m") or 0.0)
+        above = [nice(k) for k in ("crown", "nose", "back_upper", "sacrum", "r_fingertip", "l_fingertip",
+                                   "r_heel", "l_heel") if P[k][2] > wl]
+        lines.append("- In the water: water line at the level of the " + nice(sup["float"].get("point", "pelvis"))
+                     + (f"; above the surface: {', '.join(above)}" if above else "; the whole body under the surface")
+                     + "; no contact with the pool floor.")
+    elif set(sup.get("contacts", [])) - {"r_foot", "l_foot"}:
+        parts = [nice(c) for c in sup.get("contacts", [])]
+        lines.append("- On the mat/floor: " + ", ".join(parts) + " rest on the surface.")
     else:
         lines.append(f"- Base: ankles {m['ankle_gap_m'] * 100:.0f} cm apart ({m['stride_pct_height']:.0f}% of body height, "
                      f"{m['stance_over_shoulders']:.1f}x shoulder width); every support foot touches the floor, none floats.")
+    for pid, ps in sc.partners.items():
+        lines += partner_lines(sc, pid, ps)
     for c in t.get("cues") or []:
         lines.append(f"- Technique cue: {F(c)}")
     lines += ["", "3. OBJECT_INTERACTION:"]
@@ -1283,6 +1550,25 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
             d = o["dir"]
             lines.append(f"- {o['name']} ({o.get('length_m', 0.84) * 100:.0f} cm): gripped at the handle, barrel pointing "
                          f"{dir_words(d, chest)}; sweet spot {o['sweet'][2]:.2f} m above the floor.")
+            continue
+        if o.get("kind") == "racket":
+            hand_ = "right" if o.get("hand", "r") == "r" else "left"
+            lines.append(f"- {o['name']} ({o.get('length_m', 0.685) * 100:.0f} cm long): gripped in the {hand_} hand, "
+                         f"shaft pointing {dir_words(o['dir'], chest)}, string face turned {dir_words(o['face_normal'], chest)}; "
+                         f"head centre {o['face'][2]:.2f} m above the floor; strings and frame clearly visible, one racket only.")
+            continue
+        if o.get("kind") == "rod":
+            reel = "baitcasting reel on top of the rod" if o.get("baitcaster") else "spinning reel hanging under the rod"
+            lines.append(f"- {o['name']} ({o.get('length_m', 2.4):.1f} m): {reel}; butt section pointing "
+                         f"{dir_words(o['dir'], chest)}, tip {o['tip'][2]:.2f} m above the floor"
+                         + (f", the upper third bent about {o.get('bend_deg'):.0f} deg under load" if o.get("bend_deg", 0) >= 10
+                            else ", nearly straight")
+                         + ("; the line runs from the tip " + ("down to the water" if o.get("line_to") else "")
+                            if o.get("line_to") else "") + ".")
+            continue
+        if o.get("kind") == "shuttle":
+            lines.append(f"- {o['name']}: feathered shuttlecock, cork leading, flying {dir_words(o['dir'], chest)}, "
+                         f"{o['center'][2]:.2f} m above the floor.")
             continue
         c = o["center"]
         txt = f"- {o['name']} ({o.get('diameter_m', 0) * 100:.0f} cm diameter): center {c[2]:.2f} m above the floor"
@@ -1336,6 +1622,35 @@ DEFAULT_AVOID = ["extra fingers", "missing fingers", "fused fingers", "extra lim
                  "extra arms", "extra legs", "backward-bending elbow", "backward-bending knee", "twisted torso",
                  "floating feet", "feet sinking into the floor", "distorted hands", "deformed anatomy",
                  "duplicated athlete"]
+
+
+def partner_lines(sc: Scene, pid: str, ps: Scene) -> List[str]:
+    """Compact description of another athlete in the picture, relative to the main athlete."""
+    pm = Metrics(ps)
+    P, Q = sc.body.points, ps.body.points
+    chest_a = Metrics(sc).chest_facing()
+    role = ps.asset.get("role", pid)
+    to_b = sub(Q["pelvis"], P["pelvis"])
+    face_b = pm.chest_facing()
+    rel = angle_between(face_b, (-to_b[0], -to_b[1], 0.0)) if length((to_b[0], to_b[1], 0)) > 0.05 else 0.0
+    facing = ("facing the main athlete" if rel < 45 else "turned side-on to the main athlete" if rel < 120
+              else "with the back to the main athlete")
+    sup = ps.asset.get("support") or {}
+    if "airborne_m" in sup:
+        ground = f"in the air, lowest point {sup['airborne_m'] * 100:.0f} cm up"
+    elif set(sup.get("contacts", [])) - {"r_foot", "l_foot"}:
+        ground = "lying with " + ", ".join(nice(c) for c in sup.get("contacts", [])) + " on the mat"
+    else:
+        ground = "both feet on the floor" if len(sup.get("contacts", [])) > 1 else             f"standing on the {nice(sup.get('contacts', ['r_foot'])[0]).replace(' foot', '')} foot"
+    txt = [f"- {pid} ({role}): {length((to_b[0], to_b[1], 0)) * 100:.0f} cm "
+           f"{dir_words(unit((to_b[0], to_b[1], 0.0)), chest_a)} of the main athlete, {facing}; "
+           f"trunk {abs(pm.m['trunk_lean_fwd']):.0f} deg {'forward' if pm.m['trunk_lean_fwd'] >= 0 else 'backward'} of vertical"
+           + (f", tilted {abs(pm.m['trunk_lean_right']):.0f} deg" if abs(pm.m['trunk_lean_right']) >= 10 else "")
+           + f"; knees {pm.m['r_knee_flex']:.0f}/{pm.m['l_knee_flex']:.0f} deg (right/left); "
+           f"elbows {pm.m['r_elbow_flex']:.0f}/{pm.m['l_elbow_flex']:.0f} deg; {ground}."]
+    if ps.asset.get("text"):
+        txt[0] += " " + fill(ps.asset["text"], Metrics(sc))
+    return txt
 
 
 def camera_words(c: Dict) -> str:

@@ -1,0 +1,61 @@
+{
+  "sport": "badminton",
+  "rulebook": {
+    "title": "BWF Laws of Badminton V5.0 (in force 26 April 2025; new Laws with 3x15 scoring from 4 January 2027, Law 9 unchanged per secondary sources)",
+    "short": "BWF",
+    "url": "https://extranet.bwf.sport/docs/document-system/81/1466/1470/Section%204.1%20-%20Laws%20of%20Badminton%20-%2026%20April%202025%20V5.0%20(2)%20.pdf",
+    "text_used": "search extracts and GitHub copies of the Laws (bwf.sport not reachable); fault numbers in Law 13 follow an older edition"
+  },
+  "dimensions": {
+    "court_m": {"doubles": [13.4, 6.1], "singles_width": 5.18, "rule": "1"},
+    "line_width_m": {"value": 0.04, "rule": "1", "note": "white or yellow, part of the area they bound"},
+    "net_m": {"centre_height": 1.524, "post_height": 1.55, "depth": 0.76, "mesh_mm": [15, 20], "top_tape_mm": 75, "rule": "1"},
+    "service_lines_m": {"short_from_net": 1.98, "doubles_long_inside_back": 0.76, "rule": "1"},
+    "racket_m": {"max_length": 0.68, "max_width": 0.23, "strung_max": [0.28, 0.22], "rule": "4"},
+    "shuttle": {"feathers": 16, "feather_length_mm": [62, 70], "tip_circle_mm": [58, 68], "cork_diameter_mm": [25, 28], "weight_g": [4.74, 5.5], "rule": "2"}
+  },
+  "equipment": [
+    {"id": "net_height", "env": "net", "field": "height_m", "value": 1.524, "tol": 0.01, "rule": "1 (1.524 m at the centre)"},
+    {"id": "racket_length", "object": "racket", "field": "length_m", "range": [0.5, 0.68], "rule": "4 (at most 680 mm)"}
+  ],
+  "scene": [
+    {"rule": "1", "text": "Court 13.40 x 6.10 m with 40 mm white or yellow lines; net 1.524 m high at the centre and 1.55 m at the posts, dark mesh with a 75 mm white top tape."},
+    {"rule": "17", "text": "Umpire on a high chair at one end of the net, service judge on a low chair at the opposite post, line judges behind or beside their lines; with the fixed-height rule a 1.15 m service-height device stands by the court."},
+    {"rule": "2, 4", "text": "Feathered shuttlecock with 16 white feathers and a cork base; one racket per player, strings in a crossed pattern."}
+  ],
+  "fouls": [
+    {"id": "service_height", "rule": "9.1.6", "title": "Service height",
+     "text": "At the instant of being hit by the server's racket the whole shuttle must be below 1.15 m from the court surface.",
+     "techniques": ["serve"],
+     "check": {"kind": "max_height", "point": "shuttle", "max_m": 1.15, "extent_m": 0.045},
+     "legal": "the whole shuttle is below 1.15 m when struck",
+     "avoid": ["serve struck above the waist"]},
+    {"id": "service_feet", "rule": "9.1.4", "title": "Server's feet",
+     "text": "Some part of both feet of the server and receiver must remain in contact with the court in a stationary position until the service is delivered.",
+     "techniques": ["serve"],
+     "check": {"kind": "on_floor", "feet": ["r_foot", "l_foot"]},
+     "legal": "both of the server's feet are on the court",
+     "avoid": ["server lifting a foot"]},
+    {"id": "service_base_first", "rule": "9.1.5", "title": "Base of the shuttle first",
+     "text": "The server's racket must initially hit the base (cork) of the shuttle.",
+     "techniques": ["serve"],
+     "legal": "the racket meets the cork first",
+     "avoid": ["racket hitting the feathers"]},
+    {"id": "net_touch", "rule": "13.4.1", "title": "Touching the net",
+     "text": "It is a fault if a player touches the net or its supports with the racket, person or dress while the shuttle is in play.",
+     "techniques": ["smash", "net_shot"],
+     "check": {"kind": "clear_of_net", "margin_m": 0.02, "net_band_m": 0.76},
+     "legal": "no contact with the net",
+     "avoid": ["racket touching the net"]},
+    {"id": "over_the_net", "rule": "13.4.2", "title": "Hitting over the net",
+     "text": "Invading the opponent's court over the net with racket or person is a fault, except following through after the contact was made on the striker's side.",
+     "techniques": ["smash", "net_shot"],
+     "check": {"kind": "not_beyond", "line": "net_top", "groups": [["shuttle"], ["racket_tip"]]},
+     "legal": "shuttle and racket are on the player's own side of the net",
+     "avoid": ["racket reaching over the net"]},
+    {"id": "sling", "rule": "13.3.7", "title": "Sling or double hit",
+     "text": "The shuttle may not be caught and held on the racket and then slung, nor hit twice in succession by the same player.",
+     "techniques": ["smash", "net_shot", "serve"],
+     "avoid": ["shuttle resting on the strings"]}
+  ]
+}

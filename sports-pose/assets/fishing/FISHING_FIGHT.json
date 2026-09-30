@@ -1,0 +1,250 @@
+{
+  "code": "FISHING_FIGHT",
+  "technique": "fight",
+  "phase": "pumping",
+  "summary": "Angler fighting a fish with a spinning rod: rod butt against the belly, rod raised about 50-60 degrees and bent deeply, right hand on the fore grip, left hand cranking the reel, knees bent and leaning back.",
+  "names": {
+    "ko": [
+      "낚시 파이팅",
+      "고기 걸린 순간",
+      "낚싯대 휨",
+      "릴링 파이팅"
+    ],
+    "en": [
+      "fighting a fish",
+      "rod bent pumping",
+      "angler reeling in",
+      "fish on"
+    ]
+  },
+  "keywords": [
+    "fishing",
+    "angling",
+    "fight",
+    "reel",
+    "rod bent"
+  ],
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "r_arm": "rod hand on the fore grip",
+      "l_arm": "reel hand on the handle"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -10,
+      "tilt": -8,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -8,
+      "side": 0,
+      "rot": 5
+    },
+    "head": {
+      "look_at": "fish"
+    },
+    "r_arm": {
+      "elev": 40,
+      "plane": 80,
+      "rot": 0,
+      "elbow": 80,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "rod_fore",
+        "w": 0.4
+      }
+    },
+    "l_arm": {
+      "elev": 30,
+      "plane": 100,
+      "rot": -10,
+      "elbow": 95,
+      "pron": 0,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "rod_reel",
+        "w": 0.4
+      }
+    },
+    "l_leg": {
+      "flex": 30,
+      "abd": 10,
+      "rot": 12,
+      "knee": 32,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            15,
+            45
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 15,
+      "abd": 12,
+      "rot": 18,
+      "knee": 30,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            15,
+            45
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "rod",
+      "kind": "rod",
+      "at": "belly",
+      "offset_m": [
+        0.04,
+        0.0,
+        -0.02
+      ],
+      "length_m": 2.3,
+      "seat_m": 0.35,
+      "yaw": 0,
+      "pitch": 55,
+      "bend_deg": 75,
+      "bend_to": [
+        1,
+        0,
+        -0.6
+      ],
+      "line_to": "fish"
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "fish",
+      "at": [
+        10.0,
+        0.4,
+        -0.8
+      ],
+      "text": "The line runs taut from the rod tip down into the water about 10 m out where the fish pulls."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view, the whole rod arc in frame against the sky."
+    },
+    {
+      "name": "front_three_quarter",
+      "azimuth": -40,
+      "elevation": -5,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Three-quarter front view from the water side, face and hands sharp."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": -150,
+      "elevation": 5,
+      "lens_mm": 24,
+      "fill": 0.55,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the angler over the water, golden hour light."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "min": 20,
+      "max": 50,
+      "why": "knees bent, body leaning back against the pull",
+      "src": "PAK, EST"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "max": 0,
+      "why": "leaning back with a straight back",
+      "src": "PAK"
+    }
+  ],
+  "text": {
+    "action": "an angler fighting a strong fish, pumping the bent rod",
+    "core": "Knees bent and body leaning back; rod butt tucked against the belly, rod raised about 55 degrees and bent deeply toward the fish; right hand on the fore grip above the reel, left hand turning the spinning reel handle under the rod; line taut to the water.",
+    "gaze": "Eyes on the line where it enters the water.",
+    "cues": [
+      "keep the rod at 45-60 degrees above the water",
+      "lift the rod, then reel while lowering it",
+      "smooth, small pumping strokes, never let the line go slack"
+    ],
+    "kinetic": [
+      "rod bending into a deep arc",
+      "line taut and cutting the water, spray where the fish pulls",
+      "forearm muscles tense"
+    ],
+    "avoid": [
+      "straight rod while fighting",
+      "slack line",
+      "line not ending in the water",
+      "reel on the wrong side"
+    ]
+  },
+  "ref_query": "fishing rod bent fish",
+  "sources": [
+    {
+      "id": "TMF",
+      "cite": "takemefishing.org: fight with the rod about 45 deg to the water, pump up toward vertical and reel while lowering; spinning reel hangs under the rod",
+      "url": "https://www.takemefishing.org/how-to-fish/how-to-catch-fish/how-to-reel-in-fish/"
+    },
+    {
+      "id": "PAK",
+      "cite": "Pakula: lifting past about 60 deg above horizontal gains no line; pressure position 45-60 deg (search extract)",
+      "url": "https://www.pakula.com.au/index.php/btl/ch-08-training/get-the-rod-out"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "fishing"
+}

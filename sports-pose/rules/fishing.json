@@ -1,0 +1,50 @@
+{
+  "sport": "fishing",
+  "rulebook": {
+    "title": "IGFA International Angling Rules (records and most sport-fishing tournaments)",
+    "short": "IGFA",
+    "url": "https://igfa.org/international-angling-rules/",
+    "text_used": "written from general knowledge of the IGFA rules; igfa.org was not reachable from this session, so the wording was not re-checked. References are section names (the IGFA rules are not numbered like a sports rulebook). Recreational fishing has no referee: these rules decide whether a catch counts."
+  },
+  "dimensions": {
+    "rod_tip_min_m": {"value": 1.016, "rule": "Equipment Regulations, Rods", "note": "40 in, measured from the point directly under the centre of the reel to the tip"},
+    "rod_butt_max_m": {"value": 0.686, "rule": "Equipment Regulations, Rods", "note": "27 in, from under the centre of the reel to the end of the butt; a curved butt is measured in a straight line"}
+  },
+  "equipment": [
+    {"id": "rod_tip_length", "object": "rod", "field": "tip_len_m", "range": [1.016, 6.0], "rule": "Equipment Regulations, Rods (tip at least 101.6 cm)"},
+    {"id": "rod_butt_length", "object": "rod", "field": "butt_len_m", "range": [0.0, 0.686], "rule": "Equipment Regulations, Rods (butt at most 68.6 cm)"}
+  ],
+  "scene": [
+    {"rule": "Angling Regulations", "text": "One angler per rod: from the strike until the fish is landed or released, only the angler touches the rod, reel and line."},
+    {"rule": "Angling Regulations", "text": "Fishing from a boat: helpers may take hold of the leader near the boat and gaff or net the fish, but never touch the rod, reel or main line."},
+    {"rule": "Equipment Regulations, Reels", "text": "Hand-cranked reel only; no electric, hydraulic or motor-driven reel."},
+    {"rule": "Equipment Regulations, Harnesses and rod belts", "text": "A rod belt (gimbal) or harness may take the butt; the rod does not rest on the gunwale, a rod holder or anything else while the fish is played."}
+  ],
+  "fouls": [
+    {"id": "angler_alone", "rule": "Angling Regulations; Acts that disqualify a catch", "title": "Angler fights the fish alone",
+     "text": "The angler must hook, fight and land or boat the fish without the aid of any other person; anyone else touching the rod, reel or line during the fight disqualifies the catch.",
+     "techniques": ["fight"],
+     "check": [{"kind": "near", "point": "r_palm", "target": "rod_fore", "max_m": 0.05},
+               {"kind": "near", "point": "l_palm", "target": "rod_reel", "max_m": 0.08}],
+     "legal": "the angler's own hands hold the rod and turn the reel",
+     "avoid": ["second person holding the rod", "helper pulling the line"]},
+    {"id": "rod_rest", "rule": "Acts that disqualify a catch", "title": "Rod resting on an object",
+     "text": "Resting the rod in a rod holder, on the gunwale or on any other object while playing the fish disqualifies the catch; the butt may sit in a rod belt or harness on the angler's body.",
+     "techniques": ["fight"],
+     "check": {"kind": "near", "point": "rod_butt", "target": "belly", "max_m": 0.12},
+     "legal": "the rod butt is tucked against the angler's own belly",
+     "avoid": ["rod resting on the railing", "rod left in a rod holder during the fight"]},
+    {"id": "handline", "rule": "Acts that disqualify a catch", "title": "Handlining",
+     "text": "Holding or lifting the fish with the line in the hand, or with a rope tied to the line or leader, disqualifies the catch; the fish is brought in with the rod and reel.",
+     "techniques": ["fight"],
+     "avoid": ["angler pulling the fishing line by hand", "line wrapped around the hand"]},
+    {"id": "one_line", "rule": "Acts that disqualify a catch", "title": "One line on the fish",
+     "text": "A fish hooked by more than one line does not count; one angler, one rod, one line.",
+     "techniques": ["fight", "cast"],
+     "avoid": ["two fishing lines from one rod", "several rods tangled on one fish"]},
+    {"id": "power_reel", "rule": "Equipment Regulations, Reels", "title": "Power-driven reel",
+     "text": "Power-driven reels of any kind (electric, hydraulic or motor-driven) are prohibited; the angler cranks the reel by hand.",
+     "techniques": ["fight", "cast"],
+     "avoid": ["electric reel with a power cable", "motorised reel"]}
+  ]
+}

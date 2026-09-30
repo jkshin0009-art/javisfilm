@@ -1,0 +1,226 @@
+{
+  "code": "FISHING_CAST_RELEASE",
+  "technique": "cast",
+  "phase": "release",
+  "summary": "Right-handed overhead cast at release: rod swept forward and stopped at 10 o'clock, rod arm extended toward the target, weight on the front foot, line shooting out toward the water.",
+  "names": {
+    "ko": [
+      "낚시 캐스팅 릴리스",
+      "캐스팅 던지는 순간",
+      "낚싯대 10시 방향",
+      "루어 던지기"
+    ],
+    "en": [
+      "fishing cast release",
+      "forward cast",
+      "rod at 10 o'clock",
+      "casting a lure"
+    ]
+  },
+  "keywords": [
+    "fishing",
+    "angling",
+    "cast",
+    "release",
+    "rod"
+  ],
+  "sequence": {
+    "id": "FISHING_CAST",
+    "order": 2,
+    "phases": [
+      "FISHING_CAST_BACK",
+      "FISHING_CAST_RELEASE"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "r_arm": "rod hand on the reel seat",
+      "l_arm": "second hand",
+      "l_leg": "front leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -8,
+      "tilt": 8,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 8,
+      "side": 0,
+      "rot": 8
+    },
+    "head": {
+      "look_at": "target"
+    },
+    "r_arm": {
+      "elev": 95,
+      "plane": 80,
+      "rot": 10,
+      "elbow": 30,
+      "pron": 20,
+      "wrist": 5,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 30,
+      "plane": 90,
+      "rot": -20,
+      "elbow": 90,
+      "pron": 0,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "rod_butt",
+        "w": 0.4
+      }
+    },
+    "l_leg": {
+      "flex": 20,
+      "abd": 6,
+      "rot": 10,
+      "knee": 20,
+      "ankle": "flat"
+    },
+    "r_leg": {
+      "flex": -12,
+      "abd": 8,
+      "rot": 25,
+      "knee": 10,
+      "ankle": "toes:25",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            0,
+            30
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "rod",
+      "kind": "rod",
+      "hold": "r_palm",
+      "length_m": 2.3,
+      "seat_m": 0.35,
+      "yaw": 0,
+      "pitch": 30,
+      "bend_deg": 12,
+      "line_to": "target"
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "target",
+      "at": [
+        18.0,
+        0.0,
+        -0.5
+      ],
+      "text": "Water about 0.5 m below the bank; the lure flies toward a spot 18 m out."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view, the whole rod arc in frame against the sky."
+    },
+    {
+      "name": "front_three_quarter",
+      "azimuth": -40,
+      "elevation": -5,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Three-quarter front view from the water side, face and hands sharp."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": -150,
+      "elevation": 5,
+      "lens_mm": 24,
+      "fill": 0.55,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the angler over the water, golden hour light."
+    }
+  ],
+  "rules": [
+    {
+      "m": "fwd:rod_tip:rod_seat",
+      "min": 150,
+      "why": "rod stopped in front at about 10 o'clock (30 deg above horizontal)",
+      "src": "DWR"
+    },
+    {
+      "m": "up:rod_tip:rod_seat",
+      "min": 60,
+      "max": 160,
+      "why": "rod tip still above the hand at release",
+      "src": "DWR"
+    }
+  ],
+  "text": {
+    "action": "an angler releasing an overhead cast, line shooting toward the water",
+    "core": "Weight shifted onto the left front foot, right heel lifting; right arm extended forward at shoulder height, rod stopped at the 10 o'clock position pointing toward the target; index finger just releasing the line; left hand pulling the butt in toward the belly.",
+    "gaze": "Eyes on the target.",
+    "cues": [
+      "release at 10 o'clock",
+      "follow through toward the target",
+      "keep the rod tip pointed at the target until the lure lands"
+    ],
+    "kinetic": [
+      "line streaking out in a thin arc from the rod tip",
+      "lure small and far over the water",
+      "rod tip vibrating after the stop"
+    ],
+    "avoid": [
+      "rod pointing down at the water",
+      "line not running from the tip",
+      "reel on top of a spinning rod"
+    ]
+  },
+  "ref_query": "fishing casting",
+  "sources": [
+    {
+      "id": "DWR",
+      "cite": "Utah DWR / Missouri Dept. of Conservation casting guides: stop the back cast at 1 o'clock, release at 10 o'clock, follow through at the target (search extract)",
+      "url": "https://mdc.mo.gov/fishing/get-started-fishing/casting"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "fishing"
+}

@@ -12,7 +12,7 @@ pytest.importorskip("PIL.Image")
 import gamerules as gr  # noqa: E402
 import sportspose as sp  # noqa: E402
 
-SPORTS = ("volleyball", "soccer", "baseball", "basketball")
+SPORTS = ("volleyball", "soccer", "baseball", "basketball", "tennis", "badminton", "fishing", "boxing")
 
 
 def result(asset, rule_id):

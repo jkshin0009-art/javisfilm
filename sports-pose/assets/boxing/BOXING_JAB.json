@@ -1,0 +1,367 @@
+{
+  "code": "BOXING_JAB",
+  "technique": "jab",
+  "phase": "extension",
+  "summary": "Orthodox boxer landing a jab: lead arm extended at shoulder height, fist turned palm down on the opponent's face, lead shoulder raised to protect the chin, rear glove guarding the chin.",
+  "names": {
+    "ko": [
+      "권투 잽",
+      "복싱 잽 펀치",
+      "잽 임팩트",
+      "리드 스트레이트"
+    ],
+    "en": [
+      "boxing jab",
+      "lead straight punch",
+      "jab landing",
+      "jab extension"
+    ]
+  },
+  "keywords": [
+    "boxing",
+    "jab",
+    "punch",
+    "straight"
+  ],
+  "sequence": {
+    "id": "BOXING_ONE_TWO",
+    "order": 1,
+    "phases": [
+      "BOXING_JAB",
+      "BOXING_CROSS"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "l_arm": "punching lead hand",
+      "r_arm": "rear hand guarding the chin"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -40,
+      "tilt": 8
+    },
+    "trunk": {
+      "flex": 8,
+      "side": 4,
+      "rot": -10
+    },
+    "head": {
+      "look_at": "B.nose"
+    },
+    "l_arm": {
+      "elev": 88,
+      "plane": 95,
+      "rot": 0,
+      "elbow": 8,
+      "pron": 85,
+      "wrist": 0,
+      "hand": "fist",
+      "reach": {
+        "to": "B.nose",
+        "w": 0.4,
+        "fix": [
+          "wrist"
+        ],
+        "range": {
+          "elbow": [
+            0,
+            20
+          ],
+          "rot": [
+            -60,
+            60
+          ],
+          "pron": [
+            60,
+            90
+          ]
+        }
+      }
+    },
+    "r_arm": {
+      "elev": 45,
+      "plane": 95,
+      "rot": -30,
+      "elbow": 130,
+      "pron": 25,
+      "wrist": 0,
+      "hand": "fist",
+      "reach": {
+        "to": "r_guard",
+        "w": 0.4,
+        "fix": [
+          "wrist"
+        ],
+        "tol_m": 0.03,
+        "range": {
+          "elev": [
+            15,
+            65
+          ],
+          "elbow": [
+            100,
+            145
+          ],
+          "pron": [
+            -10,
+            60
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 25,
+      "abd": 6,
+      "rot": 5,
+      "knee": 25,
+      "ankle": "flat"
+    },
+    "r_leg": {
+      "flex": -10,
+      "abd": 12,
+      "rot": 25,
+      "knee": 18,
+      "ankle": "toes:15",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            5,
+            35
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "partners": [
+    {
+      "id": "B",
+      "role": "opponent in orthodox guard",
+      "athlete": {
+        "height_m": 1.78
+      },
+      "support": {
+        "contacts": [
+          "l_foot",
+          "r_foot"
+        ],
+        "root_from": "A.pelvis",
+        "root_offset": [
+          1.1,
+          -0.1
+        ]
+      },
+      "pose": {
+        "pelvis": {
+          "yaw": 145,
+          "tilt": 6
+        },
+        "trunk": {
+          "flex": 6,
+          "rot": -5
+        },
+        "head": {
+          "flex": 15,
+          "side": 0,
+          "rot": 0
+        },
+        "r_arm": {
+          "elev": 45,
+          "plane": 95,
+          "rot": -30,
+          "elbow": 130,
+          "pron": 25,
+          "wrist": 0,
+          "hand": "fist",
+          "reach": {
+            "to": "r_guard",
+            "w": 0.4,
+            "fix": [
+              "wrist"
+            ],
+            "tol_m": 0.03,
+            "range": {
+              "elev": [
+                15,
+                65
+              ],
+              "elbow": [
+                100,
+                145
+              ],
+              "pron": [
+                -10,
+                60
+              ]
+            }
+          }
+        },
+        "l_arm": {
+          "elev": 45,
+          "plane": 95,
+          "rot": -30,
+          "elbow": 130,
+          "pron": 25,
+          "wrist": 0,
+          "hand": "fist",
+          "reach": {
+            "to": "l_guard",
+            "w": 0.4,
+            "fix": [
+              "wrist"
+            ],
+            "tol_m": 0.07,
+            "range": {
+              "elev": [
+                15,
+                65
+              ],
+              "elbow": [
+                100,
+                145
+              ],
+              "pron": [
+                -10,
+                60
+              ]
+            }
+          }
+        },
+        "l_leg": {
+          "flex": 22,
+          "abd": 6,
+          "rot": 5,
+          "knee": 22,
+          "ankle": "flat"
+        },
+        "r_leg": {
+          "flex": -8,
+          "abd": 12,
+          "rot": 25,
+          "knee": 20,
+          "ankle": "toes:12",
+          "reach": {
+            "to": "floor",
+            "point": "ball",
+            "fix": [
+              "rot"
+            ],
+            "range": {
+              "knee": [
+                8,
+                35
+              ]
+            }
+          }
+        }
+      },
+      "text": "Opponent in a high guard, gloves at the cheekbones, chin tucked."
+    }
+  ],
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "ringside",
+      "azimuth": -90,
+      "elevation": 3,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Ringside view across the ropes, both boxers in profile."
+    },
+    {
+      "name": "over_shoulder",
+      "azimuth": 170,
+      "elevation": 5,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Over the shoulder of the puncher, the opponent's face in focus."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -60,
+      "height_m": 0.9,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame from the canvas, ring lights and ropes above."
+    }
+  ],
+  "rules": [
+    {
+      "m": "l_elbow_flex",
+      "max": 20,
+      "why": "lead arm extended, soft not locked",
+      "src": "EST"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 115,
+      "why": "rear glove stays at the chin",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "an orthodox boxer landing a stiff jab on the opponent's face",
+    "core": "Left lead arm fully extended at shoulder height, fist turned palm down, knuckles on the opponent's face; left shoulder raised against the chin; right glove held at the right cheek; feet staggered, rear heel up.",
+    "gaze": "Eyes on the target through the gloves.",
+    "cues": [
+      "turn the jab over, palm down",
+      "lead shoulder protects the chin",
+      "return the punch along the line it went out"
+    ],
+    "kinetic": [
+      "sweat spraying off the opponent's head at impact",
+      "glove slightly compressed on contact",
+      "ring lights flaring"
+    ],
+    "avoid": [
+      "open hands inside the gloves",
+      "bent wrist at impact",
+      "gloves merged together",
+      "both feet together",
+      "chin up",
+      "southpaw stance",
+      "jab thrown with the right hand"
+    ]
+  },
+  "ref_query": "boxing jab",
+  "sources": [
+    {
+      "id": "ST18",
+      "cite": "Stanley et al. 2018: 3D punch kinematics of 15 amateur boxers (lead hook fastest fist 11.95 m/s; jab quickest)",
+      "url": "https://ideas.repec.org/a/taf/rpanxx/v18y2018i5p835-854.html"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard boxing coaching (no measured joint angle found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "boxing"
+}

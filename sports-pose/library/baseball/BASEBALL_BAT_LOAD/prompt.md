@@ -11,7 +11,7 @@ Right-handed batter loaded at stride-foot contact: side-on to the pitcher, weigh
 1. SYSTEM_INDEX_CODE: #BASEBALL_BAT_LOAD
 
 2. ANATOMICAL_BONES:
-- Gaze & head: head tilted down 60 deg, turned 44 deg to the athlete's left of the chest line; face pointing down and to the athlete's left. Both eyes on the pitcher's release point.
+- Gaze & head: head level, turned 80 deg to the athlete's left of the chest line; face pointing to the athlete's left. Both eyes on the pitcher's release point.
 - Torso: trunk line (hips to shoulders) 26 deg forward of vertical; shoulder line rotated 8 deg to the right of the hip line (hip-shoulder separation).
 - Right arm (rear arm, top hand): upper arm raised 113 deg from the side of the trunk, pointing forward and slightly to the athlete's right; elbow fully folded (118 deg flexion); forearm pointing to the athlete's left; palm facing forward and slightly to the athlete's left; wrist extended (cocked back) 29 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.26 m above the floor.
 - Left arm (lead arm, bottom hand on the bat): upper arm raised 43 deg from the side of the trunk, pointing down and slightly forward; elbow fully folded (114 deg flexion); forearm pointing up and slightly to the athlete's right and slightly forward; palm facing to the athlete's right and forward; wrist extended (cocked back) 34 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.32 m above the floor.
@@ -59,7 +59,7 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 
 ## Checks
 
-- warn: head.flex = 60 is beyond the usual range -65..56
+- warn: head.rot = 80 is beyond the usual range -75..75
 
 ## Sport rules (measured on this skeleton)
 
