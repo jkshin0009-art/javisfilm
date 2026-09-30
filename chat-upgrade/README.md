@@ -11,7 +11,7 @@ film_assistant의 챗봇(여러 인물이 대화하고, 사용자가 말하지 �
 | `chatup/voice.py` | 인물별·감정별 dots.tts 참조 음성 고르기, 말하는 중 끊기(끼어들기) | little-gemma-tools의 `--route-emotion`, voicecat 끼어들기 |
 | `chatup/llm.py` | 기존 LLM 서버 연결: 스트리밍, 취소, 멈춤 감지, 첫 토큰 확률 | 새로 작성(표준 라이브러리만) |
 | `chatup/loop.py` | 위 부품을 묶은 참고용 루프. 프로젝트 루프에는 필요한 부품만 옮겨 붙임 | little-gemma 자율 대화 데모의 상한 규칙 |
-| `chatup/julia.py` | **Julia-1 판단.** 프로젝트의 `tools/julia_router.py --serve`(5691)에 묻는 판단기. `Decider`와 쓰는 법이 같다. `cascade`는 Julia가 확신할 때만 Julia 답을 쓰고, 아니면 LLM에 묻는다 | SupersonicLabs Julia-1(Apache-2.0) |
+| `chatup/julia.py` | **Julia-1 판단.** 프로젝트의 `tools/julia_router.py --serve`(5691)에 묻는 판단기. `Decider`와 쓰는 법이 같다. `cascade`는 Julia가 확신할 때만 Julia 답을 쓰고, 아니면 LLM에 묻는다. **시험 결과 쓰지 않는다**(아래) | SupersonicLabs Julia-1(Apache-2.0) |
 | `chatup/bridge.py` | **프로젝트에 붙이는 관문.** 자리마다 off / observe / act 스위치, 오류·시간 초과면 원래 값 | 새로 작성 |
 | `python -m chatup probe` | 우리 LLM에서 판단이 제대로 되는지, 몇 ms 걸리는지 재는 점검 | |
 
@@ -100,5 +100,10 @@ speaker = jb.speaker(recent_lines, allowed, baseline=speaker)
 - 틀린 2건은 `should_speak`(p 0.51 / 0.52)였고, 기준 미만이라 원래 규칙으로 넘어갔을 경우다. 그래서 질문을 "대화 상태 고르기"로 바꿨다.
 - 판단 한 번에 median 1.2 s, max 3.1 s(순서 2개를 차례로 보낸 결과, MV 배치와 함께 돈 시간).
 - 두 순서를 동시에 보내 본 2차 점검(19건 모두 정답)은 median 1.8 s로 오히려 느렸다. 차례로 보내면 두 번째 요청이 첫 요청의 캐시(상태와 질문 부분)를 그대로 쓰는데, 동시에 보내면 서로 다른 슬롯에서 둘 다 처음부터 계산하기 때문이다. 그래서 기본값을 다시 차례로(`parallel=1`) 돌렸다.
+- 2026-09-30, **UD-Q4_K_S, 슬롯 2**로 바뀐 서버에서 다시 점검: **19/19 정답**, 기준 이상으로 확신한 19건 모두 정답, label mass 최소 0.96, 판단 한 번에 median 1.3 s, max 4.5 s.
+
+### Julia-1은 쓰지 않는다 (2026-09-30)
+
+같은 19건을 Julia-1(`--backend julia`)에 물었다. 한국어 11/19, 영어 8/19였다. 언어만 바꿔도 9건의 답이 뒤집혔다. 확신해서 답한 14건 중 맞은 것은 8건뿐이었다(두 언어 모두). 프로젝트 `agent_choose`의 그림자 기록 354건에서도 27B와 일치한 비율이 23%였고, Julia가 0.9 이상 확신한 경우에도 28%였다. `julia_router`의 호출 형식은 공식 형식(instructions + criteria)과 같아서 호출 쪽 잘못은 아니다. 그래서 판단은 지금처럼 LLM 첫 토큰 확률로 한다. `julia.py`는 기록으로 남겨 두며, 기본값(`llm`)에서는 불러오기만 하고 쓰지 않는다.
 
 `logs/decisions*.jsonl`에는 판단마다 상태·분포·답이 쌓입니다. 나중에 맞고 틀림을 표시하면 AnyJev의 L1/L2(보정, 가벼운 판단 머리)로 올릴 수 있는 재료가 됩니다. 로그에는 대화 내용이 들어가므로 git에 올리지 않습니다(`.gitignore`).
