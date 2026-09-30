@@ -23,10 +23,26 @@ IAMCCS-nodes(GPL-3.0, `iamccs_prompter.py`, `iamccs_minimax_h3_shotboard_core.py
 ```powershell
 python h3lint.py check work\h3_prompts.jsonl --frames 90 --chunk-ends 3.75,7.5 --report reports\H3LINT_CURRENT.md --details work\h3lint_details.jsonl
 python h3lint.py shape work\h3_prompts.jsonl --n 3      # 글자 없이 뼈대만: 제목, [Shot N], 태그, 시각, (N단어)
-python -m pytest -q tests      # 10 passed
+python -m pytest -q tests      # 15 passed (h3lint 10 + h3compose 5)
 ```
 
 입력은 `.txt`(프롬프트 하나), `.json`(문자열 목록이나 `prompt` 키가 있는 객체), `.jsonl`, 또는 이런 파일이 든 폴더다.
+
+## `h3compose.py`: H3 프롬프트를 만드는 한 곳
+
+LLM은 내용 칸(장면, 시간별 동작, 연기, 카메라, 빛, 소리, 음악, 요약)만 JSON으로 채운다. 규격 문자열은 코드가 조립한다.
+
+- 인물은 `<Subject N>`으로만 부른다(he/she 금지). 성별과 외형은 캐스트 장부에서 받아 `subject_definitions`에 쓴다.
+- 대사는 주어진 글 그대로 `<Subject N> (SN): <d>[Korean] …</d>`로, 말하는 시각이 속한 동작 줄에 넣는다.
+- 한 클립에는 한 구도만. 사실(facts)에 구도가 둘이면 LLM은 `{"split": [...]}`로 답하고, 부른 쪽이 클립을 나눈다.
+- 조립한 뒤 h3lint 규칙, 클립 규칙(17k+5, 동작 시각, 조각 경계 1초), 그리고 원하면 Jev 뜻 질문(한 클립에 두 구도? 카메라가 구도와 안 맞나?)으로 검사한다. 어기면 이유를 붙여 최대 3번까지 다시 쓰게 한다.
+- 입력 `shot` = `{mode: base|i2v|ref, frames, subjects:[{look, gender, picture}], lipsync_audio, final_chunk, continues_previous, sections:{dialogue:[{subject, lang, text, start}]}}`, `facts` = 컷의 사실(비트, 장소, 시간, 카메라 힌트 등).
+
+```powershell
+python h3compose.py try work\cut01.json --judge --out work
+ew     # {shot, facts} 하나로 새 프롬프트 만들기
+python -m pytest -q tests                                            # 15 passed
+```
 
 ## 순서
 
