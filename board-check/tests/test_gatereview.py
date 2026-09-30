@@ -1,0 +1,94 @@
+import json
+import os
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(HERE))
+
+import gatereview as gr  # noqa: E402
+
+
+def gate(d, name, verdict, axes, frame=None, image=True):
+    p = d / f"{name}.gate.json"
+    p.write_text(json.dumps({"at": "t", "axes": axes, "error": None, "verdict": verdict,
+                             "frame": frame if frame is not None else f"{name}.png"}), encoding="utf-8")
+    if image:
+        (d / f"{name}.png").write_bytes(b"\x89PNG\r\n\x1a\n")
+    return p
+
+
+def make_root(tmp_path):
+    d = tmp_path / "gates"
+    d.mkdir()
+    for i in range(6):
+        gate(d, f"off{i}", "FAIL", {"offfloor": {"value": 30, "limit": 10, "pass": False, "reason": "feet up"},
+                                    "hands_ok": {"pass": True}, "count": True})
+    for i in range(3):
+        gate(d, f"legs{i}", "FAIL", {"legs_ok": {"pass": False}, "offfloor": {"pass": True}})
+    for i in range(4):
+        gate(d, f"unm{i}", "FAIL", {"scale_grounding_ok": {"pass": None}, "offfloor": {"pass": True},
+                                    "seat_order": {"na": True}})
+    for i in range(2):
+        gate(d, f"ok{i}", "PASS", {"offfloor": {"pass": True}, "hands_ok": {"pass": True, "observe": True}})
+    gate(d, "noimg", "FAIL", {"offfloor": {"pass": False}}, frame="missing.png", image=False)
+    (d / "broken.gate.json").write_text("{", encoding="utf-8")
+    return d
+
+
+def test_stats_categories(tmp_path):
+    cuts = gr.load(make_root(tmp_path))
+    cats = [c["category"] for c in cuts]
+    assert cats.count("defect") == 10 and cats.count("unmeasured_only") == 4 and cats.count("pass") == 2
+    assert cats.count("unreadable") == 1
+    text = gr.stats_text(cuts)
+    assert "| offfloor | 9 | 7 | 0 | 0 | 0 |" in text
+    assert "| scale_grounding_ok | 0 | 0 | 4 | 0 | 0 |" in text
+    assert "| hands_ok | 8 | 0 | 0 | 0 | 2 |" in text
+    assert "only unmeasured ones: 4" in text
+
+
+def test_image_lookup(tmp_path):
+    d = tmp_path / "g"
+    d.mkdir()
+    imgs = tmp_path / "frames" / "deep"
+    imgs.mkdir(parents=True)
+    (imgs / "shot7.png").write_bytes(b"x")
+    g = gate(d, "a", "FAIL", {}, frame="C:/elsewhere/shot7.png", image=False)
+    assert gr.find_image(g, "C:/elsewhere/shot7.png", None, {}) is None
+    cuts = gr.load(d, image_root=tmp_path / "frames")
+    assert cuts[0]["image"] == (imgs / "shot7.png").resolve()
+    base = tmp_path
+    assert gr.find_image(g, "frames/deep/shot7.png", base, {}) == (imgs / "shot7.png").resolve()
+
+
+def test_sample_page_and_score(tmp_path, capsys):
+    root = make_root(tmp_path)
+    out = tmp_path / "work"
+    assert gr.main(["sample", "--root", str(root), "--out", str(out), "--per-axis", "4",
+                    "--unmeasured", "2", "--passed", "2"]) == 0
+    data = json.loads((out / "rows.json").read_text(encoding="utf-8"))
+    rows = data["rows"]
+    kinds = [(r["kind"], r["axis"]) for r in rows]
+    assert kinds.count(("axis", "offfloor")) == 4 and kinds.count(("axis", "legs_ok")) == 3
+    assert kinds.count(("unmeasured", "")) == 2 and kinds.count(("pass", "")) == 2
+    assert len({r["gate"] for r in rows}) == len(rows)
+    page = (out / "gate_review.html").read_text(encoding="utf-8")
+    assert page.count('class="card"') == len(rows) and "gate_votes.csv" in page
+    votes = tmp_path / "gate_votes.csv"
+    lines = ["id,answer"]
+    for r in rows:
+        if r["axis"] == "offfloor":
+            lines.append(f"{r['id']},{'defect' if r['id'] == rows[0]['id'] else 'clean'}")
+        elif r["axis"] == "legs_ok":
+            lines.append(f"{r['id']},defect")
+        elif r["kind"] == "unmeasured":
+            lines.append(f"{r['id']},clean")
+        else:
+            lines.append(f"{r['id']},")
+    votes.write_text("\ufeff" + "\n".join(lines), encoding="utf-8")
+    assert gr.main(["score", "--out", str(out), "--csv", str(votes)]) == 0
+    text = (out / "GATE_SCORE.md").read_text(encoding="utf-8")
+    assert "| offfloor | 4 | 1 | 3 | 0 | 25%" in text and "표본 부족" in text
+    assert "| legs_ok | 3 | 3 | 0 | 0 | 100%" in text
+    assert "clean share: 100%" in text
+    assert "feet up" not in text                         # the report carries no gate reasons

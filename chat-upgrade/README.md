@@ -54,10 +54,11 @@ Jev 자체는 클라우드 API라서 로컬 영화 프로젝트에는 맞지 않
 
 ```powershell
 cd C:\Users\Administrator\Desktop\film_assistant\javisfilm\chat-upgrade
-python -m pytest -q tests                                   # 76 passed
+python -m pytest -q tests                                   # 77 passed
 python -m chatup probe --url http://127.0.0.1:5678 --report reports\CHAT_PROBE.md
 python -m chatup probe --backend julia --report reports\CHAT_PROBE_JULIA.md     # 같은 19건을 Julia로
 python -m chatup probe --backend cascade --report reports\CHAT_PROBE_CASCADE.md # Julia, 모르면 LLM
+python -m chatup probe --backend julia --lang en --report reports\CHAT_PROBE_JULIA_EN.md  # 같은 19건을 영어로
 python -m chatup chat --url http://127.0.0.1:5678 --show-decisions   # 예시 인물 3명, 글자만
 python -m chatup voices --bank D:\voices --personas hana,doyun      # 참조 음성 폴더 점검
 ```

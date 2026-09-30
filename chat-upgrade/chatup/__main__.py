@@ -94,6 +94,111 @@ def probe_cases():
     ]
 
 
+ROSTER_EN = "Hana: cinematographer\nDoyun: screenwriter\nMirae: location manager"
+NAMES_EN = ["Hana", "Doyun", "Mirae"]
+EVERYONE_EN = "Everyone / no one in particular"
+WAITING_EN = "A character asked the user something and is waiting for the user's answer"
+ONGOING_EN = "The characters were in the middle of a discussion and still have things to say"
+STATES_EN = (WAITING_EN, ONGOING_EN, "One topic has wrapped up; it is time to bring up a new one",
+             "The user asked everyone to take a break or be quiet")
+ACTIONS_EN = ("Keep the conversation going", "Make an image of the scene being discussed",
+              "Save the idea just mentioned as a screenplay note", "Ask the user for their opinion")
+EMOTIONS = ["neutral", "happy", "sad", "angry"]
+
+
+def probe_cases_en():
+    """The same 19 cases in English, asked straight to the decider. Tells apart
+    "the backend cannot judge" from "the backend cannot judge Korean"."""
+    from chatup.judge import Verdict, _group_verdict, _noul_verdict
+    from chatup.decide import Question
+
+    def state(lines, extra=""):
+        body = "\n".join(f"{w}: {t}" for w, t in lines)
+        return f"Characters:\n{ROSTER_EN}\n\nRecent conversation:\n{body}" + (f"\n\n{extra}" if extra else "")
+
+    def choice(lines, text, opts, th, extra=""):
+        def run(j):
+            d = j.decider.decide(state(lines, extra), Question.choice(text, opts))
+            return Verdict(d.accept(th), d)
+        return run
+
+    def noul(lines, text, th):
+        def run(j):
+            d = j.decider.decide(state(lines), Question.noul(text))
+            return Verdict(_noul_verdict(d, th), d)
+        return run
+
+    def conv_state(lines):
+        def run(j):
+            q = Question.choice("Looking at the recent conversation, pick the state it is in. What matters most "
+                                "is whose line came last and how it ended.", STATES_EN)
+            d = j.decider.decide(state(lines, "(The user has been silent for 12 seconds.)"), q)
+            return Verdict(_group_verdict(d, STATES_EN[1:3], 0.6), d)
+        return run
+
+    base = [("User", "Let's talk about getting ready for next week's shoot."),
+            ("Hana", "I've packed almost all of the lighting gear.")]
+    ask_doyun = base + [("Hana", "Doyun, how far along are the script changes?")]
+    nxt = ("Given the flow of the conversation, who would most naturally speak next? Prefer the person who was "
+           "asked a question, whose name was called, or who clearly has something to say.")
+    addr = "Who was the user's last line meant for?"
+    img = ("Is the user's last line a request to draw and show a new picture (image)? Words like 'scene' or "
+           "'show' do not make it a picture request.")
+    route = "What is the most suitable thing for this chat program to do right now?"
+    emo = "Which emotion best fits saying the last line out loud?"
+    return [
+        ("next_speaker: name called", "Doyun", choice(ask_doyun, nxt, NAMES_EN, 0.55)),
+        ("next_speaker: reversed order", "Doyun", choice(ask_doyun, nxt, NAMES_EN[::-1], 0.55)),
+        ("next_speaker: location question", "Mirae",
+         choice(base + [("Doyun", "Have we picked the beach location? Mirae was going to look into it.")],
+                nxt, NAMES_EN, 0.55)),
+        ("addressed: one person", "Hana",
+         choice(base + [("User", "Hana, besides lighting, which camera are you using?")], addr,
+                NAMES_EN + [EVERYONE_EN], 0.6)),
+        ("addressed: everyone", EVERYONE_EN,
+         choice(base + [("User", "What does everyone want for dinner tonight?")], addr, NAMES_EN + [EVERYONE_EN], 0.6)),
+        ("should_speak: after asking the user", WAITING_EN,
+         conv_state(base + [("Doyun", "So, would you prefer an open ending or a closed ending?")])),
+        ("should_speak: pause in a discussion", ONGOING_EN,
+         conv_state(base + [("Mirae", "There are two beach candidates, but"),
+                            ("Doyun", "both have pros and cons, so we haven't picked one yet.")])),
+        ("wants_stop: be quiet", "Yes",
+         noul(base + [("User", "Hold on, everyone be quiet for a second. I need to take a call.")],
+              "In their last line, does the user ask to stop the conversation, be quiet, or stop?", 0.8)),
+        ("wants_stop: keep going", "No",
+         noul(base + [("User", "Good, keep going with that.")],
+              "In their last line, does the user ask to stop the conversation, be quiet, or stop?", 0.8)),
+        ("stuck: repeating", "Yes",
+         noul([("Hana", "Yeah, right."), ("Doyun", "Yes, right, right."), ("Mirae", "I mean, right."),
+               ("Hana", "Yeah, that's right."), ("Doyun", "Yes, right."), ("Mirae", "Right, yeah.")],
+              "Is the recent conversation repeating itself or going in circles with nothing new?", 0.7)),
+        ("stuck: moving along", "No",
+         noul(base + [("Mirae", "The beach candidates are Gangneung and Taean."),
+                      ("Doyun", "Then I'll move the script's dawn scene to Gangneung.")],
+              "Is the recent conversation repeating itself or going in circles with nothing new?", 0.7)),
+        ("wants_image: draw it", "Yes",
+         noul(base + [("User", "That dawn beach scene you just described, draw it as a picture for me.")], img, 0.8)),
+        ("wants_image: 'scene' in a question", "No",
+         noul(base + [("User", "In scene 3, why did Doyun get angry?")], img, 0.8)),
+        ("wants_image: 'show' in a request", "No",
+         noul(base + [("User", "Show me the line you just revised one more time.")], img, 0.8)),
+        ("route: picture request", ACTIONS_EN[1],
+         choice(base + [("User", "That dawn beach scene you mentioned, show me what it feels like as a picture.")],
+                route, ACTIONS_EN, 0.7)),
+        ("route: small talk", ACTIONS_EN[0],
+         choice(base + [("User", "Hana, did you have lunch today?")], route, ACTIONS_EN, 0.7)),
+        ("emotion: good news", "happy",
+         choice([("Hana", "Really? Our film made the festival finals? That's wonderful!")], emo, EMOTIONS, 0.5)),
+        ("emotion: sad news", "sad",
+         choice([("Doyun", "After hearing that, I couldn't do anything all day. I feel so empty.")], emo, EMOTIONS, 0.5)),
+        ("reply_bad: repeats the line before", "Yes",
+         noul(base + [("Mirae", "The beach candidates are Gangneung and Taean."),
+                      ("Doyun", "The beach candidates are Gangneung and Taean.")],
+              "Does Doyun's reply in the last line repeat what was already said, speak other people's lines, "
+              "or have nothing to do with the flow?", 0.8)),
+    ]
+
+
 def cmd_probe(a) -> int:
     client = LLMClient(a.url, model=a.model, api_key=a.api_key, thinking_off=not a.thinking_on,
                        timeout=a.timeout)
@@ -106,7 +211,7 @@ def cmd_probe(a) -> int:
     judge = ConversationJudge(decider, roster=ROSTER)
     rows = []
     t_start = time.time()
-    for name, expected, fn in probe_cases():
+    for name, expected, fn in (probe_cases_en() if a.lang == "en" else probe_cases()):
         try:
             v = fn(judge)
         except LLMError as e:
@@ -128,7 +233,8 @@ def cmd_probe(a) -> int:
     acted_ok = sum(1 for r in rows if r[4] is not None and r[3])
     backend = a.backend if a.backend == "llm" else f"{a.backend} ({a.julia_url}, trust {a.trust})"
     summary = [
-        f"backend: {backend}   server: {a.url}   thinking_off: {not a.thinking_on}   rotations: {a.rotations}",
+        f"backend: {backend}   lang: {a.lang}   server: {a.url}   thinking_off: {not a.thinking_on}   "
+        f"rotations: {a.rotations}",
         f"accuracy: {n_ok}/{len(rows)}   levels: {', '.join(f'{k} x{v}' for k, v in by_level.items())}",
         f"acted above threshold: {acted}/{len(rows)} (right when acted: {acted_ok}/{acted})",
         f"decision ms: median {statistics.median(ms):.0f}, max {max(ms):.0f}   total {total:.1f} s",
@@ -281,6 +387,7 @@ def main(argv=None) -> int:
                    help="llm: the LLM at --url; julia: Julia-1 at --julia-url; cascade: julia, llm when unsure")
     p.add_argument("--julia-url", default=JULIA_URL, help="tools/julia_router.py --serve")
     p.add_argument("--trust", type=float, default=0.9, help="cascade: julia answers alone at or above this p")
+    p.add_argument("--lang", default="ko", choices=("ko", "en"), help="en: the same cases in English")
     p.set_defaults(fn=cmd_probe)
 
     p = sub.add_parser("chat")

@@ -20,6 +20,15 @@
   - `logprobs`: 지금 5678 서버에서 바로 됩니다.
   - `decision`: graydini/llama.cpp의 `/decision` 빌드가 있으면 모든 질문을 한 번에 계산해 훨씬 빠릅니다. 요청 형식은 코드로 확인해 맞췄습니다(`instructions`, `schema`, `contexts`, `images`).
 
+## 기존 검수기(frame_gate) 채점: `gatereview.py`
+
+frame_gate는 339컷 중 312컷을 실패시킨다. 사람 판정과 연결된 기록이 없어서, 그중 몇 개가 진짜 결함인지 아무도 모른다. 이 도구는 사람에게 한 컷씩 물어 **축마다 검수기가 맞은 비율**을 낸다. 서버는 쓰지 않는다.
+
+- `stats --root <gate.json 폴더>`: PASS / 결함 발견 FAIL / 측정 못 함만으로 FAIL / 오류 개수, 축별 통과·실패·미측정·해당없음
+- `sample --root <폴더> --out work\gate_review`: 가장 많이 실패시킨 축 5개에서 10컷씩, 측정 못 함만으로 실패한 컷 10, 통과한 컷 10을 골라 `gate_review.html`을 만든다. 그림만 보고 `1` 결함 있음 / `2` 멀쩡함 / `3` 모르겠음. 70컷에 5~10분.
+- `score --out work\gate_review --csv gate_votes.csv`: 축마다 맞은 비율과 권고(80% 이상 그대로 막기 / 50~80% 사람 확인 목록 / 50% 미만 막기에서 빼기). `GATE_SCORE.md`에는 축 이름과 개수만 들어간다.
+- 그림 경로를 못 찾으면 `--base <프로젝트 폴더>` 또는 `--image-root <그림 폴더>`를 준다.
+
 ## 속도
 
 "1컷에 오래 걸리면 안 쓴다"가 기준입니다. 기본값은 빠른 쪽으로 맞춰 두었습니다.

@@ -154,3 +154,10 @@ def test_probe_with_julia_backend(julia, capsys):
     assert main(["probe", "--backend", "julia", "--julia-url", julia.url, "--url", "http://127.0.0.1:9"]) == 0
     out = capsys.readouterr().out
     assert "RESULT backend: julia" in out and "julia x19" in out
+
+
+def test_probe_english_cases(julia, capsys):
+    assert main(["probe", "--backend", "julia", "--lang", "en", "--julia-url", julia.url]) == 0
+    out = capsys.readouterr().out
+    assert "lang: en" in out and "julia x19" in out
+    assert any("Hana" in r["options"] for r in julia.requests)
