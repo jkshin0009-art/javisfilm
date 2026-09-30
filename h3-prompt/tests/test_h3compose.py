@@ -151,3 +151,11 @@ def test_sports_sequence_reaches_the_writer():
     seq = {"code": "VOLLEYBALL_SPIKE", "phases": [{"code": "VOLLEYBALL_SPIKE_TAKEOFF", "body": "both feet planted"}]}
     hc.Writer(llm).write(shot(), {"beat": "spike", "sports_sequence": seq})
     assert json.loads(llm.calls[0][1]["content"])["facts"]["sports_sequence"]["code"] == "VOLLEYBALL_SPIKE"
+
+
+def test_kind_beats_a_ledger_gender():
+    robot = [{"look": "a 56 m titanium robot", "kind": "robot", "gender": "male", "picture": 2}]
+    p = hc.compose(shot("ref", subjects=robot, sections=dict(SECTIONS, dialogue=[])))
+    assert "the robot shown in <Picture 2>" in p and "the man" not in p
+    facts = hc.Writer(None).facts(shot(subjects=robot), {})
+    assert facts["subjects"][0]["kind"] == "robot" and facts["subjects"][0]["gender"] == ""

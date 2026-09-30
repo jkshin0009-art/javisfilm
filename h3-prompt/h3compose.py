@@ -222,7 +222,10 @@ class ReferenceClip(Clip):
         return bad
 
     def who(self, s: Dict) -> str:
-        return GENDER_WORD.get(str(s.get("gender") or "").lower()) or str(s.get("kind") or "person")
+        kind = str(s.get("kind") or "person").strip().lower()
+        if kind != "person":                      # a robot stays a robot even if a ledger gives it a gender
+            return kind
+        return GENDER_WORD.get(str(s.get("gender") or "").lower()) or "person"
 
     def definitions(self) -> List[str]:
         out = []
@@ -354,8 +357,11 @@ class Writer:
         self.temperature = temperature
 
     def facts(self, shot: Dict, facts: Dict) -> Dict:
-        subjects = [{"tag": _subject_tag(n), "gender": s.get("gender", ""), "kind": s.get("kind", "person"),
-                     "look": s.get("look", "")} for n, s in enumerate(shot.get("subjects") or [], 1)]
+        subjects = []
+        for n, s in enumerate(shot.get("subjects") or [], 1):
+            kind = str(s.get("kind") or "person")
+            subjects.append({"tag": _subject_tag(n), "kind": kind, "look": s.get("look", ""),
+                             "gender": s.get("gender", "") if kind == "person" else ""})
         lines = [{"tag": _subject_tag(int(d.get("subject", 1))), "start": d.get("start"), "text": d.get("text", "")}
                  for d in (shot.get("sections") or {}).get("dialogue") or []]
         return {"clip_seconds": round(seconds(int(shot.get("frames") or 0)), 2), "mode": shot.get("mode", "base"),

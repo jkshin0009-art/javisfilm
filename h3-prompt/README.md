@@ -23,7 +23,7 @@ IAMCCS-nodes(GPL-3.0, `iamccs_prompter.py`, `iamccs_minimax_h3_shotboard_core.py
 ```powershell
 python h3lint.py check work\h3_prompts.jsonl --frames 90 --chunk-ends 3.75,7.5 --report reports\H3LINT_CURRENT.md --details work\h3lint_details.jsonl
 python h3lint.py shape work\h3_prompts.jsonl --n 3      # 글자 없이 뼈대만: 제목, [Shot N], 태그, 시각, (N단어)
-python -m pytest -q tests      # 19 passed (h3lint 11 + h3compose 8)
+python -m pytest -q tests      # 20 passed (h3lint 11 + h3compose 9)
 ```
 
 일부러 다른 형식을 쓰는 곳(예: MV의 대사 형식과 사고 방지 부정 조항)은 `--ignore dialogue_format,negative_language`로 빼고 회귀 검사로 쓴다.
