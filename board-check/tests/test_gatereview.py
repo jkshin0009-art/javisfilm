@@ -129,3 +129,36 @@ def test_referee_marks_without_a_person(tmp_path, monkeypatch, capsys):
     assert "machine referee" in text and "| offfloor | 6 | 6 | 0 | 0 | 100%" in text
     assert "| legs_ok | 3 | 0 | 3 | 0 | 0%" in text and "| costume_lock | 3 | 0 | 0 | 3 |" in text
     assert "referee time" in text
+
+
+def test_calibrate_on_known_bad(tmp_path, monkeypatch):
+    import boardcheck as bc
+    imgs = tmp_path / "bad"
+    imgs.mkdir()
+    for n in ("h1", "h2", "l1", "x1"):
+        (imgs / f"{n}.png").write_bytes(b"x")
+    lst = tmp_path / "known_bad.csv"
+    lst.write_text("image,kinds\n"
+                   f"{imgs / 'h1.png'},hands_ok\n{imgs / 'h2.png'},hands_ok\n"
+                   f"{imgs / 'l1.png'},hands_ok legs_ok\n{imgs / 'x1.png'},\n{imgs / 'gone.png'},legs_ok\n",
+                   encoding="utf-8")
+    asked = []
+
+    class FakeBackend:
+        def __init__(self, url, timeout=120.0):
+            pass
+
+        def ok(self, images, state, questions):
+            asked.append(sorted(questions))
+            name = os.path.basename(str(images[0]))
+            return {k: {"h1.png": 0.95, "h2.png": 0.1}.get(name, 0.5) for k in questions}
+
+    monkeypatch.setattr(bc, "LogprobBackend", FakeBackend)
+    monkeypatch.setattr(bc, "prepared", lambda src, cache, side: src)
+    out = tmp_path / "work"
+    assert gr.main(["calibrate", "--list", str(lst), "--out", str(out)]) == 0
+    text = (out / "REFEREE_CHECK.md").read_text(encoding="utf-8")
+    assert "listed: 5   image found: 4" in text
+    assert "| hands_ok | 2 | 1 | 0 | 1 |" in text and "| hands_ok legs_ok | 1 | 0 | 1 | 0 |" in text
+    assert "| any | 1 | 0 | 1 | 0 |" in text and "caught 1/4 (25%)" in text and "misses most" in text
+    assert sorted(gr.GENERIC) in asked and ["hands_ok", "legs_ok"] in asked

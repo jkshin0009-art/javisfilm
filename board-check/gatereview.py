@@ -14,6 +14,9 @@ time, and turns the answers into a per-axis hit rate.
   referee --out DIR              no person needed: a second look by the vision model (the 5678
                                  server, Jev-style probability reading, both answer orders) marks
                                  every sampled cut, then scores the gate against those marks
+  calibrate --list FILE --out DIR  can the referee see a real defect at all? Runs it on cuts a
+                                 person already marked bad (CSV: image,kinds) and reports how many
+                                 it catches, next to its probabilities on the gate-failed cuts
 
 Reads the gate files and images only. The page and rows.json hold image paths and
 the gate's reasons and stay in work/; the score report holds axis names and counts.
@@ -313,6 +316,89 @@ def cmd_referee(a) -> int:
     return 0
 
 
+def _quart(vals: List[float]) -> str:
+    v = sorted(x for x in vals if x == x)
+    if not v:
+        return "-"
+    q = lambda f: v[min(len(v) - 1, int(f * len(v)))]
+    return f"{q(0.25):.2f} / {q(0.5):.2f} / {q(0.75):.2f}"
+
+
+def cmd_calibrate(a) -> int:
+    """The referee said no gate-failed cut had a real defect. That only means something
+    if it does say "defect" on cuts that have one, so run it on cuts a person marked bad."""
+    import time
+    import boardcheck as bc
+    out = Path(a.out)
+    items = []
+    with open(a.list, encoding="utf-8-sig", newline="") as f:
+        for r in csv.DictReader(f):
+            kinds = [k for k in (r.get("kinds") or "").replace(",", " ").split() if k in REFEREE_Q]
+            items.append(((r.get("image") or "").strip(), kinds))
+    backend = bc.LogprobBackend(a.url, timeout=a.timeout)
+    cache = out / "cache"
+    res = []
+    for i, (path, kinds) in enumerate(items, 1):
+        label = " ".join(kinds) or "any"
+        src = Path(path)
+        if not path or not src.is_file():
+            res.append({"label": label, "vote": "missing", "p": float("nan")})
+            print(f"k{i:03d} {label:24s} -> image not found")
+            continue
+        t1 = time.perf_counter()
+        ps = backend.ok([bc.prepared(src, cache, a.max_side)], REFEREE_STATE,
+                        {k: REFEREE_Q[k] for k in (kinds or GENERIC)})
+        vals = [v for v in ps.values() if v == v]
+        p = max(vals) if vals else float("nan")
+        res.append({"label": label, "vote": referee_vote(p, a.hi, a.lo), "p": p})
+        print(f"k{i:03d} {label:24s} -> {res[-1]['vote']:7s} p={'-' if p != p else f'{p:.2f}'} "
+              f"{time.perf_counter() - t1:.1f}s", flush=True)
+    seen = [r for r in res if r["vote"] != "missing"]
+    lines = ["# referee check on cuts a person marked bad", "",
+             f"- referee: {a.url}, max side {a.max_side}, defect at p>={a.hi}, clean at p<={a.lo}",
+             f"- listed: {len(res)}   image found: {len(seen)}", "",
+             "| defect kind (asked) | cuts | caught (defect) | unsure | missed (clean) | p quartiles |",
+             "|---|---|---|---|---|---|"]
+    for label in sorted({r["label"] for r in seen}):
+        rs = [r for r in seen if r["label"] == label]
+        lines.append(f"| {label} | {len(rs)} | {sum(r['vote'] == 'defect' for r in rs)} | "
+                     f"{sum(r['vote'] == 'unsure' for r in rs)} | {sum(r['vote'] == 'clean' for r in rs)} | "
+                     f"{_quart([r['p'] for r in rs])} |")
+    caught = sum(r["vote"] == "defect" for r in seen)
+    missed = sum(r["vote"] == "clean" for r in seen)
+    lines.append(f"| all | {len(seen)} | {caught} | {len(seen) - caught - missed} | {missed} | "
+                 f"{_quart([r['p'] for r in seen])} |")
+    gate_p: List[float] = []
+    auto = out / "auto_votes.csv"
+    if auto.is_file():
+        kinds = {r["id"]: r["kind"] for r in json.loads((out / "rows.json").read_text(encoding="utf-8"))["rows"]}
+        with open(auto, encoding="utf-8-sig", newline="") as f:
+            for r in csv.DictReader(f):
+                if kinds.get(r["id"]) == "axis" and r.get("p") not in ("", None):
+                    gate_p.append(float(r["p"]))
+        lines += ["", f"- for comparison, referee p on the gate-failed cuts (auto_votes.csv): quartiles "
+                      f"{_quart(gate_p)} over {len(gate_p)} cuts"]
+    share = caught / len(seen) if seen else 0.0
+    if not seen:
+        verdict = "no image found: nothing measured"
+    elif share >= 0.7:
+        verdict = ("the referee sees real defects: where it called a gate-failed cut clean, "
+                   "the gate was most likely raising a false alarm")
+    elif share < 0.4:
+        verdict = ("the referee misses most real defects: its 'clean' marks on gate-failed cuts prove nothing; "
+                   "do not drop gate axes on that basis")
+    else:
+        verdict = "the referee catches some real defects: use its 'clean' marks only together with a person's check"
+    lines += ["", f"- caught {caught}/{len(seen)} ({share:.0%}): {verdict}"]
+    text = "\n".join(lines) + "\n"
+    print(text)
+    target = Path(a.report) if a.report else out / "REFEREE_CHECK.md"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(text, encoding="utf-8")
+    print(f"Saved: {target}")
+    return 0
+
+
 # ---------------------------------------------------------------- score
 def advice(right: int, wrong: int) -> str:
     n = right + wrong
@@ -459,6 +545,16 @@ def main(argv=None) -> int:
     p.add_argument("--timeout", type=float, default=120.0)
     p.add_argument("--report", default=None)
     p.set_defaults(fn=cmd_referee)
+    p = sub.add_parser("calibrate")
+    p.add_argument("--list", required=True, help="CSV with columns image,kinds (kinds: axis names, blank = any)")
+    p.add_argument("--out", required=True, help="the folder sample/referee wrote (for the comparison)")
+    p.add_argument("--url", default="http://127.0.0.1:5678")
+    p.add_argument("--hi", type=float, default=0.8)
+    p.add_argument("--lo", type=float, default=0.2)
+    p.add_argument("--max-side", type=int, default=1024)
+    p.add_argument("--timeout", type=float, default=120.0)
+    p.add_argument("--report", default=None)
+    p.set_defaults(fn=cmd_calibrate)
     p = sub.add_parser("score")
     p.add_argument("--out", required=True)
     p.add_argument("--csv", required=True)
