@@ -123,3 +123,23 @@ def test_nearest_grid_and_non_human_subject():
     robot = [{"look": "a 56 m titanium robot with cyan optics", "kind": "robot", "picture": 2}]
     p = hc.compose(shot("ref", subjects=robot, sections=dict(SECTIONS, dialogue=[])))
     assert "the robot shown in <Picture 2>" in p and "the person" not in p
+
+
+def test_components_and_inheritance():
+    assert isinstance(hc.clip_for(shot("ref", lipsync_audio=True)), hc.LipsyncClip)
+    assert issubclass(hc.LipsyncClip, hc.ReferenceClip) and issubclass(hc.ReferenceClip, hc.Clip)
+    assert issubclass(hc.FirstFrameClip, hc.Clip) and type(hc.clip_for(shot())) is hc.Clip
+    # a lane changes only what it knows: facts()
+    class RunnerWriter(hc.Writer):
+        def facts(self, shot, facts):
+            out = super().facts(shot, facts)
+            out["facts"] = {"beat": facts["beat_title"]}
+            return out
+    llm = FakeLLM([content()])
+    res = RunnerWriter(llm).write(shot(), {"beat_title": "pilot resolve", "noise": 1})
+    assert res["problems"] == {} and json.loads(llm.calls[0][1]["content"])["facts"] == {"beat": "pilot resolve"}
+    # a lane that keeps a rule on purpose subclasses the checker
+    neg = hc.compose(shot()).replace("One slow push-in", "Never cut. One slow push-in")
+    clip = hc.clip_for(shot())
+    assert "negative_language" in hc.Checker().check(clip, neg)
+    assert "negative_language" not in hc.MVChecker().check(clip, neg)

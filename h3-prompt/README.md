@@ -23,14 +23,25 @@ IAMCCS-nodes(GPL-3.0, `iamccs_prompter.py`, `iamccs_minimax_h3_shotboard_core.py
 ```powershell
 python h3lint.py check work\h3_prompts.jsonl --frames 90 --chunk-ends 3.75,7.5 --report reports\H3LINT_CURRENT.md --details work\h3lint_details.jsonl
 python h3lint.py shape work\h3_prompts.jsonl --n 3      # 글자 없이 뼈대만: 제목, [Shot N], 태그, 시각, (N단어)
-python -m pytest -q tests      # 17 passed (h3lint 11 + h3compose 6)
+python -m pytest -q tests      # 18 passed (h3lint 11 + h3compose 7)
 ```
 
 일부러 다른 형식을 쓰는 곳(예: MV의 대사 형식과 사고 방지 부정 조항)은 `--ignore dialogue_format,negative_language`로 빼고 회귀 검사로 쓴다.
 
 입력은 `.txt`(프롬프트 하나), `.json`(문자열 목록이나 `prompt` 키가 있는 객체), `.jsonl`, 또는 이런 파일이 든 폴더다.
 
-## `h3compose.py`: H3 프롬프트를 만드는 한 곳
+## `h3compose.py`: H3 프롬프트를 만드는 한 곳 (컴포넌트와 상속)
+
+| 컴포넌트 | 하는 일 | 상속해서 바꾸는 것 |
+|---|---|---|
+| `Clip` | 기본(t2v) 문법으로 한 클립을 조립 | — |
+| `FirstFrameClip(Clip)` | i2v: 첫 프레임 정렬 줄 | `prefix()`만 |
+| `ReferenceClip(Clip)` | 참조 모드 제목 6칸, 인물 정의, 유지 분석 | `blocks()`, `definitions()`, `retention()` |
+| `LipsyncClip(ReferenceClip)` | `<Audio 1>` 1:1 재사용과 입 모양 맞춤 문장 | `definitions()`, `retention()`, `body_parts()`에 한 줄씩 더함 |
+| `Checker` | 클립 규칙 + h3lint + Jev 뜻 질문 | 경로마다 일부러 유지하는 규칙은 `ignore`로 (`MVChecker`) |
+| `Writer` | LLM에 내용 칸을 받아 조립·검사·재시도 | 경로(실행기, 콘티 애니매틱, 대화 앱, MV)는 `facts()`만 바꿔 상속 |
+
+프로젝트의 H3 작가 10곳은 새로 만들지 않고, 각각 `Writer`를 상속해 `facts()`만 채우는 얇은 어댑터로 바꾼다. 곳마다 따로 있던 틀과 검사 함수는 옮긴 뒤 지운다.
 
 LLM은 내용 칸(장면, 시간별 동작, 연기, 카메라, 빛, 소리, 음악, 요약)만 JSON으로 채운다. 규격 문자열은 코드가 조립한다.
 
