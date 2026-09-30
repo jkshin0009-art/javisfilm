@@ -26,7 +26,10 @@ import json
 import re
 from typing import Dict, List, Optional, Sequence, Tuple
 
-import h3lint
+try:                                    # copied into a package (e.g. film_assistant/core/h3/)
+    from . import h3lint
+except ImportError:                     # run from this folder
+    import h3lint
 
 FPS = h3lint.H3_FPS
 MAX_FRAMES = h3lint.H3_MAX_TRAINED_FRAMES
