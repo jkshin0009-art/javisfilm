@@ -20,6 +20,8 @@ import time
 from typing import List
 
 from chatup.decide import Decider
+from chatup.julia import DEFAULT_URL as JULIA_URL
+from chatup.julia import make_decider
 from chatup.judge import EVERYONE, STATE_ONGOING, STATE_WAITING, ConversationJudge, Line
 from chatup.llm import LLMClient, LLMError
 
@@ -98,6 +100,9 @@ def cmd_probe(a) -> int:
     log = os.path.join(ROOT, "logs", "decisions_probe.jsonl") if a.log else None
     decider = Decider(client, rotations=a.rotations if a.rotations in ("adaptive", "full") else int(a.rotations),
                       log_path=log)
+    if a.backend != "llm":
+        decider = make_decider(a.backend, decider, julia_url=a.julia_url, timeout=min(a.timeout, 30.0),
+                               trust=a.trust, log_path=log)
     judge = ConversationJudge(decider, roster=ROSTER)
     rows = []
     t_start = time.time()
@@ -118,11 +123,13 @@ def cmd_probe(a) -> int:
     levels = sorted({r[2].level for r in rows})
     ms = [r[2].ms for r in rows]
     masses = [r[2].label_mass for r in rows if r[2].level in ("L0", "raw")]
+    by_level = {lv: sum(1 for r in rows if r[2].level == lv) for lv in levels}
     acted = sum(1 for r in rows if r[4] is not None)
     acted_ok = sum(1 for r in rows if r[4] is not None and r[3])
+    backend = a.backend if a.backend == "llm" else f"{a.backend} ({a.julia_url}, trust {a.trust})"
     summary = [
-        f"server: {a.url}   thinking_off: {not a.thinking_on}   rotations: {a.rotations}",
-        f"accuracy: {n_ok}/{len(rows)}   levels: {', '.join(levels)}",
+        f"backend: {backend}   server: {a.url}   thinking_off: {not a.thinking_on}   rotations: {a.rotations}",
+        f"accuracy: {n_ok}/{len(rows)}   levels: {', '.join(f'{k} x{v}' for k, v in by_level.items())}",
         f"acted above threshold: {acted}/{len(rows)} (right when acted: {acted_ok}/{acted})",
         f"decision ms: median {statistics.median(ms):.0f}, max {max(ms):.0f}   total {total:.1f} s",
         f"label mass: min {min(masses):.2f}, median {statistics.median(masses):.2f}" if masses else
@@ -270,6 +277,10 @@ def main(argv=None) -> int:
     p.add_argument("--timeout", type=float, default=120.0)
     p.add_argument("--report", default=None, help="write a markdown report here")
     p.add_argument("--log", action="store_true", help="append decisions to logs/decisions_probe.jsonl")
+    p.add_argument("--backend", default="llm", choices=("llm", "julia", "cascade"),
+                   help="llm: the LLM at --url; julia: Julia-1 at --julia-url; cascade: julia, llm when unsure")
+    p.add_argument("--julia-url", default=JULIA_URL, help="tools/julia_router.py --serve")
+    p.add_argument("--trust", type=float, default=0.9, help="cascade: julia answers alone at or above this p")
     p.set_defaults(fn=cmd_probe)
 
     p = sub.add_parser("chat")

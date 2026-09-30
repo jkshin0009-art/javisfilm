@@ -15,6 +15,10 @@ only which hook, the two answers, the probability and the time taken.
 Modes come from the environment (FJ_JUDGE for all hooks, FJ_JUDGE_<HOOK> for one)
 and from an optional JSON file that is re-read when it changes, so a mode can be
 switched while the app runs:  {"default": "observe", "image": "act"}
+
+Who answers is the backend (FJ_JUDGE_BACKEND): "llm" (the chatbot's LLM, default),
+"julia" (Julia-1 behind tools/julia_router.py, FJ_JULIA_URL), or "cascade" (Julia
+first, the LLM only when Julia's probability is under FJ_JUDGE_TRUST).
 """
 from __future__ import annotations
 
@@ -27,6 +31,8 @@ from concurrent.futures import TimeoutError as FutureTimeout
 from typing import Callable, Dict, Iterable, List, Optional, Sequence
 
 from chatup.decide import Decider
+from chatup.julia import DEFAULT_URL as JULIA_URL
+from chatup.julia import make_decider
 from chatup.judge import EVERYONE, ConversationJudge, Line, Verdict
 from chatup.llm import LLMClient
 from chatup.shaper import ThinkFilter
@@ -61,11 +67,15 @@ class JudgeBridge:
                  thresholds: Optional[Dict[str, float]] = None, log_dir: Optional[str] = None,
                  modes_file: Optional[str] = None, timeout: float = 6.0, max_lines: int = 10,
                  parallel: int = 1, max_pending: int = 4, log_states: bool = False,
-                 client=None) -> None:
+                 client=None, backend: str = "llm", julia_url: str = JULIA_URL, trust: float = 0.9,
+                 julia_client=None) -> None:
         self.client = client or LLMClient(base_url, timeout=timeout)
         state_log = os.path.join(log_dir, "decisions.jsonl") if (log_dir and log_states) else None
-        self.judge = ConversationJudge(Decider(self.client, parallel=parallel, log_path=state_log),
-                                       roster=roster, user_name=user_name, thresholds=thresholds,
+        self.backend = (backend or "llm").strip().lower()
+        llm = Decider(self.client, parallel=parallel, log_path=state_log)
+        decider = make_decider(self.backend, llm, julia_url=julia_url, timeout=min(timeout, 5.0), trust=trust,
+                               log_path=state_log, julia_client=julia_client)
+        self.judge = ConversationJudge(decider, roster=roster, user_name=user_name, thresholds=thresholds,
                                        max_lines=max_lines)
         self.user_name = user_name
         self.timeout = timeout
@@ -94,6 +104,12 @@ class JudgeBridge:
         kw.setdefault("modes_file", env.get("FJ_JUDGE_FILE") or None)
         if env.get("FJ_JUDGE_TIMEOUT"):
             kw.setdefault("timeout", float(env["FJ_JUDGE_TIMEOUT"]))
+        if env.get("FJ_JUDGE_BACKEND"):
+            kw.setdefault("backend", env["FJ_JUDGE_BACKEND"])
+        if env.get("FJ_JULIA_URL"):
+            kw.setdefault("julia_url", env["FJ_JULIA_URL"])
+        if env.get("FJ_JUDGE_TRUST"):
+            kw.setdefault("trust", float(env["FJ_JUDGE_TRUST"]))
         return cls(base_url, modes, **kw)
 
     @staticmethod
@@ -226,6 +242,7 @@ class JudgeBridge:
             "baseline": baseline, "judge": d.answer if d else None, "value": value, "final": final,
             "changed": final != baseline, "p": round(d.confidence, 4) if d and d.confidence is not None else None,
             "level": d.level if d else None, "calls": d.calls if d else 0, "ms": round(ms, 1),
+            "backend": self.backend,
         }
         if error:
             rec["error"] = error
@@ -292,6 +309,13 @@ def summarize(log_path: str) -> str:
         out.append(f"| {hook} | {mode} | {len(rs)} | {len(decided)} | {pct} | {unsure} | {changed} | "
                    f"{len(errs)} | {_q(ps, 0.5, '.2f')} | {_q(ms, 0.5, '.0f')} | {_q(ms, 0.9, '.0f')} | "
                    f"{(f'{ms[-1]:.0f}' if ms else '-')} |")
+    levels: Dict[str, int] = {}
+    for r in rows:
+        if r.get("level"):
+            levels[r["level"]] = levels.get(r["level"], 0) + 1
+    if levels:
+        out += ["", "answered by: " + ", ".join(f"{k} x{n}" for k, n in sorted(levels.items()))
+                + "  (julia = Julia-1, L0/raw = the LLM)"]
     kinds: Dict[str, int] = {}
     for r in rows:
         if r.get("error"):

@@ -11,6 +11,7 @@ film_assistant의 챗봇(여러 인물이 대화하고, 사용자가 말하지 �
 | `chatup/voice.py` | 인물별·감정별 dots.tts 참조 음성 고르기, 말하는 중 끊기(끼어들기) | little-gemma-tools의 `--route-emotion`, voicecat 끼어들기 |
 | `chatup/llm.py` | 기존 LLM 서버 연결: 스트리밍, 취소, 멈춤 감지, 첫 토큰 확률 | 새로 작성(표준 라이브러리만) |
 | `chatup/loop.py` | 위 부품을 묶은 참고용 루프. 프로젝트 루프에는 필요한 부품만 옮겨 붙임 | little-gemma 자율 대화 데모의 상한 규칙 |
+| `chatup/julia.py` | **Julia-1 판단.** 프로젝트의 `tools/julia_router.py --serve`(5691)에 묻는 판단기. `Decider`와 쓰는 법이 같다. `cascade`는 Julia가 확신할 때만 Julia 답을 쓰고, 아니면 LLM에 묻는다 | SupersonicLabs Julia-1(Apache-2.0) |
 | `chatup/bridge.py` | **프로젝트에 붙이는 관문.** 자리마다 off / observe / act 스위치, 오류·시간 초과면 원래 값 | 새로 작성 |
 | `python -m chatup probe` | 우리 LLM에서 판단이 제대로 되는지, 몇 ms 걸리는지 재는 점검 | |
 
@@ -53,8 +54,10 @@ Jev 자체는 클라우드 API라서 로컬 영화 프로젝트에는 맞지 않
 
 ```powershell
 cd C:\Users\Administrator\Desktop\film_assistant\javisfilm\chat-upgrade
-python -m pytest -q tests                                   # 63 passed
+python -m pytest -q tests                                   # 76 passed
 python -m chatup probe --url http://127.0.0.1:5678 --report reports\CHAT_PROBE.md
+python -m chatup probe --backend julia --report reports\CHAT_PROBE_JULIA.md     # 같은 19건을 Julia로
+python -m chatup probe --backend cascade --report reports\CHAT_PROBE_CASCADE.md # Julia, 모르면 LLM
 python -m chatup chat --url http://127.0.0.1:5678 --show-decisions   # 예시 인물 3명, 글자만
 python -m chatup voices --bank D:\voices --personas hana,doyun      # 참조 음성 폴더 점검
 ```
@@ -87,6 +90,7 @@ speaker = jb.speaker(recent_lines, allowed, baseline=speaker)
 - `observe`는 판단을 뒤에서 돌려 기록만 한다. 그래서 대화 속도가 그대로이고, 한 번 대화해 보면 자리마다 원래 동작과 얼마나 다른지 나온다(`python -m chatup report --log hooks.jsonl`).
 - 모드 파일(`{"default": "observe", "image": "act"}`)은 2초마다 다시 읽는다. 앱을 끄지 않고 바꿀 수 있다.
 - 연결 순서와 자리는 `GLM_TASK_INTEGRATE.md`에 있다.
+- **누가 판단하나(`FJ_JUDGE_BACKEND`):** `llm`(기본, 5678) / `julia`(Julia-1만, `FJ_JULIA_URL` 기본 `http://127.0.0.1:5691`) / `cascade`(Julia 먼저, 확률이 `FJ_JUDGE_TRUST`(기본 0.9) 미만이면 LLM). Julia는 글만 읽는다. 그림이 붙은 질문은 cascade에서 LLM으로 간다. `hooks.jsonl`의 `level`이 `julia`면 Julia가, `L0`/`raw`면 LLM이 답한 것이다.
 - **H2(image)는 `act`로 켜지 않는다.** 연결하면서 확인해 보니, 프로젝트는 정규식 결과를 쓰지 않고 응답마다 그림을 만든다. 그리고 자율 턴의 `user_text`는 빈 문자열이다. 그래서 `act`로 켜면 자율 턴 그림이 모두 멈춘다. 연결 지도만 보고 "키워드가 맞을 때만 그린다"고 잘못 읽은 탓이다. 이 자리에는 다음 판에 "앞 컷과 비교해 새 그림이 필요한 변화(장소, 행동, 인물)가 있나"를 묻는 판단을 붙일 예정이다.
 
 ### 실제 모델 점검 결과 (2026-09-29, UD-Q4_K_XL, 슬롯 4)

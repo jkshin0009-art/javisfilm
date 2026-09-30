@@ -88,3 +88,66 @@ class MockLLM:
         if self._server:
             self._server.shutdown()
             self._server.server_close()
+
+
+class MockJulia:
+    """Stands in for tools/julia_router.py --serve: POST /predict, GET /health.
+    `scores(body) -> [score per option]` is turned into probabilities."""
+
+    def __init__(self, scores: Optional[Callable[[Dict], List[float]]] = None) -> None:
+        self.requests: List[Dict] = []
+        self.scores = scores or (lambda body: [1.0] * len(body["options"]))
+        self.status = 200
+        self.raw: Optional[Dict] = None          # send this reply instead
+        self._server = None
+        self._thread = None
+
+    @property
+    def url(self) -> str:
+        host, port = self._server.server_address[:2]
+        return f"http://{host}:{port}"
+
+    def start(self) -> "MockJulia":
+        mock = self
+
+        class Handler(BaseHTTPRequestHandler):
+            protocol_version = "HTTP/1.1"
+
+            def log_message(self, *a):
+                pass
+
+            def _send(self, code, obj):
+                data = json.dumps(obj, ensure_ascii=False).encode()
+                self.send_response(code)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+
+            def do_GET(self):
+                self._send(200, {"ok": True, "model": "mock-julia"})
+
+            def do_POST(self):
+                n = int(self.headers.get("Content-Length", "0"))
+                body = json.loads(self.rfile.read(n).decode("utf-8"))
+                mock.requests.append(body)
+                if mock.status != 200:
+                    self._send(mock.status, {"error": "boom"})
+                    return
+                if mock.raw is not None:
+                    self._send(200, mock.raw)
+                    return
+                s = [float(x) for x in mock.scores(body)]
+                t = sum(s)
+                self._send(200, {"probabilities": [x / t for x in s]})
+
+        self._server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        self._server.daemon_threads = True
+        self._thread = threading.Thread(target=self._server.serve_forever, daemon=True)
+        self._thread.start()
+        return self
+
+    def stop(self) -> None:
+        if self._server:
+            self._server.shutdown()
+            self._server.server_close()
