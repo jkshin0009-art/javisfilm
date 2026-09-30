@@ -1,0 +1,287 @@
+{
+  "code": "BADMINTON_NET_LUNGE",
+  "technique": "net_shot",
+  "phase": "lunge",
+  "summary": "Right-handed badminton forehand lunge to the net: long step with the right foot landing heel first, front knee over the ankle, rear leg extended, racket reaching forward with the face nearly level.",
+  "names": {
+    "ko": [
+      "배드민턴 네트 런지",
+      "헤어핀 런지",
+      "네트 앞 런지",
+      "배드민턴 네트샷"
+    ],
+    "en": [
+      "badminton net lunge",
+      "forehand net shot lunge",
+      "hairpin lunge",
+      "lunge to the net"
+    ]
+  },
+  "keywords": [
+    "badminton",
+    "lunge",
+    "net shot",
+    "footwork"
+  ],
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "r_arm": "racket arm reaching to the net",
+      "l_arm": "balance arm",
+      "r_leg": "lunging leg",
+      "l_leg": "trailing leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -10,
+      "tilt": 15,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 5,
+      "side": 0,
+      "rot": 5
+    },
+    "head": {
+      "look_at": "shuttle"
+    },
+    "r_arm": {
+      "elev": 75,
+      "plane": 75,
+      "rot": 10,
+      "elbow": 15,
+      "pron": 30,
+      "wrist": -25,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 50,
+      "plane": -50,
+      "rot": 0,
+      "elbow": 20,
+      "pron": 0,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "r_leg": {
+      "flex": 80,
+      "abd": 8,
+      "rot": 15,
+      "knee": 90,
+      "ankle": -12,
+      "reach": {
+        "to": "lead_mark",
+        "point": "ankle",
+        "w": 0.5,
+        "range": {
+          "knee": [
+            78,
+            105
+          ],
+          "flex": [
+            40,
+            110
+          ],
+          "abd": [
+            -15,
+            30
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": -15,
+      "abd": 10,
+      "rot": 25,
+      "knee": 10,
+      "ankle": "toes:60",
+      "reach": {
+        "to": "rear_mark",
+        "point": "toe",
+        "w": 0.5,
+        "range": {
+          "knee": [
+            0,
+            30
+          ],
+          "flex": [
+            -40,
+            30
+          ],
+          "abd": [
+            -15,
+            35
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ],
+    "pelvis_z_m": "auto"
+  },
+  "objects": [
+    {
+      "name": "rear_mark",
+      "kind": "point",
+      "at": [
+        -0.68,
+        0.12,
+        0.0
+      ]
+    },
+    {
+      "name": "lead_mark",
+      "kind": "point",
+      "at": [
+        0.44,
+        -0.12,
+        0.069
+      ]
+    },
+    {
+      "name": "racket",
+      "kind": "racket",
+      "hand": "r",
+      "length_m": 0.665,
+      "head_m": [
+        0.25,
+        0.21
+      ],
+      "tilt_deg": 35,
+      "face": "palm"
+    },
+    {
+      "name": "shuttle",
+      "kind": "shuttle",
+      "at": "racket_face",
+      "offset_m": [
+        0.02,
+        0,
+        0.05
+      ],
+      "dir": [
+        1,
+        0,
+        0.3
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "net",
+      "x_m": 1.6,
+      "height_m": 1.524,
+      "text": "Net 1.524 m high, {fwd:net_top:pelvis} cm in front; the racket stays on the player's side of the net."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "net_view",
+      "azimuth": 0,
+      "elevation": -4,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "From across the net, racket strings and shuttle sharp."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Side view along the net."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 8,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the player, green court and lines, arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "stride_pct_height",
+      "min": 55,
+      "max": 85,
+      "why": "long lunge step (maximum about 1.47 m in men)",
+      "src": "PLOS18"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 75,
+      "max": 105,
+      "why": "front knee bent about 90 deg over the ankle",
+      "src": "EST"
+    },
+    {
+      "m": "l_knee_flex",
+      "max": 35,
+      "why": "trailing leg extended",
+      "src": "EST"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "max": 30,
+      "why": "trunk upright, not folded over the knee",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a right-handed badminton player lunging to the net to play a forehand net shot",
+    "core": "Long lunge with the right foot, heel landing first and toes pointing at the net, right knee bent about 90 degrees directly over the ankle; left leg extended behind on the ball of the foot; trunk upright; right arm reaching forward, racket in front with the face nearly level under the shuttle; left arm back for balance.",
+    "gaze": "Eyes on the shuttle just above the net tape.",
+    "cues": [
+      "lunge with the racket foot, toe to the net corner",
+      "racket arm extended, face nearly parallel to the floor",
+      "hit and land at the same moment"
+    ],
+    "kinetic": [
+      "shoe squeaking on the court, slight slide of the front heel",
+      "shuttle just above the tape",
+      "sweat on the forearm"
+    ],
+    "avoid": [
+      "racket without strings",
+      "racket head merged into the hand",
+      "shuttle flying feathers first",
+      "left-handed player",
+      "left foot forward on a forehand lunge",
+      "front knee collapsing inward",
+      "trunk folded over the knee"
+    ]
+  },
+  "ref_query": "badminton lunge",
+  "sources": [
+    {
+      "id": "PLOS18",
+      "cite": "Badminton lunge: maximum lunge 1.47 m (men), 1.16 m (women); heel-first landing (search extract)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6185854"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "badminton"
+}

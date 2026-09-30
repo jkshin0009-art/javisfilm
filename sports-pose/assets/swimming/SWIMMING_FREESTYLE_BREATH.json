@@ -1,0 +1,215 @@
+{
+  "code": "SWIMMING_FREESTYLE_BREATH",
+  "technique": "freestyle",
+  "phase": "breath",
+  "summary": "Front crawl breathing to the right: body rolled about 40 degrees, right arm recovering with a high elbow over the water, left arm extended forward under the surface, face turned sideways with the mouth in the bow-wave trough, flutter kick.",
+  "names": {
+    "ko": [
+      "자유형 호흡",
+      "자유형 스트로크",
+      "크롤 영법",
+      "자유형 팔 리커버리"
+    ],
+    "en": [
+      "freestyle breathing",
+      "front crawl breath",
+      "crawl stroke",
+      "freestyle high elbow recovery"
+    ]
+  },
+  "keywords": [
+    "swimming",
+    "freestyle",
+    "front crawl",
+    "breathing",
+    "stroke"
+  ],
+  "sequence": {
+    "id": "SWIMMING_RACE",
+    "order": 2,
+    "phases": [
+      "SWIMMING_START_SET",
+      "SWIMMING_FREESTYLE_BREATH"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "recovering arm",
+      "l_arm": "extended arm at the catch"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 88,
+      "side": 0,
+      "roll": -35
+    },
+    "trunk": {
+      "flex": 0,
+      "side": 0,
+      "rot": -10
+    },
+    "head": {
+      "flex": 0,
+      "side": 0,
+      "rot": -65
+    },
+    "r_arm": {
+      "elev": 100,
+      "plane": -33,
+      "rot": 21,
+      "elbow": 125,
+      "pron": 30,
+      "wrist": 10,
+      "hand": "relaxed"
+    },
+    "l_arm": {
+      "elev": 170,
+      "plane": 95,
+      "rot": 20,
+      "elbow": 15,
+      "pron": 70,
+      "wrist": 15,
+      "hand": "flat"
+    },
+    "l_leg": {
+      "flex": 20,
+      "abd": 3,
+      "rot": -8,
+      "knee": 35,
+      "ankle": 55
+    },
+    "r_leg": {
+      "flex": 0,
+      "abd": 3,
+      "rot": -8,
+      "knee": 5,
+      "ankle": 60
+    }
+  },
+  "support": {
+    "float": {
+      "point": "sacrum",
+      "depth_m": 0.0
+    }
+  },
+  "water_m": 0.0,
+  "ground": {
+    "kind": "pool",
+    "depth_m": 2.5
+  },
+  "objects": [],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "surface",
+      "at": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "text": "Water surface; the lane rope runs alongside."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "underwater_side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 28,
+      "fill": 0.8,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Underwater side view at the surface line, the body split by the water line, bubbles around the hands."
+    },
+    {
+      "name": "front_above",
+      "azimuth": 0,
+      "elevation": 25,
+      "lens_mm": 50,
+      "fill": 0.8,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "From the end of the lane just above the water, the swimmer coming toward camera."
+    },
+    {
+      "name": "overhead",
+      "azimuth": -90,
+      "elevation": 60,
+      "lens_mm": 35,
+      "fill": 0.75,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "High angle from the pool deck, blue lane lines on the pool floor."
+    }
+  ],
+  "rules": [
+    {
+      "m": "z:r_elbow",
+      "min": 0.08,
+      "why": "high elbow: the recovering elbow clears the water",
+      "src": "EST"
+    },
+    {
+      "m": "z:l_palm",
+      "max": -0.05,
+      "why": "leading hand under the surface at the catch",
+      "src": "EST"
+    },
+    {
+      "m": "z:nose",
+      "min": -0.08,
+      "max": 0.12,
+      "why": "mouth at the surface in the bow-wave trough to breathe",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a swimmer swimming front crawl, taking a breath to the right",
+    "core": "Lying prone at the surface, body rolled about 40 degrees onto the left side; right arm recovering over the water with the elbow high and bent, hand relaxed passing the shoulder near the water; left arm extended forward under the surface, palm down; head turned to the right with one goggle still in the water and the mouth open in the trough of the bow wave; legs long in a narrow flutter kick, toes pointed.",
+    "gaze": "One eye above the water looking to the side.",
+    "cues": [
+      "keep one goggle in the water when you breathe",
+      "high elbow, relaxed hand on the recovery",
+      "roll the body, not just the head"
+    ],
+    "kinetic": [
+      "bow wave curling around the head",
+      "white water and bubbles from the kick",
+      "water droplets streaming off the recovering arm"
+    ],
+    "avoid": [
+      "swimmer standing on the pool floor",
+      "no goggles",
+      "body floating high out of the water",
+      "wrong number of arms",
+      "hair floating without a swim cap",
+      "head lifted forward out of the water",
+      "straight stiff recovering arm",
+      "breathing to the left"
+    ]
+  },
+  "ref_query": "freestyle swimming breathing",
+  "sources": [
+    {
+      "id": "WA",
+      "cite": "World Aquatics Swimming Rules SW 4 (start), SW 5 (freestyle), SW 7 (breaststroke), SW 8 (butterfly) and Facilities Rules FR 2 - general knowledge, not re-checked this session",
+      "url": "https://www.worldaquatics.com/rules/competition-regulations"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard swimming coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "swimming"
+}

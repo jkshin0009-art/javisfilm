@@ -1,0 +1,261 @@
+{
+  "code": "VOLLEYBALL_SPIKE_TAKEOFF",
+  "sport": "volleyball",
+  "technique": "spike",
+  "phase": "takeoff",
+  "summary": "Right-handed volleyball spike, final plant of the approach: both feet planted, knees deeply bent, both arms swung far back, just before the jump.",
+  "names": {
+    "ko": [
+      "배구 스파이크 도약",
+      "스파이크 발구름",
+      "스파이크 어프로치 마지막 스텝",
+      "점프 직전 팔 뒤로 젖히기"
+    ],
+    "en": [
+      "volleyball spike takeoff",
+      "spike approach plant",
+      "attack approach final step",
+      "arm backswing before jump"
+    ]
+  },
+  "keywords": [
+    "volleyball",
+    "spike",
+    "approach",
+    "plant",
+    "takeoff",
+    "jump",
+    "arm swing"
+  ],
+  "sequence": {
+    "id": "VOLLEYBALL_SPIKE",
+    "order": 1,
+    "phases": [
+      "VOLLEYBALL_SPIKE_TAKEOFF",
+      "VOLLEYBALL_SPIKE_ARM_COCK",
+      "VOLLEYBALL_SPIKE_CONTACT"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.95,
+    "hand": "right",
+    "roles": {
+      "r_leg": "dominant leg, deeper knee bend",
+      "l_leg": "closing step, slightly ahead",
+      "r_arm": "swung back",
+      "l_arm": "swung back"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -15,
+      "tilt": 28,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 10,
+      "side": 0,
+      "rot": -5
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 58,
+      "plane": -88,
+      "rot": 20,
+      "elbow": 12,
+      "pron": 20,
+      "wrist": -10,
+      "hand": "flat"
+    },
+    "l_arm": {
+      "elev": 55,
+      "plane": -85,
+      "rot": 20,
+      "elbow": 14,
+      "pron": 20,
+      "wrist": -10,
+      "hand": "flat"
+    },
+    "r_leg": {
+      "flex": 80,
+      "abd": 10,
+      "rot": 10,
+      "knee": 92,
+      "ankle": "toes:6"
+    },
+    "l_leg": {
+      "flex": 90,
+      "abd": 6,
+      "rot": 0,
+      "knee": 64,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "knee",
+          "rot"
+        ]
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.21,
+      "at": "pelvis",
+      "offset_m": [
+        2.8,
+        0.3,
+        2.9
+      ],
+      "in_frame": false,
+      "relate": [
+        "forehead"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "net",
+      "x_m": 1.3,
+      "height_m": 2.43,
+      "text": "Net: top tape 2.43 m high, {fwd:net_top:pelvis} cm in front of the hips; the set ball is still rising toward the attack point above and in front."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "side_low",
+      "azimuth": -90,
+      "elevation": -8,
+      "lens_mm": 35,
+      "fill": 0.8,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Sharp focus on the planted feet and the swung-back arms, shallow depth of field."
+    },
+    {
+      "name": "front_three_quarter",
+      "azimuth": -40,
+      "elevation": -5,
+      "lens_mm": 50,
+      "fill": 0.82,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Knees and arms read clearly, net tape out of frame above."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": -120,
+      "elevation": 5,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide cinematic frame from behind the attacker, court lines leading to the net."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "min": 80,
+      "max": 100,
+      "why": "dominant knee about 90 deg flexion at the deepest plant (elite males 90, females 84)",
+      "src": "S1"
+    },
+    {
+      "m": "l_knee_flex",
+      "min": 55,
+      "max": 75,
+      "why": "non-dominant knee about 60-64 deg flexion",
+      "src": "S1"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "min": 30,
+      "max": 45,
+      "why": "torso forward incline 33-38 deg",
+      "src": "S1"
+    },
+    {
+      "m": "r_arm.elev",
+      "min": 45,
+      "max": 60,
+      "why": "arms at maximum backswing, shoulders hyperextended (extension limit about 60 deg)",
+      "src": "S2, S3"
+    },
+    {
+      "m": "r_arm.plane",
+      "max": -60,
+      "why": "arms swung behind the body, not to the side",
+      "src": "S3"
+    },
+    {
+      "m": "r_foot_z",
+      "max": 0.03,
+      "why": "both feet planted",
+      "src": "S1"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "both feet planted",
+      "src": "S1"
+    }
+  ],
+  "text": {
+    "action": "a volleyball attacker on the last plant step of the spike approach, just before jumping",
+    "core": "Both feet planted flat, left foot slightly ahead; right knee bent to about 90 degrees, left knee about 65 degrees; trunk leaning about 38 degrees forward; both arms swung straight back behind the hips, palms facing back, at the end of the backswing; eyes up on the set ball.",
+    "gaze": "Eyes up on the incoming set above the net.",
+    "cues": [
+      "wide, dynamic arm swing loads the jump",
+      "plant heel-to-toe with the feet ahead of the hips so the body leans back into the jump",
+      "knees bent deeply, weight low"
+    ],
+    "kinetic": [
+      "motion blur on both arms at the end of the backswing",
+      "shoe soles gripping the court, slight squeak dust at the heels",
+      "jersey pulled back by the arm swing"
+    ],
+    "avoid": [
+      "arms swung forward",
+      "upright torso",
+      "feet crossed",
+      "one foot in the air",
+      "straight knees"
+    ]
+  },
+  "ref_query": "volleyball spike approach jump",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Fuchs et al. 2019, J Sports Sci 37(21): spike jump plant angles, torso incline, jump height of elite players (search extract)",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/02640414.2019.1639437"
+    },
+    {
+      "id": "S2",
+      "cite": "Wagner et al. 2009, Int J Sports Med: arm backswing (shoulder hyperextension velocity) predicts jump height",
+      "url": "https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0029-1224177"
+    },
+    {
+      "id": "S3",
+      "cite": "Fuchs et al. 2019, J Sci Med Sport: wide dynamic arm swing in the approach",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S1440244018306170"
+    }
+  ]
+}

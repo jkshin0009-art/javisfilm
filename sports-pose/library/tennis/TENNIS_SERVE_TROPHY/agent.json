@@ -1,0 +1,86 @@
+{
+ "code": "TENNIS_SERVE_TROPHY",
+ "sport": "tennis",
+ "technique": "serve",
+ "phase": "trophy",
+ "summary": "Right-handed tennis serve at the trophy position: side-on behind the baseline, knees bent, tossing arm straight up, racket arm cocked with the racket up behind the head, left shoulder higher.",
+ "names": {
+  "ko": [
+   "테니스 서브 트로피 자세",
+   "서브 준비 자세",
+   "토스 후 무릎 굽힘",
+   "테니스 서브 백스윙"
+  ],
+  "en": [
+   "tennis serve trophy position",
+   "serve toss",
+   "serve loading",
+   "tennis serve wind-up"
+  ]
+ },
+ "keywords": [
+  "tennis",
+  "serve",
+  "trophy",
+  "toss",
+  "baseline"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #TENNIS_SERVE_TROPHY\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 51 deg, turned 34 deg to the athlete's left of the chest line; face pointing up and slightly forward and slightly to the athlete's left. Eyes up on the tossed ball.\n- Torso: trunk line (hips to shoulders) 2 deg backward of vertical, leaning 18 deg to the athlete's right; spine arched back (extended) 10 deg over the pelvis; shoulders square with the hips.\n- Right arm (racket arm): upper arm raised 80 deg from the side of the trunk, pointing to the athlete's right and slightly down and slightly backward; elbow bent to about a right angle (100 deg flexion); forearm pointing up and slightly forward and slightly to the athlete's right; palm facing forward and slightly to the athlete's right and slightly down; wrist extended (cocked back) 25 deg; hand: fingers wrapped firmly around what it holds; upper arm externally rotated 75 deg (forearm laid back); fingertips 1.62 m above the floor.\n- Left arm (tossing arm): upper arm raised 165 deg from the side of the trunk, pointing up and slightly forward; elbow straight (5 deg flexion); forearm pointing up; palm facing forward and slightly to the athlete's right and slightly down; wrist neutral; hand: relaxed, fingers softly curled; fingertips 2.30 m above the floor.\n- Right leg: hip flexed 28 deg; knee bent (60 deg flexion); thigh pointing down and slightly forward, shin pointing down and backward; ankle dorsiflexed 13 deg; on the ball of the foot, heel raised.\n- Left leg (front leg): hip flexed 32 deg; knee bent (49 deg flexion); thigh pointing down and slightly forward, shin pointing down and slightly backward; ankle dorsiflexed 24 deg; foot flat on the floor.\n- Base: ankles 24 cm apart (13% of body height, 0.6x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: legs load before the racket drops\n- Technique cue: tossing arm stays up while the racket arm cocks\n- Technique cue: left shoulder higher than the right\n\n3. OBJECT_INTERACTION:\n- racket (68 cm long): gripped in the right hand, shaft pointing up and slightly forward and slightly to the athlete's left, string face turned forward and slightly to the athlete's right and slightly down; head centre 1.88 m above the floor; strings and frame clearly visible, one racket only.\n- ball (7 cm diameter): center 3.05 m above the floor; surface 72 cm from the left fingertip (up of it).\n- Baseline (white, up to 10 cm wide) just in front of the front foot; the server stands behind it.\n- Legal under the ITF rules: both feet stay behind the baseline without touching it.\n\n4. CINEMATIC_CAMERA:\n- net_view: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From across the net, telephoto compression, racket strings sharp.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view along the baseline.\n- wide_cinema: eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide frame from behind the player, court lines and net ahead, stadium blurred.\n\n5. KINETIC_ENERGY:\n- ball at the top of the toss, sharp against the sky\n- knees coiled, calves tense\n- shirt stretched across the back",
+ "prompt": "{SUBJECT}, a right-handed tennis player at the trophy position of the serve, ball tossed high. Standing side-on behind the baseline, left foot in front pointing toward the right net post, knees bent about 60 degrees; left tossing arm straight up toward the ball; right racket arm cocked with the elbow at shoulder height and bent about 100 degrees, racket head pointing up behind the head; shoulder line tilted with the left shoulder higher; back slightly arched. Legs load before the racket drops. Tossing arm stays up while the racket arm cocks. Left shoulder higher than the right. Eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From across the net, telephoto compression, racket strings sharp. Ball at the top of the toss, sharp against the sky; knees coiled, calves tense. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, racket without strings, two rackets, ball merged into the strings, left-handed player, foot on the baseline, tossing arm bent, server's foot on the baseline, ball resting on the racket strings",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "net_view",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "From across the net, telephoto compression, racket strings sharp.",
+   "openpose_png": "openpose_net_view.png",
+   "openpose_json": "openpose_net_view.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view along the baseline.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide frame from behind the player, court lines and net ahead, stadium blurred.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "ITF",
+ "scene_rules": [
+  "Court 23.77 x 8.23 m (doubles 10.97 m wide); net 0.914 m at the centre, held by a white strap, 1.07 m at the posts; baseline up to 10 cm wide. (ITF 1)",
+  "Chair umpire on a raised chair beside a net post; line umpires (or electronic line calling) and ball persons crouched at the net posts and the back corners. (ITF 2)",
+  "One racket per player, with a crossed, evenly strung pattern. (ITF 4)"
+ ],
+ "sequence": {
+  "id": "TENNIS_SERVE",
+  "order": 1,
+  "phases": [
+   "TENNIS_SERVE_TROPHY",
+   "TENNIS_SERVE_CONTACT"
+  ]
+ },
+ "checks_passed": true
+}

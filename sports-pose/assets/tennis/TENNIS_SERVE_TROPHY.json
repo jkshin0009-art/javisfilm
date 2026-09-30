@@ -1,0 +1,276 @@
+{
+  "code": "TENNIS_SERVE_TROPHY",
+  "technique": "serve",
+  "phase": "trophy",
+  "summary": "Right-handed tennis serve at the trophy position: side-on behind the baseline, knees bent, tossing arm straight up, racket arm cocked with the racket up behind the head, left shoulder higher.",
+  "names": {
+    "ko": [
+      "테니스 서브 트로피 자세",
+      "서브 준비 자세",
+      "토스 후 무릎 굽힘",
+      "테니스 서브 백스윙"
+    ],
+    "en": [
+      "tennis serve trophy position",
+      "serve toss",
+      "serve loading",
+      "tennis serve wind-up"
+    ]
+  },
+  "keywords": [
+    "tennis",
+    "serve",
+    "trophy",
+    "toss",
+    "baseline"
+  ],
+  "sequence": {
+    "id": "TENNIS_SERVE",
+    "order": 1,
+    "phases": [
+      "TENNIS_SERVE_TROPHY",
+      "TENNIS_SERVE_CONTACT"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.88,
+    "hand": "right",
+    "roles": {
+      "r_arm": "racket arm",
+      "l_arm": "tossing arm",
+      "l_leg": "front leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -72,
+      "tilt": 8,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -10,
+      "side": 18,
+      "rot": -8
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 80,
+      "plane": -20,
+      "rot": 75,
+      "elbow": 100,
+      "pron": 10,
+      "wrist": -25,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 165,
+      "plane": 70,
+      "rot": 20,
+      "elbow": 5,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "l_leg": {
+      "flex": 42,
+      "abd": 8,
+      "rot": 15,
+      "knee": 64,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            49,
+            79
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 28,
+      "abd": 10,
+      "rot": 20,
+      "knee": 60,
+      "ankle": "toes:25",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            45,
+            75
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "racket",
+      "kind": "racket",
+      "hand": "r",
+      "length_m": 0.685,
+      "head_m": [
+        0.32,
+        0.26
+      ]
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.067,
+      "at": "l_fingertip",
+      "offset_m": [
+        0.1,
+        -0.05,
+        0.75
+      ],
+      "relate": [
+        "left_fingertip"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "baseline",
+      "at": [
+        0.275,
+        0,
+        0
+      ],
+      "text": "Baseline (white, up to 10 cm wide) just in front of the front foot; the server stands behind it."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "net_view",
+      "azimuth": 0,
+      "elevation": -4,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "From across the net, telephoto compression, racket strings sharp."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Side view along the baseline."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 6,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the player, court lines and net ahead, stadium blurred."
+    }
+  ],
+  "rules": [
+    {
+      "m": "l_knee_flex",
+      "min": 45,
+      "max": 85,
+      "why": "front knee about 64 deg at the trophy position (47-81 across studies)",
+      "src": "META24"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 70,
+      "max": 120,
+      "why": "racket-arm elbow 85-107 deg",
+      "src": "META24"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 55,
+      "max": 110,
+      "why": "racket-arm shoulder abduction 67-88 deg",
+      "src": "META24"
+    },
+    {
+      "m": "l_shoulder_elev",
+      "min": 140,
+      "why": "tossing arm straight up",
+      "src": "KE11"
+    },
+    {
+      "m": "trunk_lean_right",
+      "min": 5,
+      "why": "shoulder line tilted, left shoulder higher (lateral tilt of the trunk toward the racket side)",
+      "src": "KE11"
+    }
+  ],
+  "text": {
+    "action": "a right-handed tennis player at the trophy position of the serve, ball tossed high",
+    "core": "Standing side-on behind the baseline, left foot in front pointing toward the right net post, knees bent about 60 degrees; left tossing arm straight up toward the ball; right racket arm cocked with the elbow at shoulder height and bent about 100 degrees, racket head pointing up behind the head; shoulder line tilted with the left shoulder higher; back slightly arched.",
+    "gaze": "Eyes up on the tossed ball.",
+    "cues": [
+      "legs load before the racket drops",
+      "tossing arm stays up while the racket arm cocks",
+      "left shoulder higher than the right"
+    ],
+    "kinetic": [
+      "ball at the top of the toss, sharp against the sky",
+      "knees coiled, calves tense",
+      "shirt stretched across the back"
+    ],
+    "avoid": [
+      "racket without strings",
+      "two rackets",
+      "ball merged into the strings",
+      "left-handed player",
+      "foot on the baseline",
+      "tossing arm bent"
+    ]
+  },
+  "ref_query": "tennis serve",
+  "sources": [
+    {
+      "id": "META24",
+      "cite": "Jacquier-Bret & Gorce 2024, meta-analysis of tennis serve kinematics (front knee 64.5 +/- 9.7 deg at trophy; shoulder elevation 110.7 +/- 16.9 deg and elbow 30.1 +/- 15.9 deg at contact) - search extract",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11260724/"
+    },
+    {
+      "id": "KE11",
+      "cite": "Kovacs & Ellenbecker 2011, an 8-stage model for the tennis serve",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3445225"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "tennis"
+}

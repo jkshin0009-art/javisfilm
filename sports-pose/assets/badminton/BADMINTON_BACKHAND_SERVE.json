@@ -1,0 +1,232 @@
+{
+  "code": "BADMINTON_BACKHAND_SERVE",
+  "technique": "serve",
+  "phase": "contact",
+  "summary": "Right-handed badminton low backhand serve (doubles): right foot forward, racket in front of the waist, shuttle held by the feathers and struck on the cork well below 1.15 m.",
+  "names": {
+    "ko": [
+      "배드민턴 백핸드 서브",
+      "숏 서브",
+      "로우 서브",
+      "복식 서브"
+    ],
+    "en": [
+      "badminton backhand serve",
+      "low short serve",
+      "doubles serve",
+      "backhand low serve"
+    ]
+  },
+  "keywords": [
+    "badminton",
+    "serve",
+    "backhand",
+    "doubles"
+  ],
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "r_arm": "racket arm",
+      "l_arm": "holds the shuttle by the feathers",
+      "r_leg": "front foot"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 12,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 8,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "look_at": "shuttle"
+    },
+    "r_arm": {
+      "elev": 40,
+      "plane": 100,
+      "rot": -30,
+      "elbow": 95,
+      "pron": 70,
+      "wrist": 10,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 35,
+      "plane": 70,
+      "rot": 0,
+      "elbow": 80,
+      "pron": -30,
+      "wrist": 0,
+      "hand": "cupped",
+      "reach": {
+        "to": "shuttle",
+        "w": 0.4
+      }
+    },
+    "r_leg": {
+      "flex": 25,
+      "abd": 8,
+      "rot": 10,
+      "knee": 25,
+      "ankle": "flat"
+    },
+    "l_leg": {
+      "flex": 5,
+      "abd": 10,
+      "rot": 25,
+      "knee": 20,
+      "ankle": "toes:15",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            5,
+            35
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "racket",
+      "kind": "racket",
+      "hand": "r",
+      "length_m": 0.665,
+      "head_m": [
+        0.25,
+        0.21
+      ],
+      "yaw": 150,
+      "pitch": -40,
+      "face": "back"
+    },
+    {
+      "name": "shuttle",
+      "kind": "shuttle",
+      "at": "racket_face",
+      "offset_m": [
+        0.07,
+        0,
+        0.02
+      ],
+      "dir": [
+        1,
+        0,
+        0.1
+      ]
+    }
+  ],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "net_view",
+      "azimuth": 0,
+      "elevation": -4,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "From across the net, racket strings and shuttle sharp."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Side view along the net."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 8,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the player, green court and lines, arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "z:shuttle",
+      "max": 1.1,
+      "why": "the whole shuttle must be below 1.15 m when struck (its top is about 4 cm above its centre)",
+      "src": "BWF"
+    },
+    {
+      "m": "r_foot_z",
+      "max": 0.03,
+      "why": "both feet in contact with the court, stationary",
+      "src": "BWF"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "both feet in contact with the court, stationary",
+      "src": "BWF"
+    }
+  ],
+  "text": {
+    "action": "a right-handed badminton player hitting a low backhand serve in doubles",
+    "core": "Right foot forward near the short service line, knees slightly bent, weight forward; racket held in front of the waist with a backhand grip, head pointing down and to the left, face toward the net; left hand holding the shuttle by the tips of the feathers in front of the strings, cork toward the racket.",
+    "gaze": "Eyes on the shuttle.",
+    "cues": [
+      "hold the shuttle by the feathers, cork facing the racket",
+      "push with the thumb and fingers, short swing",
+      "flat path just over the tape"
+    ],
+    "kinetic": [
+      "shuttle just leaving the strings",
+      "quiet, controlled stillness of the body",
+      "focused expression"
+    ],
+    "avoid": [
+      "racket without strings",
+      "racket head merged into the hand",
+      "shuttle flying feathers first",
+      "left-handed player",
+      "shuttle held by the cork",
+      "contact above the waist",
+      "server's foot lifted"
+    ]
+  },
+  "ref_query": "badminton serve",
+  "sources": [
+    {
+      "id": "BWF",
+      "cite": "BWF Laws of Badminton V5.0 (26 April 2025), Law 9 service",
+      "url": "https://extranet.bwf.sport/docs/document-system/81/1466/1470/Section%204.1%20-%20Laws%20of%20Badminton%20-%2026%20April%202025%20V5.0%20(2)%20.pdf"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "badminton"
+}

@@ -1,0 +1,86 @@
+{
+ "code": "SWIMMING_START_SET",
+ "sport": "swimming",
+ "technique": "start",
+ "phase": "take_your_marks",
+ "summary": "Swimmer in the 'take your marks' position of a kick start on the block: left foot at the front edge with toes over it, right foot on the raised back plate, hands gripping the front edge, hips high, head down.",
+ "names": {
+  "ko": [
+   "수영 스타트 자세",
+   "스타트대 준비",
+   "킥 스타트",
+   "출발 준비 자세"
+  ],
+  "en": [
+   "swimming start set",
+   "take your marks",
+   "kick start on the block",
+   "track start"
+  ]
+ },
+ "keywords": [
+  "swimming",
+  "start",
+  "block",
+  "dive",
+  "take your marks"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #SWIMMING_START_SET\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted down 20 deg; face pointing down and backward. Eyes down at the water in front of the block.\n- Torso: trunk line (hips to shoulders) 110 deg forward of vertical, leaning 180 deg to the athlete's left; spine flexed 45 deg over the pelvis; shoulders square with the hips.\n- Right arm: upper arm raised 84 deg from the side of the trunk, pointing down and slightly backward; elbow bent (58 deg flexion); forearm pointing down and slightly to the athlete's left; palm facing backward and slightly down; wrist neutral; hand: fingers wrapped firmly around what it holds; fingertips 0.59 m above the water surface.\n- Left arm: upper arm raised 84 deg from the side of the trunk, pointing down and slightly backward; elbow bent (58 deg flexion); forearm pointing down and slightly to the athlete's right; palm facing backward and slightly down; wrist neutral; hand: fingers wrapped firmly around what it holds; fingertips 0.59 m above the water surface.\n- Right leg (back foot on the kick plate): hip flexed 91 deg; knee bent to about a right angle (102 deg flexion); thigh pointing down and slightly forward, shin pointing backward and slightly down; ankle dorsiflexed 40 deg; ankle 0.95 m above the water surface.\n- Left leg (front foot at the edge): hip flexed 113 deg; knee deeply bent (72 deg flexion); thigh pointing forward and down, shin pointing down and slightly backward and slightly to the athlete's right; ankle dorsiflexed 24 deg; foot flat on the floor.\n- Base: ankles 44 cm apart (24% of body height, 1.1x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: weight slightly back, ready to pull and push\n- Technique cue: one foot at the front edge (the rule)\n- Technique cue: absolutely still until the start signal\n\n3. OBJECT_INTERACTION:\n- Starting block about 0.7 m above the water, top sloping toward the pool.\n- Raised back plate (kick plate) at the rear of the block.\n- Water surface; the lane rope runs alongside.\n- Legal under the World Aquatics rules: the front foot's toes are at the front edge of the block.\n\n4. CINEMATIC_CAMERA:\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view along the pool end, block and water line in frame.\n- from_the_water: low-angle shot looking up, from the front (target side), 50mm standard lens, full-body shot. Low from the water in front of the block, the swimmer's cap and shoulders facing camera.\n- wide_cinema: high-angle shot looking down, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide frame from behind the blocks, the lanes stretching to the far wall, arena lights.\n\n5. KINETIC_ENERGY:\n- perfectly still, tension in the hamstrings\n- water flat below the block\n- starting light on the block",
+ "prompt": "{SUBJECT}, a swimmer set on the starting block in the take-your-marks position. Crouched on the starting block: left foot at the front edge with the toes curled over it, right foot back on the raised kick plate with the heel up; both hands gripping the front edge of the block; hips high above the head, back rounded forward; head down, eyes on the water just in front of the block. Weight slightly back, ready to pull and push. One foot at the front edge (the rule). Absolutely still until the start signal. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view along the pool end, block and water line in frame. Perfectly still, tension in the hamstrings; water flat below the block. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, swimmer standing on the pool floor, no goggles, body floating high out of the water, wrong number of arms, hair floating without a swim cap, both feet side by side at the back of the block, hands off the block, swimmer already diving, both feet at the back of the starting block, swimmer already diving while the others are still set",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "side",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view along the pool end, block and water line in frame.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "from_the_water",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "low-angle shot looking up, from the front (target side), 50mm standard lens, full-body shot.",
+   "text": "Low from the water in front of the block, the swimmer's cap and shoulders facing camera.",
+   "openpose_png": "openpose_from_the_water.png",
+   "openpose_json": "openpose_from_the_water.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "high-angle shot looking down, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide frame from behind the blocks, the lanes stretching to the far wall, arena lights.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "World Aquatics",
+ "scene_rules": [
+  "50 m pool, lanes 2.5 m wide separated by lane ropes, dark lane lines and end-wall targets on the pool floor; backstroke flags across the pool 5 m from each wall. (World Aquatics FR 2)",
+  "Swimwear of textile only: men's suits reach no higher than the navel and no lower than the knee; women's suits leave the neck and shoulders uncovered and reach no lower than the knee. Up to two caps and goggles are allowed. (World Aquatics GR 5)",
+  "Referee and starter at the end of the pool, stroke judges walking the sides, turn judges at each end of every lane. (World Aquatics SW 2)"
+ ],
+ "sequence": {
+  "id": "SWIMMING_RACE",
+  "order": 1,
+  "phases": [
+   "SWIMMING_START_SET",
+   "SWIMMING_FREESTYLE_BREATH"
+  ]
+ },
+ "checks_passed": true
+}

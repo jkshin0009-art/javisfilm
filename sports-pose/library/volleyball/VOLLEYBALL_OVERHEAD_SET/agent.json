@@ -1,0 +1,85 @@
+{
+ "code": "VOLLEYBALL_OVERHEAD_SET",
+ "sport": "volleyball",
+ "technique": "overhead_set",
+ "phase": "contact",
+ "summary": "Volleyball overhead set (setter's pass) at contact: ball just above and in front of the forehead, both hands shaped around it with the thumbs toward the eyes.",
+ "names": {
+  "ko": [
+   "배구 토스",
+   "오버핸드 패스",
+   "세터 토스",
+   "배구 세트"
+  ],
+  "en": [
+   "volleyball set",
+   "overhead pass",
+   "setter hands",
+   "front set"
+  ]
+ },
+ "keywords": [
+  "volleyball",
+  "set",
+  "setter",
+  "overhead",
+  "pass",
+  "hands"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #VOLLEYBALL_OVERHEAD_SET\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 59 deg; face pointing up and forward. Eyes up on the ball through the triangle of the hands.\n- Torso: trunk line (hips to shoulders) 4 deg forward of vertical; shoulders square with the hips.\n- Right arm: upper arm raised 153 deg from the side of the trunk, pointing up and slightly forward and slightly to the athlete's right; elbow bent to about a right angle (85 deg flexion); forearm pointing to the athlete's left and slightly up and slightly backward; palm facing forward and to the athlete's left; wrist extended (cocked back) 9 deg; hand: cupped, fingers slightly curled and spread; fingertips 2.06 m above the floor.\n- Left arm: upper arm raised 153 deg from the side of the trunk, pointing up and slightly forward and slightly to the athlete's left; elbow bent to about a right angle (85 deg flexion); forearm pointing to the athlete's right and slightly up and slightly backward; palm facing forward and to the athlete's right; wrist extended (cocked back) 9 deg; hand: cupped, fingers slightly curled and spread; fingertips 2.06 m above the floor.\n- Right leg (slightly forward): hip flexed 32 deg; knee bent (38 deg flexion); thigh pointing down and slightly forward, shin pointing down; ankle dorsiflexed 13 deg; foot flat on the floor.\n- Left leg: hip flexed 20 deg; knee bent (30 deg flexion); thigh pointing down, shin pointing down and slightly backward; ankle dorsiflexed 17 deg; foot flat on the floor.\n- Base: ankles 39 cm apart (21% of body height, 0.9x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: all ten fingers on the ball\n- Technique cue: thumbs point back toward the eyes, thumbs not touching\n- Technique cue: contact just in front of the hairline, not over the skull\n- Technique cue: elbows slightly forward and out\n\n3. OBJECT_INTERACTION:\n- ball (21 cm diameter): center 2.00 m above the floor; surface 14 cm from the forehead (up and forward of it).\n- Legal under the FIVB rules: the ball rebounds from a brief contact, it is not caught or held; both hands meet the ball at the same instant.\n\n4. CINEMATIC_CAMERA:\n- front: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. Hands and the triangle window around the ball in sharp focus.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Profile shows the ball above the forehead and the bent elbows.\n- low_three_quarter: low-angle shot looking up, three-quarter front view, 35mm standard lens, full-body shot. Low angle looking up at the ball in the setter's hands, arena lights above.\n\n5. KINETIC_ENERGY:\n- ball leaving the fingertips with a clean arc, no spin\n- fingers flexing slightly on contact\n- knees and arms extending together",
+ "prompt": "{SUBJECT}, a volleyball setter setting the ball with both hands just above the forehead. Feet shoulder-width, right foot slightly forward, knees slightly bent; ball just above and in front of the forehead; both hands shaped around the back of the ball, fingers spread, thumbs pointing back toward the eyes, thumbs and index fingers forming a triangle window; elbows bent and slightly out. All ten fingers on the ball. Thumbs point back toward the eyes, thumbs not touching. Contact just in front of the hairline, not over the skull. Elbows slightly forward and out. Eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. Hands and the triangle window around the ball in sharp focus. Ball leaving the fingertips with a clean arc, no spin; fingers flexing slightly on contact. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, hands at the chest, palms slapping the ball, crossed thumbs, ball floating far from the fingers, ball behind the head, ball held or cradled in the hands, ball caught against the body, one hand touching the ball before the other",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "front",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "Hands and the triangle window around the ball in sharp focus.",
+   "openpose_png": "openpose_front.png",
+   "openpose_json": "openpose_front.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Profile shows the ball above the forehead and the bent elbows.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "low_three_quarter",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "low-angle shot looking up, three-quarter front view, 35mm standard lens, full-body shot.",
+   "text": "Low angle looking up at the ball in the setter's hands, arena lights above.",
+   "openpose_png": "openpose_low_three_quarter.png",
+   "openpose_json": "openpose_low_three_quarter.json"
+  }
+ ],
+ "rulebook": "FIVB",
+ "scene_rules": [
+  "Six players per team on court, three front row and three back row. (FIVB 7.3.1)",
+  "At most one Libero on court, in a jersey of a clearly contrasting dominant colour; the Libero never serves, blocks or attacks a ball entirely above the net. (FIVB 19.2, 19.1.3)",
+  "Jersey numbers 1-20 centred on the chest (at least 15 cm tall) and back (at least 20 cm tall); the captain has an 8 x 2 cm stripe under the chest number. (FIVB 4.3.3)",
+  "Team members wear the same jersey, shorts and socks (Libero excepted); shoes without heels. (FIVB 4.3)",
+  "Red-and-white striped antennae stand 80 cm above the net at each side line; the net is black 10 cm mesh with a 7 cm white top band. (FIVB 2.4, 2.3)",
+  "Court 18 x 9 m, white 5 cm lines; the centre line runs under the net and attack lines are 3 m from it on both sides. (FIVB 1.3)",
+  "First referee stands on a referee's stand at one end of the net, eyes about 50 cm above the net; the second referee stands on the floor near the opposite post. (FIVB 23.1, 24.1)",
+  "Line judges with flags stand in the free zone 1-3 m from the court corners. (FIVB 29.1)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

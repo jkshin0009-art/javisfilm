@@ -1,0 +1,242 @@
+{
+  "code": "TENNIS_FOREHAND",
+  "technique": "forehand",
+  "phase": "contact",
+  "summary": "Right-handed tennis forehand at contact from an open stance: feet parallel to the baseline, knees bent, hips and shoulders turned toward the net, ball met in front at waist height, left arm across the body.",
+  "names": {
+    "ko": [
+      "테니스 포핸드",
+      "포핸드 임팩트",
+      "오픈 스탠스 포핸드",
+      "테니스 스트로크"
+    ],
+    "en": [
+      "tennis forehand",
+      "forehand contact",
+      "open stance forehand",
+      "groundstroke"
+    ]
+  },
+  "keywords": [
+    "tennis",
+    "forehand",
+    "groundstroke",
+    "open stance"
+  ],
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "racket arm",
+      "l_arm": "balance arm across the body"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -15,
+      "tilt": 12,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 8,
+      "side": -6,
+      "rot": 15
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 40,
+      "plane": 50,
+      "rot": 30,
+      "elbow": 25,
+      "pron": -10,
+      "wrist": -35,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 60,
+      "plane": 125,
+      "rot": -20,
+      "elbow": 70,
+      "pron": 50,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "r_leg": {
+      "flex": 35,
+      "abd": 22,
+      "rot": 20,
+      "knee": 38,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            23,
+            53
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 30,
+      "abd": 22,
+      "rot": 15,
+      "knee": 30,
+      "ankle": "toes:20",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            15,
+            45
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "racket",
+      "kind": "racket",
+      "hand": "r",
+      "length_m": 0.685,
+      "head_m": [
+        0.32,
+        0.26
+      ],
+      "yaw": -75,
+      "pitch": 0,
+      "face": "palm"
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.067,
+      "touch": "racket_face",
+      "relate": [
+        "racket_face",
+        "belly"
+      ]
+    }
+  ],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "net_view",
+      "azimuth": 0,
+      "elevation": -4,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "From across the net, telephoto compression, racket strings sharp."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view along the baseline."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 6,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the player, court lines and net ahead, stadium blurred."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "min": 20,
+      "max": 60,
+      "why": "knees bent, loaded legs (faster forehands use more knee flexion)",
+      "src": "SEE, EST"
+    },
+    {
+      "m": "z:ball",
+      "min": 0.7,
+      "max": 1.25,
+      "why": "contact between waist and chest height",
+      "src": "EST"
+    },
+    {
+      "m": "fwd:ball:pelvis",
+      "min": 15,
+      "max": 70,
+      "why": "ball met in front of the body",
+      "src": "EST"
+    },
+    {
+      "m": "stance_over_shoulders",
+      "min": 1.1,
+      "why": "wide open stance, feet parallel to the baseline",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a right-handed tennis player hitting a forehand from an open stance",
+    "core": "Feet wide and parallel to the baseline, knees bent, weight on the right leg; hips and shoulders turned toward the net; right arm slightly bent, racket face meeting the ball in front of the body at waist height, racket shaft roughly level; left arm folded across the body.",
+    "gaze": "Eyes on the ball at contact.",
+    "cues": [
+      "hit out in front of the body",
+      "hips turn before the shoulders",
+      "left arm catches the racket on the follow-through"
+    ],
+    "kinetic": [
+      "ball compressing on the strings, felt fibres blurred",
+      "racket motion blur across the frame",
+      "sneakers sliding on the hard court"
+    ],
+    "avoid": [
+      "racket without strings",
+      "two rackets",
+      "ball merged into the strings",
+      "left-handed player",
+      "ball behind the body at contact"
+    ]
+  },
+  "ref_query": "tennis forehand",
+  "sources": [
+    {
+      "id": "SEE",
+      "cite": "Seeley et al.: faster forehands show larger trunk rotation, knee and hip flexion before impact (search extract)",
+      "url": "https://lida.sport-iat.de/twm/Record/4023740"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "tennis"
+}

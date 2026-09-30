@@ -1,0 +1,226 @@
+{
+  "code": "SWIMMING_BREASTSTROKE_BREATH",
+  "technique": "breaststroke",
+  "phase": "breath",
+  "summary": "Breaststroke at the breath: head and shoulders up out of the water, hands together under the chin after the insweep with the elbows under the surface, heels drawn toward the buttocks with the feet flexed and turned out for the kick.",
+  "names": {
+    "ko": [
+      "평영 호흡",
+      "평영 스트로크",
+      "평영 킥 준비",
+      "평영"
+    ],
+    "en": [
+      "breaststroke breath",
+      "breaststroke insweep",
+      "breaststroke kick recovery",
+      "breaststroke"
+    ]
+  },
+  "keywords": [
+    "swimming",
+    "breaststroke",
+    "breath",
+    "frog kick",
+    "stroke"
+  ],
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "right arm finishing the insweep",
+      "l_arm": "left arm finishing the insweep"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 62,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -15,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "flex": 5,
+      "side": 0,
+      "rot": 0
+    },
+    "r_arm": {
+      "elev": 45,
+      "plane": 100,
+      "rot": -40,
+      "elbow": 125,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "flat",
+      "reach": {
+        "to": "chin",
+        "offset_m": [
+          0.12,
+          -0.05,
+          -0.2
+        ],
+        "w": 0.3,
+        "tol_m": 0.04
+      }
+    },
+    "l_arm": {
+      "elev": 45,
+      "plane": 100,
+      "rot": -40,
+      "elbow": 125,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "flat",
+      "reach": {
+        "to": "chin",
+        "offset_m": [
+          0.12,
+          0.05,
+          -0.2
+        ],
+        "w": 0.3,
+        "tol_m": 0.04
+      }
+    },
+    "l_leg": {
+      "flex": 45,
+      "abd": 20,
+      "rot": -25,
+      "knee": 115,
+      "ankle": -20
+    },
+    "r_leg": {
+      "flex": 45,
+      "abd": 20,
+      "rot": -25,
+      "knee": 115,
+      "ankle": -20
+    }
+  },
+  "support": {
+    "float": {
+      "point": "chest",
+      "depth_m": 0.02
+    }
+  },
+  "water_m": 0.0,
+  "ground": {
+    "kind": "pool",
+    "depth_m": 2.5
+  },
+  "objects": [],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "surface",
+      "at": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "text": "Water surface; the lane rope runs alongside."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "underwater_side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 28,
+      "fill": 0.8,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Underwater side view at the surface line, the body split by the water line, bubbles around the hands."
+    },
+    {
+      "name": "front_above",
+      "azimuth": 0,
+      "elevation": 25,
+      "lens_mm": 50,
+      "fill": 0.8,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "From the end of the lane just above the water, the swimmer coming toward camera."
+    },
+    {
+      "name": "overhead",
+      "azimuth": -90,
+      "elevation": 60,
+      "lens_mm": 35,
+      "fill": 0.75,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "High angle from the pool deck, blue lane lines on the pool floor."
+    }
+  ],
+  "rules": [
+    {
+      "m": "z:r_elbow",
+      "max": -0.02,
+      "why": "elbows stay under the water (SW 7.3)",
+      "src": "WA"
+    },
+    {
+      "m": "z:nose",
+      "min": 0.05,
+      "why": "mouth clear of the water to breathe",
+      "src": "EST"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 90,
+      "why": "heels drawn up toward the buttocks for the kick",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a swimmer swimming breaststroke, lifting the head to breathe",
+    "core": "Head and shoulders up out of the water, chin just above the surface; forearms squeezed together under the chin with the hands meeting in front of the face and both elbows under the water; hips lower in the water; knees bent and heels drawn up toward the buttocks, knees about hip width, feet flexed and turned out ready to kick.",
+    "gaze": "Eyes forward and slightly down along the water surface.",
+    "cues": [
+      "elbows stay under the water",
+      "hands shoot forward together from the chest",
+      "turn the feet out before the kick"
+    ],
+    "kinetic": [
+      "water streaming off the shoulders and cap",
+      "small wave rising in front of the chest",
+      "breath fogging over the water in a cool pool hall"
+    ],
+    "avoid": [
+      "swimmer standing on the pool floor",
+      "no goggles",
+      "body floating high out of the water",
+      "wrong number of arms",
+      "hair floating without a swim cap",
+      "elbows lifted above the water",
+      "one hand in front of the other",
+      "flutter kick",
+      "arms reaching back past the hips"
+    ]
+  },
+  "ref_query": "breaststroke swimming",
+  "sources": [
+    {
+      "id": "WA",
+      "cite": "World Aquatics Swimming Rules SW 4 (start), SW 5 (freestyle), SW 7 (breaststroke), SW 8 (butterfly) and Facilities Rules FR 2 - general knowledge, not re-checked this session",
+      "url": "https://www.worldaquatics.com/rules/competition-regulations"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard swimming coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "swimming"
+}

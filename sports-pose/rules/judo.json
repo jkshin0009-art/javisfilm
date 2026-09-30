@@ -1,0 +1,56 @@
+{
+  "sport": "judo",
+  "rulebook": {
+    "title": "IJF Sport and Organisation Rules (SOR) and IJF Refereeing Rules",
+    "short": "IJF",
+    "url": "https://www.ijf.org/documents",
+    "text_used": "judogi, tatami and penalty sections from a secondary summary of the IJF rules read this session (ijf.org itself was not reachable); scores and penalty levels from general knowledge. The IJF revises the refereeing rules every Olympic cycle, so check penalty levels (shido or hansoku-make) against the current edition."
+  },
+  "dimensions": {
+    "tatami_m": {"contest_area": [8.0, 10.0], "safety_area": 3.0, "between_two_mats": 4.0, "total_min": 14.0, "rule": "SOR, tatami", "note": "contest area and safety area in different colours"},
+    "judogi": {"sleeve_gap_to_wrist_max_cm": 5, "jacket_overlap_min_cm": 20, "belt_width_cm": [4, 5], "belt_ends_cm": [20, 30], "rule": "SOR, judogi"},
+    "osaekomi_s": {"ippon": 20, "waza_ari": 10, "rule": "Refereeing Rules, osaekomi", "note": "values of recent editions"}
+  },
+  "equipment": [],
+  "scene": [
+    {"rule": "SOR, judogi", "text": "One athlete in a white judogi, the other in a blue judogi; the jacket covers the thighs and closes left over right, sleeves reach the wrist, trousers reach the ankle; belt tied with a square knot; women wear a plain white T-shirt under the jacket, men nothing under it."},
+    {"rule": "SOR, hygiene", "text": "No rings, watches, piercings or other hard objects; long hair tied back; nails cut short; barefoot on the tatami."},
+    {"rule": "SOR, tatami", "text": "Square contest area 8-10 m across inside a 3 m safety area of a different colour; coach chairs at the corners."},
+    {"rule": "Refereeing Rules", "text": "One referee on the mat; two judges at the table with the video replay (CARE) system; the referee raises one arm straight up for ippon."}
+  ],
+  "fouls": [
+    {"id": "leg_grab", "rule": "Refereeing Rules, prohibited acts", "title": "Grabbing the legs",
+     "text": "Attacking or blocking with one or both hands or arms below the belt (grabbing the legs or trousers) is penalised.",
+     "techniques": ["kumikata", "seoi_nage", "throw"],
+     "check": {"kind": "apart", "point": ["r_palm", "l_palm"],
+               "target": ["B.r_knee", "B.l_knee", "B.r_thigh_mid", "B.l_thigh_mid", "B.r_ankle", "B.l_ankle"], "min_m": 0.15},
+     "legal": "tori's hands are on the jacket and sleeves, away from uke's legs",
+     "avoid": ["hands grabbing the opponent's legs"]},
+    {"id": "head_dive", "rule": "Refereeing Rules, prohibited acts (hansoku-make)", "title": "Head diving",
+     "text": "Diving head first into the tatami while throwing, bending forward and down, is hansoku-make; tori's head stays up off the mat.",
+     "techniques": ["seoi_nage", "throw"],
+     "check": {"kind": "all_above", "points": ["crown", "forehead", "nose"], "ref": [0.0, 0.0, 0.4]},
+     "legal": "tori's head is well above the mat",
+     "avoid": ["thrower's head on the mat"]},
+    {"id": "grip_rules", "rule": "Refereeing Rules, gripping", "title": "Non-standard grips",
+     "text": "A cross grip, a one-sided grip, a belt grip or a grip on the back must be followed by an attack within a few seconds; fingers inside the opponent's sleeve or trouser leg, and the pistol grip on the sleeve end, are penalised.",
+     "techniques": ["kumikata"],
+     "avoid": ["fingers inside the opponent's sleeve"]},
+    {"id": "face_touch", "rule": "Refereeing Rules, prohibited acts", "title": "Hand on the face",
+     "text": "Putting a hand, arm, foot or leg directly on the opponent's face is penalised.",
+     "techniques": ["kumikata", "seoi_nage", "throw"],
+     "check": {"kind": "apart", "point": ["r_palm", "l_palm"], "target": ["B.nose", "B.chin", "B.r_eye", "B.l_eye"], "min_m": 0.12},
+     "legal": "no hand on the opponent's face",
+     "avoid": ["hand pushing the opponent's face"]},
+    {"id": "defensive_posture", "rule": "Refereeing Rules, prohibited acts (shido)", "title": "Defensive posture",
+     "text": "Bending over excessively to avoid being thrown, or holding without attacking, is penalised with shido.",
+     "techniques": ["kumikata"],
+     "avoid": ["judoka bent over at the waist to defend"]},
+    {"id": "safe_landing", "rule": "Refereeing Rules, ippon", "title": "Ippon and safe landing",
+     "text": "Ippon is a throw that lands the opponent largely on the back with speed, force and control; the thrower keeps hold of the sleeve so uke can break the fall, and uke tucks the chin and slaps the mat.",
+     "techniques": ["throw"],
+     "check": {"kind": "all_above", "points": ["B.occiput"], "ref": [0.0, 0.0, 0.03]},
+     "legal": "uke's head stays off the mat (chin tucked)",
+     "avoid": ["uke landing on the head or neck"]}
+  ]
+}

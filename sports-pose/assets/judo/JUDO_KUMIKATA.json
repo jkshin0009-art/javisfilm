@@ -1,0 +1,331 @@
+{
+  "code": "JUDO_KUMIKATA",
+  "technique": "kumikata",
+  "phase": "grip",
+  "summary": "Two judoka in the standard right-handed grip (ai-yotsu): each right hand on the partner's left lapel at collarbone height, each left hand on the partner's right sleeve at the elbow, upright natural posture with the right foot slightly forward.",
+  "names": {
+    "ko": [
+      "유도 맞잡기",
+      "유도 기본 잡기",
+      "쿠미카타",
+      "깃잡기 소매잡기"
+    ],
+    "en": [
+      "judo grip",
+      "kumikata",
+      "judo standard grip",
+      "lapel and sleeve grip"
+    ]
+  },
+  "keywords": [
+    "judo",
+    "grip",
+    "kumikata",
+    "standing"
+  ],
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "r_arm": "lapel hand (tsurite)",
+      "l_arm": "sleeve hand (hikite)"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 5
+    },
+    "trunk": {
+      "flex": 5,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "look_at": "B.chest"
+    },
+    "r_arm": {
+      "elev": 55,
+      "plane": 80,
+      "rot": -10,
+      "elbow": 80,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "B.l_lapel",
+        "w": 0.3,
+        "range": {
+          "elbow": [
+            30,
+            130
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 35,
+      "plane": 60,
+      "rot": -10,
+      "elbow": 70,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "B.r_sleeve",
+        "w": 0.3,
+        "range": {
+          "elbow": [
+            20,
+            130
+          ],
+          "wrist": [
+            -35,
+            35
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 14,
+      "abd": 6,
+      "rot": 8,
+      "knee": 18,
+      "ankle": "flat"
+    },
+    "l_leg": {
+      "flex": -4,
+      "abd": 6,
+      "rot": 12,
+      "knee": 14,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            8,
+            35
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "partners": [
+    {
+      "id": "B",
+      "role": "partner (uke) in the same right-handed grip",
+      "athlete": {
+        "height_m": 1.78
+      },
+      "support": {
+        "contacts": [
+          "l_foot",
+          "r_foot"
+        ],
+        "root_from": "A.pelvis",
+        "root_offset": [
+          0.72,
+          0.0
+        ]
+      },
+      "pose": {
+        "pelvis": {
+          "yaw": 180,
+          "tilt": 5
+        },
+        "trunk": {
+          "flex": 5
+        },
+        "head": {
+          "look_at": "A.chest"
+        },
+        "r_arm": {
+          "elev": 55,
+          "plane": 80,
+          "rot": -10,
+          "elbow": 80,
+          "pron": 20,
+          "wrist": 0,
+          "hand": "grip",
+          "reach": {
+            "to": "A.l_lapel",
+            "w": 0.3,
+            "range": {
+              "elbow": [
+                30,
+                130
+              ]
+            }
+          }
+        },
+        "l_arm": {
+          "elev": 35,
+          "plane": 60,
+          "rot": -10,
+          "elbow": 70,
+          "pron": 40,
+          "wrist": 0,
+          "hand": "grip",
+          "reach": {
+            "to": "A.r_sleeve",
+            "w": 0.3,
+            "range": {
+              "elbow": [
+                20,
+                130
+              ],
+              "wrist": [
+                -35,
+                35
+              ]
+            }
+          }
+        },
+        "r_leg": {
+          "flex": 14,
+          "abd": 6,
+          "rot": 8,
+          "knee": 18,
+          "ankle": "flat"
+        },
+        "l_leg": {
+          "flex": -4,
+          "abd": 6,
+          "rot": 12,
+          "knee": 14,
+          "ankle": "flat",
+          "reach": {
+            "to": "floor",
+            "point": "heel",
+            "fix": [
+              "rot"
+            ],
+            "range": {
+              "knee": [
+                8,
+                35
+              ]
+            }
+          }
+        }
+      },
+      "text": "Partner in a blue judogi, mirror-image grip: right hand on the left lapel, left hand on the right sleeve."
+    }
+  ],
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Side view across the tatami, both judoka in profile."
+    },
+    {
+      "name": "three_quarter",
+      "azimuth": -45,
+      "elevation": 5,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Three-quarter view, faces and grips sharp."
+    },
+    {
+      "name": "high_cinema",
+      "azimuth": -120,
+      "elevation": 30,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "High wide frame over the tatami, contest area colours and arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "min": 30,
+      "max": 130,
+      "why": "lapel arm bent, fist at the partner's collarbone",
+      "src": "KOD, EST"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "max": 20,
+      "why": "upright natural posture (shizentai), not bent over",
+      "src": "IJF"
+    },
+    {
+      "m": "stance_over_shoulders",
+      "min": 0.8,
+      "max": 1.6,
+      "why": "feet about shoulder width apart",
+      "src": "KOD, EST"
+    }
+  ],
+  "text": {
+    "action": "two judoka gripping each other in the standard right-handed grip",
+    "core": "Both standing upright in a natural posture, feet about shoulder width apart, knees soft, right foot slightly forward; each right hand grips the partner's left lapel at collarbone height with the knuckles up; each left hand grips the partner's right sleeve just below the elbow; elbows down, arms bent.",
+    "gaze": "Eyes on the partner's chest and shoulders.",
+    "cues": [
+      "grip with the little and ring fingers",
+      "keep the posture upright (shizentai)",
+      "elbows down, not flared"
+    ],
+    "kinetic": [
+      "judogi fabric pulled taut at the collar",
+      "belts and jacket skirts swinging",
+      "tatami squeaking under the feet"
+    ],
+    "avoid": [
+      "judogi without a belt",
+      "both athletes in the same colour judogi",
+      "bare-chested judoka",
+      "boxing gloves",
+      "grabbing the legs",
+      "sleeves rolled up",
+      "grip on the belt",
+      "hands on the partner's neck"
+    ]
+  },
+  "ref_query": "judo kumikata grip",
+  "sources": [
+    {
+      "id": "IJF",
+      "cite": "IJF Sport and Organisation Rules / Refereeing Rules: judogi, gripping, penalties (secondary summary of the SOR read this session; the IJF PDF itself not reachable)",
+      "url": "https://www.ijf.org/documents"
+    },
+    {
+      "id": "KOD",
+      "cite": "Kodokan judo technique descriptions (kumikata, ippon seoi nage, kesa gatame) - general knowledge, not re-checked this session",
+      "url": "https://kodokanjudoinstitute.org/en/waza/"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard judo coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "judo"
+}

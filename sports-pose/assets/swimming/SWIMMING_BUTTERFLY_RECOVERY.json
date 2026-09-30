@@ -1,0 +1,199 @@
+{
+  "code": "SWIMMING_BUTTERFLY_RECOVERY",
+  "technique": "butterfly",
+  "phase": "recovery",
+  "summary": "Butterfly at mid-recovery: both arms swinging forward together low over the water with straight elbows, head back down between the arms, chest pressing, hips at the surface, feet together in the dolphin kick.",
+  "names": {
+    "ko": [
+      "접영 리커버리",
+      "접영 팔 돌리기",
+      "버터플라이",
+      "접영 스트로크"
+    ],
+    "en": [
+      "butterfly recovery",
+      "butterfly stroke arms over the water",
+      "fly stroke",
+      "butterfly swim"
+    ]
+  },
+  "keywords": [
+    "swimming",
+    "butterfly",
+    "fly",
+    "stroke",
+    "dolphin kick"
+  ],
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "right arm recovering",
+      "l_arm": "left arm recovering"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 95,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -12,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "flex": 15,
+      "side": 0,
+      "rot": 0
+    },
+    "r_arm": {
+      "elev": 92,
+      "plane": -12,
+      "rot": -20,
+      "elbow": 8,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "flat"
+    },
+    "l_arm": {
+      "elev": 92,
+      "plane": -12,
+      "rot": -20,
+      "elbow": 8,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "flat"
+    },
+    "l_leg": {
+      "flex": 10,
+      "abd": 0,
+      "rot": -5,
+      "knee": 30,
+      "ankle": 55
+    },
+    "r_leg": {
+      "flex": 10,
+      "abd": 0,
+      "rot": -5,
+      "knee": 30,
+      "ankle": 55
+    }
+  },
+  "support": {
+    "float": {
+      "point": "back_upper",
+      "depth_m": -0.08
+    }
+  },
+  "water_m": 0.0,
+  "ground": {
+    "kind": "pool",
+    "depth_m": 2.5
+  },
+  "objects": [],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "surface",
+      "at": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "text": "Water surface; the lane rope runs alongside."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "underwater_side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 28,
+      "fill": 0.8,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Underwater side view at the surface line, the body split by the water line, bubbles around the hands."
+    },
+    {
+      "name": "front_above",
+      "azimuth": 0,
+      "elevation": 25,
+      "lens_mm": 50,
+      "fill": 0.8,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "From the end of the lane just above the water, the swimmer coming toward camera."
+    },
+    {
+      "name": "overhead",
+      "azimuth": -90,
+      "elevation": 60,
+      "lens_mm": 35,
+      "fill": 0.75,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "High angle from the pool deck, blue lane lines on the pool floor."
+    }
+  ],
+  "rules": [
+    {
+      "m": "z:r_wrist",
+      "min": 0.02,
+      "why": "hands swing forward over the water",
+      "src": "WA"
+    },
+    {
+      "m": "r_elbow_flex",
+      "max": 25,
+      "why": "arms nearly straight on the recovery",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a swimmer swimming butterfly, both arms swinging forward over the water",
+    "core": "Prone at the surface with the shoulders just out of the water; both arms swinging forward together low over the water, straight at the elbows, palms facing back and down; head down between the arms with the face toward the water; hips at the surface; legs together, knees slightly bent in the dolphin kick, toes pointed.",
+    "gaze": "Eyes down and slightly forward, just above the water.",
+    "cues": [
+      "both arms move together and at the same time",
+      "arms low and relaxed over the water",
+      "head goes down before the hands enter"
+    ],
+    "kinetic": [
+      "water sheeting off both arms",
+      "spray arcing from the fingertips",
+      "turbulence from the dolphin kick behind"
+    ],
+    "avoid": [
+      "swimmer standing on the pool floor",
+      "no goggles",
+      "body floating high out of the water",
+      "wrong number of arms",
+      "hair floating without a swim cap",
+      "one arm forward and one arm back",
+      "legs apart kicking alternately",
+      "breaststroke kick"
+    ]
+  },
+  "ref_query": "butterfly swimming",
+  "sources": [
+    {
+      "id": "WA",
+      "cite": "World Aquatics Swimming Rules SW 4 (start), SW 5 (freestyle), SW 7 (breaststroke), SW 8 (butterfly) and Facilities Rules FR 2 - general knowledge, not re-checked this session",
+      "url": "https://www.worldaquatics.com/rules/competition-regulations"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard swimming coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "swimming"
+}

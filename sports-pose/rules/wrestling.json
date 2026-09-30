@@ -1,0 +1,46 @@
+{
+  "sport": "wrestling",
+  "rulebook": {
+    "title": "UWW International Wrestling Rules (freestyle and Greco-Roman)",
+    "short": "UWW",
+    "url": "https://uww.org/governance/rules",
+    "text_used": "equipment, mat and caution sections from secondary summaries of the UWW rules read this session (uww.org itself was not reachable); rule references are section names. Point values for cautions changed between editions, so check the current edition."
+  },
+  "dimensions": {
+    "mat_m": {"central_circle": 7.0, "passivity_zone_width": 1.0, "competition_surface": 9.0, "protection_area_min": 1.5, "platform_min": 12.0, "rule": "Mat", "note": "the central circle is dark blue, the passivity zone orange; a summary gave the passivity band as 1.2 m, but 7 m + 2 x 1 m matches the 9 m surface"},
+    "mat_thickness_cm": {"min": 6, "rule": "Mat"}
+  },
+  "equipment": [],
+  "scene": [
+    {"rule": "Wrestler's equipment", "text": "One-piece singlet, one wrestler in red and one in blue (by draw), wrestling shoes without heels, buckles or metal, laces covered; ear guards optional for seniors; a handkerchief tucked into the singlet; no jewellery; long hair covered."},
+    {"rule": "Mat", "text": "Circular 9 m competition surface on a square mat: dark-blue 7 m central circle with a 1 m starting circle in the middle, an orange 1 m passivity band around it, a protection area of a contrasting colour outside; red and blue corners diagonally opposite."},
+    {"rule": "Officials", "text": "Referee on the mat wearing red and blue wristbands, a judge and a mat chairman at the table; coaches seated in the red and blue corners."}
+  ],
+  "fouls": [
+    {"id": "greco_below_waist", "rule": "Greco-Roman: holds below the waist", "title": "Greco-Roman: no holds below the waist",
+     "text": "In Greco-Roman, attacking or holding the opponent below the waist and using the legs to trip, hook or block are forbidden; all holds are on the upper body.",
+     "techniques": ["body_lock"],
+     "check": {"kind": "all_above", "points": ["r_palm", "l_palm"], "ref": "B.belt_back", "tol_m": -0.02},
+     "legal": "both hands are locked above the opponent's waist",
+     "avoid": ["hands grabbing the opponent's legs", "leg trip"]},
+    {"id": "legs_freestyle", "rule": "Freestyle: legs may be attacked", "title": "Freestyle leg attacks are legal",
+     "text": "In freestyle, grabbing the legs and tripping are allowed; a double-leg takedown is a standard legal attack.",
+     "techniques": ["double_leg"],
+     "check": {"kind": "near", "point": ["r_palm", "l_palm"], "target": ["B.r_knee_back", "B.l_knee_back", "B.r_thigh_mid", "B.l_thigh_mid"], "max_m": 0.06},
+     "legal": "the hands are wrapped behind the opponent's legs (legal in freestyle only)"},
+    {"id": "illegal_holds", "rule": "Cautions: illegal holds", "title": "Illegal holds",
+     "text": "Choking, the full nelson, twisting fingers or other small joints, a headlock without an arm enclosed, and bending a joint beyond its range are cautions.",
+     "techniques": ["stance", "double_leg", "body_lock"],
+     "avoid": ["hand choking the opponent's throat", "full nelson"]},
+    {"id": "roughness", "rule": "Cautions and disqualification: brutality", "title": "Striking, butting, biting",
+     "text": "Striking, head butting, elbowing, biting and scratching are forbidden; slamming the opponent head first into the mat is brutality.",
+     "techniques": ["stance", "double_leg", "body_lock"],
+     "check": {"kind": "apart", "point": ["r_knuckles", "l_knuckles"], "target": ["B.nose", "B.chin"], "min_m": 0.1},
+     "legal": "no fist or hand on the opponent's face",
+     "avoid": ["punching", "elbow to the head"]},
+    {"id": "fleeing", "rule": "Cautions: fleeing the mat or the hold", "title": "Fleeing",
+     "text": "Stepping out of the circle to avoid wrestling, or fleeing a hold, is a caution with points to the opponent; a foot in the protection area in the standing position gives the opponent a point.",
+     "techniques": ["stance", "double_leg"],
+     "avoid": ["wrestler standing outside the circle"]}
+  ]
+}

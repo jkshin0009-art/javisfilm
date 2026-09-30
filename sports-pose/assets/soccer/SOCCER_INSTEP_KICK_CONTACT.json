@@ -1,0 +1,272 @@
+{
+  "code": "SOCCER_INSTEP_KICK_CONTACT",
+  "sport": "soccer",
+  "technique": "instep_kick",
+  "phase": "contact",
+  "summary": "Right-footed soccer instep kick at ball contact: laces strike the ball centre, toes pointed and ankle locked, support knee bent, body over the ball.",
+  "names": {
+    "ko": [
+      "축구 인스텝 킥 임팩트",
+      "슈팅 순간",
+      "발등 슛",
+      "강슛 임팩트"
+    ],
+    "en": [
+      "soccer instep kick contact",
+      "shot impact",
+      "laces strike",
+      "power shot contact"
+    ]
+  },
+  "keywords": [
+    "soccer",
+    "football",
+    "kick",
+    "shot",
+    "instep",
+    "laces",
+    "impact"
+  ],
+  "sequence": {
+    "id": "SOCCER_INSTEP_KICK",
+    "order": 2,
+    "phases": [
+      "SOCCER_INSTEP_KICK_BACKSWING",
+      "SOCCER_INSTEP_KICK_CONTACT"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.8,
+    "hand": "right",
+    "roles": {
+      "r_leg": "kicking leg",
+      "l_leg": "support leg",
+      "l_arm": "balance arm, out wide",
+      "r_arm": "swings across the body"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -8,
+      "tilt": -2,
+      "side": -8
+    },
+    "trunk": {
+      "flex": 14,
+      "side": -8,
+      "rot": -6
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 40,
+      "plane": 115,
+      "rot": -20,
+      "elbow": 60,
+      "pron": 30,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "l_arm": {
+      "elev": 80,
+      "plane": -10,
+      "rot": 10,
+      "elbow": 25,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "spread"
+    },
+    "r_leg": {
+      "flex": 30,
+      "abd": 8,
+      "rot": 5,
+      "knee": 55,
+      "ankle": 62,
+      "reach": {
+        "to": "ball",
+        "point": "instep",
+        "side": [
+          -0.85,
+          0.0,
+          0.12
+        ],
+        "face_w": 10,
+        "w": 0.3,
+        "range": {
+          "knee": [
+            30,
+            75
+          ],
+          "ankle": [
+            55,
+            70
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 16,
+      "abd": 4,
+      "rot": 8,
+      "knee": 42,
+      "ankle": "flat"
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.22,
+      "at": "l_ankle",
+      "offset_m": [
+        0.04,
+        -0.3,
+        0
+      ],
+      "on_floor": true,
+      "relate": [
+        "right_instep",
+        "left_ankle"
+      ]
+    }
+  ],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "side_low",
+      "azimuth": -90,
+      "height_m": 0.35,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Ground-level side view, laces meeting the ball, ball slightly deformed at impact."
+    },
+    {
+      "name": "goal_view",
+      "azimuth": 0,
+      "elevation": -4,
+      "lens_mm": 85,
+      "fill": 0.84,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Goalkeeper's point of view, compressed telephoto perspective, sharp focus on the ball."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": -60,
+      "height_m": 0.3,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide low frame, stadium lights and crowd blurred behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_thigh_fwd",
+      "min": 15,
+      "max": 50,
+      "why": "kicking thigh swinging forward, knee over or just behind the ball (hip reported near neutral, -7 to 15 deg, against a tilted pelvis frame)",
+      "src": "S2"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 30,
+      "max": 70,
+      "why": "kicking knee still bent and extending at impact (about 43-67 deg)",
+      "src": "S2, S4"
+    },
+    {
+      "m": "r_leg.ankle",
+      "min": 50,
+      "why": "ankle plantar-flexed and locked, toes pointed down",
+      "src": "S1"
+    },
+    {
+      "m": "l_knee_flex",
+      "min": 30,
+      "max": 55,
+      "why": "support knee about 42 deg flexion at contact",
+      "src": "S3"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "support foot planted",
+      "src": "S3"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "min": -5,
+      "max": 20,
+      "why": "body over the ball, not leaning far back",
+      "src": "S5"
+    }
+  ],
+  "text": {
+    "action": "a soccer player striking a right-footed instep shot, the laces hitting the centre of the ball",
+    "core": "Left support foot planted flat beside the ball, left knee bent about 40 degrees; right kicking leg swinging through with the knee still slightly bent, ankle locked and toes pointed down, the top of the foot (laces) meeting the back centre of the ball; hips turned square to the goal; trunk over the ball; left arm out wide, right arm swinging across.",
+    "gaze": "Head down over the ball, eyes on the contact point.",
+    "cues": [
+      "toe pointed down and ankle locked",
+      "strike through the centre of the ball with the laces",
+      "hips square to the target at contact",
+      "knee over the ball keeps the shot low"
+    ],
+    "kinetic": [
+      "ball compressing against the laces, first frame of flight",
+      "grass spray and a small divot flying off the turf",
+      "motion blur on the kicking shin, support leg sharp"
+    ],
+    "avoid": [
+      "foot passing through the ball",
+      "toe pointed up (toe poke)",
+      "ball larger than the foot",
+      "support foot hovering",
+      "kicking-side arm thrown forward",
+      "knee bent backwards"
+    ]
+  },
+  "ref_query": "football shot kick",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Kellis & Katis 2007, JSSM 6:154: at impact the hip is flexed, the knee extending, the ankle plantar-flexed",
+      "url": "https://www.jssm.org/hf.php?id=jssm-06-154.xml"
+    },
+    {
+      "id": "S2",
+      "cite": "Systematic review of instep-kick kinematics in elite adult players (hip -7 to 15 deg, knee 67 +/- 19 deg at impact)",
+      "url": "https://drantoniopetrolo.ca/wp-content/uploads/2024/01/KINEMATIC-DETERMINANTS-OF-THE-INSTEP-SOCCER-KICK-IN-ELITE-ADULT-SOCCER-PLAYERS_A-SYSTEMATIC-REVIEW.pdf"
+    },
+    {
+      "id": "S3",
+      "cite": "Lees et al. 2010, J Sports Sci review: support knee 42 deg at contact",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20509089/"
+    },
+    {
+      "id": "S4",
+      "cite": "Kapidzic et al. 2014: swinging-leg knee 136.5 deg included angle (about 43.5 deg flexion)",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4234773/"
+    },
+    {
+      "id": "S5",
+      "cite": "Nunome et al. 2002/2006: instep ball speed about 28 m/s, contact under 10 ms",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16368610/"
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "code": "SOCCER_INSTEP_KICK_BACKSWING",
+  "sport": "soccer",
+  "technique": "instep_kick",
+  "phase": "backswing",
+  "summary": "Right-footed soccer instep kick at support-foot plant: left foot planted beside the ball, kicking hip extended and knee folded behind, left arm out wide.",
+  "names": {
+    "ko": [
+      "축구 인스텝 킥 백스윙",
+      "슈팅 디딤발",
+      "강슛 준비 동작",
+      "축구 킥 테이크백"
+    ],
+    "en": [
+      "soccer instep kick backswing",
+      "shot plant foot",
+      "kicking leg cocked",
+      "power shot wind-up"
+    ]
+  },
+  "keywords": [
+    "soccer",
+    "football",
+    "kick",
+    "shot",
+    "instep",
+    "backswing",
+    "plant foot"
+  ],
+  "sequence": {
+    "id": "SOCCER_INSTEP_KICK",
+    "order": 1,
+    "phases": [
+      "SOCCER_INSTEP_KICK_BACKSWING",
+      "SOCCER_INSTEP_KICK_CONTACT"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.8,
+    "hand": "right",
+    "roles": {
+      "r_leg": "kicking leg",
+      "l_leg": "support leg",
+      "l_arm": "balance arm, out wide",
+      "r_arm": "swings forward across the body"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -35,
+      "tilt": 5,
+      "side": -6
+    },
+    "trunk": {
+      "flex": -8,
+      "side": -10,
+      "rot": 18
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 45,
+      "plane": 110,
+      "rot": -10,
+      "elbow": 70,
+      "pron": 30,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "l_arm": {
+      "elev": 85,
+      "plane": -30,
+      "rot": 10,
+      "elbow": 25,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "spread"
+    },
+    "r_leg": {
+      "flex": -28,
+      "abd": 12,
+      "rot": 10,
+      "knee": 95,
+      "ankle": 55
+    },
+    "l_leg": {
+      "flex": 30,
+      "abd": 4,
+      "rot": 5,
+      "knee": 26,
+      "ankle": "flat"
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.22,
+      "at": "l_ankle",
+      "offset_m": [
+        0.02,
+        -0.3,
+        0
+      ],
+      "on_floor": true,
+      "relate": [
+        "left_ankle"
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "name": "side_low",
+      "azimuth": -90,
+      "elevation": -6,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Ground-level side view: the folded kicking leg and the planted foot beside the ball both read clearly."
+    },
+    {
+      "name": "front_three_quarter",
+      "azimuth": -30,
+      "elevation": -8,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Goalkeeper-side three-quarter view, ball in the foreground, sharp focus on the ball."
+    },
+    {
+      "name": "ground_wide",
+      "azimuth": -140,
+      "height_m": 0.25,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Camera almost on the turf behind the kicker, goal visible in the distance."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_leg.flex",
+      "min": -35,
+      "max": -20,
+      "why": "kicking hip extended up to about 29 deg at the end of the backswing",
+      "src": "S1"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 85,
+      "max": 115,
+      "why": "kicking knee near maximum flexion (about 93 deg in elite adults)",
+      "src": "S2"
+    },
+    {
+      "m": "l_knee_flex",
+      "min": 18,
+      "max": 35,
+      "why": "support knee about 26 deg flexion at plant",
+      "src": "S3"
+    },
+    {
+      "m": "left:left_ankle:ball",
+      "min": 20,
+      "max": 38,
+      "why": "support foot 27-37 cm beside the ball (best ball speed and accuracy)",
+      "src": "S4"
+    },
+    {
+      "m": "fwd:left_ankle:ball",
+      "min": -12,
+      "max": 8,
+      "why": "support foot level with or slightly behind the ball centre",
+      "src": "S4, S5"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "support foot planted flat",
+      "src": "S3"
+    },
+    {
+      "m": "l_shoulder_elev",
+      "min": 60,
+      "why": "non-kicking arm abducted and extended (tension arc)",
+      "src": "S6"
+    }
+  ],
+  "environment": [],
+  "text": {
+    "action": "a soccer player winding up a right-footed instep shot, left support foot just planted beside the ball",
+    "core": "Left foot planted flat beside the ball, about 30 cm to its left and level with it, left knee slightly bent; right kicking leg drawn back behind the body with the hip extended and the knee folded so the heel rises toward the buttock, toes pointed; trunk leaning slightly back and away; left arm stretched out wide and back for balance, right arm swinging forward across the body.",
+    "gaze": "Head down and still, eyes on the ball.",
+    "cues": [
+      "plant the support foot beside the ball, not behind it",
+      "kicking knee folds tight, heel toward the buttock",
+      "non-kicking arm out wide builds a tension arc across the trunk",
+      "approach from about 30-45 degrees to the target line"
+    ],
+    "kinetic": [
+      "turf and grass blades kicked up behind the plant foot",
+      "motion blur on the kicking foot swinging back",
+      "shirt twisting with the trunk rotation"
+    ],
+    "avoid": [
+      "support foot floating or on tiptoe",
+      "support foot directly behind the ball",
+      "kicking leg swung forward",
+      "both arms hanging at the sides",
+      "knee bent backwards",
+      "left and right legs swapped"
+    ]
+  },
+  "ref_query": "football shot kick",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Kellis & Katis 2007, JSSM 6:154, biomechanics of the soccer kick (hip extension up to 29 deg in the backswing)",
+      "url": "https://www.jssm.org/hf.php?id=jssm-06-154.xml"
+    },
+    {
+      "id": "S2",
+      "cite": "Systematic review of instep-kick kinematics in elite adult players (maximum knee flexion 93 +/- 5 deg)",
+      "url": "https://drantoniopetrolo.ca/wp-content/uploads/2024/01/KINEMATIC-DETERMINANTS-OF-THE-INSTEP-SOCCER-KICK-IN-ELITE-ADULT-SOCCER-PLAYERS_A-SYSTEMATIC-REVIEW.pdf"
+    },
+    {
+      "id": "S3",
+      "cite": "Lees et al. 2010, J Sports Sci review: support knee 26 deg at plant, 42 deg at contact; pelvis rotates 30-36 deg to contact",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/20509089/"
+    },
+    {
+      "id": "S4",
+      "cite": "Ou, Lei & Cheng, Science and Medicine in Football 7:34-40: support foot beside or slightly ahead of the ball, 27-37 cm to the side",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/24733938.2022.2055781"
+    },
+    {
+      "id": "S5",
+      "cite": "McLean & Tumilty 1993 via Basumatary thesis: support foot about 30 cm to the side and 5-10 cm behind",
+      "url": "https://vuir.vu.edu.au/15563/"
+    },
+    {
+      "id": "S6",
+      "cite": "Shan & Westerhoff 2005, Sports Biomech 4:59-72: full-body tension arc of the maximal instep kick",
+      "url": "https://www.researchgate.net/publication/7929595"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "code": "BADMINTON_JUMP_SMASH",
+  "technique": "smash",
+  "phase": "contact",
+  "summary": "Right-handed badminton jump smash at contact: airborne with a scissor kick, racket arm reaching up in front of the hitting shoulder, forearm pronating, left arm pulled down, shuttle hit high in front.",
+  "names": {
+    "ko": [
+      "배드민턴 점프 스매시",
+      "스매시 타점",
+      "점프 스매싱",
+      "배드민턴 공격"
+    ],
+    "en": [
+      "badminton jump smash",
+      "smash contact",
+      "jumping smash",
+      "overhead smash"
+    ]
+  },
+  "keywords": [
+    "badminton",
+    "smash",
+    "jump",
+    "overhead",
+    "shuttlecock"
+  ],
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "r_arm": "racket arm",
+      "l_arm": "non-racket arm, pulled down",
+      "r_leg": "scissor kick, forward",
+      "l_leg": "scissor kick, back"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -25,
+      "tilt": 5,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 8,
+      "side": -12,
+      "rot": 18
+    },
+    "head": {
+      "look_at": "shuttle"
+    },
+    "r_arm": {
+      "elev": 160,
+      "plane": 55,
+      "rot": 40,
+      "elbow": 22,
+      "pron": 70,
+      "wrist": 10,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 45,
+      "plane": 110,
+      "rot": -40,
+      "elbow": 100,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "r_leg": {
+      "flex": 50,
+      "abd": 8,
+      "rot": 10,
+      "knee": 70,
+      "ankle": 30
+    },
+    "l_leg": {
+      "flex": -12,
+      "abd": 8,
+      "rot": 5,
+      "knee": 45,
+      "ankle": 35
+    }
+  },
+  "support": {
+    "airborne_m": 0.35
+  },
+  "objects": [
+    {
+      "name": "racket",
+      "kind": "racket",
+      "hand": "r",
+      "length_m": 0.665,
+      "head_m": [
+        0.25,
+        0.21
+      ],
+      "tilt_deg": 20
+    },
+    {
+      "name": "shuttle",
+      "kind": "shuttle",
+      "at": "racket_face",
+      "offset_m": [
+        0.03,
+        0,
+        0.0
+      ],
+      "dir": [
+        1,
+        0,
+        -0.3
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "net",
+      "x_m": 2.5,
+      "height_m": 1.524,
+      "text": "Net 1.524 m high at the centre, {fwd:net_top:pelvis} cm in front; the shuttle is struck high on the player's own side."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "net_view",
+      "azimuth": 0,
+      "elevation": -4,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "From across the net, racket strings and shuttle sharp."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Side view along the net."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 8,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the player, green court and lines, arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "min": 8,
+      "max": 40,
+      "why": "racket arm nearly straight but not locked (about 32 deg in a case study; faster smashes with a less extended elbow)",
+      "src": "EFS22"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 140,
+      "max": 178,
+      "why": "upper arm about 15 deg short of vertical relative to the trunk",
+      "src": "ISBS686"
+    },
+    {
+      "m": "z:shuttle",
+      "min": 2.5,
+      "max": 3.1,
+      "why": "contact about 2.9 m high in elite men",
+      "src": "IJRSS"
+    },
+    {
+      "m": "lowest_z",
+      "min": 0.2,
+      "why": "airborne jump smash",
+      "src": "IJRSS"
+    }
+  ],
+  "text": {
+    "action": "a right-handed badminton player hitting a jump smash at the top of the jump",
+    "core": "Airborne with a scissor kick, right knee driven forward and left leg swept back; trunk tilted so the racket shoulder is high; right arm reaching up almost straight in front of the right shoulder, forearm turning over, racket face angled down onto the shuttle; left arm pulled down to the chest.",
+    "gaze": "Eyes on the shuttle.",
+    "cues": [
+      "contact in front of and above the racket shoulder",
+      "legs switch in the air like scissors",
+      "pull the non-racket arm in as you strike",
+      "land on the non-racket foot first"
+    ],
+    "kinetic": [
+      "racket head motion blur, shuttle compressing off the strings",
+      "sweat flying off the hair",
+      "court lights flaring behind the racket"
+    ],
+    "avoid": [
+      "racket without strings",
+      "racket head merged into the hand",
+      "shuttle flying feathers first",
+      "left-handed player",
+      "contact behind the head",
+      "both legs together in the air",
+      "left arm still raised at contact"
+    ]
+  },
+  "ref_query": "badminton smash",
+  "sources": [
+    {
+      "id": "IJRSS",
+      "cite": "Elite jump smash: contact height 2.90 +/- 0.13 m (men), jump height 53.6 cm (men) - search extract",
+      "url": "https://revistaseug.ugr.es/index.php/IJRSS/article/view/33248"
+    },
+    {
+      "id": "ISBS686",
+      "cite": "Badminton smash kinematics: arm-to-trunk angle about 164 deg at contact (search extract)",
+      "url": "https://ojs.ub.uni-konstanz.de/cpa/article/view/686/606"
+    },
+    {
+      "id": "EFS22",
+      "cite": "Smash case study: elbow 148 deg inner angle (about 32 deg flexion) at contact",
+      "url": "https://efsupit.ro/images/stories/decembrie2022/Art%20404.pdf"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "badminton"
+}

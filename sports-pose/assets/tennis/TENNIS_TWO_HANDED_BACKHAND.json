@@ -1,0 +1,235 @@
+{
+  "code": "TENNIS_TWO_HANDED_BACKHAND",
+  "technique": "backhand",
+  "phase": "contact",
+  "summary": "Right-handed tennis two-handed backhand at contact: right foot stepped forward, both hands on the grip (left above right), ball met in front of the front hip at waist height, arms nearly straight.",
+  "names": {
+    "ko": [
+      "테니스 양손 백핸드",
+      "투핸드 백핸드",
+      "백핸드 임팩트",
+      "테니스 백핸드"
+    ],
+    "en": [
+      "two-handed backhand",
+      "tennis backhand contact",
+      "double-handed backhand",
+      "backhand drive"
+    ]
+  },
+  "keywords": [
+    "tennis",
+    "backhand",
+    "two-handed",
+    "groundstroke"
+  ],
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "bottom hand",
+      "l_arm": "top hand (drives the stroke)",
+      "r_leg": "front leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 45,
+      "tilt": 12,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 8,
+      "side": 0,
+      "rot": -10
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 45,
+      "plane": 115,
+      "rot": -20,
+      "elbow": 12,
+      "pron": 60,
+      "wrist": -10,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 45,
+      "plane": 70,
+      "rot": 0,
+      "elbow": 30,
+      "pron": -40,
+      "wrist": -20,
+      "hand": "grip",
+      "reach": {
+        "to": "racket_hand2",
+        "w": 0.4
+      }
+    },
+    "r_leg": {
+      "flex": 40,
+      "abd": 8,
+      "rot": 10,
+      "knee": 40,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            25,
+            55
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 5,
+      "abd": 12,
+      "rot": 20,
+      "knee": 25,
+      "ankle": "toes:25",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            10,
+            40
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "racket",
+      "kind": "racket",
+      "hand": "r",
+      "length_m": 0.685,
+      "head_m": [
+        0.32,
+        0.26
+      ],
+      "yaw": 80,
+      "pitch": -5,
+      "face": "back"
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.067,
+      "touch": "racket_face",
+      "relate": [
+        "racket_face",
+        "belly"
+      ]
+    }
+  ],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "net_view",
+      "azimuth": 0,
+      "elevation": -4,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "From across the net, telephoto compression, racket strings sharp."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view along the baseline."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 6,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the player, court lines and net ahead, stadium blurred."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "max": 30,
+      "why": "arms nearly straight at contact",
+      "src": "EST"
+    },
+    {
+      "m": "dist:r_palm:l_palm",
+      "max": 16,
+      "why": "both hands together on the grip",
+      "src": "EST"
+    },
+    {
+      "m": "z:ball",
+      "min": 0.7,
+      "max": 1.25,
+      "why": "contact at waist height",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a right-handed tennis player hitting a two-handed backhand",
+    "core": "Right foot stepped forward toward the net, knees bent; both hands on the grip with the left hand directly above the right; arms nearly straight, racket face meeting the ball in front of the right hip at waist height on the left side of the body; shoulders turned, chin near the right shoulder.",
+    "gaze": "Eyes on the ball at contact.",
+    "cues": [
+      "left hand drives the stroke",
+      "hit through the ball in front of the front hip",
+      "finish high over the right shoulder"
+    ],
+    "kinetic": [
+      "ball compressing on the strings",
+      "racket motion blur",
+      "shirt twisting with the shoulder turn"
+    ],
+    "avoid": [
+      "racket without strings",
+      "two rackets",
+      "ball merged into the strings",
+      "left-handed player",
+      "hands apart on the grip",
+      "only one hand on the racket"
+    ]
+  },
+  "ref_query": "tennis backhand",
+  "sources": [
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "tennis"
+}

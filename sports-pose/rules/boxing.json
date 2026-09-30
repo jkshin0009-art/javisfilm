@@ -1,0 +1,51 @@
+{
+  "sport": "boxing",
+  "rulebook": {
+    "title": "World Boxing Technical and Competition Rules (Olympic-style boxing, carried over from the AIBA rules)",
+    "short": "World Boxing",
+    "url": "https://www.worldboxing.org",
+    "text_used": "written from general knowledge of the AIBA / World Boxing technical and competition rules; the federation sites were not reachable from this session, so rule wording, glove weights and ring sizes were not re-checked. Professional bodies (WBC, WBA, IBF, WBO) differ in details (ring size, gloves, headguards)."
+  },
+  "dimensions": {
+    "ring_m": {"inside_ropes": 6.1, "ropes": 4, "rule": "Ring", "note": "Olympic-style rule; professional rings are 4.9-7.3 m inside the ropes"},
+    "gloves_oz": {"light_classes": 10, "heavy_classes": 12, "rule": "Gloves", "note": "AIBA-era split; check the event's current rule"}
+  },
+  "equipment": [],
+  "scene": [
+    {"rule": "Ring", "text": "Square ring with four ropes, one red corner, one blue corner and two white neutral corners; the canvas covers a padded floor."},
+    {"rule": "Uniform", "text": "Each boxer wears the colour of the corner (red or blue) on the vest, shorts, gloves and headguard; the waistband of the shorts marks the belt line and must be clearly visible."},
+    {"rule": "Personal equipment", "text": "Mouthguard in every bout; hand wraps under the gloves; groin guard; elite men usually box without headguards (women, youth and juniors often wear them, check the event)."},
+    {"rule": "Officials", "text": "One referee inside the ring; judges seated at ringside; each boxer has a coach in the corner."}
+  ],
+  "fouls": [
+    {"id": "below_belt", "rule": "Fouls: hitting below the belt", "title": "Hitting below the belt",
+     "text": "Blows must land on the front or sides of the head or body above the belt line; hitting below the belt is a foul.",
+     "techniques": ["jab", "cross", "hook"],
+     "check": {"kind": "all_above", "points": ["r_knuckles", "l_knuckles"], "ref": "B.belt_front"},
+     "legal": "both gloves stay above the opponent's belt line",
+     "avoid": ["punch landing below the belt"]},
+    {"id": "closed_glove", "rule": "Scoring blows; Fouls: open glove", "title": "Knuckle part of the closed glove",
+     "text": "A scoring blow lands with the knuckle part of the closed glove; hitting with the open glove, the inside of the glove, the wrist or the side of the hand is a foul.",
+     "techniques": ["stance", "jab", "cross", "hook"],
+     "check": [{"kind": "hand_shape", "hand": "r", "allowed": ["fist"]},
+               {"kind": "hand_shape", "hand": "l", "allowed": ["fist"]}],
+     "legal": "both hands are closed fists inside the gloves",
+     "avoid": ["slapping with an open glove", "backhand blow"]},
+    {"id": "head_elbow", "rule": "Fouls: head, shoulder, forearm, elbow", "title": "Head butts and elbows",
+     "text": "Butting, or attacking with the head, shoulder, forearm or elbow, is a foul; only the fist in the glove may strike.",
+     "techniques": ["jab", "cross", "hook"],
+     "avoid": ["head butting the opponent", "elbow strike to the face"]},
+    {"id": "back_of_head", "rule": "Fouls: back of the head, neck, kidneys", "title": "Rabbit punch and kidney punch",
+     "text": "Blows to the back of the head or neck and to the kidneys are fouls; the target is the front and sides of the head and body.",
+     "techniques": ["jab", "cross", "hook"],
+     "avoid": ["punch to the back of the head"]},
+    {"id": "holding", "rule": "Fouls: holding, pushing, wrestling", "title": "Holding and wrestling",
+     "text": "Holding, hooking the opponent's arm or neck, pushing, tripping, wrestling or throwing is a foul, and so is holding and hitting at the same time.",
+     "techniques": ["stance", "jab", "cross", "hook"],
+     "avoid": ["boxers clinching and holding", "arm locked around the opponent's neck"]},
+    {"id": "ducking_low", "rule": "Fouls: ducking below the belt", "title": "Ducking below the belt",
+     "text": "Ducking so low that the head goes below the opponent's belt line is a foul.",
+     "techniques": ["stance"],
+     "avoid": ["boxer ducking with the head at waist height"]}
+  ]
+}

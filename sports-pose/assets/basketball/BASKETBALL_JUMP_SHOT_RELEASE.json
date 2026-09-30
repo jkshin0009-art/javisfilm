@@ -1,0 +1,246 @@
+{
+  "code": "BASKETBALL_JUMP_SHOT_RELEASE",
+  "sport": "basketball",
+  "technique": "jump_shot",
+  "phase": "release",
+  "summary": "Right-handed basketball jump shot at release: airborne near the top of the jump, shooting arm extended high toward the rim, wrist snapped down in a gooseneck follow-through, guide hand up at the side.",
+  "names": {
+    "ko": [
+      "농구 점프슛 릴리스",
+      "슛 팔로스루",
+      "슛 쏘는 순간",
+      "구스넥 팔로스루"
+    ],
+    "en": [
+      "basketball jump shot release",
+      "shot follow-through",
+      "gooseneck",
+      "jumper release"
+    ]
+  },
+  "keywords": [
+    "basketball",
+    "jump shot",
+    "release",
+    "follow-through",
+    "airborne"
+  ],
+  "sequence": {
+    "id": "BASKETBALL_JUMP_SHOT",
+    "order": 2,
+    "phases": [
+      "BASKETBALL_JUMP_SHOT_SET",
+      "BASKETBALL_JUMP_SHOT_RELEASE"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.9,
+    "hand": "right",
+    "roles": {
+      "r_arm": "shooting arm",
+      "l_arm": "guide hand, off the ball"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -10,
+      "tilt": 2,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 2,
+      "side": 0,
+      "rot": 5
+    },
+    "head": {
+      "look_at": "rim"
+    },
+    "r_arm": {
+      "elev": 135,
+      "plane": 75,
+      "rot": 40,
+      "elbow": 22,
+      "pron": 45,
+      "wrist": 65,
+      "hand": "relaxed"
+    },
+    "l_arm": {
+      "elev": 120,
+      "plane": 40,
+      "rot": 50,
+      "elbow": 45,
+      "pron": -20,
+      "wrist": -10,
+      "hand": "spread"
+    },
+    "r_leg": {
+      "flex": 8,
+      "abd": 6,
+      "rot": 8,
+      "knee": 14,
+      "ankle": 40
+    },
+    "l_leg": {
+      "flex": 6,
+      "abd": 6,
+      "rot": 10,
+      "knee": 16,
+      "ankle": 40
+    }
+  },
+  "support": {
+    "airborne_m": 0.2
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.24,
+      "at": "r_fingertip",
+      "offset_m": [
+        0.13,
+        0.0,
+        0.1
+      ],
+      "relate": [
+        "right_fingertip"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "rim",
+      "x_m": 4.8,
+      "height_m": 3.05,
+      "text": "Rim 3.05 m high, {fwd:rim:pelvis} cm ahead; the ball has just left the fingertips on a high arc (release angle about 50-55 deg)."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "front_low",
+      "azimuth": 10,
+      "elevation": -12,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Defender's-eye view from in front, arm and gooseneck wrist sharp."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -5,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Profile: extended arm, flexed wrist, ball arcing up."
+    },
+    {
+      "name": "baseline_wide",
+      "azimuth": 60,
+      "elevation": 3,
+      "lens_mm": 28,
+      "fill": 0.62,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide from the baseline, rim in frame, crowd blurred."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "max": 45,
+      "why": "arm nearly extended at release (about 45 deg at release, extending into the follow-through)",
+      "src": "S1"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 100,
+      "why": "shoulder flexion about 103-114 deg at release",
+      "src": "S2"
+    },
+    {
+      "m": "r_arm.wrist",
+      "min": 40,
+      "why": "wrist snapped forward (gooseneck), fingers toward the rim",
+      "src": "S3"
+    },
+    {
+      "m": "r_knee_flex",
+      "max": 25,
+      "why": "legs extended, knee about 13-16 deg at release",
+      "src": "S1"
+    },
+    {
+      "m": "r_hand_z",
+      "min": 2.35,
+      "why": "high release: hand height about 1.28-1.40 x body height",
+      "src": "S4"
+    },
+    {
+      "m": "lowest_z",
+      "min": 0.1,
+      "why": "released near the top of the jump",
+      "src": "S5"
+    }
+  ],
+  "text": {
+    "action": "a basketball player releasing a right-handed jump shot at the top of the jump",
+    "core": "Airborne with legs straight and toes pointed down; body upright; right shooting arm extended high and forward toward the rim, elbow almost straight; wrist snapped down in a gooseneck, fingers pointing at the rim; ball just off the fingertips; left guide hand still up beside the head, palm facing sideways, not pushing.",
+    "gaze": "Eyes on the rim.",
+    "cues": [
+      "high release at or just before the top of the jump",
+      "gooseneck follow-through, fingers toward the hoop",
+      "guide hand stays up and quiet",
+      "land in the same spot"
+    ],
+    "kinetic": [
+      "ball spinning backward off the fingertips, seams blurred",
+      "jersey lifted slightly by the jump",
+      "shadow of the shooter small on the court below"
+    ],
+    "avoid": [
+      "wrist bent back at release",
+      "fingers glued together",
+      "ball stuck to the hand",
+      "guide hand turned over pushing",
+      "body drifting far sideways",
+      "feet crossed in the air"
+    ]
+  },
+  "ref_query": "basketball jump shot",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Irawan & Prastiwi 2022, JPES: knee 167 deg and elbow 135 deg inside angles at release (convention assumed)",
+      "url": "http://www.efsupit.ro/images/stories/decembrie2022/Art%20379.pdf"
+    },
+    {
+      "id": "S2",
+      "cite": "Vencurik et al. 2021, IJERPH 18:934: shoulder 103-114 deg at release, elite U16/U18",
+      "url": "https://doi.org/10.3390/ijerph18030934"
+    },
+    {
+      "id": "S3",
+      "cite": "Coach's Clipboard / FIBA WABC 2.7.5: wrist flick, gooseneck follow-through",
+      "url": "https://www.coachesclipboard.net/Shooting.html"
+    },
+    {
+      "id": "S4",
+      "cite": "Cabarkapa et al. 2022: release hand height / body height 1.40 (proficient) vs 1.28",
+      "url": "https://doi.org/10.3390/sports10010002"
+    },
+    {
+      "id": "S5",
+      "cite": "Okazaki & Rodacki 2012, JSSM 11:231: release height 2.33-2.46 m, release near the jump peak",
+      "url": "https://www.jssm.org/jssm-11-231.xml-Fulltext"
+    }
+  ]
+}

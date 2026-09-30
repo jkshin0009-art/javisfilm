@@ -1,0 +1,53 @@
+{
+  "sport": "taekwondo",
+  "rulebook": {
+    "title": "World Taekwondo Competition Rules & Interpretation (Olympic sparring, kyorugi)",
+    "short": "WT",
+    "url": "https://www.worldtaekwondo.org/rules-wt/rules.html",
+    "text_used": "written from general knowledge of the WT competition rules; worldtaekwondo.org was not reachable from this session, so the wording and point values were not re-checked against the current edition. References are section names, because the article numbers change between editions."
+  },
+  "dimensions": {
+    "contest_area_m": {"octagon_across": 8.0, "square_side": 8.0, "rule": "Competition area", "note": "Olympic events use an octagon about 8 m across inside a larger square mat"},
+    "points": {"punch_trunk": 1, "kick_trunk": 2, "turning_kick_trunk": 4, "kick_head": 3, "turning_kick_head": 5, "rule": "Valid points", "note": "values of recent editions; each gam-jeom gives the opponent 1 point"}
+  },
+  "equipment": [],
+  "scene": [
+    {"rule": "Uniform and protective equipment", "text": "White dobok with a belt; electronic trunk protector and headgear in the athlete's colour, red (hong) or blue (chung); forearm and shin guards, gloves, sensor socks, groin guard and mouthguard, all worn under or over the dobok as the rules require."},
+    {"rule": "Competition area", "text": "Flat, non-slip mat; the contest area is marked as an octagon (Olympic events) or a square, with a boundary line."},
+    {"rule": "Officials", "text": "One referee on the mat in a uniform; judges and a video-replay jury off the mat; coaches seated at the corners."},
+    {"rule": "Permitted techniques", "text": "Punches with the knuckles of a tightly clenched fist, only to the trunk protector; kicks with the foot below the ankle bone, to the trunk protector or to the head above the collar bone."}
+  ],
+  "fouls": [
+    {"id": "foot_technique", "rule": "Permitted techniques and areas", "title": "Kick lands with the foot on the trunk protector",
+     "text": "A kick scores only when the part of the foot below the ankle bone lands on a permitted area; the trunk protector may be attacked by fist and foot, but not the spine.",
+     "techniques": ["roundhouse_kick", "back_kick"],
+     "check": {"kind": "near", "point": ["r_instep", "r_heel", "r_ball", "r_toe"],
+               "target": ["B.chest", "B.belly", "B.l_ribs", "B.r_ribs", "B.l_side", "B.r_side"], "max_m": 0.06},
+     "legal": "the kicking foot lands on the front or side of the trunk protector",
+     "avoid": ["kick landing with the shin", "kick to the opponent's spine"]},
+    {"id": "below_waist", "rule": "Prohibited acts (gam-jeom): attacking below the waist", "title": "Attacking below the waist",
+     "text": "Kicking or attacking the opponent below the waist is a gam-jeom (penalty point to the opponent).",
+     "techniques": ["roundhouse_kick", "back_kick"],
+     "check": {"kind": "all_above", "points": ["r_ankle"], "ref": "B.belt_front", "tol_m": -0.08},
+     "legal": "the kicking foot is above the opponent's waist",
+     "avoid": ["kick to the opponent's leg or knee"]},
+    {"id": "hand_to_head", "rule": "Prohibited acts (gam-jeom): hitting the head with the hand", "title": "Hand attack to the face",
+     "text": "Hitting the opponent's head or face with the hand is a gam-jeom; the head may be attacked only by kicks.",
+     "techniques": ["stance", "roundhouse_kick", "back_kick"],
+     "check": {"kind": "apart", "point": ["r_knuckles", "l_knuckles"], "target": ["B.nose", "B.chin", "B.r_jaw", "B.l_jaw"], "min_m": 0.15},
+     "legal": "neither fist is on the opponent's face",
+     "avoid": ["punch to the opponent's face"]},
+    {"id": "grab_push", "rule": "Prohibited acts (gam-jeom): grabbing, holding, pushing", "title": "Grabbing or pushing",
+     "text": "Grabbing or holding the opponent or the opponent's leg or dobok, and pushing the opponent with the hands or body, are gam-jeom.",
+     "techniques": ["stance", "roundhouse_kick", "back_kick"],
+     "avoid": ["hand grabbing the opponent's dobok", "catching the opponent's kicking leg"]},
+    {"id": "knee_head", "rule": "Prohibited acts (gam-jeom): knee and head attacks", "title": "Kneeing or head butting",
+     "text": "Attacking with the knee or butting with the head is a gam-jeom.",
+     "techniques": ["stance", "roundhouse_kick", "back_kick"],
+     "avoid": ["knee strike", "head butt"]},
+    {"id": "boundary", "rule": "Prohibited acts (gam-jeom): crossing the boundary line", "title": "Stepping out of the contest area",
+     "text": "Stepping out over the boundary line of the contest area is a gam-jeom, and so is falling down.",
+     "techniques": ["stance"],
+     "avoid": ["athlete standing outside the contest area line"]}
+  ]
+}

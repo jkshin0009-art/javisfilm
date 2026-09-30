@@ -1,0 +1,236 @@
+{
+  "code": "SOCCER_GOALKEEPER_DIVE",
+  "sport": "soccer",
+  "technique": "goalkeeper_dive",
+  "phase": "catch",
+  "summary": "Soccer goalkeeper diving to the right at full stretch: body horizontal and side-on to the shooter, both arms reaching past the head, hands spread on the ball.",
+  "names": {
+    "ko": [
+      "골키퍼 다이빙",
+      "골키퍼 선방",
+      "다이빙 세이브",
+      "키퍼 몸 날리기"
+    ],
+    "en": [
+      "goalkeeper dive",
+      "diving save",
+      "full-stretch save",
+      "keeper dive to the right"
+    ]
+  },
+  "keywords": [
+    "soccer",
+    "football",
+    "goalkeeper",
+    "keeper",
+    "dive",
+    "save",
+    "airborne"
+  ],
+  "athlete": {
+    "height_m": 1.9,
+    "hand": "right",
+    "roles": {
+      "l_leg": "push-off leg, trailing",
+      "r_leg": "lower leg",
+      "r_arm": "lower hand, behind the ball",
+      "l_arm": "top hand"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 5,
+      "side": 78
+    },
+    "trunk": {
+      "flex": 8,
+      "side": 6,
+      "rot": 5
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 165,
+      "plane": 60,
+      "rot": 30,
+      "elbow": 15,
+      "pron": 0,
+      "wrist": -15,
+      "hand": "spread",
+      "reach": {
+        "to": "ball",
+        "w": 0.3,
+        "face_w": 12,
+        "range": {
+          "elbow": [
+            0,
+            35
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 170,
+      "plane": 80,
+      "rot": 30,
+      "elbow": 20,
+      "pron": 0,
+      "wrist": -15,
+      "hand": "spread",
+      "reach": {
+        "to": "ball",
+        "w": 0.3,
+        "face_w": 12,
+        "range": {
+          "elbow": [
+            0,
+            35
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 10,
+      "abd": 5,
+      "rot": 0,
+      "knee": 20,
+      "ankle": 30
+    },
+    "l_leg": {
+      "flex": 30,
+      "abd": 10,
+      "rot": 5,
+      "knee": 55,
+      "ankle": 35
+    }
+  },
+  "support": {
+    "airborne_m": 0.35
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.22,
+      "at": "crown",
+      "offset_m": [
+        0.15,
+        -0.4,
+        0.08
+      ],
+      "relate": [
+        "crown"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "goal_center",
+      "at": [
+        -1.0,
+        0,
+        0.0
+      ],
+      "text": "Goal 7.32 m wide and 2.44 m high, goal line about 1 m behind the keeper; the save is inside the penalty area."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "shooter_view",
+      "azimuth": 0,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "From the penalty spot: the keeper stretched horizontally across the frame, goal net behind."
+    },
+    {
+      "name": "behind_goal",
+      "azimuth": 180,
+      "elevation": 5,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "From behind the net, mesh soft in the foreground, sharp focus on the gloves."
+    },
+    {
+      "name": "low_side",
+      "azimuth": 35,
+      "height_m": 0.3,
+      "lens_mm": 28,
+      "fill": 0.8,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low angle from the turf, keeper flying above the grass."
+    }
+  ],
+  "rules": [
+    {
+      "m": "lowest_z",
+      "min": 0.2,
+      "why": "airborne at full stretch",
+      "src": "S1 (general coaching cue)"
+    },
+    {
+      "m": "r_elbow_flex",
+      "max": 35,
+      "why": "arms reaching out, nearly straight",
+      "src": "S1"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 140,
+      "why": "both arms reaching past the head toward the ball",
+      "src": "S1"
+    },
+    {
+      "m": "trunk_from_vertical",
+      "min": 55,
+      "why": "body close to horizontal, side-on to the shooter",
+      "src": "S1"
+    }
+  ],
+  "text": {
+    "action": "a soccer goalkeeper diving to the right at full stretch to save a shot",
+    "core": "Body airborne and nearly horizontal, lying on its right side, chest facing the shooter; both arms straight and reaching past the head toward the ball, lower hand behind the ball and top hand over it, gloves open with fingers spread; left push-off leg trailing with the knee bent, right leg extended below; head in line with the arms.",
+    "gaze": "Eyes locked on the ball between the gloves.",
+    "cues": [
+      "push off from the near-side leg",
+      "body side-on, not facing the ground",
+      "hands lead, fingers spread behind and on top of the ball",
+      "head stays in line and watches the ball into the hands"
+    ],
+    "kinetic": [
+      "body frozen mid-flight above the turf",
+      "grass and water spray thrown up by the push-off",
+      "ball spinning into the gloves, motion blur on the ball's path"
+    ],
+    "avoid": [
+      "no gloves",
+      "extra or fused fingers",
+      "body facing the camera flat",
+      "legs in a running pose",
+      "ball stuck inside the hands",
+      "keeper touching the ground"
+    ]
+  },
+  "ref_query": "goalkeeper dive save",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "General goalkeeper diving cues (push off the near leg, side-on body, hands lead); kinematics: Sci Rep 2024 penalty dive study (values not retrieved)",
+      "url": "https://www.nature.com/articles/s41598-024-60074-x"
+    }
+  ]
+}

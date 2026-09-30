@@ -1,0 +1,91 @@
+{
+ "code": "SOCCER_INSTEP_KICK_CONTACT",
+ "sport": "soccer",
+ "technique": "instep_kick",
+ "phase": "contact",
+ "summary": "Right-footed soccer instep kick at ball contact: laces strike the ball centre, toes pointed and ankle locked, support knee bent, body over the ball.",
+ "names": {
+  "ko": [
+   "축구 인스텝 킥 임팩트",
+   "슈팅 순간",
+   "발등 슛",
+   "강슛 임팩트"
+  ],
+  "en": [
+   "soccer instep kick contact",
+   "shot impact",
+   "laces strike",
+   "power shot contact"
+  ]
+ },
+ "keywords": [
+  "soccer",
+  "football",
+  "kick",
+  "shot",
+  "instep",
+  "laces",
+  "impact"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #SOCCER_INSTEP_KICK_CONTACT\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted down 60 deg; face pointing down and slightly forward and slightly to the athlete's right. Head down over the ball, eyes on the contact point.\n- Torso: trunk line (hips to shoulders) 12 deg forward of vertical, leaning 16 deg to the athlete's left; spine flexed 14 deg over the pelvis; shoulders square with the hips.\n- Right arm (swings across the body): upper arm raised 40 deg from the side of the trunk, pointing down and slightly forward; elbow bent (60 deg flexion); forearm pointing forward and slightly to the athlete's left; palm facing to the athlete's left and down and slightly backward; wrist neutral; hand: relaxed, fingers softly curled; fingertips 1.10 m above the floor.\n- Left arm (balance arm, out wide): upper arm raised 80 deg from the side of the trunk, pointing to the athlete's left and slightly down; elbow slightly bent (25 deg flexion); forearm pointing to the athlete's left and slightly down; palm facing backward and slightly down; wrist neutral; hand: open with fingers spread; fingertips 0.98 m above the floor.\n- Right leg (kicking leg): hip flexed 27 deg; knee deeply bent (68 deg flexion); thigh pointing down and slightly forward, shin pointing down and backward and slightly to the athlete's right; ankle plantar-flexed (toes pointed) 55 deg; on the ball of the foot, heel raised.\n- Left leg (support leg): hip flexed 16 deg; knee bent (42 deg flexion); thigh pointing down and slightly forward, shin pointing down and slightly backward; ankle dorsiflexed 25 deg; foot flat on the floor.\n- Base: ankles 29 cm apart (16% of body height, 0.7x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: toe pointed down and ankle locked\n- Technique cue: strike through the centre of the ball with the laces\n- Technique cue: hips square to the target at contact\n- Technique cue: knee over the ball keeps the shot low\n\n3. OBJECT_INTERACTION:\n- ball (22 cm diameter): center 0.11 m above the floor; touching the right instep; surface 20 cm from the left ankle (to the athlete's right and slightly forward of it).\n- Legal under the IFAB rules: the ball touches no arm or hand (the arm starts at the bottom of the armpit); no opponent's head is near the raised boot; no jewellery.\n\n4. CINEMATIC_CAMERA:\n- side_low: camera 0.3 m above the floor, ground-level low angle looking up, side profile view, 35mm standard lens, full-body shot. Ground-level side view, laces meeting the ball, ball slightly deformed at impact.\n- goal_view: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. Goalkeeper's point of view, compressed telephoto perspective, sharp focus on the ball.\n- wide_cinema: camera 0.3 m above the floor, ground-level low angle looking up, three-quarter front view, 24mm wide-angle lens, full-body shot. Wide low frame, stadium lights and crowd blurred behind.\n\n5. KINETIC_ENERGY:\n- ball compressing against the laces, first frame of flight\n- grass spray and a small divot flying off the turf\n- motion blur on the kicking shin, support leg sharp",
+ "prompt": "{SUBJECT}, a soccer player striking a right-footed instep shot, the laces hitting the centre of the ball. Left support foot planted flat beside the ball, left knee bent about 40 degrees; right kicking leg swinging through with the knee still slightly bent, ankle locked and toes pointed down, the top of the foot (laces) meeting the back centre of the ball; hips turned square to the goal; trunk over the ball; left arm out wide, right arm swinging across. Toe pointed down and ankle locked. Strike through the centre of the ball with the laces. Hips square to the target at contact. Knee over the ball keeps the shot low. Camera 0.3 m above the floor, ground-level low angle looking up, side profile view, 35mm standard lens, full-body shot. Ground-level side view, laces meeting the ball, ball slightly deformed at impact. Ball compressing against the laces, first frame of flight; grass spray and a small divot flying off the turf. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, foot passing through the ball, toe pointed up (toe poke), ball larger than the foot, support foot hovering, kicking-side arm thrown forward, knee bent backwards, ball touching the arm or hand of the outfield player, boot swinging at an opponent's head, necklace, earrings, bracelet, wristwatch",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "side_low",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "camera 0.3 m above the floor, ground-level low angle looking up, side profile view, 35mm standard lens, full-body shot.",
+   "text": "Ground-level side view, laces meeting the ball, ball slightly deformed at impact.",
+   "openpose_png": "openpose_side_low.png",
+   "openpose_json": "openpose_side_low.json"
+  },
+  {
+   "name": "goal_view",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "Goalkeeper's point of view, compressed telephoto perspective, sharp focus on the ball.",
+   "openpose_png": "openpose_goal_view.png",
+   "openpose_json": "openpose_goal_view.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.3 m above the floor, ground-level low angle looking up, three-quarter front view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide low frame, stadium lights and crowd blurred behind.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "IFAB",
+ "scene_rules": [
+  "At most eleven players per team on the field, one of them the goalkeeper. (IFAB Law 3)",
+  "Each goalkeeper wears colours clearly different from all other players and the match officials. (IFAB Law 4)",
+  "Players wear a shirt with sleeves, shorts, socks covering the shinguards, and boots; any tape on the socks matches the sock colour. (IFAB Law 4)",
+  "No jewellery of any kind (necklaces, rings, bracelets, earrings, leather or rubber bands), not even taped over. (IFAB Law 4)",
+  "The referee on the field with two assistant referees with flags along the touchlines, level with the second-last defender; a fourth official between the technical areas. (IFAB Law 6, practical guidelines)",
+  "White lines at most 12 cm wide; goal 7.32 m between the posts and 2.44 m under the crossbar; penalty area 16.5 m deep, penalty mark 11 m from the goal line; corner flags at least 1.5 m high. (IFAB Law 1)"
+ ],
+ "sequence": {
+  "id": "SOCCER_INSTEP_KICK",
+  "order": 2,
+  "phases": [
+   "SOCCER_INSTEP_KICK_BACKSWING",
+   "SOCCER_INSTEP_KICK_CONTACT"
+  ]
+ },
+ "checks_passed": true
+}

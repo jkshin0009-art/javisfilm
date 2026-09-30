@@ -1,0 +1,55 @@
+{
+  "code": "SOCCER_JUMPING_HEADER",
+  "sport": "soccer",
+  "technique": "header",
+  "phase": "contact",
+  "summary": "Soccer jumping header at contact: airborne after a one-foot takeoff, ball on the forehead, trunk snapping forward, elbows out for balance.",
+  "names": {
+    "ko": ["축구 점프 헤딩", "헤더", "공중볼 헤딩", "헤딩슛"],
+    "en": ["soccer jumping header", "header", "aerial duel header", "headed goal"]
+  },
+  "keywords": ["soccer", "football", "header", "heading", "jump", "aerial"],
+  "athlete": {"height_m": 1.85, "hand": "right",
+              "roles": {"l_leg": "takeoff leg", "r_leg": "swing leg"}},
+  "pose": {
+    "pelvis": {"yaw": 0, "tilt": 8, "side": 0},
+    "trunk": {"flex": 14, "side": 0, "rot": 0},
+    "head": {"flex": 8, "side": 0, "rot": 0},
+    "r_arm": {"elev": 75, "plane": 35, "rot": 20, "elbow": 85, "pron": 40, "wrist": 0, "hand": "relaxed"},
+    "l_arm": {"elev": 70, "plane": 35, "rot": 20, "elbow": 90, "pron": 40, "wrist": 0, "hand": "relaxed"},
+    "r_leg": {"flex": 45, "abd": 6, "rot": 5, "knee": 85, "ankle": 30},
+    "l_leg": {"flex": 5, "abd": 5, "rot": 5, "knee": 35, "ankle": 45}
+  },
+  "support": {"airborne_m": 0.4},
+  "objects": [
+    {"name": "ball", "kind": "ball", "diameter_m": 0.22, "touch": "forehead", "relate": ["forehead"]}
+  ],
+  "cameras": [
+    {"name": "side_low", "azimuth": -90, "elevation": -12, "lens_mm": 50, "fill": 0.84, "size": [896, 1152],
+     "text": "Profile: forehead meeting the ball, neck and trunk in one line."},
+    {"name": "front_low", "azimuth": 20, "elevation": -15, "lens_mm": 35, "fill": 0.84, "size": [896, 1152],
+     "text": "Low angle from in front, sky or stadium roof behind, ball in sharp focus."},
+    {"name": "wide_cinema", "azimuth": -130, "elevation": -8, "lens_mm": 24, "fill": 0.62, "size": [1344, 768],
+     "text": "Wide frame from behind the header toward the goal."}
+  ],
+  "rules": [
+    {"m": "lowest_z", "min": 0.25, "why": "airborne jump header", "src": "S1"},
+    {"m": "head.flex", "min": -5, "max": 20, "why": "head, neck and trunk aligned, chin not tipped back", "src": "S2"},
+    {"m": "trunk.flex", "min": 5, "why": "trunk snapping forward into the ball", "src": "S2"},
+    {"m": "r_shoulder_elev", "min": 45, "max": 100, "why": "arms out for balance and space", "src": "S3 (general coaching cue)"}
+  ],
+  "text": {
+    "action": "a soccer player rising for a jumping header, the ball meeting the forehead",
+    "core": "Airborne after a one-foot takeoff, left leg hanging nearly straight with toes pointed, right knee bent and lifted; trunk snapping forward from the hips; head, neck and trunk locked in one line; forehead (hairline) meeting the back of the ball; eyes open; both elbows raised out to the sides at shoulder height.",
+    "gaze": "Eyes open and on the ball, mouth closed.",
+    "cues": ["contact with the forehead, not the top of the head", "keep head, neck and torso aligned", "arch then snap the trunk forward", "arms out for balance and to hold space"],
+    "kinetic": ["ball compressing against the forehead, water spray flying off the ball", "hair flicked forward by the impact", "defender's shadow on the grass below"],
+    "avoid": ["ball on the top of the head or the face", "eyes shut", "head tipped back", "feet on the ground", "arms merged into another player"]
+  },
+  "ref_query": "football header",
+  "sources": [
+    {"id": "S1", "cite": "Landing after jump headers, 2024 (knee and hip landing angles) - search extract", "url": "https://www.sciencedirect.com/science/article/abs/pii/S0968016024001339"},
+    {"id": "S2", "cite": "Shewchenko et al. 2005, BJSM: heading technique, aligned head-neck-torso reduces head acceleration", "url": "https://biokinetics.com/wp-content/uploads/2024/04/Shewchenko-et-al-2005-Heading-in-Football-Part-2-BJSM.pdf"},
+    {"id": "S3", "cite": "J Hum Kinet: heading in soccer, neck muscle activity in jumping headers", "url": "https://jhk.termedia.pl/pdf-158515-84803?filename=Heading-in-Soccer--Does-K.pdf"}
+  ]
+}

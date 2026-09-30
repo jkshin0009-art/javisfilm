@@ -1,0 +1,75 @@
+{
+ "BASEBALL_PITCH": {
+  "phases": [
+   "BASEBALL_PITCH_LEG_LIFT",
+   "BASEBALL_PITCH_FOOT_CONTACT",
+   "BASEBALL_PITCH_MER",
+   "BASEBALL_PITCH_RELEASE"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Standing tall on the right leg on the rubber, right knee slightly bent; left knee lifted above the hip, lower leg hanging, toes relaxed; body turned side-on and slightly past, left shoulder pointing toward home plate; ball hidden in the glove, both hands together at chest height; head level, chin over the glove shoulder. Then: Long stride about 83 % of body height, left foot planted slightly closed toward the third-base side of the line, left knee bent about 50 degrees; right pivot foot still on the rubber on its toes; hips opening toward the plate while the shoulders stay closed; right upper arm level with the shoulders and behind the shoulder line, elbow bent 90 degrees, forearm raised and pointing up, ball facing away from the plate; glove arm extended toward home plate. Then: Chest square to home plate; trunk leaning forward and tilted toward the glove side; right upper arm level with the shoulders, elbow bent 90 degrees and above the shoulder line, forearm laid back behind the head nearly horizontal and pointing toward second base, ball behind the head; glove tucked in front of the chest; left front leg planted and braced, knee bent about 45 degrees; right foot dragging on its toes behind. Then: Trunk flexed forward about 35 degrees and tilted toward the glove side; throwing arm nearly straight and out in front, hand at about eye level just in front of the stride foot, fingers behind the ball; glove pulled in to the chest; left front leg planted and firm; right leg trailing behind, foot dragging on its toes. {SETTING}."
+ },
+ "BASEBALL_SWING": {
+  "phases": [
+   "BASEBALL_BAT_LOAD",
+   "BASEBALL_BAT_CONTACT"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Side-on to the pitcher, feet about half the body height apart, both knees bent, weight toward the back leg; trunk bent forward over the plate; both hands together on the handle, right hand on top, held high near the rear shoulder; bat angled up and back behind the head; front shoulder closed, chin on the front shoulder. Then: Hips and shoulders turned square to the pitcher; front (left) leg straight and firm; back knee bent, back foot pivoted up on its toes; trunk tilted so the back shoulder is lower than the front; both hands together on the handle, right hand on top; rear elbow tucked close to the ribs; bat nearly perpendicular to the pitch line with the barrel about 30 degrees below the hands, sweet spot meeting the ball in front of the plate at about knee-to-thigh height. {SETTING}."
+ },
+ "BASKETBALL_JUMP_SHOT": {
+  "phases": [
+   "BASKETBALL_JUMP_SHOT_SET",
+   "BASKETBALL_JUMP_SHOT_RELEASE"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Feet shoulder-width and flat, right foot slightly ahead, both toes pointing at the basket, knees bent about 65 degrees; ball set just above and in front of the forehead on the right side; shooting hand under the ball with the wrist bent back so the ball rests on the finger pads, a small gap under the palm; shooting elbow directly under the ball, forearm vertical; left guide hand on the left side of the ball, fingers up. Then: Airborne with legs straight and toes pointed down; body upright; right shooting arm extended high and forward toward the rim, elbow almost straight; wrist snapped down in a gooseneck, fingers pointing at the rim; ball just off the fingertips; left guide hand still up beside the head, palm facing sideways, not pushing. {SETTING}."
+ },
+ "BOXING_ONE_TWO": {
+  "phases": [
+   "BOXING_JAB",
+   "BOXING_CROSS"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Left lead arm fully extended at shoulder height, fist turned palm down, knuckles on the opponent's face; left shoulder raised against the chin; right glove held at the right cheek; feet staggered, rear heel up. Then: Rear right foot pivoting on the ball with the heel up and knee turned in; hips and shoulders turned square to the opponent; right arm fully extended, fist palm down on the chin; right shoulder raised; left glove pulled back to the left cheek; weight shifting onto the front leg. {SETTING}."
+ },
+ "FISHING_CAST": {
+  "phases": [
+   "FISHING_CAST_BACK",
+   "FISHING_CAST_RELEASE"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Standing with the left foot forward, knees soft; right hand gripping the reel seat beside the right ear at head height, elbow bent about 100 degrees; rod stopped behind the shoulder at the 1 o'clock position, its tip flexing back under the lure's weight; left hand holding the end of the butt in front of the chest; spinning reel hanging under the rod. Then: Weight shifted onto the left front foot, right heel lifting; right arm extended forward at shoulder height, rod stopped at the 10 o'clock position pointing toward the target; index finger just releasing the line; left hand pulling the butt in toward the belly. {SETTING}."
+ },
+ "JUDO_SEOI_NAGE_THROW": {
+  "phases": [
+   "JUDO_SEOI_NAGE",
+   "JUDO_IPPON_LANDING"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Tori has turned in with the back against uke's chest, feet between uke's feet on the balls of the feet, knees deeply bent so the hips are below uke's; trunk bent forward; right arm bent with the upper arm locked up under uke's right armpit, the right hand gripping uke's upper sleeve; left hand pulling uke's right sleeve forward and down past the left hip; uke bent over tori's back, up on the toes. Then: Tori stands over uke with knees bent and trunk leaning forward, the left hand still gripping the end of uke's right sleeve and pulling it up, the right arm released; uke lies flat on the back in front of tori's feet, chin tucked to the chest with the head off the mat, the left arm straight and slapping the tatami at about 45 degrees from the body, legs bent up from the throw. {SETTING}."
+ },
+ "SOCCER_INSTEP_KICK": {
+  "phases": [
+   "SOCCER_INSTEP_KICK_BACKSWING",
+   "SOCCER_INSTEP_KICK_CONTACT"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Left foot planted flat beside the ball, about 30 cm to its left and level with it, left knee slightly bent; right kicking leg drawn back behind the body with the hip extended and the knee folded so the heel rises toward the buttock, toes pointed; trunk leaning slightly back and away; left arm stretched out wide and back for balance, right arm swinging forward across the body. Then: Left support foot planted flat beside the ball, left knee bent about 40 degrees; right kicking leg swinging through with the knee still slightly bent, ankle locked and toes pointed down, the top of the foot (laces) meeting the back centre of the ball; hips turned square to the goal; trunk over the ball; left arm out wide, right arm swinging across. {SETTING}."
+ },
+ "SWIMMING_RACE": {
+  "phases": [
+   "SWIMMING_START_SET",
+   "SWIMMING_FREESTYLE_BREATH"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Crouched on the starting block: left foot at the front edge with the toes curled over it, right foot back on the raised kick plate with the heel up; both hands gripping the front edge of the block; hips high above the head, back rounded forward; head down, eyes on the water just in front of the block. Then: Lying prone at the surface, body rolled about 40 degrees onto the left side; right arm recovering over the water with the elbow high and bent, hand relaxed passing the shoulder near the water; left arm extended forward under the surface, palm down; head turned to the right with one goggle still in the water and the mouth open in the trough of the bow wave; legs long in a narrow flutter kick, toes pointed. {SETTING}."
+ },
+ "TENNIS_SERVE": {
+  "phases": [
+   "TENNIS_SERVE_TROPHY",
+   "TENNIS_SERVE_CONTACT"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Standing side-on behind the baseline, left foot in front pointing toward the right net post, knees bent about 60 degrees; left tossing arm straight up toward the ball; right racket arm cocked with the elbow at shoulder height and bent about 100 degrees, racket head pointing up behind the head; shoulder line tilted with the left shoulder higher; back slightly arched. Then: Both feet off the court, legs extended and toes pointed; body rising and tilted so the right shoulder is above the left; right racket arm reaching up almost straight, racket face meeting the ball well above and slightly in front of the head; left arm folded into the chest. {SETTING}."
+ },
+ "VOLLEYBALL_SPIKE": {
+  "phases": [
+   "VOLLEYBALL_SPIKE_TAKEOFF",
+   "VOLLEYBALL_SPIKE_ARM_COCK",
+   "VOLLEYBALL_SPIKE_CONTACT"
+  ],
+  "motion": "{SUBJECT}, in one continuous movement. First: Both feet planted flat, left foot slightly ahead; right knee bent to about 90 degrees, left knee about 65 degrees; trunk leaning about 38 degrees forward; both arms swung straight back behind the hips, palms facing back, at the end of the backswing; eyes up on the set ball. Then: Airborne, feet 0.50 m above the floor, knees bent with the shins trailing behind; back arched and hitting shoulder rotated back; right elbow high at shoulder height and bent about 90 degrees, hand beside the ear; left arm straight, pointing up at the ball; chest open toward the ball. Then: Airborne body with both feet 0.55 m above the floor and toes pointing down, knees bent; trunk tilted left so the hitting shoulder is higher than the other; right arm almost fully straight overhead, palm on the upper back of the ball; left arm pulled down across the chest; eyes on the ball. {SETTING}."
+ }
+}

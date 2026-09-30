@@ -1,0 +1,269 @@
+{
+  "code": "WRESTLING_DOUBLE_LEG",
+  "technique": "double_leg",
+  "phase": "penetration",
+  "summary": "Freestyle double-leg takedown at the penetration step: attacker's right knee on the mat between the opponent's feet, left leg driving back on the toes, head up on the opponent's side, chest against the thighs, both arms wrapped behind the opponent's knees.",
+  "names": {
+    "ko": [
+      "레슬링 양다리 태클",
+      "더블렉 태클",
+      "레슬링 태클",
+      "양발 태클"
+    ],
+    "en": [
+      "wrestling double leg takedown",
+      "double leg shot",
+      "penetration step",
+      "wrestling tackle"
+    ]
+  },
+  "keywords": [
+    "wrestling",
+    "takedown",
+    "double leg",
+    "shot",
+    "freestyle"
+  ],
+  "athlete": {
+    "height_m": 1.75,
+    "hand": "right",
+    "roles": {
+      "r_leg": "penetrating knee",
+      "l_leg": "drive leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 50
+    },
+    "trunk": {
+      "flex": 15,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "flex": -50,
+      "side": 0,
+      "rot": 0
+    },
+    "r_arm": {
+      "elev": 60,
+      "plane": 60,
+      "rot": 0,
+      "elbow": 60,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "cupped",
+      "reach": {
+        "to": "B.l_knee_back",
+        "w": 0.3,
+        "tol_m": 0.05
+      }
+    },
+    "l_arm": {
+      "elev": 60,
+      "plane": 60,
+      "rot": 0,
+      "elbow": 60,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "cupped",
+      "reach": {
+        "to": "B.r_knee_back",
+        "w": 0.3,
+        "tol_m": 0.05
+      }
+    },
+    "r_leg": {
+      "flex": 75,
+      "abd": 5,
+      "rot": 5,
+      "knee": 120,
+      "ankle": 65
+    },
+    "l_leg": {
+      "flex": -15,
+      "abd": 8,
+      "rot": 5,
+      "knee": 25,
+      "ankle": "toes:60",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            5,
+            60
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_shin_front",
+      "l_foot"
+    ]
+  },
+  "partners": [
+    {
+      "id": "B",
+      "role": "opponent being taken down",
+      "athlete": {
+        "height_m": 1.75
+      },
+      "support": {
+        "contacts": [
+          "l_foot",
+          "r_foot"
+        ],
+        "root_from": "A.pelvis",
+        "root_offset": [
+          0.78,
+          0.22
+        ]
+      },
+      "pose": {
+        "pelvis": {
+          "yaw": 180,
+          "tilt": 15
+        },
+        "trunk": {
+          "flex": 15
+        },
+        "head": {
+          "flex": 30
+        },
+        "r_arm": {
+          "elev": 60,
+          "plane": 70,
+          "rot": -10,
+          "elbow": 70,
+          "pron": 40,
+          "wrist": 0,
+          "hand": "relaxed"
+        },
+        "l_arm": {
+          "elev": 60,
+          "plane": 70,
+          "rot": -10,
+          "elbow": 70,
+          "pron": 40,
+          "wrist": 0,
+          "hand": "relaxed"
+        },
+        "r_leg": {
+          "flex": 10,
+          "abd": 10,
+          "rot": 10,
+          "knee": 20,
+          "ankle": "flat"
+        },
+        "l_leg": {
+          "flex": 10,
+          "abd": 10,
+          "rot": 10,
+          "knee": 20,
+          "ankle": "flat"
+        }
+      },
+      "text": "Opponent in a blue singlet caught upright, hands reaching down too late to sprawl."
+    }
+  ],
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Side view at mat level, both wrestlers in profile."
+    },
+    {
+      "name": "three_quarter",
+      "azimuth": -40,
+      "elevation": 5,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Three-quarter view, faces and hand positions sharp."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -130,
+      "height_m": 0.4,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame on the mat, orange passivity band and arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "min": 70,
+      "why": "penetration step: lead knee bent and dropped to the mat",
+      "src": "EST"
+    },
+    {
+      "m": "z:r_shin_front",
+      "max": 0.04,
+      "why": "lead knee down on the mat between the opponent's feet",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a wrestler shooting a double-leg takedown",
+    "core": "Right knee dropped to the mat between the opponent's feet, left leg driving back with the toes on the mat; hips low and forward; back straight, head up and pressed against the opponent's side; chest against the opponent's thighs; both arms wrapped around the backs of the opponent's knees, hands cupped.",
+    "gaze": "Head up, eyes forward past the opponent's hip.",
+    "cues": [
+      "level change before you shoot",
+      "head up, back straight",
+      "drive through, lift or turn the corner"
+    ],
+    "kinetic": [
+      "opponent's knees buckling",
+      "mat shoe squeak and dust",
+      "sweat flying off the heads"
+    ],
+    "avoid": [
+      "loose clothing instead of a singlet",
+      "both wrestlers in the same colour",
+      "boxing gloves",
+      "street shoes",
+      "judogi",
+      "head down looking at the mat",
+      "hands grabbing the opponent's ankles"
+    ]
+  },
+  "ref_query": "wrestling double leg",
+  "sources": [
+    {
+      "id": "UWW",
+      "cite": "UWW International Wrestling Rules: singlet, mat, cautions, Greco-Roman leg restrictions (secondary summaries read this session; uww.org itself not reachable)",
+      "url": "https://uww.org/governance/rules"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard wrestling coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "wrestling"
+}

@@ -1,0 +1,84 @@
+{
+ "code": "SOCCER_GOALKEEPER_DIVE",
+ "sport": "soccer",
+ "technique": "goalkeeper_dive",
+ "phase": "catch",
+ "summary": "Soccer goalkeeper diving to the right at full stretch: body horizontal and side-on to the shooter, both arms reaching past the head, hands spread on the ball.",
+ "names": {
+  "ko": [
+   "골키퍼 다이빙",
+   "골키퍼 선방",
+   "다이빙 세이브",
+   "키퍼 몸 날리기"
+  ],
+  "en": [
+   "goalkeeper dive",
+   "diving save",
+   "full-stretch save",
+   "keeper dive to the right"
+  ]
+ },
+ "keywords": [
+  "soccer",
+  "football",
+  "goalkeeper",
+  "keeper",
+  "dive",
+  "save",
+  "airborne"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #SOCCER_GOALKEEPER_DIVE\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 75 deg, turned 25 deg to the athlete's left of the chest line; face pointing to the athlete's right and slightly up. Eyes locked on the ball between the gloves.\n- Torso: trunk line (hips to shoulders) 58 deg forward of vertical, leaning 85 deg to the athlete's right; spine flexed 8 deg over the pelvis; shoulder line rotated 13 deg to the left of the hip line (hip-shoulder separation).\n- Right arm (lower hand, behind the ball): upper arm raised 180 deg from the side of the trunk, pointing to the athlete's right; elbow bent (35 deg flexion); forearm pointing to the athlete's right and slightly up and slightly backward; palm facing up and slightly to the athlete's left and slightly backward; wrist extended (cocked back) 19 deg; hand: open with fingers spread; fingertips 0.86 m above the floor.\n- Left arm (top hand): upper arm raised 180 deg from the side of the trunk, pointing to the athlete's right; elbow bent (35 deg flexion); forearm pointing to the athlete's right and backward; palm facing down; wrist flexed 5 deg; hand: open with fingers spread; fingertips 1.07 m above the floor.\n- Right leg (lower leg): hip flexed 10 deg; knee slightly bent (20 deg flexion); thigh pointing to the athlete's left and slightly down, shin pointing to the athlete's left and slightly down; ankle plantar-flexed (toes pointed) 30 deg; foot 35 cm above the floor.\n- Left leg (push-off leg, trailing): hip flexed 30 deg; knee bent (55 deg flexion); thigh pointing to the athlete's left and slightly forward, shin pointing to the athlete's left and slightly backward; ankle plantar-flexed (toes pointed) 35 deg; foot 81 cm above the floor.\n- Airborne: lowest point of the body 35 cm above the floor; neither foot touches the ground.\n- Technique cue: push off from the near-side leg\n- Technique cue: body side-on, not facing the ground\n- Technique cue: hands lead, fingers spread behind and on top of the ball\n- Technique cue: head stays in line and watches the ball into the hands\n\n3. OBJECT_INTERACTION:\n- ball (22 cm diameter): center 0.95 m above the floor; surface 32 cm from the crown (to the athlete's right of it).\n- Goal 7.32 m wide and 2.44 m high, goal line about 1 m behind the keeper; the save is inside the penalty area.\n- Legal under the IFAB rules: the goalkeeper handles the ball inside their own penalty area; the goalkeeper wears a kit colour different from both teams and the referee; no jewellery.\n\n4. CINEMATIC_CAMERA:\n- shooter_view: eye-level shot, from the front (target side), 50mm standard lens, full-body shot. From the penalty spot: the keeper stretched horizontally across the frame, goal net behind.\n- behind_goal: eye-level shot, from behind, 35mm standard lens, full-body shot. From behind the net, mesh soft in the foreground, sharp focus on the gloves.\n- low_side: camera 0.3 m above the floor, ground-level low angle looking up, three-quarter front view, 28mm wide-angle lens, full-body shot. Low angle from the turf, keeper flying above the grass.\n\n5. KINETIC_ENERGY:\n- body frozen mid-flight above the turf\n- grass and water spray thrown up by the push-off\n- ball spinning into the gloves, motion blur on the ball's path",
+ "prompt": "{SUBJECT}, a soccer goalkeeper diving to the right at full stretch to save a shot. Body airborne and nearly horizontal, lying on its right side, chest facing the shooter; both arms straight and reaching past the head toward the ball, lower hand behind the ball and top hand over it, gloves open with fingers spread; left push-off leg trailing with the knee bent, right leg extended below; head in line with the arms. Push off from the near-side leg. Body side-on, not facing the ground. Hands lead, fingers spread behind and on top of the ball. Head stays in line and watches the ball into the hands. Eye-level shot, from the front (target side), 50mm standard lens, full-body shot. From the penalty spot: the keeper stretched horizontally across the frame, goal net behind. Body frozen mid-flight above the turf; grass and water spray thrown up by the push-off. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, no gloves, extra or fused fingers, body facing the camera flat, legs in a running pose, ball stuck inside the hands, keeper touching the ground, goalkeeper handling the ball far outside the penalty area, goalkeeper in the same colour as the outfield players, necklace, earrings, bracelet, wristwatch",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "shooter_view",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, from the front (target side), 50mm standard lens, full-body shot.",
+   "text": "From the penalty spot: the keeper stretched horizontally across the frame, goal net behind.",
+   "openpose_png": "openpose_shooter_view.png",
+   "openpose_json": "openpose_shooter_view.json"
+  },
+  {
+   "name": "behind_goal",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, from behind, 35mm standard lens, full-body shot.",
+   "text": "From behind the net, mesh soft in the foreground, sharp focus on the gloves.",
+   "openpose_png": "openpose_behind_goal.png",
+   "openpose_json": "openpose_behind_goal.json"
+  },
+  {
+   "name": "low_side",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.3 m above the floor, ground-level low angle looking up, three-quarter front view, 28mm wide-angle lens, full-body shot.",
+   "text": "Low angle from the turf, keeper flying above the grass.",
+   "openpose_png": "openpose_low_side.png",
+   "openpose_json": "openpose_low_side.json"
+  }
+ ],
+ "rulebook": "IFAB",
+ "scene_rules": [
+  "At most eleven players per team on the field, one of them the goalkeeper. (IFAB Law 3)",
+  "Each goalkeeper wears colours clearly different from all other players and the match officials. (IFAB Law 4)",
+  "Players wear a shirt with sleeves, shorts, socks covering the shinguards, and boots; any tape on the socks matches the sock colour. (IFAB Law 4)",
+  "No jewellery of any kind (necklaces, rings, bracelets, earrings, leather or rubber bands), not even taped over. (IFAB Law 4)",
+  "The referee on the field with two assistant referees with flags along the touchlines, level with the second-last defender; a fourth official between the technical areas. (IFAB Law 6, practical guidelines)",
+  "White lines at most 12 cm wide; goal 7.32 m between the posts and 2.44 m under the crossbar; penalty area 16.5 m deep, penalty mark 11 m from the goal line; corner flags at least 1.5 m high. (IFAB Law 1)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

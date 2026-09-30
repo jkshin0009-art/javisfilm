@@ -1,0 +1,87 @@
+{
+ "code": "FISHING_CAST_RELEASE",
+ "sport": "fishing",
+ "technique": "cast",
+ "phase": "release",
+ "summary": "Right-handed overhead cast at release: rod swept forward and stopped at 10 o'clock, rod arm extended toward the target, weight on the front foot, line shooting out toward the water.",
+ "names": {
+  "ko": [
+   "낚시 캐스팅 릴리스",
+   "캐스팅 던지는 순간",
+   "낚싯대 10시 방향",
+   "루어 던지기"
+  ],
+  "en": [
+   "fishing cast release",
+   "forward cast",
+   "rod at 10 o'clock",
+   "casting a lure"
+  ]
+ },
+ "keywords": [
+  "fishing",
+  "angling",
+  "cast",
+  "release",
+  "rod"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #FISHING_CAST_RELEASE\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level; face pointing forward and slightly down. Eyes on the target.\n- Torso: trunk line (hips to shoulders) 16 deg forward of vertical; spine flexed 8 deg over the pelvis; shoulders square with the hips.\n- Right arm (rod hand on the reel seat): upper arm raised 95 deg from the side of the trunk, pointing forward; elbow slightly bent (30 deg flexion); forearm pointing forward and slightly up; palm facing to the athlete's left and slightly down; wrist neutral; hand: fingers wrapped firmly around what it holds; fingertips 1.49 m above the floor.\n- Left arm (second hand): upper arm raised 64 deg from the side of the trunk, pointing down and to the athlete's right and slightly forward; elbow bent (46 deg flexion); forearm pointing to the athlete's right and forward; palm facing backward and slightly to the athlete's right; wrist neutral; hand: fingers wrapped firmly around what it holds; fingertips 1.28 m above the floor.\n- Right leg: hip extended 12 deg; knee slightly bent (10 deg flexion); thigh pointing down and slightly backward, shin pointing down and slightly backward; ankle neutral; on the ball of the foot, heel raised.\n- Left leg (front leg): hip flexed 20 deg; knee slightly bent (20 deg flexion); thigh pointing down, shin pointing down; ankle neutral; foot flat on the floor.\n- Base: ankles 49 cm apart (28% of body height, 1.2x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: release at 10 o'clock\n- Technique cue: follow through toward the target\n- Technique cue: keep the rod tip pointed at the target until the lure lands\n\n3. OBJECT_INTERACTION:\n- rod (2.3 m): spinning reel hanging under the rod; butt section pointing forward and slightly up, tip 2.33 m above the floor, the upper third bent about 12 deg under load; the line runs from the tip down to the water.\n- Water about 0.5 m below the bank; the lure flies toward a spot 18 m out.\n\n4. CINEMATIC_CAMERA:\n- side: eye-level shot, side profile view, 35mm standard lens, full-body shot. Side view, the whole rod arc in frame against the sky.\n- front_three_quarter: eye-level shot, three-quarter front view, 50mm standard lens, full-body shot. Three-quarter front view from the water side, face and hands sharp.\n- wide_cinema: eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide frame from behind the angler over the water, golden hour light.\n\n5. KINETIC_ENERGY:\n- line streaking out in a thin arc from the rod tip\n- lure small and far over the water\n- rod tip vibrating after the stop",
+ "prompt": "{SUBJECT}, an angler releasing an overhead cast, line shooting toward the water. Weight shifted onto the left front foot, right heel lifting; right arm extended forward at shoulder height, rod stopped at the 10 o'clock position pointing toward the target; index finger just releasing the line; left hand pulling the butt in toward the belly. Release at 10 o'clock. Follow through toward the target. Keep the rod tip pointed at the target until the lure lands. Eye-level shot, side profile view, 35mm standard lens, full-body shot. Side view, the whole rod arc in frame against the sky. Line streaking out in a thin arc from the rod tip; lure small and far over the water. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, rod pointing down at the water, line not running from the tip, reel on top of a spinning rod, two fishing lines from one rod, several rods tangled on one fish, electric reel with a power cable, motorised reel",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "side",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, side profile view, 35mm standard lens, full-body shot.",
+   "text": "Side view, the whole rod arc in frame against the sky.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "front_three_quarter",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, three-quarter front view, 50mm standard lens, full-body shot.",
+   "text": "Three-quarter front view from the water side, face and hands sharp.",
+   "openpose_png": "openpose_front_three_quarter.png",
+   "openpose_json": "openpose_front_three_quarter.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide frame from behind the angler over the water, golden hour light.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "IGFA",
+ "scene_rules": [
+  "One angler per rod: from the strike until the fish is landed or released, only the angler touches the rod, reel and line. (IGFA Angling Regulations)",
+  "Fishing from a boat: helpers may take hold of the leader near the boat and gaff or net the fish, but never touch the rod, reel or main line. (IGFA Angling Regulations)",
+  "Hand-cranked reel only; no electric, hydraulic or motor-driven reel. (IGFA Equipment Regulations, Reels)",
+  "A rod belt (gimbal) or harness may take the butt; the rod does not rest on the gunwale, a rod holder or anything else while the fish is played. (IGFA Equipment Regulations, Harnesses and rod belts)"
+ ],
+ "sequence": {
+  "id": "FISHING_CAST",
+  "order": 2,
+  "phases": [
+   "FISHING_CAST_BACK",
+   "FISHING_CAST_RELEASE"
+  ]
+ },
+ "checks_passed": true
+}

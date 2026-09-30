@@ -1,0 +1,93 @@
+{
+ "code": "VOLLEYBALL_SPIKE_ARM_COCK",
+ "sport": "volleyball",
+ "technique": "spike",
+ "phase": "arm_cock",
+ "summary": "Right-handed volleyball spike in the air, bow-and-arrow arm cock: hitting elbow high and back, non-hitting arm pointing at the ball, back arched.",
+ "names": {
+  "ko": [
+   "배구 스파이크 백스윙",
+   "스파이크 활시위 자세",
+   "공중 팔 당기기",
+   "스파이크 준비 동작"
+  ],
+  "en": [
+   "volleyball spike arm cock",
+   "bow and arrow",
+   "spike backswing in the air",
+   "attack arm cocking"
+  ]
+ },
+ "keywords": [
+  "volleyball",
+  "spike",
+  "arm cock",
+  "bow and arrow",
+  "airborne",
+  "jump"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #VOLLEYBALL_SPIKE_ARM_COCK\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 6 deg, turned 12 deg to the athlete's left of the chest line; face pointing forward and slightly up. Eyes on the ball above and in front.\n- Torso: trunk line (hips to shoulders) 23 deg backward of vertical, leaning 7 deg to the athlete's right; spine arched back (extended) 18 deg over the pelvis; shoulder line rotated 21 deg to the right of the hip line (hip-shoulder separation).\n- Right arm (hitting arm, cocked): upper arm raised 105 deg from the side of the trunk, pointing to the athlete's right and slightly backward; elbow bent to about a right angle (95 deg flexion); forearm pointing up; palm facing forward and up and slightly to the athlete's right; wrist extended (cocked back) 25 deg; hand: open with fingers spread; upper arm externally rotated 115 deg (forearm laid back); fingertips 2.36 m above the floor.\n- Left arm (non-hitting arm, pointing at the ball): upper arm raised 132 deg from the side of the trunk, pointing up and slightly forward; elbow slightly bent (12 deg flexion); forearm pointing up and slightly forward; palm facing to the athlete's right and slightly forward; wrist neutral; hand: relaxed, fingers softly curled; fingertips 2.84 m above the floor.\n- Right leg: hip flexed 5 deg; knee bent to about a right angle (85 deg flexion); thigh pointing down, shin pointing backward and slightly down; ankle plantar-flexed (toes pointed) 35 deg; foot 70 cm above the floor.\n- Left leg: hip flexed 15 deg; knee deeply bent (70 deg flexion); thigh pointing down and slightly forward, shin pointing backward and down; ankle plantar-flexed (toes pointed) 35 deg; foot 50 cm above the floor.\n- Airborne: lowest point of the body 50 cm above the floor; neither foot touches the ground.\n- Technique cue: non-hitting arm leads and points at the ball\n- Technique cue: hitting shoulder rotated back for trunk rotation\n- Technique cue: hitting elbow high, hand at ear height\n\n3. OBJECT_INTERACTION:\n- ball (21 cm diameter): center 2.80 m above the floor; surface 20 cm from the left fingertip (to the athlete's left and forward of it); surface 73 cm from the forehead (forward and up and slightly to the athlete's left of it).\n- Net: top tape 2.43 m high, 80 cm in front of the hips; the ball is still above and in front of the attacker.\n- Legal under the FIVB rules: no part of the body touches the net or the antennae; neither foot is completely past the centre line; the ball rebounds from a brief contact, it is not caught or held; the player is not the Libero (different jersey colour).\n\n4. CINEMATIC_CAMERA:\n- side_low: low-angle shot looking up, side profile view, 35mm standard lens, full-body shot. Sharp focus on the cocked hitting arm and the arched back.\n- front_three_quarter: low-angle shot looking up, three-quarter front view, 50mm standard lens, full-body shot. Both arms separated clearly: one pointing up at the ball, one drawn back like a bowstring.\n- wide_cinema: low-angle shot looking up, from behind, 24mm wide-angle lens, full-body shot. Wide frame from behind the attacker looking at the net and the blockers.\n\n5. KINETIC_ENERGY:\n- body at the top of the jump, hair and jersey floating\n- slight motion blur on the hitting hand as it cocks back\n- chalk-white arena light rim-lighting the arched back",
+ "prompt": "{SUBJECT}, a volleyball attacker in the air drawing the hitting arm back in a bow-and-arrow position before the spike. Airborne, feet 0.50 m above the floor, knees bent with the shins trailing behind; back arched and hitting shoulder rotated back; right elbow high at shoulder height and bent about 90 degrees, hand beside the ear; left arm straight, pointing up at the ball; chest open toward the ball. Non-hitting arm leads and points at the ball. Hitting shoulder rotated back for trunk rotation. Hitting elbow high, hand at ear height. Low-angle shot looking up, side profile view, 35mm standard lens, full-body shot. Sharp focus on the cocked hitting arm and the arched back. Body at the top of the jump, hair and jersey floating; slight motion blur on the hitting hand as it cocks back. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, hitting elbow below the shoulder, non-hitting arm hanging down, feet touching the floor, arm bent backwards at the elbow, player touching the net, hand or arm pressing into the net mesh, body tangled in the net, foot planted on the opponent's side under the net, ball held or cradled in the hands, ball caught against the body",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "side_low",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "low-angle shot looking up, side profile view, 35mm standard lens, full-body shot.",
+   "text": "Sharp focus on the cocked hitting arm and the arched back.",
+   "openpose_png": "openpose_side_low.png",
+   "openpose_json": "openpose_side_low.json"
+  },
+  {
+   "name": "front_three_quarter",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "low-angle shot looking up, three-quarter front view, 50mm standard lens, full-body shot.",
+   "text": "Both arms separated clearly: one pointing up at the ball, one drawn back like a bowstring.",
+   "openpose_png": "openpose_front_three_quarter.png",
+   "openpose_json": "openpose_front_three_quarter.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "low-angle shot looking up, from behind, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide frame from behind the attacker looking at the net and the blockers.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "FIVB",
+ "scene_rules": [
+  "Six players per team on court, three front row and three back row. (FIVB 7.3.1)",
+  "At most one Libero on court, in a jersey of a clearly contrasting dominant colour; the Libero never serves, blocks or attacks a ball entirely above the net. (FIVB 19.2, 19.1.3)",
+  "Jersey numbers 1-20 centred on the chest (at least 15 cm tall) and back (at least 20 cm tall); the captain has an 8 x 2 cm stripe under the chest number. (FIVB 4.3.3)",
+  "Team members wear the same jersey, shorts and socks (Libero excepted); shoes without heels. (FIVB 4.3)",
+  "Red-and-white striped antennae stand 80 cm above the net at each side line; the net is black 10 cm mesh with a 7 cm white top band. (FIVB 2.4, 2.3)",
+  "Court 18 x 9 m, white 5 cm lines; the centre line runs under the net and attack lines are 3 m from it on both sides. (FIVB 1.3)",
+  "First referee stands on a referee's stand at one end of the net, eyes about 50 cm above the net; the second referee stands on the floor near the opposite post. (FIVB 23.1, 24.1)",
+  "Line judges with flags stand in the free zone 1-3 m from the court corners. (FIVB 29.1)"
+ ],
+ "sequence": {
+  "id": "VOLLEYBALL_SPIKE",
+  "order": 2,
+  "phases": [
+   "VOLLEYBALL_SPIKE_TAKEOFF",
+   "VOLLEYBALL_SPIKE_ARM_COCK",
+   "VOLLEYBALL_SPIKE_CONTACT"
+  ]
+ },
+ "checks_passed": true
+}

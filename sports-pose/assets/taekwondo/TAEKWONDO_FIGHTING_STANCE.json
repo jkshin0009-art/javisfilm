@@ -1,0 +1,212 @@
+{
+  "code": "TAEKWONDO_FIGHTING_STANCE",
+  "technique": "stance",
+  "phase": "guard",
+  "summary": "Taekwondo sparring stance (closed stance, left foot forward): side-on, feet a long step apart on the balls of the feet, knees soft, fists low in front of the trunk, chin down.",
+  "names": {
+    "ko": [
+      "태권도 겨루기 준비 자세",
+      "태권도 스탠스",
+      "겨루기 자세",
+      "태권도 가드"
+    ],
+    "en": [
+      "taekwondo fighting stance",
+      "sparring stance",
+      "gyeorugi stance",
+      "taekwondo guard"
+    ]
+  },
+  "keywords": [
+    "taekwondo",
+    "stance",
+    "guard",
+    "sparring",
+    "gyeorugi"
+  ],
+  "athlete": {
+    "height_m": 1.8,
+    "hand": "right",
+    "roles": {
+      "l_arm": "lead arm guard",
+      "r_arm": "rear arm guard",
+      "l_leg": "front leg",
+      "r_leg": "rear leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -55,
+      "tilt": 5
+    },
+    "trunk": {
+      "flex": 5,
+      "side": 0,
+      "rot": 5
+    },
+    "head": {
+      "look_at": "opponent"
+    },
+    "l_arm": {
+      "elev": 35,
+      "plane": 75,
+      "rot": 10,
+      "elbow": 95,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "fist"
+    },
+    "r_arm": {
+      "elev": 25,
+      "plane": 95,
+      "rot": -25,
+      "elbow": 115,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "fist"
+    },
+    "l_leg": {
+      "flex": 25,
+      "abd": 5,
+      "rot": 5,
+      "knee": 20,
+      "ankle": "toes:12"
+    },
+    "r_leg": {
+      "flex": -20,
+      "abd": 10,
+      "rot": 30,
+      "knee": 16,
+      "ankle": "toes:22",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            12,
+            35
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "objects": [],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "opponent",
+      "at": [
+        2.0,
+        0.0,
+        1.55
+      ],
+      "text": "Opponent about 2 m away, just out of kicking range."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "front",
+      "azimuth": 0,
+      "elevation": 0,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Opponent's view, fists low, eyes over the lead shoulder."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Profile: long stance on the balls of the feet."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -40,
+      "height_m": 0.6,
+      "lens_mm": 24,
+      "fill": 0.7,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame on the mat, arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "stance_over_shoulders",
+      "min": 1.2,
+      "max": 2.4,
+      "why": "a long side-on stance, feet a long step apart",
+      "src": "KUK, EST"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 8,
+      "max": 40,
+      "why": "knees soft, bouncing on the balls of the feet",
+      "src": "EST"
+    },
+    {
+      "m": "l_elbow_flex",
+      "min": 70,
+      "why": "lead fist in front of the trunk, elbow bent",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a taekwondo athlete in a sparring stance",
+    "core": "Left foot forward and right foot back a long step apart, both heels slightly raised on the balls of the feet, knees soft; body side-on to the opponent; fists loosely closed in front of the trunk at chest height, lead forearm angled across the body, rear fist near the solar plexus; chin down.",
+    "gaze": "Eyes on the opponent over the lead shoulder.",
+    "cues": [
+      "bounce lightly on the balls of the feet",
+      "hands low enough to block kicks to the trunk",
+      "keep the rear heel off the mat to kick instantly"
+    ],
+    "kinetic": [
+      "light bounce in the knees",
+      "white dobok creasing at the belt",
+      "sensor socks and trunk protector visible"
+    ],
+    "avoid": [
+      "black belt missing",
+      "trunk protector missing",
+      "kicking with the shin instead of the foot",
+      "bare chest",
+      "boxing gloves",
+      "southpaw stance"
+    ]
+  },
+  "ref_query": "taekwondo sparring stance",
+  "sources": [
+    {
+      "id": "KUK",
+      "cite": "Kukkiwon Taekwondo Textbook: fighting stance (gyeorugi junbi), dollyeo chagi and dwit chagi descriptions - general knowledge, not re-checked this session",
+      "url": "https://www.kukkiwon.or.kr"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard taekwondo coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "taekwondo"
+}

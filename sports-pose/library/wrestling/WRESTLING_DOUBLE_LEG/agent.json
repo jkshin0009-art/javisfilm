@@ -1,0 +1,85 @@
+{
+ "code": "WRESTLING_DOUBLE_LEG",
+ "sport": "wrestling",
+ "technique": "double_leg",
+ "phase": "penetration",
+ "summary": "Freestyle double-leg takedown at the penetration step: attacker's right knee on the mat between the opponent's feet, left leg driving back on the toes, head up on the opponent's side, chest against the thighs, both arms wrapped behind the opponent's knees.",
+ "names": {
+  "ko": [
+   "레슬링 양다리 태클",
+   "더블렉 태클",
+   "레슬링 태클",
+   "양발 태클"
+  ],
+  "en": [
+   "wrestling double leg takedown",
+   "double leg shot",
+   "penetration step",
+   "wrestling tackle"
+  ]
+ },
+ "keywords": [
+  "wrestling",
+  "takedown",
+  "double leg",
+  "shot",
+  "freestyle"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #WRESTLING_DOUBLE_LEG\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 50 deg; face pointing forward and slightly down. Head up, eyes forward past the opponent's hip.\n- Torso: trunk line (hips to shoulders) 65 deg forward of vertical; spine flexed 15 deg over the pelvis; shoulders square with the hips.\n- Right arm: upper arm raised 89 deg from the side of the trunk, pointing down and to the athlete's left and slightly forward; elbow deeply bent (75 deg flexion); forearm pointing forward; palm facing to the athlete's left and slightly up; wrist extended (cocked back) 5 deg; hand: cupped, fingers slightly curled and spread; fingertips 0.47 m above the floor.\n- Left arm: upper arm raised 87 deg from the side of the trunk, pointing down and slightly to the athlete's left and slightly forward; elbow bent to about a right angle (83 deg flexion); forearm pointing forward and slightly up; palm facing down and slightly forward; wrist extended (cocked back) 7 deg; hand: cupped, fingers slightly curled and spread; fingertips 0.53 m above the floor.\n- Right leg (penetrating knee): hip flexed 75 deg; knee fully folded (120 deg flexion); thigh pointing down and slightly forward, shin pointing backward; ankle plantar-flexed (toes pointed) 65 deg; foot 5 cm above the floor.\n- Left leg (drive leg): hip extended 14 deg; knee slightly bent (22 deg flexion); thigh pointing backward and slightly down, shin pointing backward; ankle dorsiflexed 25 deg; on the ball of the foot, heel raised.\n- On the mat/floor: right shin front, left foot rest on the surface.\n- B (opponent being taken down): 81 cm forward and slightly to the athlete's left of the main athlete, facing the main athlete; trunk 30 deg forward of vertical; knees 20/20 deg (right/left); elbows 70/70 deg; both feet on the floor. Opponent in a blue singlet caught upright, hands reaching down too late to sprawl.\n- Technique cue: level change before you shoot\n- Technique cue: head up, back straight\n- Technique cue: drive through, lift or turn the corner\n\n3. OBJECT_INTERACTION:\n- Legal under the UWW rules: the hands are wrapped behind the opponent's legs (legal in freestyle only); no fist or hand on the opponent's face.\n\n4. CINEMATIC_CAMERA:\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view at mat level, both wrestlers in profile.\n- three_quarter: eye-level shot, three-quarter front view, 35mm standard lens, full-body shot. Three-quarter view, faces and hand positions sharp.\n- low_cinema: camera 0.4 m above the floor, ground-level low angle looking up, three-quarter rear view, 24mm wide-angle lens, full-body shot. Low wide frame on the mat, orange passivity band and arena lights.\n\n5. KINETIC_ENERGY:\n- opponent's knees buckling\n- mat shoe squeak and dust\n- sweat flying off the heads",
+ "prompt": "{SUBJECT}, a wrestler shooting a double-leg takedown. Opposite the main athlete: {PARTNER_B} as the opponent being taken down. Right knee dropped to the mat between the opponent's feet, left leg driving back with the toes on the mat; hips low and forward; back straight, head up and pressed against the opponent's side; chest against the opponent's thighs; both arms wrapped around the backs of the opponent's knees, hands cupped. Level change before you shoot. Head up, back straight. Drive through, lift or turn the corner. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view at mat level, both wrestlers in profile. Opponent's knees buckling; mat shoe squeak and dust. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, loose clothing instead of a singlet, both wrestlers in the same colour, boxing gloves, street shoes, judogi, head down looking at the mat, hands grabbing the opponent's ankles, hand choking the opponent's throat, full nelson, punching, elbow to the head, wrestler standing outside the circle",
+ "placeholders": [
+  "{SUBJECT}",
+  "{PARTNER_B}",
+  "{SETTING}"
+ ],
+ "partners": [
+  {
+   "id": "B",
+   "role": "opponent being taken down"
+  }
+ ],
+ "cameras": [
+  {
+   "name": "side",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view at mat level, both wrestlers in profile.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "three_quarter",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, three-quarter front view, 35mm standard lens, full-body shot.",
+   "text": "Three-quarter view, faces and hand positions sharp.",
+   "openpose_png": "openpose_three_quarter.png",
+   "openpose_json": "openpose_three_quarter.json"
+  },
+  {
+   "name": "low_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.4 m above the floor, ground-level low angle looking up, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Low wide frame on the mat, orange passivity band and arena lights.",
+   "openpose_png": "openpose_low_cinema.png",
+   "openpose_json": "openpose_low_cinema.json"
+  }
+ ],
+ "rulebook": "UWW",
+ "scene_rules": [
+  "One-piece singlet, one wrestler in red and one in blue (by draw), wrestling shoes without heels, buckles or metal, laces covered; ear guards optional for seniors; a handkerchief tucked into the singlet; no jewellery; long hair covered. (UWW Wrestler's equipment)",
+  "Circular 9 m competition surface on a square mat: dark-blue 7 m central circle with a 1 m starting circle in the middle, an orange 1 m passivity band around it, a protection area of a contrasting colour outside; red and blue corners diagonally opposite. (UWW Mat)",
+  "Referee on the mat wearing red and blue wristbands, a judge and a mat chairman at the table; coaches seated in the red and blue corners. (UWW Officials)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

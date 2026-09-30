@@ -1,0 +1,237 @@
+{
+  "code": "FISHING_CAST_BACK",
+  "technique": "cast",
+  "phase": "back_stop",
+  "summary": "Right-handed overhead cast at the back stop: spinning rod stopped at the 1 o'clock position behind the shoulder, rod hand beside the ear, left hand on the butt, weight on the back foot.",
+  "names": {
+    "ko": [
+      "낚시 캐스팅 백스윙",
+      "오버헤드 캐스팅 준비",
+      "낚싯대 뒤로 젖히기",
+      "캐스팅 1시 방향"
+    ],
+    "en": [
+      "fishing cast back stop",
+      "overhead cast back cast",
+      "rod loaded at 1 o'clock",
+      "casting wind-up"
+    ]
+  },
+  "keywords": [
+    "fishing",
+    "angling",
+    "cast",
+    "casting",
+    "rod",
+    "spinning"
+  ],
+  "sequence": {
+    "id": "FISHING_CAST",
+    "order": 1,
+    "phases": [
+      "FISHING_CAST_BACK",
+      "FISHING_CAST_RELEASE"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "r_arm": "rod hand on the reel seat",
+      "l_arm": "second hand",
+      "l_leg": "front leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -20,
+      "tilt": 3,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -4,
+      "side": 3,
+      "rot": -12
+    },
+    "head": {
+      "look_at": "target"
+    },
+    "r_arm": {
+      "elev": 100,
+      "plane": 80,
+      "rot": 20,
+      "elbow": 120,
+      "pron": 10,
+      "wrist": -20,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 40,
+      "plane": 90,
+      "rot": -10,
+      "elbow": 80,
+      "pron": 0,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "rod_butt",
+        "w": 0.4
+      }
+    },
+    "l_leg": {
+      "flex": 15,
+      "abd": 6,
+      "rot": 10,
+      "knee": 12,
+      "ankle": "flat"
+    },
+    "r_leg": {
+      "flex": -5,
+      "abd": 8,
+      "rot": 20,
+      "knee": 15,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            5,
+            30
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "rod",
+      "kind": "rod",
+      "hold": "r_palm",
+      "length_m": 2.3,
+      "seat_m": 0.35,
+      "yaw": 0,
+      "pitch": 120,
+      "bend_deg": 25,
+      "bend_to": [
+        -1,
+        0,
+        -0.3
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "target",
+      "at": [
+        18.0,
+        0.0,
+        -0.5
+      ],
+      "text": "Water about 0.5 m below the bank; the casting target 18 m out."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view, the whole rod arc in frame against the sky."
+    },
+    {
+      "name": "front_three_quarter",
+      "azimuth": -40,
+      "elevation": -5,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Three-quarter front view from the water side, face and hands sharp."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": -150,
+      "elevation": 5,
+      "lens_mm": 24,
+      "fill": 0.55,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the angler over the water, golden hour light."
+    }
+  ],
+  "rules": [
+    {
+      "m": "fwd:rod_tip:rod_seat",
+      "max": -40,
+      "why": "rod stopped past vertical at about 1 o'clock (30 deg behind vertical)",
+      "src": "DWR"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 80,
+      "max": 125,
+      "why": "the elbow drives the cast; hand beside the ear",
+      "src": "SCS25, EST"
+    }
+  ],
+  "text": {
+    "action": "an angler at the back stop of an overhead cast with a spinning rod",
+    "core": "Standing with the left foot forward, knees soft; right hand gripping the reel seat beside the right ear at head height, elbow bent about 100 degrees; rod stopped behind the shoulder at the 1 o'clock position, its tip flexing back under the lure's weight; left hand holding the end of the butt in front of the chest; spinning reel hanging under the rod.",
+    "gaze": "Eyes on the target spot on the water.",
+    "cues": [
+      "stop firmly at 1 o'clock, no drift",
+      "reel the lure up to 8-15 cm from the tip before casting",
+      "the elbow drives the cast, not the shoulder"
+    ],
+    "kinetic": [
+      "rod tip flexing backward",
+      "lure swinging behind the tip",
+      "wind on the water behind"
+    ],
+    "avoid": [
+      "rod passing through the head",
+      "reel on top of a spinning rod",
+      "line not connected to the rod tip",
+      "fingers merged into the reel"
+    ]
+  },
+  "ref_query": "fishing casting",
+  "sources": [
+    {
+      "id": "DWR",
+      "cite": "Utah DWR / Missouri Dept. of Conservation casting guides: stop the back cast at 1 o'clock, release at 10 o'clock, follow through at the target (search extract)",
+      "url": "https://mdc.mo.gov/fishing/get-started-fishing/casting"
+    },
+    {
+      "id": "SCS25",
+      "cite": "Biomechanics of spinning casting 2025: the elbow has the largest range and angular velocity, the shoulder plays a small role (abstract extract)",
+      "url": "https://sciencesport.ru/en/journals/tom-13-no1-2025/articles/biomechanics-spinning-casting-sport-fishing-considering-various"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from coaching descriptions (no measured value found this session)",
+      "url": ""
+    }
+  ],
+  "sport": "fishing"
+}

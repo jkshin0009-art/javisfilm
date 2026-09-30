@@ -1,0 +1,291 @@
+{
+  "code": "BASEBALL_PITCH_LEG_LIFT",
+  "sport": "baseball",
+  "technique": "pitch",
+  "phase": "leg_lift",
+  "summary": "Right-handed baseball pitcher at the balance point: standing on the right leg on the rubber, left knee lifted above hip height, hands together at the chest, body turned away from the plate.",
+  "names": {
+    "ko": [
+      "야구 투구 레그킥",
+      "투수 다리 들기",
+      "밸런스 포인트",
+      "와인드업 정점"
+    ],
+    "en": [
+      "baseball pitch leg lift",
+      "balance point",
+      "pitcher knee lift",
+      "windup peak"
+    ]
+  },
+  "keywords": [
+    "baseball",
+    "pitching",
+    "windup",
+    "leg lift",
+    "balance point",
+    "pitcher"
+  ],
+  "sequence": {
+    "id": "BASEBALL_PITCH",
+    "phases": [
+      "BASEBALL_PITCH_LEG_LIFT",
+      "BASEBALL_PITCH_FOOT_CONTACT",
+      "BASEBALL_PITCH_MER",
+      "BASEBALL_PITCH_RELEASE"
+    ],
+    "order": 1
+  },
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "throwing arm",
+      "l_arm": "glove arm",
+      "r_leg": "pivot leg on the rubber",
+      "l_leg": "stride leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -124,
+      "tilt": 5,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 10,
+      "side": 9,
+      "rot": 4
+    },
+    "head": {
+      "look_at": "plate"
+    },
+    "r_arm": {
+      "elev": 30,
+      "plane": 100,
+      "rot": -40,
+      "elbow": 110,
+      "pron": 30,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "hands",
+        "w": 0.4
+      }
+    },
+    "l_arm": {
+      "elev": 35,
+      "plane": 110,
+      "rot": -40,
+      "elbow": 100,
+      "pron": -30,
+      "wrist": 0,
+      "hand": "cupped",
+      "reach": {
+        "to": "hands_l",
+        "w": 0.4
+      }
+    },
+    "r_leg": {
+      "flex": 19,
+      "abd": 5,
+      "rot": -30,
+      "knee": 38,
+      "ankle": "flat"
+    },
+    "l_leg": {
+      "flex": 112,
+      "abd": 5,
+      "rot": 5,
+      "knee": 108,
+      "ankle": 30
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot"
+    ],
+    "root_xy": [
+      0.307,
+      -0.138
+    ]
+  },
+  "objects": [
+    {
+      "name": "hands",
+      "kind": "point",
+      "at": "neck",
+      "offset_m": [
+        -0.13,
+        -0.2,
+        -0.2
+      ]
+    },
+    {
+      "name": "hands_l",
+      "kind": "point",
+      "at": "neck",
+      "offset_m": [
+        -0.1,
+        -0.24,
+        -0.2
+      ]
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.074,
+      "touch": "r_palm",
+      "relate": [
+        "right_palm"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "rubber",
+      "at": [
+        -0.076,
+        0.0,
+        0.0
+      ],
+      "text": "Pitcher's plate (rubber) 61 x 15 cm, white, on top of a mound 25 cm above home plate; the front edge of the plate is 18.44 m from the rear point of home plate."
+    },
+    {
+      "kind": "point",
+      "name": "plate",
+      "at": [
+        18.656000000000002,
+        0.0,
+        -0.254
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "name": "catcher_view",
+      "azimuth": 0,
+      "elevation": 2,
+      "lens_mm": 200,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Broadcast view from behind the plate, long telephoto compression, sharp focus on the pitcher."
+    },
+    {
+      "name": "first_base_side",
+      "azimuth": 90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view from the first-base side: stride and arm path read clearly."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": 35,
+      "height_m": 0.4,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide cinematic frame from the grass in front of the mound, stadium lights behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "l_knee_flex",
+      "min": 90,
+      "max": 125,
+      "why": "lead knee flexed about 108 deg at maximum height",
+      "src": "OBP-P"
+    },
+    {
+      "m": "l_leg.flex",
+      "min": 95,
+      "max": 125,
+      "why": "lead hip flexed about 112 deg, thigh above horizontal",
+      "src": "OBP-P"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 25,
+      "max": 50,
+      "why": "stance knee flexed about 38 deg",
+      "src": "OBP-P"
+    },
+    {
+      "m": "r_foot_z",
+      "max": 0.03,
+      "why": "balanced on the pivot foot",
+      "src": "CG19"
+    },
+    {
+      "m": "z:l_knee",
+      "min": 1.0,
+      "why": "lead knee about 65 % of height above the rubber",
+      "src": "OBP-P"
+    },
+    {
+      "m": "dist:r_palm:l_palm",
+      "max": 12,
+      "why": "hands together (ball in the glove) at chest height",
+      "src": "OBP-P"
+    }
+  ],
+  "text": {
+    "action": "a right-handed baseball pitcher at the balance point of the windup",
+    "core": "Standing tall on the right leg on the rubber, right knee slightly bent; left knee lifted above the hip, lower leg hanging, toes relaxed; body turned side-on and slightly past, left shoulder pointing toward home plate; ball hidden in the glove, both hands together at chest height; head level, chin over the glove shoulder.",
+    "gaze": "Eyes on the catcher's mitt over the left shoulder.",
+    "cues": [
+      "balance over the pivot leg at the top of the leg lift",
+      "controlled coil, trunk not leaning back",
+      "hands together at the chest"
+    ],
+    "kinetic": [
+      "stillness before the drive, dust on the rubber",
+      "jersey hanging still, cap brim shading the eyes",
+      "stadium lights rim-lighting the lifted knee"
+    ],
+    "avoid": [
+      "both feet in the air",
+      "stance knee locked straight",
+      "lifted knee too low",
+      "chest facing the camera",
+      "ball floating outside the glove",
+      "a third leg"
+    ]
+  },
+  "ref_query": "baseball pitcher windup",
+  "sources": [
+    {
+      "id": "OBP-P",
+      "cite": "Driveline OpenBiomechanics, baseball_pitching (100 pitchers, 411 fastballs, 1.85 +/- 0.07 m): means computed from the dataset's point-of-interest and full-signal files (CC BY-NC-SA 4.0; only summary numbers used here)",
+      "url": "https://github.com/drivelineresearch/openbiomechanics/tree/main/baseball_pitching"
+    },
+    {
+      "id": "CG19",
+      "cite": "A Clinician's Guide to Analysis of the Pitching Motion (2019): balance point, 90/90 arm position, MER about 170 deg",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6542879/"
+    },
+    {
+      "id": "AJSM24",
+      "cite": "Windup vs stretch, Am J Sports Med 2024 (higher knee lift from the windup)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38687464/"
+    }
+  ],
+  "ground": {
+    "kind": "mound",
+    "top_x_m": 0.152,
+    "slope": 0.0833,
+    "drop_m": 0.254
+  }
+}

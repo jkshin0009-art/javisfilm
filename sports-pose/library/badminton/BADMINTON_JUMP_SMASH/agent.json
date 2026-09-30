@@ -1,0 +1,79 @@
+{
+ "code": "BADMINTON_JUMP_SMASH",
+ "sport": "badminton",
+ "technique": "smash",
+ "phase": "contact",
+ "summary": "Right-handed badminton jump smash at contact: airborne with a scissor kick, racket arm reaching up in front of the hitting shoulder, forearm pronating, left arm pulled down, shuttle hit high in front.",
+ "names": {
+  "ko": [
+   "배드민턴 점프 스매시",
+   "스매시 타점",
+   "점프 스매싱",
+   "배드민턴 공격"
+  ],
+  "en": [
+   "badminton jump smash",
+   "smash contact",
+   "jumping smash",
+   "overhead smash"
+  ]
+ },
+ "keywords": [
+  "badminton",
+  "smash",
+  "jump",
+  "overhead",
+  "shuttlecock"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #BADMINTON_JUMP_SMASH\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 52 deg, turned 11 deg to the athlete's right of the chest line; face pointing forward and up. Eyes on the shuttle.\n- Torso: trunk line (hips to shoulders) 13 deg forward of vertical, leaning 12 deg to the athlete's left; spine flexed 8 deg over the pelvis; shoulder line rotated 20 deg to the left of the hip line (hip-shoulder separation).\n- Right arm (racket arm): upper arm raised 160 deg from the side of the trunk, pointing up and slightly forward; elbow slightly bent (22 deg flexion); forearm pointing up; palm facing forward and slightly down; wrist flexed 10 deg; hand: fingers wrapped firmly around what it holds; fingertips 2.47 m above the floor.\n- Left arm (non-racket arm, pulled down): upper arm raised 45 deg from the side of the trunk, pointing down and slightly forward and slightly to the athlete's right; elbow bent to about a right angle (100 deg flexion); forearm pointing up and forward and slightly to the athlete's right; palm facing to the athlete's right and down; wrist neutral; hand: relaxed, fingers softly curled; fingertips 1.76 m above the floor.\n- Right leg (scissor kick, forward): hip flexed 50 deg; knee deeply bent (70 deg flexion); thigh pointing forward and down, shin pointing down and slightly backward; ankle plantar-flexed (toes pointed) 30 deg; foot 35 cm above the floor.\n- Left leg (scissor kick, back): hip extended 12 deg; knee bent (45 deg flexion); thigh pointing down and slightly backward, shin pointing backward and slightly down; ankle plantar-flexed (toes pointed) 35 deg; foot 43 cm above the floor.\n- Airborne: lowest point of the body 35 cm above the floor; neither foot touches the ground.\n- Technique cue: contact in front of and above the racket shoulder\n- Technique cue: legs switch in the air like scissors\n- Technique cue: pull the non-racket arm in as you strike\n- Technique cue: land on the non-racket foot first\n\n3. OBJECT_INTERACTION:\n- racket (66 cm long): gripped in the right hand, shaft pointing up and slightly forward and slightly to the athlete's left, string face turned forward and slightly down; head centre 2.73 m above the floor; strings and frame clearly visible, one racket only.\n- shuttle: feathered shuttlecock, cork leading, flying forward and slightly down, 2.73 m above the floor.\n- Net 1.524 m high at the centre, 250 cm in front; the shuttle is struck high on the player's own side.\n- Legal under the BWF rules: no contact with the net; shuttle and racket are on the player's own side of the net.\n\n4. CINEMATIC_CAMERA:\n- net_view: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From across the net, racket strings and shuttle sharp.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view along the net.\n- wide_cinema: high-angle shot looking down, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide frame from behind the player, green court and lines, arena lights.\n\n5. KINETIC_ENERGY:\n- racket head motion blur, shuttle compressing off the strings\n- sweat flying off the hair\n- court lights flaring behind the racket",
+ "prompt": "{SUBJECT}, a right-handed badminton player hitting a jump smash at the top of the jump. Airborne with a scissor kick, right knee driven forward and left leg swept back; trunk tilted so the racket shoulder is high; right arm reaching up almost straight in front of the right shoulder, forearm turning over, racket face angled down onto the shuttle; left arm pulled down to the chest. Contact in front of and above the racket shoulder. Legs switch in the air like scissors. Pull the non-racket arm in as you strike. Land on the non-racket foot first. Eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From across the net, racket strings and shuttle sharp. Racket head motion blur, shuttle compressing off the strings; sweat flying off the hair. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, racket without strings, racket head merged into the hand, shuttle flying feathers first, left-handed player, contact behind the head, both legs together in the air, left arm still raised at contact, racket touching the net, racket reaching over the net, shuttle resting on the strings",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "net_view",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "From across the net, racket strings and shuttle sharp.",
+   "openpose_png": "openpose_net_view.png",
+   "openpose_json": "openpose_net_view.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view along the net.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "high-angle shot looking down, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide frame from behind the player, green court and lines, arena lights.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "BWF",
+ "scene_rules": [
+  "Court 13.40 x 6.10 m with 40 mm white or yellow lines; net 1.524 m high at the centre and 1.55 m at the posts, dark mesh with a 75 mm white top tape. (BWF 1)",
+  "Umpire on a high chair at one end of the net, service judge on a low chair at the opposite post, line judges behind or beside their lines; with the fixed-height rule a 1.15 m service-height device stands by the court. (BWF 17)",
+  "Feathered shuttlecock with 16 white feathers and a cork base; one racket per player, strings in a crossed pattern. (BWF 2, 4)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

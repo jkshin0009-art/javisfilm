@@ -1,0 +1,288 @@
+{
+  "code": "JUDO_IPPON_LANDING",
+  "technique": "throw",
+  "phase": "landing",
+  "summary": "The ippon moment after a throw: uke lands flat on the back with the chin tucked and the left arm slapping the mat (ukemi); tori stands over uke, still holding and pulling up uke's right sleeve.",
+  "names": {
+    "ko": [
+      "유도 한판",
+      "유도 낙법 착지",
+      "업어치기 한판",
+      "메치기 착지"
+    ],
+    "en": [
+      "judo ippon landing",
+      "judo throw landing",
+      "breakfall ukemi",
+      "ippon moment"
+    ]
+  },
+  "keywords": [
+    "judo",
+    "ippon",
+    "throw",
+    "landing",
+    "ukemi",
+    "breakfall"
+  ],
+  "sequence": {
+    "id": "JUDO_SEOI_NAGE_THROW",
+    "order": 2,
+    "phases": [
+      "JUDO_SEOI_NAGE",
+      "JUDO_IPPON_LANDING"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.75,
+    "hand": "right",
+    "roles": {
+      "l_arm": "pulling hand still on uke's sleeve",
+      "r_arm": "right arm released"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 20
+    },
+    "trunk": {
+      "flex": 25,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "look_at": "B.chest"
+    },
+    "l_arm": {
+      "elev": 45,
+      "plane": 60,
+      "rot": -10,
+      "elbow": 50,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "B.r_wrist",
+        "w": 0.3,
+        "tol_m": 0.05,
+        "range": {
+          "elbow": [
+            10,
+            130
+          ],
+          "wrist": [
+            -35,
+            35
+          ]
+        }
+      }
+    },
+    "r_arm": {
+      "elev": 35,
+      "plane": 70,
+      "rot": 0,
+      "elbow": 60,
+      "pron": 30,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "r_leg": {
+      "flex": 30,
+      "abd": 10,
+      "rot": 10,
+      "knee": 35,
+      "ankle": "flat"
+    },
+    "l_leg": {
+      "flex": 20,
+      "abd": 10,
+      "rot": 10,
+      "knee": 30,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            15,
+            50
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "partners": [
+    {
+      "id": "B",
+      "role": "uke, landing on the back",
+      "athlete": {
+        "height_m": 1.78
+      },
+      "support": {
+        "contacts": [
+          "back_upper",
+          "sacrum"
+        ],
+        "root_from": "A.pelvis",
+        "root_offset": [
+          0.95,
+          0.1
+        ]
+      },
+      "pose": {
+        "pelvis": {
+          "yaw": 0,
+          "tilt": -90
+        },
+        "trunk": {
+          "flex": 0
+        },
+        "head": {
+          "flex": 35,
+          "rot": 0
+        },
+        "r_arm": {
+          "elev": 80,
+          "plane": 80,
+          "rot": 0,
+          "elbow": 15,
+          "pron": 30,
+          "wrist": 0,
+          "hand": "relaxed"
+        },
+        "l_arm": {
+          "elev": 45,
+          "plane": -12,
+          "rot": 0,
+          "elbow": 3,
+          "pron": 90,
+          "wrist": 0,
+          "hand": "flat"
+        },
+        "r_leg": {
+          "flex": 60,
+          "abd": 10,
+          "rot": 5,
+          "knee": 60,
+          "ankle": 20
+        },
+        "l_leg": {
+          "flex": 45,
+          "abd": 10,
+          "rot": 5,
+          "knee": 40,
+          "ankle": 20
+        }
+      },
+      "text": "Uke in a blue judogi landing flat on the back, chin tucked to the chest so the head does not hit the mat, left arm slapping the tatami at about 45 degrees from the body, legs up from the throw."
+    }
+  ],
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 10,
+      "lens_mm": 35,
+      "fill": 0.86,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Side view at mat level, tori standing over uke."
+    },
+    {
+      "name": "high_three_quarter",
+      "azimuth": -45,
+      "elevation": 35,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "High three-quarter view of the landing, the referee's ippon signal behind."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -140,
+      "height_m": 0.3,
+      "lens_mm": 24,
+      "fill": 0.7,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame from the tatami, uke's slapping hand in the foreground."
+    }
+  ],
+  "rules": [
+    {
+      "m": "z:B.occiput",
+      "min": 0.04,
+      "why": "uke's chin tucked: the back of the head does not hit the mat (ukemi)",
+      "src": "KOD"
+    },
+    {
+      "m": "z:B.l_palm",
+      "max": 0.05,
+      "why": "uke's free arm slaps the mat",
+      "src": "KOD"
+    }
+  ],
+  "text": {
+    "action": "the ippon moment: a judoka's opponent lands flat on the back after a throw",
+    "core": "Tori stands over uke with knees bent and trunk leaning forward, the left hand still gripping the end of uke's right sleeve and pulling it up, the right arm released; uke lies flat on the back in front of tori's feet, chin tucked to the chest with the head off the mat, the left arm straight and slapping the tatami at about 45 degrees from the body, legs bent up from the throw.",
+    "gaze": "Tori's eyes on uke.",
+    "cues": [
+      "keep pulling the sleeve so uke lands safely",
+      "uke: chin to chest, slap the mat",
+      "the referee raises the arm high for ippon"
+    ],
+    "kinetic": [
+      "tatami shock wave and dust at the impact",
+      "judogi jackets flapping open",
+      "referee's arm shooting up for ippon"
+    ],
+    "avoid": [
+      "judogi without a belt",
+      "both athletes in the same colour judogi",
+      "bare-chested judoka",
+      "boxing gloves",
+      "grabbing the legs",
+      "sleeves rolled up",
+      "uke landing on the head",
+      "tori letting go of the sleeve"
+    ]
+  },
+  "ref_query": "judo ippon throw",
+  "sources": [
+    {
+      "id": "IJF",
+      "cite": "IJF Sport and Organisation Rules / Refereeing Rules: judogi, gripping, penalties (secondary summary of the SOR read this session; the IJF PDF itself not reachable)",
+      "url": "https://www.ijf.org/documents"
+    },
+    {
+      "id": "KOD",
+      "cite": "Kodokan judo technique descriptions (kumikata, ippon seoi nage, kesa gatame) - general knowledge, not re-checked this session",
+      "url": "https://kodokanjudoinstitute.org/en/waza/"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard judo coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "judo"
+}

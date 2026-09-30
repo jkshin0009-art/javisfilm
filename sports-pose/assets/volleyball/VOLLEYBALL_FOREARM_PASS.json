@@ -1,0 +1,291 @@
+{
+  "code": "VOLLEYBALL_FOREARM_PASS",
+  "sport": "volleyball",
+  "technique": "forearm_pass",
+  "phase": "contact",
+  "summary": "Volleyball forearm pass (bump / serve receive) at contact: wide stance, knees bent, straight arms joined into a flat platform, ball on the forearms just above the wrists.",
+  "names": {
+    "ko": [
+      "배구 리시브",
+      "언더핸드 패스",
+      "배구 범프",
+      "서브 리시브",
+      "리시브 자세"
+    ],
+    "en": [
+      "volleyball forearm pass",
+      "bump pass",
+      "serve receive",
+      "dig platform",
+      "underhand pass"
+    ]
+  },
+  "keywords": [
+    "volleyball",
+    "pass",
+    "bump",
+    "receive",
+    "platform",
+    "defense"
+  ],
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "platform",
+      "l_arm": "platform",
+      "l_leg": "slightly forward"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 30,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 12,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 55,
+      "plane": 100,
+      "rot": -10,
+      "elbow": 3,
+      "pron": -60,
+      "wrist": 10,
+      "hand": "platform",
+      "reach": {
+        "to": "hands",
+        "fix": [
+          "wrist",
+          "pron"
+        ],
+        "w": 0.5,
+        "range": {
+          "elbow": [
+            0,
+            10
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 55,
+      "plane": 100,
+      "rot": -10,
+      "elbow": 3,
+      "pron": -60,
+      "wrist": 10,
+      "hand": "platform",
+      "reach": {
+        "to": "hands_l",
+        "fix": [
+          "wrist",
+          "pron"
+        ],
+        "w": 0.5,
+        "range": {
+          "elbow": [
+            0,
+            10
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 62,
+      "abd": 24,
+      "rot": 15,
+      "knee": 70,
+      "ankle": "flat"
+    },
+    "l_leg": {
+      "flex": 72,
+      "abd": 22,
+      "rot": 10,
+      "knee": 64,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "knee",
+          "rot",
+          "abd"
+        ]
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "hands",
+      "kind": "point",
+      "at": "hips_mid",
+      "offset_m": [
+        0.5,
+        0.0,
+        -0.24
+      ]
+    },
+    {
+      "name": "hands_l",
+      "kind": "point",
+      "at": "hips_mid",
+      "offset_m": [
+        0.5,
+        0.0,
+        -0.24
+      ]
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.21,
+      "touch": "forearms",
+      "relate": [
+        "hands_mid",
+        "r_knee"
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "name": "front_low",
+      "azimuth": 0,
+      "elevation": -5,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Seen from the server's side: the flat platform and the bent knees face the camera."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Profile shows the platform angle and the shoulders over the knees."
+    },
+    {
+      "name": "three_quarter_high",
+      "azimuth": -45,
+      "elevation": 20,
+      "lens_mm": 35,
+      "fill": 0.8,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Broadcast-style high three-quarter view, floor lines visible."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "max": 12,
+      "why": "arms straight, elbows locked",
+      "src": "S1"
+    },
+    {
+      "m": "l_elbow_flex",
+      "max": 12,
+      "why": "arms straight, elbows locked",
+      "src": "S1"
+    },
+    {
+      "m": "dist:r_wrist:l_wrist",
+      "max": 8,
+      "why": "hands joined into one platform",
+      "src": "S1"
+    },
+    {
+      "m": "stance_over_shoulders",
+      "min": 1.1,
+      "max": 1.8,
+      "why": "feet slightly wider than the shoulders",
+      "src": "S1"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 45,
+      "max": 90,
+      "why": "knees flexed, low body",
+      "src": "S1, S2"
+    },
+    {
+      "m": "l_knee_flex",
+      "min": 45,
+      "max": 90,
+      "why": "knees flexed, low body",
+      "src": "S1, S2"
+    },
+    {
+      "m": "z:ball",
+      "min": 0.55,
+      "max": 1.05,
+      "why": "contact between the waist and the knees",
+      "src": "S1"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "min": 25,
+      "max": 55,
+      "why": "shoulders over the knees, trunk leaning forward",
+      "src": "S1"
+    }
+  ],
+  "text": {
+    "action": "a volleyball player receiving a serve with a forearm pass, ball contacting the joined forearms",
+    "core": "Feet wider than the shoulders and flat on the floor, knees bent about 65 degrees, hips back, trunk leaning forward so the shoulders are over the knees; both arms straight and pressed together in front of the body, hands clasped with thumbs side by side, forming one flat platform angled toward the target; ball on the forearms just above the wrists, between the waist and knee height.",
+    "gaze": "Eyes on the ball at contact, chin slightly down.",
+    "cues": [
+      "shoulders rolled forward and over the knees",
+      "flat platform, contact just above the wrists",
+      "arms do not swing above the shoulders",
+      "weight shifting onto the front foot"
+    ],
+    "kinetic": [
+      "ball rebounding upward off the forearms with slight spin blur",
+      "sneakers gripping the court, knees absorbing the serve",
+      "red marks forming on the inner forearms"
+    ],
+    "avoid": [
+      "bent elbows",
+      "hands apart",
+      "ball on the fists or hands",
+      "straight locked knees",
+      "arms swung above the shoulders"
+    ]
+  },
+  "ref_query": "volleyball forearm pass",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "FIVB Coaches Manual Level II: forearm pass (feet wider than shoulders, shoulders over knees, flat platform, contact just above the wrists)",
+      "url": "https://www.fivb.com/wp-content/uploads/2024/03/Coaches_Manual_Level_II_EN.pdf"
+    },
+    {
+      "id": "S2",
+      "cite": "Ridgway & Hamilton, ISBS: forearm pass kinematics (thigh about 46 deg at the start, contact about 7 cm from the wrist)",
+      "url": "https://ojs.ub.uni-konstanz.de/cpa/article/view/2336"
+    }
+  ]
+}

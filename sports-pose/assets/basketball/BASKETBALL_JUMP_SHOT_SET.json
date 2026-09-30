@@ -1,0 +1,288 @@
+{
+  "code": "BASKETBALL_JUMP_SHOT_SET",
+  "sport": "basketball",
+  "technique": "jump_shot",
+  "phase": "set",
+  "summary": "Right-handed basketball jump shot at the set point: knees bent, ball set above the right eye, shooting elbow under the ball, guide hand on the side, eyes on the rim.",
+  "names": {
+    "ko": [
+      "농구 점프슛 셋",
+      "슛 준비 자세",
+      "슈팅 셋 포인트",
+      "점프슛 준비"
+    ],
+    "en": [
+      "basketball jump shot set",
+      "shot set point",
+      "shooting pocket",
+      "jumper wind-up"
+    ]
+  },
+  "keywords": [
+    "basketball",
+    "jump shot",
+    "shooting",
+    "set point",
+    "BEEF"
+  ],
+  "sequence": {
+    "id": "BASKETBALL_JUMP_SHOT",
+    "order": 1,
+    "phases": [
+      "BASKETBALL_JUMP_SHOT_SET",
+      "BASKETBALL_JUMP_SHOT_RELEASE"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.9,
+    "hand": "right",
+    "roles": {
+      "r_arm": "shooting arm, elbow under the ball",
+      "l_arm": "guide hand on the side of the ball",
+      "r_leg": "shooting-side foot slightly ahead"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -10,
+      "tilt": 18,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 0,
+      "side": 0,
+      "rot": 5
+    },
+    "head": {
+      "look_at": "rim"
+    },
+    "r_arm": {
+      "elev": 95,
+      "plane": 70,
+      "rot": 80,
+      "elbow": 110,
+      "pron": -10,
+      "wrist": -65,
+      "hand": "ball_hold",
+      "reach": {
+        "to": "ball",
+        "side": [
+          -0.3,
+          -0.15,
+          -0.94
+        ],
+        "w": 0.3,
+        "range": {
+          "wrist": [
+            -80,
+            -40
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 95,
+      "plane": 40,
+      "rot": 60,
+      "elbow": 100,
+      "pron": -30,
+      "wrist": -20,
+      "hand": "ball_hold",
+      "reach": {
+        "to": "ball",
+        "side": [
+          0.05,
+          0.99,
+          0.05
+        ],
+        "w": 0.3
+      }
+    },
+    "r_leg": {
+      "flex": 42,
+      "abd": 15,
+      "rot": 10,
+      "knee": 62,
+      "ankle": "flat"
+    },
+    "l_leg": {
+      "flex": 36,
+      "abd": 15,
+      "rot": 12,
+      "knee": 62,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "knee",
+          "rot",
+          "abd"
+        ]
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.24,
+      "at": "forehead",
+      "offset_m": [
+        0.14,
+        -0.1,
+        0.14
+      ],
+      "relate": [
+        "forehead"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "rim",
+      "x_m": 4.8,
+      "height_m": 3.05,
+      "text": "Rim 3.05 m high, {fwd:rim:pelvis} cm ahead (mid-range shot); the ball is set {up:ball:forehead} cm above and {fwd:ball:forehead} cm in front of the forehead."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "front",
+      "azimuth": 0,
+      "elevation": -3,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "From under the basket: shooting elbow directly under the ball, both eyes on the rim."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -3,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Profile: vertical forearm, bent knees, ball above the eyes."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 5,
+      "lens_mm": 28,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Over-the-shoulder wide shot toward the basket, arena lights and crowd behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "min": 55,
+      "max": 75,
+      "why": "knees flexed about 64-70 deg (inside angle 110-116 deg) in proficient shooters",
+      "src": "S1"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 90,
+      "max": 135,
+      "why": "shooting elbow deeply bent at the set (inside angle about 50-72 deg)",
+      "src": "S1, S2"
+    },
+    {
+      "m": "r_forearm_tilt",
+      "max": 20,
+      "why": "shooting forearm nearly vertical (about 8 deg), elbow under the ball",
+      "src": "S2"
+    },
+    {
+      "m": "fwd:ball:forehead",
+      "min": 3,
+      "max": 30,
+      "why": "ball in front of the forehead, not behind the head",
+      "src": "S3"
+    },
+    {
+      "m": "r_foot_z",
+      "max": 0.03,
+      "why": "feet on the floor at the set",
+      "src": "S4"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "feet on the floor at the set",
+      "src": "S4"
+    },
+    {
+      "m": "stance_over_shoulders",
+      "min": 0.8,
+      "max": 1.5,
+      "why": "feet about shoulder-width",
+      "src": "S4"
+    }
+  ],
+  "text": {
+    "action": "a basketball player setting a right-handed jump shot, ball raised above the right eye",
+    "core": "Feet shoulder-width and flat, right foot slightly ahead, both toes pointing at the basket, knees bent about 65 degrees; ball set just above and in front of the forehead on the right side; shooting hand under the ball with the wrist bent back so the ball rests on the finger pads, a small gap under the palm; shooting elbow directly under the ball, forearm vertical; left guide hand on the left side of the ball, fingers up.",
+    "gaze": "Eyes on the rim, looking under the ball.",
+    "cues": [
+      "balance: feet shoulder-width, shooting-side foot slightly ahead",
+      "elbow under the ball, forearm vertical",
+      "fingers spread, ball on the finger pads",
+      "eyes on the rim, not on the ball"
+    ],
+    "kinetic": [
+      "legs loaded, calves tense",
+      "ball rotation seams sharp and still",
+      "sweat on the forearm catching the arena lights"
+    ],
+    "avoid": [
+      "elbow flared out to the side",
+      "ball flat in the palm",
+      "ball behind the head",
+      "guide hand pushing from behind",
+      "fingers fused into the ball",
+      "heels floating"
+    ]
+  },
+  "ref_query": "basketball jump shot",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Cabarkapa et al. 2022, Sports 10(1):2: knee 110-116 deg, hip 128-137 deg, elbow 49-50 deg inside angles, proficient shooters",
+      "url": "https://doi.org/10.3390/sports10010002"
+    },
+    {
+      "id": "S2",
+      "cite": "Cabarkapa et al. 2021, CEJSSM: free throw set, elbow 72 deg inside angle, forearm 8 deg from vertical",
+      "url": "https://wnus.usz.edu.pl/cejssm/file/article/download/19306/78716.pdf"
+    },
+    {
+      "id": "S3",
+      "cite": "FIBA WABC Level 1 manual 2.7.5: shooting hand and elbow under the ball, guide hand on the side, look under the ball at the rim",
+      "url": "https://wabc.fiba.com/manual/level-1/l1-player/l1-2-offensive-basketball-skills/2-7-shooting/2-7-5-basic-shooting-top-of-the-shot-releasing-the-ball/"
+    },
+    {
+      "id": "S4",
+      "cite": "FIBA WABC Level 1 manual 2.7.7: jump shot, feet pointing at the basket, balanced stance",
+      "url": "https://wabc.fiba.com/manual/level-1/l1-player/l1-2-offensive-basketball-skills/2-7-shooting/2-7-7-basic-shooting-jump-shot/"
+    }
+  ]
+}

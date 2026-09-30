@@ -1,0 +1,51 @@
+{
+  "sport": "tennis",
+  "rulebook": {
+    "title": "ITF Rules of Tennis 2026",
+    "short": "ITF",
+    "url": "https://www.itftennis.com/media/7221/2026-rules-of-tennis-english.pdf",
+    "text_used": "search extracts of the ITF rules and federation copies (itftennis.com not reachable); rule sub-letters from secondary sources"
+  },
+  "dimensions": {
+    "court_m": {"singles": [23.77, 8.23], "doubles_width": 10.97, "rule": "1"},
+    "net_height_m": {"centre": 0.914, "posts": 1.07, "rule": "1"},
+    "service_line_from_net_m": {"value": 6.4, "rule": "1"},
+    "line_width_m": {"baseline_max": 0.1, "other": [0.025, 0.05], "centre_mark_length": 0.1, "rule": "1"},
+    "racket_m": {"max_length": 0.737, "max_width": 0.317, "strung_surface_max": [0.394, 0.292], "rule": "4, Appendix II"},
+    "ball": {"diameter_cm": [6.54, 6.86], "mass_g": [56.0, 59.4], "rule": "3, Appendix I", "note": "diameter from general knowledge of Appendix I, not re-checked this session"}
+  },
+  "equipment": [
+    {"id": "racket_length", "object": "racket", "field": "length_m", "range": [0.5, 0.737], "rule": "4 (at most 73.7 cm)"},
+    {"id": "ball_size", "object": "ball", "field": "diameter_m", "range": [0.0654, 0.0686], "rule": "Appendix I (6.54-6.86 cm)"}
+  ],
+  "scene": [
+    {"rule": "1", "text": "Court 23.77 x 8.23 m (doubles 10.97 m wide); net 0.914 m at the centre, held by a white strap, 1.07 m at the posts; baseline up to 10 cm wide."},
+    {"rule": "2", "text": "Chair umpire on a raised chair beside a net post; line umpires (or electronic line calling) and ball persons crouched at the net posts and the back corners."},
+    {"rule": "4", "text": "One racket per player, with a crossed, evenly strung pattern."}
+  ],
+  "fouls": [
+    {"id": "foot_fault", "rule": "16, 18", "title": "Foot fault",
+     "text": "During the service motion the server may not touch the baseline or the court inside it with either foot, nor change position by walking or running; jumping is allowed.",
+     "techniques": ["serve"], "phases": ["trophy"],
+     "check": {"kind": "not_beyond", "all": true, "line": "baseline", "groups": [["r_heel", "r_ball", "r_toe"], ["l_heel", "l_ball", "l_toe"]]},
+     "legal": "both feet stay behind the baseline without touching it",
+     "avoid": ["server's foot on the baseline"]},
+    {"id": "ball_touches_player", "rule": "24 (i)", "title": "Ball touching the player",
+     "text": "The player loses the point if the ball in play touches the player or anything worn or carried except the racket.",
+     "techniques": ["serve", "forehand", "backhand"], "phases": ["contact"],
+     "check": {"kind": "not_touching", "object": "ball", "label": "body", "margin_m": 0.0,
+               "limbs": ["trunk", "head", "r_upper_arm", "l_upper_arm", "r_forearm", "l_forearm", "r_thigh", "l_thigh"]},
+     "legal": "the ball touches only the racket strings",
+     "avoid": ["ball touching the player's body"]},
+    {"id": "net_touch", "rule": "24 (g)", "title": "Touching the net",
+     "text": "The player loses the point if the player, the racket, or anything worn or carried touches the net, posts, cord, strap or band, or the opponent's court while the ball is in play.",
+     "techniques": ["forehand", "backhand", "serve"]},
+    {"id": "reach_over", "rule": "24 (h), 25", "title": "Reaching over the net",
+     "text": "Hitting the ball before it has passed the net loses the point; a follow-through over the net is allowed when the ball was struck on the player's own side.",
+     "techniques": ["forehand", "backhand"]},
+    {"id": "double_hit", "rule": "24 (e)", "title": "Carry or double hit",
+     "text": "Deliberately carrying or catching the ball on the racket, or deliberately touching it more than once, loses the point.",
+     "techniques": ["forehand", "backhand", "serve"],
+     "avoid": ["ball resting on the racket strings"]}
+  ]
+}

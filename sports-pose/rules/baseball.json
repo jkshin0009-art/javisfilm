@@ -1,0 +1,73 @@
+{
+  "sport": "baseball",
+  "rulebook": {
+    "title": "MLB Official Baseball Rules (2025 edition; values unchanged for many seasons)",
+    "short": "OBR",
+    "url": "https://mktg.mlbstatic.com/mlb/official-information/2025-official-baseball-rules.pdf",
+    "text_used": "search extracts of verbatim rule copies (baseballrulesacademy.com) and the Appendix drawings; mlb.com was not reachable for direct reading"
+  },
+  "dimensions": {
+    "pitching_distance_m": {"value": 18.44, "rule": "2.04", "note": "front edge of the pitcher's plate to the rear point of home plate, 60 ft 6 in"},
+    "pitchers_plate_m": {"value": [0.61, 0.152], "rule": "2.04", "note": "whitened rubber, 24 x 6 in"},
+    "mound": {"height_m": 0.254, "slope": "1 in per ft", "slope_from_m": 0.152, "slope_to_m": 1.829, "rule": "2.01, Appendix 3", "note": "flat area 6 in in front, 18 in to each side and 22 in behind the rubber; 18 ft diameter mound"},
+    "home_plate_m": {"width": 0.432, "rule": "2.02", "note": "17 in square with two corners cut: 17, 8.5, 8.5, 12, 12 in"},
+    "batters_box_m": {"value": [1.219, 1.829], "from_plate": 0.152, "rule": "Appendix 2", "note": "4 x 6 ft, 6 in from each side of the plate; the lines belong to the box"},
+    "bases_m": {"value": 27.43, "rule": "2.01", "note": "90 ft square"},
+    "bat": {"max_length_m": 1.067, "max_diameter_m": 0.0663, "rule": "3.02(a)", "note": "one piece of solid wood"},
+    "ball": {"circumference_cm": [22.9, 23.5], "weight_g": [142, 149], "rule": "3.01", "note": "9-9.25 in, 5-5.25 oz"}
+  },
+  "equipment": [
+    {"id": "mound_height", "ground": true, "field": "drop_m", "value": 0.254, "tol": 0.003, "rule": "2.01 (10 in above home plate)"},
+    {"id": "mound_slope", "ground": true, "field": "slope", "value": 0.0833, "tol": 0.002, "rule": "2.01 (1 in per ft)"},
+    {"id": "mound_flat_front", "ground": true, "field": "top_x_m", "value": 0.152, "tol": 0.01, "rule": "2.01 (slope starts 6 in in front of the rubber)"},
+    {"id": "ball_size", "object": "ball", "field": "diameter_m", "range": [0.0728, 0.0748], "rule": "3.01 (9-9.25 in around)"},
+    {"id": "bat_length", "object": "bat", "field": "length_m", "range": [0.6, 1.067], "rule": "3.02(a) (at most 42 in)"}
+  ],
+  "scene": [
+    {"rule": "1.01", "text": "Nine fielders per team."},
+    {"rule": "5.02(a), 8.03", "text": "The catcher crouches directly behind home plate in the catcher's box; the plate umpire (umpire-in-chief) stands behind the catcher; base umpires stand where they see the bases."},
+    {"rule": "5.02(c)", "text": "All fielders except the catcher stand in fair territory; with the pitcher on the rubber, two infielders are on each side of second base with both feet on the infield dirt."},
+    {"rule": "3.08", "text": "Batters, base runners and base coaches wear batting helmets (ear flap); the catcher wears a helmet and mask."},
+    {"rule": "3.07(a), 6.02(c)(7)", "text": "The pitcher's glove is not white or grey (piping excepted) and carries no other-coloured material; nothing is attached to the pitching hand, fingers or wrists (no tape, bandage or bracelet)."},
+    {"rule": "2.02, 2.04", "text": "Home plate is a white five-sided slab 43 cm wide; the white pitcher's plate (61 x 15 cm) sits on a mound 25 cm above home plate, 18.44 m away."}
+  ],
+  "fouls": [
+    {"id": "pivot_on_rubber", "rule": "5.07(a)", "title": "Pivot foot on the pitcher's plate",
+     "text": "In the windup and set positions the pitcher faces the batter with the pivot foot in contact with the pitcher's plate (set: the other foot in front of it); a pitch delivered without the pivot foot in contact is an illegal pitch.",
+     "techniques": ["pitch"], "phases": ["leg_lift"],
+     "check": [{"kind": "in_area", "groups": [["r_heel", "r_ball", "r_toe"]], "tol_m": 0.05,
+                "area": {"around": "rubber", "x": [-0.076, 0.076], "y": [-0.305, 0.305]}},
+               {"kind": "on_floor", "feet": ["r_foot"]}],
+     "legal": "the pivot foot is on the ground against the pitcher's plate",
+     "avoid": ["pivot foot off the pitcher's rubber at the start of the delivery"]},
+    {"id": "no_reset", "rule": "5.07(a) Comment, 6.02(a)-(b)", "title": "No second step or replanted pivot foot",
+     "text": "The pitcher may not take a second step toward home plate with either foot or reset the pivot foot during the delivery (balk with runners on, illegal pitch otherwise); the pivot foot may drag.",
+     "techniques": ["pitch"], "phases": ["foot_contact", "max_external_rotation", "release"],
+     "legal": "the pivot foot drags from the rubber, it does not hop forward and re-plant",
+     "avoid": ["pitcher hopping forward and re-planting the back foot"]},
+    {"id": "balk_posture", "rule": "6.02(a)(3), (6), (7)", "title": "Balk postures",
+     "text": "A balk includes delivering to the batter while not facing the batter, making the pitching motion while not touching the pitcher's plate, and throwing to a base without stepping directly toward it.",
+     "techniques": ["pitch"],
+     "legal": "the stride goes straight toward home plate"},
+    {"id": "pitcher_equipment", "rule": "3.07, 6.02(c)", "title": "Pitcher's glove, hand and ball",
+     "text": "The glove may not be white or grey or carry other-coloured material; nothing may be attached to the pitching hand or wrist; no foreign substance on the ball.",
+     "techniques": ["pitch"],
+     "legal": "a dark glove, a bare pitching hand, a clean white ball",
+     "avoid": ["white or grey pitcher's glove", "tape or bandage on the pitching hand", "bracelet on the pitching wrist"]},
+    {"id": "batters_box", "rule": "6.03(a)(1), 5.04(b)(5)", "title": "Feet in the batter's box",
+     "text": "A batter who hits the ball with one or both feet on the ground entirely outside the batter's box is out; the lines belong to the box.",
+     "techniques": ["swing"],
+     "check": {"kind": "in_area", "groups": [["r_heel", "r_ball", "r_toe"], ["l_heel", "l_ball", "l_toe"]],
+               "area": {"around": "plate", "x": [-0.914, 0.914], "y": [0.368, 1.587]}},
+     "legal": "both feet are inside the batter's box",
+     "avoid": ["batter's foot outside the chalk box"]},
+    {"id": "helmet", "rule": "3.08", "title": "Batting helmet",
+     "text": "Every player at bat or running the bases wears a protective batting helmet.",
+     "techniques": ["swing"],
+     "legal": "the batter wears a batting helmet with an ear flap",
+     "avoid": ["batter without a helmet", "batter wearing a cap instead of a helmet"]},
+    {"id": "strike_zone", "rule": "Definitions of Terms (strike zone)", "title": "Strike zone",
+     "text": "Over home plate, from the hollow beneath the kneecap up to the midpoint between the top of the shoulders and the top of the uniform pants, judged from the batter's stance.",
+     "techniques": ["swing", "pitch"]}
+  ]
+}
