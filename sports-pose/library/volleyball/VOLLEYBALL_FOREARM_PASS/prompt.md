@@ -25,6 +25,7 @@ Volleyball forearm pass (bump / serve receive) at contact: wide stance, knees be
 
 3. OBJECT_INTERACTION:
 - ball (21 cm diameter): center 0.71 m above the floor; surface 5 cm from the hands mid (forward and up of it); surface 43 cm from the right knee (forward and to the athlete's left and slightly up of it).
+- Legal under the FIVB rules: the ball rebounds from a brief contact, it is not caught or held.
 
 4. CINEMATIC_CAMERA:
 - front_low: eye-level shot, from the front (target side), 50mm standard lens, full-body shot. Seen from the server's side: the flat platform and the bent knees face the camera.
@@ -46,7 +47,7 @@ Volleyball forearm pass (bump / serve receive) at contact: wide stance, knees be
 ## Negative prompt
 
 ```
-extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, bent elbows, hands apart, ball on the fists or hands, straight locked knees, arms swung above the shoulders
+extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, bent elbows, hands apart, ball on the fists or hands, straight locked knees, arms swung above the shoulders, ball held or cradled in the hands, ball caught against the body
 ```
 
 ## Control images
@@ -71,6 +72,26 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 | l_knee_flex | 64.0 | 45..90 | knees flexed, low body | S1, S2 |
 | z:ball | 0.7 | 0.55..1.05 | contact between the waist and the knees | S1 |
 | trunk_lean_fwd | 42.0 | 25..55 | shoulders over the knees, trunk leaning forward | S1 |
+
+## Official game rules (FIVB Official Volleyball Rules 2025-2028 (approved by the 39th FIVB World Congress 2024))
+
+| rule | what | check on this skeleton |
+|---|---|---|
+| FIVB 9.2.2, 9.3.3 | Catch or throw: The ball must be hit, not caught or thrown; it rebounds from the contact. | text only |
+| equipment | ball_size | OK: diameter_m 0.21 (official 0.2069-0.2133, FIVB 3.1 (65-67 cm around)) |
+
+Scene rules for a full match shot (players, uniforms, officials):
+
+- Six players per team on court, three front row and three back row. (FIVB 7.3.1)
+- At most one Libero on court, in a jersey of a clearly contrasting dominant colour; the Libero never serves, blocks or attacks a ball entirely above the net. (FIVB 19.2, 19.1.3)
+- Jersey numbers 1-20 centred on the chest (at least 15 cm tall) and back (at least 20 cm tall); the captain has an 8 x 2 cm stripe under the chest number. (FIVB 4.3.3)
+- Team members wear the same jersey, shorts and socks (Libero excepted); shoes without heels. (FIVB 4.3)
+- Red-and-white striped antennae stand 80 cm above the net at each side line; the net is black 10 cm mesh with a 7 cm white top band. (FIVB 2.4, 2.3)
+- Court 18 x 9 m, white 5 cm lines; the centre line runs under the net and attack lines are 3 m from it on both sides. (FIVB 1.3)
+- First referee stands on a referee's stand at one end of the net, eyes about 50 cm above the net; the second referee stands on the floor near the opposite post. (FIVB 23.1, 24.1)
+- Line judges with flags stand in the free zone 1-3 m from the court corners. (FIVB 29.1)
+
+Rulebook: https://www.fivb.com/volleyball/the-game/official-volleyball-rules/
 
 ## Sources
 

@@ -36,6 +36,15 @@ python sportspose.py find "goalkeeper dive" --full     (파일 경로까지)
 - 더 자세한 지시가 필요하면 5단 블록(`## Asset (5 sections)`)에서 해당 줄을 그대로 가져다 붙입니다.
 - **Negative prompt:** SDXL 계열에만 넣습니다. Flux dev는 negative를 쓰지 않으므로, 본문에 이미 올바른 해부 구조가 적혀 있는 것으로 충분합니다.
 
+### 공식 경기 규칙 지키기
+
+- `prompt.md`의 **Official game rules** 표를 확인합니다. 자산 자세는 이 조항들을 모두 통과한 상태입니다.
+  - 예: 네트에 닿지 않음, 공을 자기 코트에서 때림, 축발이 투수판에 닿음.
+- `3. OBJECT_INTERACTION`의 `Legal under the … rules:` 줄은 그대로 둡니다.
+- 여러 명이 나오는 장면(경기 전체, 관중석에서 본 장면)은 `python sportspose.py rules <종목>`의 **Scene** 목록을 따릅니다.
+  - 예: 배구는 한 팀 6명에 리베로 1명(다른 색 유니폼), 축구는 골키퍼 유니폼 색이 달라야 하고 장신구를 쓰지 않습니다. 야구는 타자와 주자가 헬멧을 씁니다.
+- 반칙 장면이 필요한 연출(일부러 반칙하는 장면)이 아니라면, 규칙 표의 반칙 모습이 들어가지 않게 합니다. negative에 이미 들어 있습니다.
+
 ## 4. ComfyUI 연결 (정지 이미지)
 
 1. `Load Image` 노드로 `openpose_<카메라>.png`를 불러옵니다. 이미 뼈대 그림이므로 전처리기(DWPose 등)를 거치지 않습니다.

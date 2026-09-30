@@ -1,0 +1,72 @@
+{
+  "sport": "basketball",
+  "rulebook": {
+    "title": "FIBA Official Basketball Rules 2024 and FIBA Basketball Equipment (OBR 2026 takes effect on 1 October 2026: free line colours, visible-sock rule removed, unsportsmanlike foul renamed; article numbers may move)",
+    "short": "FIBA",
+    "url": "https://refereeing.fiba.basketball/en/rules",
+    "text_used": "search extracts of FIBA pages, FIBA Tough Calls articles and federation copies (fiba.basketball was not reachable for direct reading)"
+  },
+  "dimensions": {
+    "court_m": {"value": [28, 15], "rule": "Art. 2.1", "note": "to the inner edge of the boundary lines; NBA 28.65 x 15.24"},
+    "line_width_m": {"value": 0.05, "rule": "Art. 2.4", "note": "white under OBR 2024; OBR 2026 allows other colours"},
+    "three_point_m": {"arc": 6.75, "corner": 6.6, "from_sideline": 0.9, "rule": "Art. 2.4.4", "note": "NBA 7.24 and 6.71 in the corners"},
+    "free_throw_line_m": {"from_endline": 5.8, "length": 3.6, "rule": "Art. 2.4.3"},
+    "no_charge_semicircle_m": {"radius": 1.25, "rule": "Art. 2.4.7, 33.10", "note": "NBA restricted area 1.22"},
+    "backboard_m": {"size": [1.8, 1.05], "lower_edge_height": 2.9, "from_endline": 1.2, "rule": "Equipment, backboards"},
+    "ring_m": {"height": 3.05, "inner_diameter": [0.45, 0.459], "net_length": [0.4, 0.45], "rule": "Equipment, rings and nets"},
+    "ball": {"size7_circumference_cm": [74.9, 78.0], "size7_weight_g": [567, 650], "size6_circumference_cm": [72.4, 73.7], "rule": "Equipment, basketballs", "note": "size 7 men, size 6 women; sizes confirmed from secondary sources"}
+  },
+  "equipment": [
+    {"id": "ring_height", "env": "rim", "field": "height_m", "value": 3.05, "tol": 0.006, "rule": "Equipment (3.05 m to the top of the ring)"},
+    {"id": "ball_size", "object": "ball", "field": "diameter_m", "range": {"men": [0.2384, 0.2483], "women": [0.2305, 0.2346]}, "rule": "Equipment (size 7: 749-780 mm around; size 6: 724-737 mm)"}
+  ],
+  "scene": [
+    {"rule": "Art. 4.2.2", "text": "Five players per team on the court."},
+    {"rule": "Art. 4.3", "text": "Home team in light (preferably white) shirts, visiting team in dark shirts; shirts tucked into the shorts; all sleeves, headbands, wristbands and tape on a team in the same solid colour, headbands at most 10 cm wide."},
+    {"rule": "Art. 4.3.2", "text": "Shirt numbers only 0, 00 or 1-99: at least 20 cm tall on the back and 10 cm on the front."},
+    {"rule": "Art. 45", "text": "A crew chief and one or two umpires in grey officials' shirts on the court; scorer, timer and shot-clock operator at the table."},
+    {"rule": "Equipment", "text": "Shot clocks mounted above and behind each backboard (red digits); backboard 1.80 x 1.05 m with its lower edge 2.90 m up, 1.20 m in from the endline; ring 3.05 m high with a 40-45 cm net."},
+    {"rule": "Art. 2.4", "text": "Court 28 x 15 m with 5 cm lines, three-point arc 6.75 m (6.60 m in the corners), free-throw line 5.80 m from the endline, no-charge semi-circle 1.25 m under the basket."}
+  ],
+  "fouls": [
+    {"id": "legal_guarding", "rule": "Art. 33.3", "title": "Legal guarding position",
+     "text": "A defender has a legal guarding position when facing the opponent with both feet on the floor; the position extends vertically (cylinder), and the defender may move sideways or backwards to keep it.",
+     "techniques": ["defense"],
+     "check": [{"kind": "facing", "target": "ball_handler", "max_deg": 30}, {"kind": "on_floor", "feet": ["r_foot", "l_foot"]}],
+     "legal": "the defender faces the ball handler with both feet on the floor (legal guarding position)",
+     "avoid": ["defender turned sideways reaching in", "defender with one foot off the floor"]},
+    {"id": "cylinder", "rule": "Art. 33.1, 33.2", "title": "Cylinder and verticality",
+     "text": "Each player owns the vertical space above their position; a player who leaves their cylinder and makes contact is responsible for it.",
+     "techniques": ["defense", "jump_shot", "layup", "dunk"],
+     "legal": "no body contact with an opponent outside the player's own cylinder"},
+    {"id": "travelling_shot", "rule": "Art. 25.2", "title": "Travelling on a shot",
+     "text": "A player may jump off the pivot foot to shoot, but the ball must be released before either foot returns to the floor.",
+     "techniques": ["jump_shot"], "phases": ["release"],
+     "check": {"kind": "not_touching", "object": "ball", "label": "shooting hand", "margin_m": 0.0, "limbs": ["r_hand", "r_fingers", "l_hand", "l_fingers"]},
+     "legal": "the ball has left the hands while both feet are still in the air",
+     "avoid": ["shooter landing while still holding the ball"]},
+    {"id": "travelling_layup", "rule": "Art. 25.2", "title": "Steps on a layup",
+     "text": "After gaining control while moving, a player may take two steps (a gather step with a foot already on the floor does not count) before passing or shooting.",
+     "techniques": ["layup"],
+     "check": {"kind": "on_floor", "feet": ["l_foot"]},
+     "legal": "the ball is gathered in both hands and the player takes off from the second step (left foot)",
+     "avoid": ["three steps with the ball", "dribbling while holding the ball"]},
+    {"id": "landing_space", "rule": "Art. 33.6", "title": "Landing space",
+     "text": "A player who has jumped has the right to land at the same place (or at a spot not occupied by an opponent at take-off).",
+     "techniques": ["jump_shot", "dunk", "layup"]},
+    {"id": "hanging_on_ring", "rule": "Art. 36 (technical foul)", "title": "Hanging on the ring",
+     "text": "Hanging so that the ring supports the player's weight is a technical foul; after a dunk the ring may be grasped only momentarily, or to prevent injury.",
+     "techniques": ["dunk"],
+     "legal": "the hand pushes the ball down through the ring and grasps the ring at most momentarily",
+     "avoid": ["player hanging from the ring with full body weight"]},
+    {"id": "basket_interference", "rule": "Art. 31.2", "title": "Goaltending and basket interference",
+     "text": "Touching a shot on its downward flight completely above the ring, or touching the ring or backboard while the ball is on the ring, is a violation.",
+     "techniques": ["jump_shot", "layup"],
+     "legal": "no other player touches the ball on its downward flight above the ring"},
+    {"id": "uniform", "rule": "Art. 4.3, 4.4", "title": "Uniform",
+     "text": "Shirts tucked in; sleeves, headbands, wristbands and tape of one solid team colour.",
+     "techniques": ["all"],
+     "legal": "jersey tucked into the shorts",
+     "avoid": ["untucked jersey", "headband wider than 10 cm"]}
+  ]
+}

@@ -36,6 +36,11 @@
     ],
     "order": 2
    },
+   "game_rules": [
+    "OBR 6.03(a)(1), 5.04(b)(5) batters_box",
+    "OBR 3.08 helmet",
+    "OBR Definitions of Terms (strike zone) strike_zone"
+   ],
    "prompt_md": "baseball/BASEBALL_BAT_CONTACT/prompt.md",
    "openpose": [
     "baseball/BASEBALL_BAT_CONTACT/openpose_pitcher_view.png",
@@ -84,6 +89,11 @@
     ],
     "order": 1
    },
+   "game_rules": [
+    "OBR 6.03(a)(1), 5.04(b)(5) batters_box",
+    "OBR 3.08 helmet",
+    "OBR Definitions of Terms (strike zone) strike_zone"
+   ],
    "prompt_md": "baseball/BASEBALL_BAT_LOAD/prompt.md",
    "openpose": [
     "baseball/BASEBALL_BAT_LOAD/openpose_pitcher_view.png",
@@ -134,6 +144,12 @@
     ],
     "order": 2
    },
+   "game_rules": [
+    "OBR 5.07(a) Comment, 6.02(a)-(b) no_reset",
+    "OBR 6.02(a)(3), (6), (7) balk_posture",
+    "OBR 3.07, 6.02(c) pitcher_equipment",
+    "OBR Definitions of Terms (strike zone) strike_zone"
+   ],
    "prompt_md": "baseball/BASEBALL_PITCH_FOOT_CONTACT/prompt.md",
    "openpose": [
     "baseball/BASEBALL_PITCH_FOOT_CONTACT/openpose_catcher_view.png",
@@ -184,6 +200,12 @@
     ],
     "order": 1
    },
+   "game_rules": [
+    "OBR 5.07(a) pivot_on_rubber",
+    "OBR 6.02(a)(3), (6), (7) balk_posture",
+    "OBR 3.07, 6.02(c) pitcher_equipment",
+    "OBR Definitions of Terms (strike zone) strike_zone"
+   ],
    "prompt_md": "baseball/BASEBALL_PITCH_LEG_LIFT/prompt.md",
    "openpose": [
     "baseball/BASEBALL_PITCH_LEG_LIFT/openpose_catcher_view.png",
@@ -234,6 +256,12 @@
     ],
     "order": 3
    },
+   "game_rules": [
+    "OBR 5.07(a) Comment, 6.02(a)-(b) no_reset",
+    "OBR 6.02(a)(3), (6), (7) balk_posture",
+    "OBR 3.07, 6.02(c) pitcher_equipment",
+    "OBR Definitions of Terms (strike zone) strike_zone"
+   ],
    "prompt_md": "baseball/BASEBALL_PITCH_MER/prompt.md",
    "openpose": [
     "baseball/BASEBALL_PITCH_MER/openpose_catcher_view.png",
@@ -283,6 +311,12 @@
     ],
     "order": 4
    },
+   "game_rules": [
+    "OBR 5.07(a) Comment, 6.02(a)-(b) no_reset",
+    "OBR 6.02(a)(3), (6), (7) balk_posture",
+    "OBR 3.07, 6.02(c) pitcher_equipment",
+    "OBR Definitions of Terms (strike zone) strike_zone"
+   ],
    "prompt_md": "baseball/BASEBALL_PITCH_RELEASE/prompt.md",
    "openpose": [
     "baseball/BASEBALL_PITCH_RELEASE/openpose_catcher_view.png",
@@ -323,6 +357,11 @@
     "slide"
    ],
    "sequence": null,
+   "game_rules": [
+    "FIBA Art. 33.3 legal_guarding",
+    "FIBA Art. 33.1, 33.2 cylinder",
+    "FIBA Art. 4.3, 4.4 uniform"
+   ],
    "prompt_md": "basketball/BASKETBALL_DEFENSIVE_STANCE/prompt.md",
    "openpose": [
     "basketball/BASKETBALL_DEFENSIVE_STANCE/openpose_front.png",
@@ -364,6 +403,12 @@
     "jump"
    ],
    "sequence": null,
+   "game_rules": [
+    "FIBA Art. 33.1, 33.2 cylinder",
+    "FIBA Art. 33.6 landing_space",
+    "FIBA Art. 36 (technical foul) hanging_on_ring",
+    "FIBA Art. 4.3, 4.4 uniform"
+   ],
    "prompt_md": "basketball/BASKETBALL_DUNK/prompt.md",
    "openpose": [
     "basketball/BASKETBALL_DUNK/openpose_under_rim.png",
@@ -411,6 +456,13 @@
      "BASKETBALL_JUMP_SHOT_RELEASE"
     ]
    },
+   "game_rules": [
+    "FIBA Art. 33.1, 33.2 cylinder",
+    "FIBA Art. 25.2 travelling_shot",
+    "FIBA Art. 33.6 landing_space",
+    "FIBA Art. 31.2 basket_interference",
+    "FIBA Art. 4.3, 4.4 uniform"
+   ],
    "prompt_md": "basketball/BASKETBALL_JUMP_SHOT_RELEASE/prompt.md",
    "openpose": [
     "basketball/BASKETBALL_JUMP_SHOT_RELEASE/openpose_front_low.png",
@@ -458,6 +510,12 @@
      "BASKETBALL_JUMP_SHOT_RELEASE"
     ]
    },
+   "game_rules": [
+    "FIBA Art. 33.1, 33.2 cylinder",
+    "FIBA Art. 33.6 landing_space",
+    "FIBA Art. 31.2 basket_interference",
+    "FIBA Art. 4.3, 4.4 uniform"
+   ],
    "prompt_md": "basketball/BASKETBALL_JUMP_SHOT_SET/prompt.md",
    "openpose": [
     "basketball/BASKETBALL_JUMP_SHOT_SET/openpose_front.png",
@@ -498,6 +556,13 @@
     "one-foot jump"
    ],
    "sequence": null,
+   "game_rules": [
+    "FIBA Art. 33.1, 33.2 cylinder",
+    "FIBA Art. 25.2 travelling_layup",
+    "FIBA Art. 33.6 landing_space",
+    "FIBA Art. 31.2 basket_interference",
+    "FIBA Art. 4.3, 4.4 uniform"
+   ],
    "prompt_md": "basketball/BASKETBALL_LAYUP_TAKEOFF/prompt.md",
    "openpose": [
     "basketball/BASKETBALL_LAYUP_TAKEOFF/openpose_baseline_low.png",
@@ -540,6 +605,11 @@
     "airborne"
    ],
    "sequence": null,
+   "game_rules": [
+    "IFAB Law 12 keeper_area",
+    "IFAB Law 4 keeper_colours",
+    "IFAB Law 4 jewellery"
+   ],
    "prompt_md": "soccer/SOCCER_GOALKEEPER_DIVE/prompt.md",
    "openpose": [
     "soccer/SOCCER_GOALKEEPER_DIVE/openpose_shooter_view.png",
@@ -589,6 +659,11 @@
      "SOCCER_INSTEP_KICK_CONTACT"
     ]
    },
+   "game_rules": [
+    "IFAB Law 12 handball",
+    "IFAB Law 12 dangerous_play",
+    "IFAB Law 4 jewellery"
+   ],
    "prompt_md": "soccer/SOCCER_INSTEP_KICK_BACKSWING/prompt.md",
    "openpose": [
     "soccer/SOCCER_INSTEP_KICK_BACKSWING/openpose_side_low.png",
@@ -638,6 +713,11 @@
      "SOCCER_INSTEP_KICK_CONTACT"
     ]
    },
+   "game_rules": [
+    "IFAB Law 12 handball",
+    "IFAB Law 12 dangerous_play",
+    "IFAB Law 4 jewellery"
+   ],
    "prompt_md": "soccer/SOCCER_INSTEP_KICK_CONTACT/prompt.md",
    "openpose": [
     "soccer/SOCCER_INSTEP_KICK_CONTACT/openpose_side_low.png",
@@ -679,6 +759,11 @@
     "aerial"
    ],
    "sequence": null,
+   "game_rules": [
+    "IFAB Law 12 handball",
+    "IFAB Law 12 arms_in_duel",
+    "IFAB Law 4 jewellery"
+   ],
    "prompt_md": "soccer/SOCCER_JUMPING_HEADER/prompt.md",
    "openpose": [
     "soccer/SOCCER_JUMPING_HEADER/openpose_side_low.png",
@@ -720,6 +805,11 @@
     "side volley"
    ],
    "sequence": null,
+   "game_rules": [
+    "IFAB Law 12 handball",
+    "IFAB Law 12 dangerous_play",
+    "IFAB Law 4 jewellery"
+   ],
    "prompt_md": "soccer/SOCCER_SIDE_VOLLEY/prompt.md",
    "openpose": [
     "soccer/SOCCER_SIDE_VOLLEY/openpose_front.png",
@@ -761,6 +851,13 @@
     "defense"
    ],
    "sequence": null,
+   "game_rules": [
+    "FIVB 11.3.1, 11.4.4 net_contact",
+    "FIVB 11.2.2.1, 11.4.3 centre_line",
+    "FIVB 14.1.1 block_height",
+    "FIVB 11.1.1, 14.3 block_beyond_net",
+    "FIVB 19.3.1.2-19.3.1.4 libero_limits"
+   ],
    "prompt_md": "volleyball/VOLLEYBALL_BLOCK/prompt.md",
    "openpose": [
     "volleyball/VOLLEYBALL_BLOCK/openpose_attacker_view.png",
@@ -804,6 +901,9 @@
     "defense"
    ],
    "sequence": null,
+   "game_rules": [
+    "FIVB 9.2.2, 9.3.3 catch_throw"
+   ],
    "prompt_md": "volleyball/VOLLEYBALL_FOREARM_PASS/prompt.md",
    "openpose": [
     "volleyball/VOLLEYBALL_FOREARM_PASS/openpose_front_low.png",
@@ -845,6 +945,10 @@
     "hands"
    ],
    "sequence": null,
+   "game_rules": [
+    "FIVB 9.2.2, 9.3.3 catch_throw",
+    "FIVB 9.2.3, 9.3.4 double_contact"
+   ],
    "prompt_md": "volleyball/VOLLEYBALL_OVERHEAD_SET/prompt.md",
    "openpose": [
     "volleyball/VOLLEYBALL_OVERHEAD_SET/openpose_front.png",
@@ -894,6 +998,13 @@
      "VOLLEYBALL_SPIKE_CONTACT"
     ]
    },
+   "game_rules": [
+    "FIVB 11.3.1, 11.4.4 net_contact",
+    "FIVB 11.2.2.1, 11.4.3 centre_line",
+    "FIVB 9.2.2, 9.3.3 catch_throw",
+    "FIVB 19.3.1.2-19.3.1.4 libero_limits",
+    "FIVB 13.2.2, 13.2.3 back_row_attack"
+   ],
    "prompt_md": "volleyball/VOLLEYBALL_SPIKE_ARM_COCK/prompt.md",
    "openpose": [
     "volleyball/VOLLEYBALL_SPIKE_ARM_COCK/openpose_side_low.png",
@@ -943,6 +1054,14 @@
      "VOLLEYBALL_SPIKE_CONTACT"
     ]
    },
+   "game_rules": [
+    "FIVB 11.3.1, 11.4.4 net_contact",
+    "FIVB 11.2.2.1, 11.4.3 centre_line",
+    "FIVB 13.3.1, 11.1.2 attack_own_space",
+    "FIVB 9.2.2, 9.3.3 catch_throw",
+    "FIVB 19.3.1.2-19.3.1.4 libero_limits",
+    "FIVB 13.2.2, 13.2.3 back_row_attack"
+   ],
    "prompt_md": "volleyball/VOLLEYBALL_SPIKE_CONTACT/prompt.md",
    "openpose": [
     "volleyball/VOLLEYBALL_SPIKE_CONTACT/openpose_low_three_quarter.png",
@@ -993,6 +1112,13 @@
      "VOLLEYBALL_SPIKE_CONTACT"
     ]
    },
+   "game_rules": [
+    "FIVB 11.3.1, 11.4.4 net_contact",
+    "FIVB 11.2.2.1, 11.4.3 centre_line",
+    "FIVB 9.2.2, 9.3.3 catch_throw",
+    "FIVB 19.3.1.2-19.3.1.4 libero_limits",
+    "FIVB 13.2.2, 13.2.3 back_row_attack"
+   ],
    "prompt_md": "volleyball/VOLLEYBALL_SPIKE_TAKEOFF/prompt.md",
    "openpose": [
     "volleyball/VOLLEYBALL_SPIKE_TAKEOFF/openpose_side_low.png",

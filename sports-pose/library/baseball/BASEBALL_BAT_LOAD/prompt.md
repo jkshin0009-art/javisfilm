@@ -25,6 +25,8 @@ Right-handed batter loaded at stride-foot contact: side-on to the pitcher, weigh
 3. OBJECT_INTERACTION:
 - bat (85 cm): gripped at the handle, barrel pointing up and slightly to the athlete's right and slightly forward; sweet spot 1.71 m above the floor.
 - Pitcher 18.4 m away toward the direction of play; home plate just in front of the batter's feet.
+- Home plate (43 cm wide, white) in front of the batter; the batter stands inside the 1.22 x 1.83 m batter's box drawn 15 cm from the plate; catcher and plate umpire behind.
+- Legal under the OBR rules: both feet are inside the batter's box; the batter wears a batting helmet with an ear flap.
 
 4. CINEMATIC_CAMERA:
 - pitcher_view: eye-level shot, from the front (target side), 200mm telephoto lens, full-body shot. Broadcast center-field view, telephoto compression, catcher and umpire soft behind.
@@ -46,7 +48,7 @@ Right-handed batter loaded at stride-foot contact: side-on to the pitcher, weigh
 ## Negative prompt
 
 ```
-extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, batter facing the pitcher, bat passing through the helmet, hands split apart on the handle, wrong foot striding, both feet in the air
+extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, batter facing the pitcher, bat passing through the helmet, hands split apart on the handle, wrong foot striding, both feet in the air, batter's foot outside the chalk box, batter without a helmet, batter wearing a cap instead of a helmet
 ```
 
 ## Control images
@@ -70,6 +72,26 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 | r_elbow_flex | 118.0 | 105..140 | rear elbow about 124 deg | OBP-H |
 | dist:r_palm:l_palm | 9.1 | ..14 | both hands together on the handle | OBP-H |
 | stride_pct_height | 49.3 | 40..60 | ankles about 50 % of height apart | OBP-H |
+
+## Official game rules (MLB Official Baseball Rules (2025 edition; values unchanged for many seasons))
+
+| rule | what | check on this skeleton |
+|---|---|---|
+| OBR 6.03(a)(1), 5.04(b)(5) | Feet in the batter's box: A batter who hits the ball with one or both feet on the ground entirely outside the batter's box is out; the lines belong to the box. | OK: inside |
+| OBR 3.08 | Batting helmet: Every player at bat or running the bases wears a protective batting helmet. | text only |
+| OBR Definitions of Terms (strike zone) | Strike zone: Over home plate, from the hollow beneath the kneecap up to the midpoint between the top of the shoulders and the top of the uniform pants, judged from the batter's stance. | text only |
+| equipment | bat_length | OK: length_m 0.85 (official 0.6-1.067, OBR 3.02(a) (at most 42 in)) |
+
+Scene rules for a full match shot (players, uniforms, officials):
+
+- Nine fielders per team. (OBR 1.01)
+- The catcher crouches directly behind home plate in the catcher's box; the plate umpire (umpire-in-chief) stands behind the catcher; base umpires stand where they see the bases. (OBR 5.02(a), 8.03)
+- All fielders except the catcher stand in fair territory; with the pitcher on the rubber, two infielders are on each side of second base with both feet on the infield dirt. (OBR 5.02(c))
+- Batters, base runners and base coaches wear batting helmets (ear flap); the catcher wears a helmet and mask. (OBR 3.08)
+- The pitcher's glove is not white or grey (piping excepted) and carries no other-coloured material; nothing is attached to the pitching hand, fingers or wrists (no tape, bandage or bracelet). (OBR 3.07(a), 6.02(c)(7))
+- Home plate is a white five-sided slab 43 cm wide; the white pitcher's plate (61 x 15 cm) sits on a mound 25 cm above home plate, 18.44 m away. (OBR 2.02, 2.04)
+
+Rulebook: https://mktg.mlbstatic.com/mlb/official-information/2025-official-baseball-rules.pdf
 
 ## Sources
 

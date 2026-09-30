@@ -189,6 +189,16 @@
         1.8
       ],
       "text": "Pitcher 18.4 m away toward the direction of play; home plate just in front of the batter's feet."
+    },
+    {
+      "kind": "point",
+      "name": "plate",
+      "at": [
+        0.0,
+        -0.75,
+        0.0
+      ],
+      "text": "Home plate (43 cm wide, white) in front of the batter; the batter stands inside the 1.22 x 1.83 m batter's box drawn 15 cm from the plate; catcher and plate umpire behind."
     }
   ],
   "cameras": [

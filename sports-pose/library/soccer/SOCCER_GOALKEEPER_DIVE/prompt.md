@@ -25,7 +25,8 @@ Soccer goalkeeper diving to the right at full stretch: body horizontal and side-
 
 3. OBJECT_INTERACTION:
 - ball (22 cm diameter): center 0.95 m above the floor; surface 32 cm from the crown (to the athlete's right of it).
-- Goal 7.32 m wide and 2.44 m high behind the keeper; the dive stays in front of the goal line.
+- Goal 7.32 m wide and 2.44 m high, goal line about 1 m behind the keeper; the save is inside the penalty area.
+- Legal under the IFAB rules: the goalkeeper handles the ball inside their own penalty area; the goalkeeper wears a kit colour different from both teams and the referee; no jewellery.
 
 4. CINEMATIC_CAMERA:
 - shooter_view: eye-level shot, from the front (target side), 50mm standard lens, full-body shot. From the penalty spot: the keeper stretched horizontally across the frame, goal net behind.
@@ -47,7 +48,7 @@ Soccer goalkeeper diving to the right at full stretch: body horizontal and side-
 ## Negative prompt
 
 ```
-extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, no gloves, extra or fused fingers, body facing the camera flat, legs in a running pose, ball stuck inside the hands, keeper touching the ground
+extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, no gloves, extra or fused fingers, body facing the camera flat, legs in a running pose, ball stuck inside the hands, keeper touching the ground, goalkeeper handling the ball far outside the penalty area, goalkeeper in the same colour as the outfield players, necklace, earrings, bracelet, wristwatch
 ```
 
 ## Control images
@@ -69,6 +70,26 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 | r_elbow_flex | 35.0 | ..35 | arms reaching out, nearly straight | S1 |
 | r_shoulder_elev | 180.0 | 140.. | both arms reaching past the head toward the ball | S1 |
 | trunk_from_vertical | 84.8 | 55.. | body close to horizontal, side-on to the shooter | S1 |
+
+## Official game rules (IFAB Laws of the Game 2026/27 (dimensions and fouls unchanged from 2025/26))
+
+| rule | what | check on this skeleton |
+|---|---|---|
+| IFAB Law 12 | Goalkeeper handling outside the penalty area: The goalkeeper may handle the ball only inside their own penalty area; outside it the goalkeeper has the same handling restrictions as any other player. | OK: inside |
+| IFAB Law 4 | Goalkeeper colours: The goalkeeper's kit must be distinguishable from the other players and the match officials. | text only |
+| IFAB Law 4 | Jewellery: All jewellery is forbidden and must be removed; covering it with tape is not permitted. | text only |
+| equipment | ball_size | OK: diameter_m 0.22 (official 0.2164-0.2229, IFAB Law 2 (68-70 cm around)) |
+
+Scene rules for a full match shot (players, uniforms, officials):
+
+- At most eleven players per team on the field, one of them the goalkeeper. (IFAB Law 3)
+- Each goalkeeper wears colours clearly different from all other players and the match officials. (IFAB Law 4)
+- Players wear a shirt with sleeves, shorts, socks covering the shinguards, and boots; any tape on the socks matches the sock colour. (IFAB Law 4)
+- No jewellery of any kind (necklaces, rings, bracelets, earrings, leather or rubber bands), not even taped over. (IFAB Law 4)
+- The referee on the field with two assistant referees with flags along the touchlines, level with the second-last defender; a fourth official between the technical areas. (IFAB Law 6, practical guidelines)
+- White lines at most 12 cm wide; goal 7.32 m between the posts and 2.44 m under the crossbar; penalty area 16.5 m deep, penalty mark 11 m from the goal line; corner flags at least 1.5 m high. (IFAB Law 1)
+
+Rulebook: https://www.theifab.com/laws/latest/
 
 ## Sources
 

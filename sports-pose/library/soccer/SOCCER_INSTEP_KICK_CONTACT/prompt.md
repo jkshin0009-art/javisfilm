@@ -25,6 +25,7 @@ Right-footed soccer instep kick at ball contact: laces strike the ball centre, t
 
 3. OBJECT_INTERACTION:
 - ball (22 cm diameter): center 0.11 m above the floor; touching the right instep; surface 20 cm from the left ankle (to the athlete's right and slightly forward of it).
+- Legal under the IFAB rules: the ball touches no arm or hand (the arm starts at the bottom of the armpit); no opponent's head is near the raised boot; no jewellery.
 
 4. CINEMATIC_CAMERA:
 - side_low: camera 0.3 m above the floor, ground-level low angle looking up, side profile view, 35mm standard lens, full-body shot. Ground-level side view, laces meeting the ball, ball slightly deformed at impact.
@@ -46,7 +47,7 @@ Right-footed soccer instep kick at ball contact: laces strike the ball centre, t
 ## Negative prompt
 
 ```
-extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, foot passing through the ball, toe pointed up (toe poke), ball larger than the foot, support foot hovering, kicking-side arm thrown forward, knee bent backwards
+extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, foot passing through the ball, toe pointed up (toe poke), ball larger than the foot, support foot hovering, kicking-side arm thrown forward, knee bent backwards, ball touching the arm or hand of the outfield player, boot swinging at an opponent's head, necklace, earrings, bracelet, wristwatch
 ```
 
 ## Control images
@@ -69,6 +70,26 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 | l_knee_flex | 42.0 | 30..55 | support knee about 42 deg flexion at contact | S3 |
 | l_foot_z | 0.0 | ..0.03 | support foot planted | S3 |
 | trunk_lean_fwd | 12.4 | -5..20 | body over the ball, not leaning far back | S5 |
+
+## Official game rules (IFAB Laws of the Game 2026/27 (dimensions and fouls unchanged from 2025/26))
+
+| rule | what | check on this skeleton |
+|---|---|---|
+| IFAB Law 12 | Handball: Touching the ball deliberately with the hand/arm, or with a hand/arm that has made the body unnaturally bigger, is an offence; the arm starts at the bottom of the armpit. | OK: ball is 92 cm from the arms and hands |
+| IFAB Law 12 | Playing in a dangerous manner: An action that threatens injury while playing the ball (for example a high foot near an opponent's head) is an offence; a scissors or bicycle kick is allowed if it is not dangerous to an opponent. | text only |
+| IFAB Law 4 | Jewellery: All jewellery is forbidden and must be removed; covering it with tape is not permitted. | text only |
+| equipment | ball_size | OK: diameter_m 0.22 (official 0.2164-0.2229, IFAB Law 2 (68-70 cm around)) |
+
+Scene rules for a full match shot (players, uniforms, officials):
+
+- At most eleven players per team on the field, one of them the goalkeeper. (IFAB Law 3)
+- Each goalkeeper wears colours clearly different from all other players and the match officials. (IFAB Law 4)
+- Players wear a shirt with sleeves, shorts, socks covering the shinguards, and boots; any tape on the socks matches the sock colour. (IFAB Law 4)
+- No jewellery of any kind (necklaces, rings, bracelets, earrings, leather or rubber bands), not even taped over. (IFAB Law 4)
+- The referee on the field with two assistant referees with flags along the touchlines, level with the second-last defender; a fourth official between the technical areas. (IFAB Law 6, practical guidelines)
+- White lines at most 12 cm wide; goal 7.32 m between the posts and 2.44 m under the crossbar; penalty area 16.5 m deep, penalty mark 11 m from the goal line; corner flags at least 1.5 m high. (IFAB Law 1)
+
+Rulebook: https://www.theifab.com/laws/latest/
 
 ## Sources
 

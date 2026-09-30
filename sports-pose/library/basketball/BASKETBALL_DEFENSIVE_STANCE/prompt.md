@@ -25,6 +25,7 @@ Basketball on-ball defensive stance: feet wider than the shoulders and flat, kne
 
 3. OBJECT_INTERACTION:
 - Ball handler about 1.4 m in front at arm's length plus a step.
+- Legal under the FIBA rules: the defender faces the ball handler with both feet on the floor (legal guarding position); no body contact with an opponent outside the player's own cylinder; jersey tucked into the shorts.
 
 4. CINEMATIC_CAMERA:
 - front: eye-level shot, from the front (target side), 50mm standard lens, full-body shot. From the ball handler's view: a wide, low defender.
@@ -46,7 +47,7 @@ Basketball on-ball defensive stance: feet wider than the shoulders and flat, kne
 ## Negative prompt
 
 ```
-extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, bending at the waist with straight legs, knees collapsing inward, feet together or crossed, heels raised high, both arms straight out like a zombie, head down
+extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, bending at the waist with straight legs, knees collapsing inward, feet together or crossed, heels raised high, both arms straight out like a zombie, head down, defender turned sideways reaching in, defender with one foot off the floor, untucked jersey, headband wider than 10 cm
 ```
 
 ## Control images
@@ -70,6 +71,25 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 | l_foot_z | 0.0 | ..0.03 | heels down, feet flat | S3 |
 | l_hand_z | 0.6 | ..1.0 | hand nearest the dribbler low | S4 |
 | r_hand_z | 1.3 | 1.1.. | other hand at shoulder height to the passing lane | S4 |
+
+## Official game rules (FIBA Official Basketball Rules 2024 and FIBA Basketball Equipment (OBR 2026 takes effect on 1 October 2026: free line colours, visible-sock rule removed, unsportsmanlike foul renamed; article numbers may move))
+
+| rule | what | check on this skeleton |
+|---|---|---|
+| FIBA Art. 33.3 | Legal guarding position: A defender has a legal guarding position when facing the opponent with both feet on the floor; the position extends vertically (cylinder), and the defender may move sideways or backwards to keep it. | OK: chest turned 10 deg from the ball handler; feet on the floor |
+| FIBA Art. 33.1, 33.2 | Cylinder and verticality: Each player owns the vertical space above their position; a player who leaves their cylinder and makes contact is responsible for it. | text only |
+| FIBA Art. 4.3, 4.4 | Uniform: Shirts tucked in; sleeves, headbands, wristbands and tape of one solid team colour. | text only |
+
+Scene rules for a full match shot (players, uniforms, officials):
+
+- Five players per team on the court. (FIBA Art. 4.2.2)
+- Home team in light (preferably white) shirts, visiting team in dark shirts; shirts tucked into the shorts; all sleeves, headbands, wristbands and tape on a team in the same solid colour, headbands at most 10 cm wide. (FIBA Art. 4.3)
+- Shirt numbers only 0, 00 or 1-99: at least 20 cm tall on the back and 10 cm on the front. (FIBA Art. 4.3.2)
+- A crew chief and one or two umpires in grey officials' shirts on the court; scorer, timer and shot-clock operator at the table. (FIBA Art. 45)
+- Shot clocks mounted above and behind each backboard (red digits); backboard 1.80 x 1.05 m with its lower edge 2.90 m up, 1.20 m in from the endline; ring 3.05 m high with a 40-45 cm net. (FIBA Equipment)
+- Court 28 x 15 m with 5 cm lines, three-point arc 6.75 m (6.60 m in the corners), free-throw line 5.80 m from the endline, no-charge semi-circle 1.25 m under the basket. (FIBA Art. 2.4)
+
+Rulebook: https://refereeing.fiba.basketball/en/rules
 
 ## Sources
 

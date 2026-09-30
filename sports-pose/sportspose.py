@@ -21,6 +21,7 @@ prompt and the pose image cannot disagree.
   find QUERY            best matching assets for a prompt agent (Korean or English)
   show CODE             print the prompt block of one asset
   sequence ID           the phases of one movement in order (for a video prompt), e.g. BASEBALL_PITCH
+  rules SPORT           the sport's official rules: dimensions, scene, fouls (rules/<sport>.json)
 
 Frames. World: x = direction of play (toward the net / goal / plate / basket), y = left of
 that, z = up, metres, floor at z = 0. Angles in degrees.
@@ -905,6 +906,8 @@ def validate(sc: Scene) -> List[Tuple[str, str]]:
             if abs(gap) > spec.get("tol_m", 0.03):
                 issues.append(("error", f"{limb} ends {gap * 100:.0f} cm from {spec['to']} "
                                         "(cannot reach it: move the object or change the start angles)"))
+    import gamerules
+    issues += [("error", e) for e in gamerules.evaluate(sc)["errors"]]
     for r in sc.asset.get("rules") or []:
         try:
             v = met.get(r["m"])
@@ -1294,6 +1297,11 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
             lines.append(f"- {F(e['text'])}")
     for x in t.get("objects") or []:
         lines.append(f"- {F(x)}")
+    import gamerules
+    gr = gamerules.evaluate(sc)
+    legal = [f["legal"] for f in gr["fouls"] if f.get("legal")]
+    if legal:
+        lines.append(f"- Legal under the {gr['rules']['rulebook']['short']} rules: " + "; ".join(legal) + ".")
     lines += ["", "4. CINEMATIC_CAMERA:"]
     for c in a.get("cameras") or []:
         lines.append(f"- {c.get('name')}: {camera_words(c)}" + (f" {c['text']}" if c.get("text") else ""))
@@ -1313,7 +1321,7 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
                     sentence("; ".join(F(k) for k in (t.get("kinetic") or [])[:2])[:1].upper()
                              + "; ".join(F(k) for k in (t.get("kinetic") or [])[:2])[1:]), "{SETTING}."])
     gen = re.sub(r"\s+", " ", gen).strip()
-    avoid = list(DEFAULT_AVOID) + list(t.get("avoid") or [])
+    avoid = list(DEFAULT_AVOID) + list(t.get("avoid") or []) + [w for f in gr["fouls"] for w in f.get("avoid", [])]
     return {"block": block, "prompt": gen, "negative": ", ".join(dict.fromkeys(avoid))}
 
 
@@ -1424,6 +1432,23 @@ def build_one(a: Dict, out_root: Path = LIBRARY, write: bool = True) -> Tuple[Li
         except KeyError:
             v = "?"
         md.append(f"| {r['m']} | {v} | {r.get('min', '')}..{r.get('max', '')} | {r.get('why', '')} | {r.get('src', '')} |")
+    import gamerules
+    gr = gamerules.evaluate(sc)
+    if gr["rules"]:
+        rb = gr["rules"]["rulebook"]
+        md += ["", f"## Official game rules ({rb['title']})", "",
+               "| rule | what | check on this skeleton |", "|---|---|---|"]
+        for f in gr["fouls"]:
+            status = ("text only" if f["passed"] is None and f.get("check") is None else
+                      "OK: " + f["note"] if f["passed"] else "FAIL: " + f["note"] if f["passed"] is False else f["note"])
+            md.append(f"| {rb['short']} {f['rule']} | {f['title']}: {f['text']} | {status} |")
+        for i, ok, note in gr["equipment"]:
+            md.append(f"| equipment | {i} | {'OK' if ok else 'FAIL'}: {note} |")
+        scene = gr["rules"].get("scene") or []
+        if scene:
+            md += ["", "Scene rules for a full match shot (players, uniforms, officials):", ""]
+            md += [f"- {x['text']} ({rb['short']} {x['rule']})" for x in scene]
+        md += ["", f"Rulebook: {rb['url']}"]
     srcs = a.get("sources") or []
     if srcs:
         md += ["", "## Sources", ""] + [f"- [{s['id']}] {s['cite']} {s.get('url', '')}" for s in srcs]
@@ -1435,6 +1460,12 @@ def build_one(a: Dict, out_root: Path = LIBRARY, write: bool = True) -> Tuple[Li
     return issues, out
 
 
+def _game_rule_ids(a: Dict) -> List[str]:
+    import gamerules
+    r = gamerules.load_rules(a.get("sport", ""))
+    return [f"{r['rulebook']['short']} {f['rule']} {f['id']}" for f in (r or {}).get("fouls", []) if gamerules.applies(f, a)]
+
+
 def write_index(assets: List[Dict], out_root: Path = LIBRARY) -> Path:
     rows = []
     for a in assets:
@@ -1443,6 +1474,7 @@ def write_index(assets: List[Dict], out_root: Path = LIBRARY) -> Path:
                      "phase": a.get("phase"), "summary": a.get("summary", ""),
                      "names": a.get("names", {}), "keywords": a.get("keywords", []),
                      "sequence": a.get("sequence"),
+                     "game_rules": _game_rule_ids(a),
                      "prompt_md": f"{base}/prompt.md",
                      "openpose": [f"{base}/openpose_{c.get('name', 'cam')}.png" for c in a.get("cameras") or []],
                      "cameras": [c.get("name") for c in a.get("cameras") or []]})
@@ -1483,6 +1515,12 @@ def write_catalog(assets: List[Dict], out_root: Path = LIBRARY) -> Path:
               "its source before treating it as exact.", ""]
     for key, (s_, codes) in sorted(srcs.items(), key=lambda kv: kv[1][0].get("cite", "")):
         lines.append(f"- {s_.get('cite', '')} {s_.get('url', '')} (used by {len(codes)}: {', '.join(sorted(codes))})")
+    import gamerules
+    books = [gamerules.load_rules(sp_) for sp_ in sorted({a.get("sport", "") for a in assets})]
+    books = [b for b in books if b]
+    if books:
+        lines += ["", "## Official rulebooks (rules/<sport>.json)", ""]
+        lines += [f"- {b['sport']}: {b['rulebook']['title']} {b['rulebook']['url']}" for b in books]
     p = out_root / "CATALOG.md"
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return p
@@ -1588,6 +1626,12 @@ def cmd_sequence(a) -> int:
     return 0
 
 
+def cmd_rules(a) -> int:
+    import gamerules
+    print(gamerules.sport_summary(a.sport))
+    return 0
+
+
 def cmd_show(a) -> int:
     x = load_asset(a.code)
     sc = Scene(x)
@@ -1621,6 +1665,9 @@ def main(argv=None) -> int:
     p = sub_.add_parser("show")
     p.add_argument("code")
     p.set_defaults(fn=cmd_show)
+    p = sub_.add_parser("rules")
+    p.add_argument("sport", help="volleyball, soccer, baseball, basketball")
+    p.set_defaults(fn=cmd_rules)
     p = sub_.add_parser("sequence")
     p.add_argument("id", help="e.g. VOLLEYBALL_SPIKE, BASEBALL_PITCH")
     p.set_defaults(fn=cmd_sequence)

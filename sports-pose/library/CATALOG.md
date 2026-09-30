@@ -96,3 +96,10 @@ Numbers were taken from search-engine extracts of the papers and manuals (full t
 - Wagner et al. 2009, Int J Sports Med: arm backswing (shoulder hyperextension velocity) predicts jump height https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0029-1224177 (used by 1: VOLLEYBALL_SPIKE_TAKEOFF)
 - Welch et al. 1995, JOSPT: hitting kinematics (weight shift, stride, sequence) https://www.jospt.org/doi/10.2519/jospt.1995.22.5.193 (used by 1: BASEBALL_BAT_LOAD)
 - Windup vs stretch, Am J Sports Med 2024 (higher knee lift from the windup) https://pubmed.ncbi.nlm.nih.gov/38687464/ (used by 1: BASEBALL_PITCH_LEG_LIFT)
+
+## Official rulebooks (rules/<sport>.json)
+
+- baseball: MLB Official Baseball Rules (2025 edition; values unchanged for many seasons) https://mktg.mlbstatic.com/mlb/official-information/2025-official-baseball-rules.pdf
+- basketball: FIBA Official Basketball Rules 2024 and FIBA Basketball Equipment (OBR 2026 takes effect on 1 October 2026: free line colours, visible-sock rule removed, unsportsmanlike foul renamed; article numbers may move) https://refereeing.fiba.basketball/en/rules
+- soccer: IFAB Laws of the Game 2026/27 (dimensions and fouls unchanged from 2025/26) https://www.theifab.com/laws/latest/
+- volleyball: FIVB Official Volleyball Rules 2025-2028 (approved by the 39th FIVB World Congress 2024) https://www.fivb.com/volleyball/the-game/official-volleyball-rules/

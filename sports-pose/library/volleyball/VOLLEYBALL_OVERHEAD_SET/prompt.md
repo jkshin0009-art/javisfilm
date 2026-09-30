@@ -25,6 +25,7 @@ Volleyball overhead set (setter's pass) at contact: ball just above and in front
 
 3. OBJECT_INTERACTION:
 - ball (21 cm diameter): center 2.00 m above the floor; surface 14 cm from the forehead (up and forward of it).
+- Legal under the FIVB rules: the ball rebounds from a brief contact, it is not caught or held; both hands meet the ball at the same instant.
 
 4. CINEMATIC_CAMERA:
 - front: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. Hands and the triangle window around the ball in sharp focus.
@@ -46,7 +47,7 @@ Volleyball overhead set (setter's pass) at contact: ball just above and in front
 ## Negative prompt
 
 ```
-extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, hands at the chest, palms slapping the ball, crossed thumbs, ball floating far from the fingers, ball behind the head
+extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, hands at the chest, palms slapping the ball, crossed thumbs, ball floating far from the fingers, ball behind the head, ball held or cradled in the hands, ball caught against the body, one hand touching the ball before the other
 ```
 
 ## Control images
@@ -69,6 +70,27 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 | l_elbow_flex | 85.2 | 60..110 | elbows bent, slightly forward and out | S1, S2 |
 | r_knee_flex | 38.0 | 15..50 | knees slightly bent | S1 |
 | dist:r_palm:l_palm | 11.8 | 10..26 | hands on both sides of the ball, thumbs not touching | S1 |
+
+## Official game rules (FIVB Official Volleyball Rules 2025-2028 (approved by the 39th FIVB World Congress 2024))
+
+| rule | what | check on this skeleton |
+|---|---|---|
+| FIVB 9.2.2, 9.3.3 | Catch or throw: The ball must be hit, not caught or thrown; it rebounds from the contact. | text only |
+| FIVB 9.2.3, 9.3.4 | Double contact: Several body parts may touch the ball only at the same time (except on the block and the team's first hit). | OK: r palm -2 cm, l palm -2 cm from the ball surface |
+| equipment | ball_size | OK: diameter_m 0.21 (official 0.2069-0.2133, FIVB 3.1 (65-67 cm around)) |
+
+Scene rules for a full match shot (players, uniforms, officials):
+
+- Six players per team on court, three front row and three back row. (FIVB 7.3.1)
+- At most one Libero on court, in a jersey of a clearly contrasting dominant colour; the Libero never serves, blocks or attacks a ball entirely above the net. (FIVB 19.2, 19.1.3)
+- Jersey numbers 1-20 centred on the chest (at least 15 cm tall) and back (at least 20 cm tall); the captain has an 8 x 2 cm stripe under the chest number. (FIVB 4.3.3)
+- Team members wear the same jersey, shorts and socks (Libero excepted); shoes without heels. (FIVB 4.3)
+- Red-and-white striped antennae stand 80 cm above the net at each side line; the net is black 10 cm mesh with a 7 cm white top band. (FIVB 2.4, 2.3)
+- Court 18 x 9 m, white 5 cm lines; the centre line runs under the net and attack lines are 3 m from it on both sides. (FIVB 1.3)
+- First referee stands on a referee's stand at one end of the net, eyes about 50 cm above the net; the second referee stands on the floor near the opposite post. (FIVB 23.1, 24.1)
+- Line judges with flags stand in the free zone 1-3 m from the court corners. (FIVB 29.1)
+
+Rulebook: https://www.fivb.com/volleyball/the-game/official-volleyball-rules/
 
 ## Sources
 

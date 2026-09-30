@@ -1,0 +1,242 @@
+{
+  "sport": "soccer",
+  "rulebook": {
+    "title": "IFAB Laws of the Game 2026/27 (dimensions and fouls unchanged from 2025/26)",
+    "short": "IFAB",
+    "url": "https://www.theifab.com/laws/latest/",
+    "text_used": "search extracts of the IFAB and FA-hosted Law files (theifab.com and thefa.com were not reachable for direct reading)"
+  },
+  "dimensions": {
+    "field_m": {
+      "length": [
+        90,
+        120
+      ],
+      "width": [
+        45,
+        90
+      ],
+      "international": {
+        "length": [
+          100,
+          110
+        ],
+        "width": [
+          64,
+          75
+        ]
+      },
+      "rule": "Law 1"
+    },
+    "line_width_m": {
+      "max": 0.12,
+      "rule": "Law 1",
+      "note": "all lines the same width"
+    },
+    "goal_area_m": {
+      "from_posts": 5.5,
+      "depth": 5.5,
+      "rule": "Law 1"
+    },
+    "penalty_area_m": {
+      "from_posts": 16.5,
+      "depth": 16.5,
+      "width": 40.32,
+      "rule": "Law 1"
+    },
+    "penalty_mark_m": {
+      "value": 11,
+      "arc_radius": 9.15,
+      "rule": "Law 1"
+    },
+    "centre_circle_radius_m": {
+      "value": 9.15,
+      "rule": "Law 1"
+    },
+    "corner_arc_m": {
+      "radius": 1,
+      "flagpost_min_height": 1.5,
+      "rule": "Law 1"
+    },
+    "goal_m": {
+      "inner_width": 7.32,
+      "height": 2.44,
+      "post_max_width": 0.12,
+      "rule": "Law 1"
+    },
+    "ball": {
+      "circumference_cm": [
+        68,
+        70
+      ],
+      "weight_g": [
+        410,
+        450
+      ],
+      "pressure_atm": [
+        0.6,
+        1.1
+      ],
+      "rule": "Law 2"
+    }
+  },
+  "equipment": [
+    {
+      "id": "ball_size",
+      "object": "ball",
+      "field": "diameter_m",
+      "range": [
+        0.2164,
+        0.2229
+      ],
+      "rule": "Law 2 (68-70 cm around)"
+    }
+  ],
+  "scene": [
+    {
+      "rule": "Law 3",
+      "text": "At most eleven players per team on the field, one of them the goalkeeper."
+    },
+    {
+      "rule": "Law 4",
+      "text": "Each goalkeeper wears colours clearly different from all other players and the match officials."
+    },
+    {
+      "rule": "Law 4",
+      "text": "Players wear a shirt with sleeves, shorts, socks covering the shinguards, and boots; any tape on the socks matches the sock colour."
+    },
+    {
+      "rule": "Law 4",
+      "text": "No jewellery of any kind (necklaces, rings, bracelets, earrings, leather or rubber bands), not even taped over."
+    },
+    {
+      "rule": "Law 6, practical guidelines",
+      "text": "The referee on the field with two assistant referees with flags along the touchlines, level with the second-last defender; a fourth official between the technical areas."
+    },
+    {
+      "rule": "Law 1",
+      "text": "White lines at most 12 cm wide; goal 7.32 m between the posts and 2.44 m under the crossbar; penalty area 16.5 m deep, penalty mark 11 m from the goal line; corner flags at least 1.5 m high."
+    }
+  ],
+  "fouls": [
+    {
+      "id": "handball",
+      "rule": "Law 12",
+      "title": "Handball",
+      "text": "Touching the ball deliberately with the hand/arm, or with a hand/arm that has made the body unnaturally bigger, is an offence; the arm starts at the bottom of the armpit.",
+      "techniques": [
+        "instep_kick",
+        "side_volley",
+        "header"
+      ],
+      "check": {
+        "kind": "not_touching",
+        "object": "ball",
+        "margin_m": 0.02,
+        "limbs": [
+          "r_upper_arm",
+          "r_forearm",
+          "r_hand",
+          "r_fingers",
+          "l_upper_arm",
+          "l_forearm",
+          "l_hand",
+          "l_fingers"
+        ],
+        "label": "arms and hands"
+      },
+      "legal": "the ball touches no arm or hand (the arm starts at the bottom of the armpit)",
+      "avoid": [
+        "ball touching the arm or hand of the outfield player"
+      ]
+    },
+    {
+      "id": "keeper_area",
+      "rule": "Law 12",
+      "title": "Goalkeeper handling outside the penalty area",
+      "text": "The goalkeeper may handle the ball only inside their own penalty area; outside it the goalkeeper has the same handling restrictions as any other player.",
+      "techniques": [
+        "goalkeeper_dive"
+      ],
+      "check": {
+        "kind": "in_area",
+        "groups": [
+          [
+            "ball"
+          ]
+        ],
+        "area": {
+          "around": "goal_center",
+          "x": [
+            0.0,
+            16.5
+          ],
+          "y": [
+            -20.16,
+            20.16
+          ]
+        }
+      },
+      "legal": "the goalkeeper handles the ball inside their own penalty area",
+      "avoid": [
+        "goalkeeper handling the ball far outside the penalty area"
+      ]
+    },
+    {
+      "id": "keeper_colours",
+      "rule": "Law 4",
+      "title": "Goalkeeper colours",
+      "text": "The goalkeeper's kit must be distinguishable from the other players and the match officials.",
+      "techniques": [
+        "goalkeeper_dive"
+      ],
+      "legal": "the goalkeeper wears a kit colour different from both teams and the referee",
+      "avoid": [
+        "goalkeeper in the same colour as the outfield players"
+      ]
+    },
+    {
+      "id": "dangerous_play",
+      "rule": "Law 12",
+      "title": "Playing in a dangerous manner",
+      "text": "An action that threatens injury while playing the ball (for example a high foot near an opponent's head) is an offence; a scissors or bicycle kick is allowed if it is not dangerous to an opponent.",
+      "techniques": [
+        "side_volley",
+        "instep_kick"
+      ],
+      "legal": "no opponent's head is near the raised boot",
+      "avoid": [
+        "boot swinging at an opponent's head"
+      ]
+    },
+    {
+      "id": "arms_in_duel",
+      "rule": "Law 12",
+      "title": "Arms and elbows in an aerial duel",
+      "text": "Striking, pushing or holding an opponent with the hand or arm, or leading with the elbow into the head or face, is an offence (violent conduct if deliberate).",
+      "techniques": [
+        "header"
+      ],
+      "legal": "the raised arms do not strike or hold an opponent",
+      "avoid": [
+        "elbow striking an opponent's face"
+      ]
+    },
+    {
+      "id": "jewellery",
+      "rule": "Law 4",
+      "title": "Jewellery",
+      "text": "All jewellery is forbidden and must be removed; covering it with tape is not permitted.",
+      "techniques": [
+        "all"
+      ],
+      "legal": "no jewellery",
+      "avoid": [
+        "necklace",
+        "earrings",
+        "bracelet",
+        "wristwatch"
+      ]
+    }
+  ]
+}

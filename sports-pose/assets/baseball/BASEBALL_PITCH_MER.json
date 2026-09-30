@@ -181,13 +181,22 @@
   "environment": [
     {
       "kind": "point",
+      "name": "rubber",
+      "at": [
+        -0.076,
+        0.0,
+        0.0
+      ],
+      "text": "Pitcher's plate (rubber) 61 x 15 cm, white, on top of a mound 25 cm above home plate; the front edge of the plate is 18.44 m from the rear point of home plate."
+    },
+    {
+      "kind": "point",
       "name": "plate",
       "at": [
-        18.44,
-        0,
-        0
-      ],
-      "text": "Pitching from a mound 25 cm high; home plate 18.44 m ahead along the direction of play (the floor here is drawn flat)."
+        18.656000000000002,
+        0.0,
+        -0.254
+      ]
     }
   ],
   "cameras": [
@@ -317,7 +326,7 @@
   ],
   "ground": {
     "kind": "mound",
-    "top_x_m": 0.15,
+    "top_x_m": 0.152,
     "slope": 0.0833,
     "drop_m": 0.254
   }

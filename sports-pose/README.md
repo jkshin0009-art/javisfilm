@@ -11,6 +11,8 @@
 | `openpose_<카메라>.json` | 같은 점의 OpenPose JSON, 픽셀 좌표 | ComfyUI, OpenPose 편집기 |
 | `preview.png`, `skeleton3d.json` | 세 방향 뼈대 그림(공·네트·림·배트·마운드 포함)과 3D 좌표 | 사람 확인, 3D 도구 |
 
+`prompt.md`에는 **공식 경기 규칙 표**도 들어 있습니다. 그 동작에 걸리는 조항의 번호와 내용, 그리고 이 뼈대에서 잰 검사 결과입니다(예: `FIVB 11.3.1 네트 접촉: OK, 네트까지 4 cm`).
+
 프롬프트 에이전트가 따를 절차는 **[AGENT_GUIDE.md](AGENT_GUIDE.md)** 에 있습니다. 자산 목록은 `library/CATALOG.md`에 있습니다.
 
 ## 들어 있는 자산 (22개)
@@ -25,14 +27,15 @@
 ## 명령
 
 ```
-python sportspose.py build                  모든 자산 검사 후 library/ 다시 만들기 (약 25초)
+python sportspose.py build                  모든 자산 검사 후 library/ 다시 만들기 (약 30초)
 python sportspose.py build VOLLEYBALL_BLOCK 하나만
 python sportspose.py check                  검사만
 python sportspose.py find "배구 스파이크"      찾기 (한국어/영어)
 python sportspose.py show SOCCER_SIDE_VOLLEY 5단 블록과 프롬프트 출력
 python sportspose.py sequence BASEBALL_PITCH 한 동작의 단계를 순서대로 (영상용)
+python sportspose.py rules volleyball       종목의 공식 규칙 요약 (치수, 장면, 반칙)
 python fetch_refs.py -n 4                   참고 사진 받기 (위키미디어 공용, PC에서)
-python -m pytest -q tests                   테스트 12개
+python -m pytest -q tests                   테스트 28개 (약 1분)
 ```
 
 필요한 것은 Python 3.9 이상과 Pillow입니다. numpy는 쓰지 않습니다.
@@ -46,8 +49,12 @@ python -m pytest -q tests                   테스트 12개
   - 예: 팔꿈치가 반대로 꺾임, 어깨 뒤로 90° 이상 들어 올림.
 - **접지:** 딛고 있다고 한 발이 바닥에 닿는지, 몸이나 공이 바닥 아래로 들어가지 않는지 봅니다. 투구는 마운드 경사를 따릅니다.
 - **접촉:** 손이나 발이 공, 배트, 목표 지점에 닿았는지 봅니다. IK로 푼 결과가 3 cm 안에 들어와야 합니다.
-- **종목 규칙:** 자산마다 논문과 교본에서 가져온 각도·거리 범위이고, 출처를 붙였습니다.
+- **자세 규칙:** 자산마다 논문과 교본에서 가져온 각도·거리 범위이고, 출처를 붙였습니다.
   - 예: 투구 착지 때 팔꿈치 80~115°, 스파이크 타점에서 공이 어깨 앞 5~45 cm.
+- **공식 경기 규칙:** `rules/<종목>.json`에 FIVB, IFAB, MLB, FIBA 규칙서의 조항 번호와 함께 들어 있습니다. 반칙 장면이 나오면 그 종목을 아는 관객에게 바로 티가 나기 때문입니다.
+  - **치수와 용구:** 네트·림 높이, 공 크기, 마운드처럼 자산에 나오는 것이 규격과 맞는지 검사합니다.
+  - **반칙:** 뼈대로 잴 수 있는 것은 검사합니다. 예: 네트 접촉, 센터라인, 상대 쪽에서 때린 공격, 필드 선수 팔에 닿은 공, 골키퍼의 페널티 에어리어 밖 처리, 투수판에서 뗀 축발, 타석 밖의 발, 상대를 보지 않는 수비. 나머지는 글로 넣고, 반칙 모습은 negative에 추가합니다.
+  - **장면:** 인원 수, 유니폼, 심판 위치는 여러 명이 나오는 장면을 위해 `prompt.md`와 `rules` 명령에 적어 둡니다.
 
 ## 자산 JSON (`assets/<종목>/<코드>.json`)
 

@@ -24,6 +24,7 @@ Volleyball block at the top of the jump: both arms straight and reaching over th
 
 3. OBJECT_INTERACTION:
 - Net: top tape 2.43 m high, 32 cm in front of the hips; fingertips 76 cm above the tape and 26 cm past the net plane into the opponent's court; body stays on its own side.
+- Legal under the FIVB rules: no part of the body touches the net or the antennae; neither foot is completely past the centre line; the hands are above the top of the net; the blocker reaches over the net only against the opponent's attack hit; the player is not the Libero (different jersey colour).
 
 4. CINEMATIC_CAMERA:
 - attacker_view: low-angle shot looking up, from the front (target side), 50mm standard lens, full-body shot. From the attacker's side of the net: a wall of hands above the tape.
@@ -45,7 +46,7 @@ Volleyball block at the top of the jump: both arms straight and reaching over th
 ## Negative prompt
 
 ```
-extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, hands on the blocker's own side, arms bent at 90 degrees, arms spread so wide the ball passes between them, body passing through the net, feet on the floor
+extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, hands on the blocker's own side, arms bent at 90 degrees, arms spread so wide the ball passes between them, body passing through the net, feet on the floor, player touching the net, hand or arm pressing into the net mesh, body tangled in the net, foot planted on the opponent's side under the net, blocker's hands below the net tape
 ```
 
 ## Control images
@@ -69,6 +70,30 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 | fwd:net_top:r_shoulder | 18.2 | 5.. | body stays on its own side of the net | rules |
 | hip_shoulder_sep | 0.0 | -8..8 | pelvis and shoulders parallel to the net | S2 |
 | lowest_z | 0.7 | 0.3.. | airborne, block jump | S1 |
+
+## Official game rules (FIVB Official Volleyball Rules 2025-2028 (approved by the 39th FIVB World Congress 2024))
+
+| rule | what | check on this skeleton |
+|---|---|---|
+| FIVB 11.3.1, 11.4.4 | Touching the net: Contact with the net between the antennae (or with the antenna) during the action of playing the ball, from take-off to landing, is a fault. | OK: closest body part to the net: trunk, 4 cm |
+| FIVB 11.2.2.1, 11.4.3 | Crossing the centre line: Touching the opponent's court with a foot is allowed only if part of the foot stays on or directly above the centre line; a foot completely in the opponent's court is a fault. | OK: all on the near side |
+| FIVB 14.1.1 | Block above the net: Only front-row players may complete a block, and at the moment of contact part of the body must be higher than the top of the net. | OK: highest of r_fingertip/l_fingertip +76 cm against the net top |
+| FIVB 11.1.1, 14.3 | Blocking beyond the net: A blocker may touch the ball beyond the net only after the opponent's attack hit; reaching over is otherwise interference. | text only |
+| FIVB 19.3.1.2-19.3.1.4 | Libero restrictions: A Libero may not serve, block or attempt to block, nor complete an attack hit with the ball entirely above the net; a front-zone overhand finger pass by the Libero may not be attacked above the net. | text only |
+| equipment | net_height | OK: height_m 2.43 (official 2.43-2.45, FIVB 2.1.1) |
+
+Scene rules for a full match shot (players, uniforms, officials):
+
+- Six players per team on court, three front row and three back row. (FIVB 7.3.1)
+- At most one Libero on court, in a jersey of a clearly contrasting dominant colour; the Libero never serves, blocks or attacks a ball entirely above the net. (FIVB 19.2, 19.1.3)
+- Jersey numbers 1-20 centred on the chest (at least 15 cm tall) and back (at least 20 cm tall); the captain has an 8 x 2 cm stripe under the chest number. (FIVB 4.3.3)
+- Team members wear the same jersey, shorts and socks (Libero excepted); shoes without heels. (FIVB 4.3)
+- Red-and-white striped antennae stand 80 cm above the net at each side line; the net is black 10 cm mesh with a 7 cm white top band. (FIVB 2.4, 2.3)
+- Court 18 x 9 m, white 5 cm lines; the centre line runs under the net and attack lines are 3 m from it on both sides. (FIVB 1.3)
+- First referee stands on a referee's stand at one end of the net, eyes about 50 cm above the net; the second referee stands on the floor near the opposite post. (FIVB 23.1, 24.1)
+- Line judges with flags stand in the free zone 1-3 m from the court corners. (FIVB 29.1)
+
+Rulebook: https://www.fivb.com/volleyball/the-game/official-volleyball-rules/
 
 ## Sources
 
