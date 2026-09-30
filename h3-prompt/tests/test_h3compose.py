@@ -116,3 +116,10 @@ def test_writer_semantic_check():
     res = hc.write(shot(), {}, FakeLLM([content(), content()]), decider=dec)
     assert res["tries"] == 2 and res["problems"] == {}
     assert hc.semantic_check("x", FakeDecider([0.5, 0.95])) == {"camera_mismatch": "p=0.95"}
+
+
+def test_nearest_grid_and_non_human_subject():
+    assert "nearest 107 or 124" in hc.validate(shot(frames=121))["frames_grid"]
+    robot = [{"look": "a 56 m titanium robot with cyan optics", "kind": "robot", "picture": 2}]
+    p = hc.compose(shot("ref", subjects=robot, sections=dict(SECTIONS, dialogue=[])))
+    assert "the robot shown in <Picture 2>" in p and "the person" not in p

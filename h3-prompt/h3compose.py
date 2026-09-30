@@ -11,7 +11,8 @@ sent back to the writer with the reasons, at most `tries` times.
 Clip rules (from IAMCCS-nodes' H3 contract and what broke in our own prompts):
   - one clip = one composition. When the facts hold two (a face close-up that becomes
     a giant wide reveal), the writer answers {"split": [...]} and the caller makes two clips
-  - people are named only as <Subject N>, never he/she, so one person cannot become two
+  - people are named only as <Subject N>, never he/she, so one person cannot become two;
+    a subject that is not a person (a robot, a vehicle) carries "kind" instead of "gender"
   - frames on the 17k+5 grid, at most 362; beats rise, start at 0 and end at the clip end
   - an Extender chunk followed by another has no new line in its last 1.0 s; a chunk that
     continues a previous one has no new line in its first 1.0 s
@@ -70,7 +71,8 @@ def validate(shot: Dict) -> Dict[str, str]:
     bad: Dict[str, str] = {}
     frames = int(shot.get("frames") or 0)
     if frames % 17 != 5 or frames < 5:
-        bad["frames_grid"] = f"{frames} frames is not 17k+5"
+        lower = max(5, frames - ((frames - 5) % 17))
+        bad["frames_grid"] = f"{frames} frames is not 17k+5 (nearest {lower} or {lower + 17})"
     if frames > MAX_FRAMES:
         bad["frames_long"] = f"{frames} > {MAX_FRAMES}"
     dur = seconds(frames)
@@ -158,7 +160,7 @@ def compose(shot: Dict) -> str:
     if mode == "ref":
         defs, keep = [], []
         for n, s in enumerate(subjects, 1):
-            who = GENDER_WORD.get(str(s.get("gender", "")).lower(), "person")
+            who = GENDER_WORD.get(str(s.get("gender") or "").lower()) or str(s.get("kind") or "person")
             look = str(s.get("look", "")).strip().rstrip(".")
             pic = s.get("picture")
             src = f" shown in <Picture {pic}>" if pic else ""
@@ -239,7 +241,8 @@ def _json_object(text: str) -> Optional[Dict]:
 
 
 def facts_for_writer(shot: Dict, facts: Dict) -> Dict:
-    subjects = [{"tag": _subject_tag(n), "gender": s.get("gender", ""), "look": s.get("look", "")}
+    subjects = [{"tag": _subject_tag(n), "gender": s.get("gender", ""), "kind": s.get("kind", "person"),
+                 "look": s.get("look", "")}
                 for n, s in enumerate(shot.get("subjects") or [], 1)]
     lines = [{"tag": _subject_tag(int(d.get("subject", 1))), "start": d.get("start"), "text": d.get("text", "")}
              for d in (shot.get("sections") or {}).get("dialogue") or []]
