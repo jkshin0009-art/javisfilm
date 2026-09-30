@@ -1,0 +1,324 @@
+{
+  "code": "BASEBALL_PITCH_MER",
+  "sport": "baseball",
+  "technique": "pitch",
+  "phase": "max_external_rotation",
+  "summary": "Right-handed baseball pitcher at maximum shoulder external rotation: chest square to the plate, throwing forearm laid back behind the head with the elbow at 90 degrees, front leg braced, trunk tilting to the glove side.",
+  "names": {
+    "ko": [
+      "야구 투구 최대 외회전",
+      "레이백",
+      "팔 뒤로 젖힘",
+      "투구 가속 직전"
+    ],
+    "en": [
+      "baseball pitch max external rotation",
+      "layback",
+      "MER",
+      "arm lay back"
+    ]
+  },
+  "keywords": [
+    "baseball",
+    "pitching",
+    "layback",
+    "external rotation",
+    "MER",
+    "arm acceleration"
+  ],
+  "sequence": {
+    "id": "BASEBALL_PITCH",
+    "phases": [
+      "BASEBALL_PITCH_LEG_LIFT",
+      "BASEBALL_PITCH_FOOT_CONTACT",
+      "BASEBALL_PITCH_MER",
+      "BASEBALL_PITCH_RELEASE"
+    ],
+    "order": 3
+  },
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "throwing arm",
+      "l_arm": "glove arm",
+      "r_leg": "pivot leg on the rubber",
+      "l_leg": "stride leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 13,
+      "tilt": 12,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 6,
+      "side": -24,
+      "rot": 2
+    },
+    "head": {
+      "look_at": "plate"
+    },
+    "r_arm": {
+      "elev": 90,
+      "plane": 4,
+      "rot": 168,
+      "elbow": 92,
+      "pron": 20,
+      "wrist": -30,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 36,
+      "plane": 60,
+      "rot": -30,
+      "elbow": 95,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "cupped"
+    },
+    "r_leg": {
+      "flex": -20,
+      "abd": 15,
+      "rot": -10,
+      "knee": 48,
+      "ankle": "toes:50",
+      "reach": {
+        "to": "rear_mark",
+        "point": "toe",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            33,
+            63
+          ],
+          "flex": [
+            -35,
+            60
+          ],
+          "abd": [
+            -25,
+            65
+          ],
+          "ankle": [
+            -25,
+            60
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 55,
+      "abd": 5,
+      "rot": 0,
+      "knee": 47,
+      "ankle": "flat",
+      "reach": {
+        "to": "lead_mark",
+        "point": "ankle",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            35,
+            59
+          ],
+          "flex": [
+            10,
+            120
+          ],
+          "abd": [
+            -25,
+            65
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ],
+    "pelvis_z_m": "auto",
+    "root_xy": [
+      0.95,
+      -0.05
+    ]
+  },
+  "objects": [
+    {
+      "name": "rear_mark",
+      "kind": "point",
+      "at": [
+        0.2,
+        0.02,
+        -0.004
+      ]
+    },
+    {
+      "name": "lead_mark",
+      "kind": "point",
+      "at": [
+        1.42,
+        -0.16,
+        -0.034
+      ]
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.074,
+      "touch": "r_palm",
+      "relate": [
+        "right_palm",
+        "r_shoulder"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "plate",
+      "at": [
+        18.44,
+        0,
+        0
+      ],
+      "text": "Pitching from a mound 25 cm high; home plate 18.44 m ahead along the direction of play (the floor here is drawn flat)."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "catcher_view",
+      "azimuth": 0,
+      "elevation": 2,
+      "lens_mm": 200,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Broadcast view from behind the plate, long telephoto compression, sharp focus on the pitcher."
+    },
+    {
+      "name": "first_base_side",
+      "azimuth": 90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view from the first-base side: stride and arm path read clearly."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": 35,
+      "height_m": 0.4,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide cinematic frame from the grass in front of the mound, stadium lights behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_arm.rot",
+      "min": 150,
+      "max": 185,
+      "why": "maximum external rotation about 169 deg (range 143-192)",
+      "src": "OBP-P, CG19, ASMR22"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 80,
+      "max": 100,
+      "why": "shoulder abduction about 90 deg",
+      "src": "OBP-P"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 80,
+      "max": 105,
+      "why": "elbow about 92 deg, not bent backwards",
+      "src": "OBP-P"
+    },
+    {
+      "m": "trunk_lean_right",
+      "max": -12,
+      "why": "trunk tilts toward the glove side (about 24 deg)",
+      "src": "OBP-P"
+    },
+    {
+      "m": "l_knee_flex",
+      "min": 35,
+      "max": 60,
+      "why": "front knee braced at about 47 deg",
+      "src": "OBP-P"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "stride foot planted",
+      "src": "OBP-P"
+    }
+  ],
+  "text": {
+    "action": "a right-handed baseball pitcher at maximum layback of the throwing arm, just before accelerating the ball",
+    "core": "Chest square to home plate; trunk leaning forward and tilted toward the glove side; right upper arm level with the shoulders, elbow bent 90 degrees and above the shoulder line, forearm laid back behind the head nearly horizontal and pointing toward second base, ball behind the head; glove tucked in front of the chest; left front leg planted and braced, knee bent about 45 degrees; right foot dragging on its toes behind.",
+    "gaze": "Eyes on the target.",
+    "cues": [
+      "chest faces the plate while the forearm lays back",
+      "front leg braces",
+      "elbow stays at about 90 degrees"
+    ],
+    "kinetic": [
+      "extreme motion blur on the forearm and ball",
+      "jersey sleeve rippling",
+      "dirt kicking up behind the dragging foot"
+    ],
+    "avoid": [
+      "elbow bent backwards",
+      "broken-looking arm",
+      "ball floating behind the head",
+      "an extra arm",
+      "upright trunk"
+    ]
+  },
+  "ref_query": "baseball pitcher throwing",
+  "sources": [
+    {
+      "id": "OBP-P",
+      "cite": "Driveline OpenBiomechanics, baseball_pitching (100 pitchers, 411 fastballs, 1.85 +/- 0.07 m): means computed from the dataset's point-of-interest and full-signal files (CC BY-NC-SA 4.0; only summary numbers used here)",
+      "url": "https://github.com/drivelineresearch/openbiomechanics/tree/main/baseball_pitching"
+    },
+    {
+      "id": "CG19",
+      "cite": "A Clinician's Guide to Analysis of the Pitching Motion (2019): balance point, 90/90 arm position, MER about 170 deg",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6542879/"
+    },
+    {
+      "id": "ASMR22",
+      "cite": "Biomechanical Analysis of the Throwing Athlete, Arthrosc Sports Med Rehabil 2022: stride over 80 % of height, MER 170-180 deg",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8811517/"
+    },
+    {
+      "id": "DIL93",
+      "cite": "Dillman, Fleisig & Andrews 1993, JOSPT: biomechanics of pitching",
+      "url": "https://www.jospt.org/doi/10.2519/jospt.1993.18.2.402"
+    }
+  ],
+  "ground": {
+    "kind": "mound",
+    "top_x_m": 0.15,
+    "slope": 0.0833,
+    "drop_m": 0.254
+  }
+}

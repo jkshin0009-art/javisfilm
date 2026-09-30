@@ -1,0 +1,331 @@
+{
+  "code": "BASEBALL_PITCH_RELEASE",
+  "sport": "baseball",
+  "technique": "pitch",
+  "phase": "release",
+  "summary": "Right-handed baseball pitcher at ball release: trunk flexed forward and tilted to the glove side, throwing arm almost straight out in front of the stride foot, front knee firm, back foot dragging.",
+  "names": {
+    "ko": [
+      "야구 투구 릴리스",
+      "공 놓는 순간",
+      "투구 릴리스 포인트",
+      "강속구 투구"
+    ],
+    "en": [
+      "baseball pitch release",
+      "ball release",
+      "release point",
+      "fastball release"
+    ]
+  },
+  "keywords": [
+    "baseball",
+    "pitching",
+    "release",
+    "fastball",
+    "follow-through"
+  ],
+  "sequence": {
+    "id": "BASEBALL_PITCH",
+    "phases": [
+      "BASEBALL_PITCH_LEG_LIFT",
+      "BASEBALL_PITCH_FOOT_CONTACT",
+      "BASEBALL_PITCH_MER",
+      "BASEBALL_PITCH_RELEASE"
+    ],
+    "order": 4
+  },
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "throwing arm",
+      "l_arm": "glove arm",
+      "r_leg": "pivot leg on the rubber",
+      "l_leg": "stride leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 18,
+      "tilt": 16,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 14,
+      "side": -17,
+      "rot": 12
+    },
+    "head": {
+      "look_at": "plate"
+    },
+    "r_arm": {
+      "elev": 91,
+      "plane": 3,
+      "rot": 87,
+      "elbow": 32,
+      "pron": 20,
+      "wrist": 10,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 40,
+      "plane": 50,
+      "rot": -20,
+      "elbow": 100,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "cupped"
+    },
+    "r_leg": {
+      "flex": -18,
+      "abd": 12,
+      "rot": -15,
+      "knee": 60,
+      "ankle": "toes:60",
+      "reach": {
+        "to": "rear_mark",
+        "point": "toe",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            45,
+            75
+          ],
+          "flex": [
+            -35,
+            60
+          ],
+          "abd": [
+            -25,
+            65
+          ],
+          "ankle": [
+            -25,
+            60
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 62,
+      "abd": 5,
+      "rot": 0,
+      "knee": 40,
+      "ankle": "flat",
+      "reach": {
+        "to": "lead_mark",
+        "point": "ankle",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            28,
+            52
+          ],
+          "flex": [
+            10,
+            120
+          ],
+          "abd": [
+            -25,
+            65
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ],
+    "pelvis_z_m": "auto",
+    "root_xy": [
+      1.02,
+      -0.08
+    ]
+  },
+  "objects": [
+    {
+      "name": "rear_mark",
+      "kind": "point",
+      "at": [
+        0.42,
+        0.0,
+        -0.023
+      ]
+    },
+    {
+      "name": "lead_mark",
+      "kind": "point",
+      "at": [
+        1.42,
+        -0.16,
+        -0.034
+      ]
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.074,
+      "touch": "r_palm",
+      "relate": [
+        "right_palm",
+        "l_ankle"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "plate",
+      "at": [
+        18.44,
+        0,
+        0
+      ],
+      "text": "Pitching from a mound 25 cm high; home plate 18.44 m ahead along the direction of play (the floor here is drawn flat)."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "catcher_view",
+      "azimuth": 0,
+      "elevation": 2,
+      "lens_mm": 200,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Broadcast view from behind the plate, long telephoto compression, sharp focus on the pitcher."
+    },
+    {
+      "name": "first_base_side",
+      "azimuth": 90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view from the first-base side: stride and arm path read clearly."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": 35,
+      "height_m": 0.4,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide cinematic frame from the grass in front of the mound, stadium lights behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "min": 20,
+      "max": 45,
+      "why": "elbow about 32 deg at release, not fully straight",
+      "src": "OBP-P"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 80,
+      "max": 105,
+      "why": "shoulder abduction about 91 deg",
+      "src": "OBP-P"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "min": 20,
+      "max": 50,
+      "why": "trunk forward tilt about 35 deg",
+      "src": "OBP-P"
+    },
+    {
+      "m": "trunk_lean_right",
+      "max": -8,
+      "why": "trunk tilted toward the glove side about 17 deg",
+      "src": "OBP-P"
+    },
+    {
+      "m": "l_knee_flex",
+      "min": 25,
+      "max": 55,
+      "why": "front knee firm or extending (about 40 deg)",
+      "src": "OBP-P, CG19"
+    },
+    {
+      "m": "fwd:ball:l_ankle",
+      "min": 0,
+      "max": 45,
+      "why": "release about 21 cm in front of the lead ankle",
+      "src": "OBP-P"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "stride foot planted",
+      "src": "OBP-P"
+    }
+  ],
+  "text": {
+    "action": "a right-handed baseball pitcher releasing a fastball",
+    "core": "Trunk flexed forward about 35 degrees and tilted toward the glove side; throwing arm nearly straight and out in front, hand at about eye level just in front of the stride foot, fingers behind the ball; glove pulled in to the chest; left front leg planted and firm; right leg trailing behind, foot dragging on its toes.",
+    "gaze": "Eyes on the catcher's mitt.",
+    "cues": [
+      "release out in front of the stride foot",
+      "trunk flexes forward and tilts to the glove side",
+      "front knee firm"
+    ],
+    "kinetic": [
+      "ball leaving the fingertips with a white motion streak",
+      "cap and jersey whipping forward",
+      "dust cloud from the dragging back foot"
+    ],
+    "avoid": [
+      "elbow bent backwards",
+      "ball stuck to the palm",
+      "ball floating far from the fingertips",
+      "back foot flat on the rubber",
+      "front knee collapsed",
+      "left-handed layout"
+    ]
+  },
+  "ref_query": "baseball pitcher release",
+  "sources": [
+    {
+      "id": "OBP-P",
+      "cite": "Driveline OpenBiomechanics, baseball_pitching (100 pitchers, 411 fastballs, 1.85 +/- 0.07 m): means computed from the dataset's point-of-interest and full-signal files (CC BY-NC-SA 4.0; only summary numbers used here)",
+      "url": "https://github.com/drivelineresearch/openbiomechanics/tree/main/baseball_pitching"
+    },
+    {
+      "id": "CG19",
+      "cite": "A Clinician's Guide to Analysis of the Pitching Motion (2019): balance point, 90/90 arm position, MER about 170 deg",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6542879/"
+    },
+    {
+      "id": "ISBS10",
+      "cite": "Fleisig, ISBS 2010 keynote: stride 83 +/- 4 % of height, lead knee 45 deg, shoulder abduction 93 deg, ER 56 deg, elbow 90 deg at foot contact",
+      "url": "https://ojs.ub.uni-konstanz.de/cpa/article/view/4377"
+    },
+    {
+      "id": "FORT09",
+      "cite": "Fortenbaugh, Fleisig & Andrews 2009, Sports Health: baseball pitching biomechanics",
+      "url": "https://doi.org/10.1177/1941738109338546"
+    }
+  ],
+  "ground": {
+    "kind": "mound",
+    "top_x_m": 0.15,
+    "slope": 0.0833,
+    "drop_m": 0.254
+  }
+}

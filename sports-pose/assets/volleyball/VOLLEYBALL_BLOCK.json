@@ -1,0 +1,281 @@
+{
+  "code": "VOLLEYBALL_BLOCK",
+  "sport": "volleyball",
+  "technique": "block",
+  "phase": "peak",
+  "summary": "Volleyball block at the top of the jump: both arms straight and reaching over the net into the opponent's court, hands wide open, shoulders parallel to the net.",
+  "names": {
+    "ko": [
+      "배구 블로킹",
+      "블록 점프",
+      "네트 위 손 뻗기",
+      "블로커"
+    ],
+    "en": [
+      "volleyball block",
+      "blocking jump",
+      "hands over the net",
+      "blocker"
+    ]
+  },
+  "keywords": [
+    "volleyball",
+    "block",
+    "net",
+    "jump",
+    "penetration",
+    "defense"
+  ],
+  "athlete": {
+    "height_m": 1.98,
+    "hand": "right"
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 6,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 8,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "look_at": "attacker"
+    },
+    "r_arm": {
+      "elev": 160,
+      "plane": 88,
+      "rot": 20,
+      "elbow": 5,
+      "pron": 60,
+      "wrist": 25,
+      "hand": "spread",
+      "reach": {
+        "to": "block_r",
+        "face": [
+          0.9,
+          0,
+          -0.45
+        ],
+        "w": 0.4,
+        "fix": [
+          "wrist"
+        ],
+        "range": {
+          "elbow": [
+            0,
+            15
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 160,
+      "plane": 88,
+      "rot": 20,
+      "elbow": 5,
+      "pron": 60,
+      "wrist": 25,
+      "hand": "spread",
+      "reach": {
+        "to": "block_l",
+        "face": [
+          0.9,
+          0,
+          -0.45
+        ],
+        "w": 0.4,
+        "fix": [
+          "wrist"
+        ],
+        "range": {
+          "elbow": [
+            0,
+            15
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 14,
+      "abd": 6,
+      "rot": 5,
+      "knee": 18,
+      "ankle": 45
+    },
+    "l_leg": {
+      "flex": 14,
+      "abd": 6,
+      "rot": 5,
+      "knee": 18,
+      "ankle": 45
+    }
+  },
+  "support": {
+    "airborne_m": 0.72
+  },
+  "objects": [
+    {
+      "name": "block_r",
+      "kind": "point",
+      "at": "r_shoulder",
+      "offset_m": [
+        0.36,
+        0.05,
+        0.62
+      ]
+    },
+    {
+      "name": "block_l",
+      "kind": "point",
+      "at": "l_shoulder",
+      "offset_m": [
+        0.36,
+        -0.05,
+        0.62
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "net",
+      "x_m": 0.32,
+      "height_m": 2.43,
+      "text": "Net: top tape 2.43 m high, {fwd:net_top:pelvis} cm in front of the hips; fingertips {up:r_fingertip:net_top} cm above the tape and {fwd:r_fingertip:net_top} cm past the net plane into the opponent's court; body stays on its own side."
+    },
+    {
+      "kind": "point",
+      "name": "attacker",
+      "at": [
+        3.5,
+        -0.8,
+        2.8
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "name": "attacker_view",
+      "azimuth": 10,
+      "elevation": -8,
+      "lens_mm": 50,
+      "fill": 0.85,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "From the attacker's side of the net: a wall of hands above the tape."
+    },
+    {
+      "name": "net_profile",
+      "azimuth": -90,
+      "elevation": -5,
+      "lens_mm": 35,
+      "fill": 0.85,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Profile along the net shows the arms penetrating over it."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 150,
+      "elevation": 5,
+      "lens_mm": 24,
+      "fill": 0.6,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide from behind the blocker, attacker and ball beyond the net."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "max": 20,
+      "why": "arms nearly straight",
+      "src": "S3 (estimate from technique descriptions)"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 145,
+      "why": "shoulders fully flexed, arms reaching up and forward",
+      "src": "S3"
+    },
+    {
+      "m": "fwd:r_fingertip:net_top",
+      "min": 15,
+      "why": "hands penetrate past the net plane (about 36 cm in NCAA women)",
+      "src": "S1"
+    },
+    {
+      "m": "up:r_fingertip:net_top",
+      "min": 10,
+      "why": "hands above the tape (about 17 cm in NCAA women; more in men)",
+      "src": "S1"
+    },
+    {
+      "m": "fwd:net_top:r_shoulder",
+      "min": 5,
+      "why": "body stays on its own side of the net",
+      "src": "rules"
+    },
+    {
+      "m": "hip_shoulder_sep",
+      "min": -8,
+      "max": 8,
+      "why": "pelvis and shoulders parallel to the net",
+      "src": "S2"
+    },
+    {
+      "m": "lowest_z",
+      "min": 0.3,
+      "why": "airborne, block jump",
+      "src": "S1"
+    }
+  ],
+  "text": {
+    "action": "a volleyball blocker at the top of the jump pressing both hands over the net",
+    "core": "Airborne with legs nearly straight and toes pointed down; trunk upright and slightly piked; shoulders square to the net; both arms straight, reaching up and forward over the tape into the opponent's court; hands wide open, fingers spread, palms facing down toward the opponent's floor.",
+    "gaze": "Eyes on the attacker's hitting arm across the net.",
+    "cues": [
+      "penetrate the hands over the net, do not just reach up",
+      "pelvis and shoulders parallel to the net",
+      "thumbs up, fingers spread and strong"
+    ],
+    "kinetic": [
+      "net mesh flexing slightly next to the arms",
+      "hands firm against an incoming spike",
+      "sweat on the forearms catching the arena light"
+    ],
+    "avoid": [
+      "hands on the blocker's own side",
+      "arms bent at 90 degrees",
+      "arms spread so wide the ball passes between them",
+      "body passing through the net",
+      "feet on the floor"
+    ]
+  },
+  "ref_query": "volleyball block",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Ficklin et al. 2014, JSSM 13:78: swing vs traditional block (hand penetration 17 cm above and 36.5 cm past the net, NCAA women; search extract)",
+      "url": "https://www.researchgate.net/publication/260382646"
+    },
+    {
+      "id": "S2",
+      "cite": "ISBS blocking paper: pelvis and shoulders parallel to the net, hand penetration",
+      "url": "https://ojs.ub.uni-konstanz.de/cpa/article/view/244/203"
+    },
+    {
+      "id": "S3",
+      "cite": "Lobietti, ISBS 2006: block footwork and knee flexion",
+      "url": "https://ojs.ub.uni-konstanz.de/cpa/article/download/163/123"
+    }
+  ]
+}

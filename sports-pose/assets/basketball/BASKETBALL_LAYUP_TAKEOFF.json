@@ -1,0 +1,61 @@
+{
+  "code": "BASKETBALL_LAYUP_TAKEOFF",
+  "sport": "basketball",
+  "technique": "layup",
+  "phase": "takeoff",
+  "summary": "Right-handed basketball layup at takeoff: pushing off the left foot, right knee driven up to hip height, ball carried in both hands up past the right shoulder.",
+  "names": {
+    "ko": ["농구 레이업 도약", "레이업 점프", "레이업 슛", "원스텝 레이업"],
+    "en": ["basketball layup takeoff", "layup jump", "right-handed layup", "drive to the basket"]
+  },
+  "keywords": ["basketball", "layup", "takeoff", "drive", "one-foot jump"],
+  "athlete": {"height_m": 1.88, "hand": "right",
+              "roles": {"l_leg": "takeoff leg", "r_leg": "knee drive (shooting-hand side)", "r_arm": "shooting hand under the ball", "l_arm": "guide hand"}},
+  "pose": {
+    "pelvis": {"yaw": 0, "tilt": 0, "side": 0},
+    "trunk": {"flex": 0, "side": -4, "rot": 10},
+    "head": {"look_at": "backboard_spot"},
+    "r_arm": {"elev": 110, "plane": 60, "rot": 60, "elbow": 80, "pron": -20, "wrist": -40, "hand": "ball_hold",
+              "reach": {"to": "ball", "side": [-0.4, -0.2, -0.9], "w": 0.3}},
+    "l_arm": {"elev": 95, "plane": 70, "rot": 40, "elbow": 80, "pron": -20, "wrist": -10, "hand": "ball_hold",
+              "reach": {"to": "ball", "side": [0.0, 0.95, 0.3], "w": 0.3}},
+    "r_leg": {"flex": 92, "abd": 6, "rot": 5, "knee": 95, "ankle": 25},
+    "l_leg": {"flex": -8, "abd": 4, "rot": 5, "knee": 10, "ankle": "toes:40"}
+  },
+  "support": {"contacts": ["l_foot"]},
+  "objects": [
+    {"name": "ball", "kind": "ball", "diameter_m": 0.24, "at": "r_shoulder", "offset_m": [0.22, 0.02, 0.3], "relate": ["r_shoulder"]}
+  ],
+  "environment": [
+    {"kind": "rim", "x_m": 1.5, "height_m": 3.05, "text": "Rim 3.05 m high, {fwd:rim:pelvis} cm ahead and above; backboard square behind the rim."},
+    {"kind": "point", "name": "backboard_spot", "at": [1.9, 0.25, 3.3]}
+  ],
+  "cameras": [
+    {"name": "baseline_low", "azimuth": 20, "elevation": -15, "lens_mm": 35, "fill": 0.86, "size": [896, 1152],
+     "text": "From under the basket looking up, knee drive and ball carry clear."},
+    {"name": "side", "azimuth": -90, "elevation": -5, "lens_mm": 50, "fill": 0.86, "size": [896, 1152],
+     "text": "Profile: takeoff foot pushing off, thigh horizontal."},
+    {"name": "wide_cinema", "azimuth": 120, "elevation": 5, "lens_mm": 24, "fill": 0.6, "size": [1344, 768],
+     "text": "Wide from the wing, defenders blurred, rim in the upper frame."}
+  ],
+  "rules": [
+    {"m": "r_thigh_fwd", "min": 70, "why": "shooting-side knee driven up, thigh about horizontal", "src": "S1, S2 (estimate from technique descriptions)"},
+    {"m": "r_knee_flex", "min": 70, "max": 110, "why": "swing knee bent about 90 deg", "src": "S2 (estimate)"},
+    {"m": "l_knee_flex", "max": 20, "why": "takeoff leg nearly straight at toe-off", "src": "S2 (estimate)"},
+    {"m": "l_foot_z", "max": 0.03, "why": "left foot still pushing off the floor (right-handed layup takes off from the left foot)", "src": "S1"},
+    {"m": "r_foot_z", "min": 0.3, "why": "swing foot off the floor", "src": "S1"}
+  ],
+  "text": {
+    "action": "a basketball player taking off for a right-handed layup",
+    "core": "Pushing off the left foot on the ball of the foot, left leg nearly straight; right knee driven up to hip height, thigh horizontal, knee bent about 90 degrees; trunk upright; ball held in both hands and carried up past the right shoulder toward head height, right hand under the ball, left hand on its side.",
+    "gaze": "Eyes on the top corner of the square on the backboard.",
+    "cues": ["right-handed layup: take off from the left foot", "drive the right knee up", "jump up, not out", "protect the ball with two hands up to the shoulder"],
+    "kinetic": ["sneaker sole flexing on the push-off", "shorts lifted by the knee drive", "motion blur on the trailing arm swing, sharp face"],
+    "avoid": ["takeoff from the right foot", "both knees driven up", "ball held low in one hand", "both feet off the floor with no push-off"]
+  },
+  "ref_query": "basketball layup",
+  "sources": [
+    {"id": "S1", "cite": "FIBA WABC Level 1 manual 2.7.2: right-handed layup takes off from the left foot, lift the shooting-hand-side knee", "url": "https://wabc.fiba.com/manual/level-1/l1-player/l1-2-offensive-basketball-skills/2-7-shooting/2-7-2-basic-shooting-teaching-lay-up-footwork/"},
+    {"id": "S2", "cite": "Vint & Hinrichs 1996, J Appl Biomech: one-foot jumps gain height from the free-leg swing", "url": "https://journals.humankinetics.com/view/journals/jab/12/3/article-p338.xml"}
+  ]
+}

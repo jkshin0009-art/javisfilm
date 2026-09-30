@@ -1,0 +1,258 @@
+{
+  "code": "SOCCER_SIDE_VOLLEY",
+  "sport": "soccer",
+  "technique": "side_volley",
+  "phase": "contact",
+  "summary": "Right-footed soccer side volley at contact: kicking leg swung round near horizontal at hip height, trunk leaning far away from the ball, both arms raised for balance.",
+  "names": {
+    "ko": [
+      "축구 사이드 발리",
+      "발리슛",
+      "논스톱 발리",
+      "옆으로 누운 발리"
+    ],
+    "en": [
+      "soccer side volley",
+      "volley shot",
+      "first-time volley",
+      "side-on volley"
+    ]
+  },
+  "keywords": [
+    "soccer",
+    "football",
+    "volley",
+    "shot",
+    "airborne ball",
+    "side volley"
+  ],
+  "athlete": {
+    "height_m": 1.8,
+    "hand": "right",
+    "roles": {
+      "r_leg": "kicking leg",
+      "l_leg": "support leg",
+      "l_arm": "balance arm, low side",
+      "r_arm": "balance arm, high side"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -25,
+      "tilt": 0,
+      "side": -24
+    },
+    "trunk": {
+      "flex": 4,
+      "side": -24,
+      "rot": 20
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 110,
+      "plane": 20,
+      "rot": 10,
+      "elbow": 30,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "spread"
+    },
+    "l_arm": {
+      "elev": 75,
+      "plane": 30,
+      "rot": 0,
+      "elbow": 25,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "spread"
+    },
+    "r_leg": {
+      "flex": 30,
+      "abd": 60,
+      "rot": -25,
+      "knee": 30,
+      "ankle": 60,
+      "reach": {
+        "to": "ball",
+        "point": "instep",
+        "face_w": 8,
+        "w": 0.3,
+        "range": {
+          "knee": [
+            10,
+            80
+          ],
+          "ankle": [
+            40,
+            75
+          ],
+          "abd": [
+            30,
+            80
+          ],
+          "flex": [
+            0,
+            80
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 22,
+      "abd": 10,
+      "rot": 10,
+      "knee": 32,
+      "ankle": "flat"
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot"
+    ]
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.22,
+      "at": "r_hip",
+      "offset_m": [
+        0.25,
+        -0.7,
+        -0.1
+      ],
+      "relate": [
+        "right_instep",
+        "r_hip"
+      ]
+    }
+  ],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "front",
+      "azimuth": 5,
+      "elevation": -5,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "From the goal: the horizontal kicking leg and the leaning trunk form a clear line."
+    },
+    {
+      "name": "low_three_quarter",
+      "azimuth": -45,
+      "height_m": 0.4,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Low three-quarter view from the ball side, ball in sharp focus."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 40,
+      "elevation": 5,
+      "lens_mm": 24,
+      "fill": 0.62,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame, penalty box lines and crowd behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "trunk_lean_right",
+      "max": -25,
+      "why": "trunk leans far away from the ball; lean grows with ball height",
+      "src": "S1, S2"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 70,
+      "why": "arms raised near horizontal for balance (abduction over 80 deg in jumping volleys)",
+      "src": "S3"
+    },
+    {
+      "m": "l_shoulder_elev",
+      "min": 55,
+      "why": "arms raised for balance",
+      "src": "S3"
+    },
+    {
+      "m": "z:ball",
+      "min": 0.55,
+      "max": 1.05,
+      "why": "ball met between knee and waist height",
+      "src": "S1, S4"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "support foot planted",
+      "src": "S1"
+    },
+    {
+      "m": "l_knee_flex",
+      "min": 15,
+      "max": 50,
+      "why": "support knee flexed",
+      "src": "S1"
+    }
+  ],
+  "text": {
+    "action": "a soccer player hitting a right-footed side volley, the ball met at hip height beside the body",
+    "core": "Left support foot planted, left knee bent; trunk leaning far to the left, away from the ball; right kicking leg swung round and raised near horizontal, knee slightly bent, foot flat and turned over the top of the ball with the toes pointed; both arms raised out to the sides for balance; hips turning toward the goal.",
+    "gaze": "Eyes on the ball at contact.",
+    "cues": [
+      "lean the trunk away from the ball",
+      "swing the kicking leg round with the hip turned in",
+      "keep the foot flat over the top of the ball to keep the shot down",
+      "both arms up for balance"
+    ],
+    "kinetic": [
+      "ball flattening against the laces",
+      "grass flying off the support boot",
+      "shirt and shorts pulled by the rotation, motion blur on the kicking leg"
+    ],
+    "avoid": [
+      "upright trunk",
+      "kicking leg drawn as a front kick",
+      "support leg straight and locked",
+      "arms at the sides",
+      "ball far below the foot",
+      "hip joint twisted impossibly"
+    ]
+  },
+  "ref_query": "football volley",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Sugi, Nunome, Tamura & Iga, ISBS 2017: volley vs instep kick (more knee flexion, trunk lean and pelvis rotation) - search extract",
+      "url": "https://commons.nmu.edu/isbs/vol35/iss1/41/"
+    },
+    {
+      "id": "S2",
+      "cite": "Shan & Zhang 2011 / Shan 2022: trunk side lean and pelvis twist increase with ball height",
+      "url": "https://link.springer.com/article/10.1186/1758-2555-3-23"
+    },
+    {
+      "id": "S3",
+      "cite": "Shan et al. 2020, Applied Sciences 10:4785: jumping side volley, trunk twist about 40 deg, shoulder abduction over 80 deg",
+      "url": "https://www.mdpi.com/2076-3417/10/14/4785"
+    },
+    {
+      "id": "S4",
+      "cite": "ISBS 2020: successful vs failed volleys (foot over the top of the ball keeps the shot down)",
+      "url": "https://commons.nmu.edu/isbs/vol38/iss1/151/"
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "code": "VOLLEYBALL_SPIKE_CONTACT",
+  "sport": "volleyball",
+  "technique": "spike",
+  "phase": "contact",
+  "summary": "Right-handed volleyball spike at ball contact: airborne, straight hitting arm high in front of the hitting shoulder.",
+  "names": {
+    "ko": [
+      "배구 스파이크 타점",
+      "스파이크 임팩트",
+      "공격 타구 순간",
+      "배구 공격"
+    ],
+    "en": [
+      "volleyball spike contact",
+      "attack hit",
+      "spike impact",
+      "volleyball attack"
+    ]
+  },
+  "keywords": [
+    "volleyball",
+    "spike",
+    "attack",
+    "jump",
+    "hit",
+    "net"
+  ],
+  "sequence": {
+    "id": "VOLLEYBALL_SPIKE",
+    "order": 4,
+    "phases": [
+      "VOLLEYBALL_SPIKE_TAKEOFF",
+      "VOLLEYBALL_SPIKE_ARM_COCK",
+      "VOLLEYBALL_SPIKE_CONTACT"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.95,
+    "hand": "right",
+    "roles": {
+      "r_arm": "hitting arm",
+      "l_arm": "non-hitting arm, pulled down to the chest",
+      "r_leg": "trailing leg",
+      "l_leg": "leading leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -5,
+      "tilt": 0,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 8,
+      "side": -14,
+      "rot": 18
+    },
+    "head": {
+      "look_at": "ball",
+      "side": 0
+    },
+    "r_arm": {
+      "elev": 155,
+      "plane": 35,
+      "rot": 80,
+      "elbow": 10,
+      "pron": 40,
+      "wrist": -5,
+      "hand": "cupped",
+      "reach": {
+        "to": "ball",
+        "side": [
+          -0.55,
+          0.1,
+          0.83
+        ],
+        "w": 0.4,
+        "fix": [
+          "wrist"
+        ]
+      }
+    },
+    "l_arm": {
+      "elev": 40,
+      "plane": 75,
+      "rot": -55,
+      "elbow": 100,
+      "pron": 70,
+      "wrist": 5,
+      "hand": "relaxed"
+    },
+    "r_leg": {
+      "flex": 20,
+      "abd": 6,
+      "rot": 10,
+      "knee": 55,
+      "ankle": 40
+    },
+    "l_leg": {
+      "flex": 32,
+      "abd": 6,
+      "rot": 5,
+      "knee": 50,
+      "ankle": 35
+    }
+  },
+  "support": {
+    "airborne_m": 0.55
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.21,
+      "at": "r_shoulder",
+      "offset_m": [
+        0.27,
+        -0.07,
+        0.6
+      ],
+      "relate": [
+        "r_palm",
+        "r_shoulder",
+        "forehead"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "net",
+      "x_m": 0.7,
+      "height_m": 2.43,
+      "text": "Net: top tape 2.43 m high, {fwd:net_top:pelvis} cm in front of the hips; ball contact {up:ball:net_top} cm above the tape, on the hitter's own side ({fwd:net_top:ball} cm short of the net plane)."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "low_three_quarter",
+      "azimuth": -60,
+      "elevation": -18,
+      "lens_mm": 35,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Sharp focus on the hitting hand and ball, shallow depth of field, background crowd soft."
+    },
+    {
+      "name": "across_net",
+      "azimuth": 0,
+      "elevation": -6,
+      "lens_mm": 85,
+      "fill": 0.84,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Blocker's point of view from across the net, net tape crossing the lower frame."
+    },
+    {
+      "name": "wide_side",
+      "azimuth": -95,
+      "elevation": -8,
+      "lens_mm": 28,
+      "fill": 0.72,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Cinematic 21:9-style wide frame, athlete at the right third, arena lights behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "max": 30,
+      "why": "straight arm at contact (FIVB: contact with a straight arm; elbow about 14 deg flexion)",
+      "src": "S1, S4"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 120,
+      "max": 165,
+      "why": "shoulder abduction about 130 deg at contact",
+      "src": "S2, S3"
+    },
+    {
+      "m": "fwd:ball:r_shoulder",
+      "min": 5,
+      "max": 45,
+      "why": "ball in front of the hitting shoulder",
+      "src": "S4"
+    },
+    {
+      "m": "up:ball:r_shoulder",
+      "min": 55,
+      "why": "contact at near-full reach above the shoulder",
+      "src": "S4"
+    },
+    {
+      "m": "trunk_lean_right",
+      "max": -5,
+      "why": "trunk tilts away from the hitting arm to raise the hitting shoulder",
+      "src": "S4 (ball-shoulder-hip line)"
+    },
+    {
+      "m": "lowest_z",
+      "min": 0.3,
+      "why": "airborne at contact; elite male jump height about 0.62-0.64 m",
+      "src": "S5"
+    }
+  ],
+  "text": {
+    "action": "a volleyball attacker at the peak of a jump spike, striking the ball with a straight right arm high in front of the right shoulder",
+    "core": "Airborne body with both feet {lowest_z} m above the floor and toes pointing down, knees bent; trunk tilted left so the hitting shoulder is higher than the other; right arm almost fully straight overhead, palm on the upper back of the ball; left arm pulled down across the chest; eyes on the ball.",
+    "gaze": "Eyes locked on the ball at the moment of contact.",
+    "r_arm": "Heel of the hand and all five fingers on the upper back half of the ball, wrist starting to snap over it.",
+    "l_arm": "Non-hitting arm has swung down and is tucked close to the chest to speed up trunk rotation.",
+    "cues": [
+      "hitting shoulder, hip and ball form one line",
+      "contact the ball at full reach in front of the hitting shoulder",
+      "non-hitting arm pulls down as the hitting arm swings through"
+    ],
+    "objects": [
+      "Ball slightly flattened against the palm; one ball only."
+    ],
+    "kinetic": [
+      "motion blur on the hitting forearm and hand along the downward swing path",
+      "ball compressing against the palm, spin blur on the ball panels",
+      "jersey and hair lifted by the upward jump, sweat droplets flying off the arm",
+      "floor far below the feet, shadow on the court under the athlete"
+    ],
+    "avoid": [
+      "hitting arm bent at 90 degrees",
+      "ball behind the head",
+      "hand merged into the ball",
+      "body touching or passing through the net",
+      "both arms raised symmetrically",
+      "feet on the floor"
+    ]
+  },
+  "ref_query": "volleyball spike",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "EUDL 2022, open-spike kinematics (elbow 166 deg included angle at contact) - search extract",
+      "url": "https://eudl.eu/pdf/10.4108/eai.29-6-2022.2326123"
+    },
+    {
+      "id": "S2",
+      "cite": "Reeser et al. 2010, Sports Health, upper-limb biomechanics of the volleyball serve and spike",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23015961/"
+    },
+    {
+      "id": "S3",
+      "cite": "Oliveira et al. 2020, systematic review of spike kinematics (abduction 130-133 deg)",
+      "url": "https://journals.sagepub.com/doi/abs/10.1177/1747954119899881"
+    },
+    {
+      "id": "S4",
+      "cite": "FIVB Coaches Manual Level II (attack: hitting shoulder over the ball, straight arm, ball-shoulder-hip line)",
+      "url": "https://www.fivb.com/wp-content/uploads/2024/03/Coaches_Manual_Level_II_EN.pdf"
+    },
+    {
+      "id": "S5",
+      "cite": "Fuchs et al. 2019, J Sports Sci 37(21), spike jump kinematics of elite players",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/02640414.2019.1639437"
+    }
+  ]
+}

@@ -1,0 +1,344 @@
+{
+  "code": "BASEBALL_BAT_CONTACT",
+  "sport": "baseball",
+  "technique": "swing",
+  "phase": "contact",
+  "summary": "Right-handed batter at bat-ball contact: hips and shoulders square to the pitcher, front leg firm, back shoulder low, rear elbow tucked, barrel about 30 degrees below the hands meeting the ball.",
+  "names": {
+    "ko": [
+      "야구 타격 임팩트",
+      "배트 공 맞는 순간",
+      "타격 순간",
+      "스윙 임팩트"
+    ],
+    "en": [
+      "baseball bat contact",
+      "hitting impact",
+      "bat on ball",
+      "swing contact"
+    ]
+  },
+  "keywords": [
+    "baseball",
+    "batting",
+    "hitting",
+    "contact",
+    "swing",
+    "impact"
+  ],
+  "sequence": {
+    "id": "BASEBALL_SWING",
+    "phases": [
+      "BASEBALL_BAT_LOAD",
+      "BASEBALL_BAT_CONTACT"
+    ],
+    "order": 2
+  },
+  "athlete": {
+    "height_m": 1.83,
+    "hand": "right",
+    "roles": {
+      "l_arm": "lead arm, bottom hand on the bat",
+      "r_arm": "rear arm, top hand",
+      "l_leg": "stride leg (toward the pitcher)",
+      "r_leg": "rear leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -5,
+      "tilt": 12,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -5,
+      "side": 28,
+      "rot": 0
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 29,
+      "plane": 60,
+      "rot": 30,
+      "elbow": 80,
+      "pron": -20,
+      "wrist": -10,
+      "hand": "grip",
+      "reach": {
+        "to": "bat_hand2",
+        "w": 0.4
+      }
+    },
+    "l_arm": {
+      "elev": 70,
+      "plane": 110,
+      "rot": 0,
+      "elbow": 53,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "bat_hand1",
+        "w": 0.4
+      }
+    },
+    "r_leg": {
+      "flex": -5,
+      "abd": 20,
+      "rot": -20,
+      "knee": 70,
+      "ankle": "toes:45",
+      "reach": {
+        "to": "rear_mark",
+        "point": "toe",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            58,
+            85
+          ],
+          "flex": [
+            -35,
+            60
+          ],
+          "abd": [
+            -25,
+            45
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 31,
+      "abd": 20,
+      "rot": 15,
+      "knee": 14,
+      "ankle": "flat",
+      "reach": {
+        "to": "lead_mark",
+        "point": "ankle",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            5,
+            24
+          ],
+          "flex": [
+            -10,
+            90
+          ],
+          "abd": [
+            -20,
+            45
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ],
+    "pelvis_z_m": "auto"
+  },
+  "objects": [
+    {
+      "name": "rear_mark",
+      "kind": "point",
+      "at": [
+        -0.5,
+        0.02,
+        0.0
+      ]
+    },
+    {
+      "name": "lead_mark",
+      "kind": "point",
+      "at": [
+        0.45,
+        0.0,
+        0.07137
+      ]
+    },
+    {
+      "name": "bat",
+      "kind": "bat",
+      "at": "shoulders_mid",
+      "offset_m": [
+        0.32,
+        -0.06,
+        -0.38
+      ],
+      "yaw": -80,
+      "pitch": -30,
+      "length_m": 0.85
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.074,
+      "at": "bat_sweet",
+      "offset_m": [
+        0.07,
+        0,
+        0
+      ],
+      "relate": [
+        "bat_sweet",
+        "l_ankle"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "pitcher",
+      "at": [
+        18.0,
+        0.8,
+        1.8
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "name": "pitcher_view",
+      "azimuth": 0,
+      "elevation": 0,
+      "lens_mm": 200,
+      "fill": 0.86,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Broadcast center-field view, telephoto compression, catcher and umpire soft behind."
+    },
+    {
+      "name": "open_side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "From the open side facing the batter's chest, plate in the foreground."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": 150,
+      "height_m": 0.3,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame from behind the catcher's area, stadium lights and field behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "l_knee_flex",
+      "max": 25,
+      "why": "front leg firm, knee about 14 deg",
+      "src": "OBP-H"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 55,
+      "max": 85,
+      "why": "rear knee about 70 deg",
+      "src": "OBP-H"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 65,
+      "max": 95,
+      "why": "rear elbow tucked at about 80 deg",
+      "src": "OBP-H, DOW16"
+    },
+    {
+      "m": "l_elbow_flex",
+      "min": 35,
+      "max": 70,
+      "why": "lead elbow about 53 deg",
+      "src": "OBP-H"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 15,
+      "max": 45,
+      "why": "rear shoulder abducted about 29-35 deg (elbow in)",
+      "src": "OBP-H, DOW16"
+    },
+    {
+      "m": "hip_shoulder_sep",
+      "min": -12,
+      "max": 12,
+      "why": "hips and shoulders square at contact",
+      "src": "OBP-H"
+    },
+    {
+      "m": "dist:r_palm:l_palm",
+      "max": 14,
+      "why": "both hands together on the handle",
+      "src": "OBP-H"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "front foot planted",
+      "src": "OBP-H"
+    }
+  ],
+  "text": {
+    "action": "a right-handed baseball batter hitting the ball at the moment of bat-ball contact",
+    "core": "Hips and shoulders turned square to the pitcher; front (left) leg straight and firm; back knee bent, back foot pivoted up on its toes; trunk tilted so the back shoulder is lower than the front; both hands together on the handle, right hand on top; rear elbow tucked close to the ribs; bat nearly perpendicular to the pitch line with the barrel about 30 degrees below the hands, sweet spot meeting the ball in front of the plate at about knee-to-thigh height.",
+    "gaze": "Head down and still, eyes on the ball at contact.",
+    "cues": [
+      "firm front leg",
+      "hips and shoulders square at contact",
+      "hands above the barrel",
+      "contact roughly level with the front foot"
+    ],
+    "kinetic": [
+      "ball compressing against the barrel, wood chips of dust",
+      "extreme motion blur along the bat's arc, hands sharp",
+      "back heel lifted, dirt spraying from the pivot"
+    ],
+    "avoid": [
+      "bat merging with the hands",
+      "extra hands",
+      "bent bat",
+      "ball fused to the bat",
+      "left hand on top",
+      "rear foot flat",
+      "eyes off the ball"
+    ]
+  },
+  "ref_query": "baseball batter swing",
+  "sources": [
+    {
+      "id": "OBP-H",
+      "cite": "Driveline OpenBiomechanics, baseball_hitting (98 hitters, 677 swings): means from the dataset (CC BY-NC-SA 4.0; only summary numbers used here)",
+      "url": "https://github.com/drivelineresearch/openbiomechanics/tree/main/baseball_hitting"
+    },
+    {
+      "id": "DOW16",
+      "cite": "Dowling & Fleisig 2016, Sports Biomech: rear elbow about 78 deg and rear shoulder abduction about 35 deg at contact in pros",
+      "url": "https://www.tandfonline.com/doi/abs/10.1080/14763141.2016.1159320"
+    },
+    {
+      "id": "FL13",
+      "cite": "Fleisig et al. 2013, Sports Biomech: hip-shoulder separation peaks after contact in pro batters",
+      "url": "https://www.tandfonline.com/doi/abs/10.1080/14763141.2013.838693"
+    }
+  ]
+}

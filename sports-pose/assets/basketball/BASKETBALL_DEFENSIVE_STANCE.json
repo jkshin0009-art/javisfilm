@@ -1,0 +1,60 @@
+{
+  "code": "BASKETBALL_DEFENSIVE_STANCE",
+  "sport": "basketball",
+  "technique": "defense",
+  "phase": "stance",
+  "summary": "Basketball on-ball defensive stance: feet wider than the shoulders and flat, knees bent, hips back, one hand low toward the ball, the other up at shoulder height.",
+  "names": {
+    "ko": ["농구 수비 자세", "디펜스 스탠스", "대인 수비 자세", "낮은 수비 자세"],
+    "en": ["basketball defensive stance", "on-ball defense", "defensive slide stance", "guarding the dribbler"]
+  },
+  "keywords": ["basketball", "defense", "stance", "guarding", "slide"],
+  "athlete": {"height_m": 1.9, "hand": "right",
+              "roles": {"l_arm": "low hand toward the ball", "r_arm": "high hand, passing lane"}},
+  "pose": {
+    "pelvis": {"yaw": 0, "tilt": 30, "side": 0},
+    "trunk": {"flex": 0, "side": 0, "rot": 0},
+    "head": {"look_at": "ball_handler"},
+    "r_arm": {"elev": 75, "plane": 30, "rot": 45, "elbow": 60, "pron": -30, "wrist": -10, "hand": "spread"},
+    "l_arm": {"elev": 45, "plane": 60, "rot": -10, "elbow": 20, "pron": -70, "wrist": -10, "hand": "spread"},
+    "r_leg": {"flex": 62, "abd": 26, "rot": 10, "knee": 60, "ankle": "flat"},
+    "l_leg": {"flex": 62, "abd": 26, "rot": 10, "knee": 60, "ankle": "flat"}
+  },
+  "support": {"contacts": ["r_foot", "l_foot"]},
+  "objects": [],
+  "environment": [
+    {"kind": "point", "name": "ball_handler", "at": [1.4, 0.2, 1.3], "text": "Ball handler about 1.4 m in front at arm's length plus a step."}
+  ],
+  "cameras": [
+    {"name": "front", "azimuth": 0, "elevation": 0, "lens_mm": 50, "fill": 0.86, "size": [1152, 896],
+     "text": "From the ball handler's view: a wide, low defender."},
+    {"name": "side", "azimuth": -90, "elevation": 0, "lens_mm": 50, "fill": 0.86, "size": [1152, 896],
+     "text": "Profile: hips back, nose behind the toes, heels down."},
+    {"name": "low_wide", "azimuth": -30, "height_m": 0.3, "lens_mm": 24, "fill": 0.7, "size": [1344, 768],
+     "text": "Low wide angle from the floor, court lines converging."}
+  ],
+  "rules": [
+    {"m": "stance_over_shoulders", "min": 1.3, "max": 2.2, "why": "feet wider than the shoulders (fastest response at about twice shoulder width)", "src": "S1, S2"},
+    {"m": "r_knee_flex", "min": 30, "max": 75, "why": "knees bent 30-60 deg (knee angle 120-150 deg gave the fastest response)", "src": "S1"},
+    {"m": "trunk_lean_fwd", "min": 15, "max": 40, "why": "back slightly forward, not bent at the waist", "src": "S2"},
+    {"m": "r_foot_z", "max": 0.03, "why": "heels down, feet flat", "src": "S3"},
+    {"m": "l_foot_z", "max": 0.03, "why": "heels down, feet flat", "src": "S3"},
+    {"m": "l_hand_z", "max": 1.0, "why": "hand nearest the dribbler low", "src": "S4"},
+    {"m": "r_hand_z", "min": 1.1, "why": "other hand at shoulder height to the passing lane", "src": "S4"}
+  ],
+  "text": {
+    "action": "a basketball defender in a low on-ball defensive stance guarding a dribbler",
+    "core": "Feet about 1.5-2 times shoulder width, flat on the floor and pointing forward; knees bent about 60 degrees, hips back behind the heels, back straight and tilted slightly forward, nose behind the toes; left hand low and forward toward the ball, palm up; right hand up at shoulder height, palm facing the passing lane; head up.",
+    "gaze": "Eyes on the ball handler's midsection.",
+    "cues": ["wide base, weight on the balls of the feet with heels down", "hips back, back straight", "one hand low to the ball, one hand up to the passing lane", "chest square to the ball handler"],
+    "kinetic": ["sneakers squeaking, slight lateral motion blur at the feet", "sweat on the forehead, intense focus", "jersey hanging forward"],
+    "avoid": ["bending at the waist with straight legs", "knees collapsing inward", "feet together or crossed", "heels raised high", "both arms straight out like a zombie", "head down"]
+  },
+  "ref_query": "basketball defense",
+  "sources": [
+    {"id": "S1", "cite": "Stirn, Dolinar & Erculj 2016, IJPAS 16:53: stance width twice shoulder width and knee angle 120-150 deg gave the quickest response", "url": "https://ideas.repec.org/a/taf/rpanxx/v16y2016i1p53-63.html"},
+    {"id": "S2", "cite": "FIBA WABC Level 1 manual 1.1.1: feet about shoulder-width, knees bent, back slightly forward, nose behind the toes", "url": "https://wabc.fiba.com/manual/level-1/l1-player/l1-1-defensive-basketball-skills/1-1-defensive-footwork/1-1-1-basic-defensive-footwork/"},
+    {"id": "S3", "cite": "Breakthrough Basketball: stance slightly wider than shoulders, hips back, heels down", "url": "https://www.breakthroughbasketball.com/defense/stance"},
+    {"id": "S4", "cite": "FIBA WABC 1.2.1: hand nearest the dribbler low, other hand at shoulder height", "url": "https://wabc.fiba.com/manual/level-1/l1-player/l1-1-defensive-basketball-skills/1-2-individual-defensive-movement-position/1-2-1-defending-player-with-the-ball/"}
+  ]
+}

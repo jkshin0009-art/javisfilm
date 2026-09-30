@@ -1,0 +1,322 @@
+{
+  "code": "BASEBALL_BAT_LOAD",
+  "sport": "baseball",
+  "technique": "swing",
+  "phase": "load",
+  "summary": "Right-handed batter loaded at stride-foot contact: side-on to the pitcher, weight back, hands high by the rear shoulder, bat angled up behind the head.",
+  "names": {
+    "ko": [
+      "야구 타격 준비",
+      "타격 로드",
+      "스트라이드 착지 타자",
+      "타자 테이크백"
+    ],
+    "en": [
+      "baseball batting load",
+      "hitter stride foot down",
+      "batter loaded",
+      "swing load"
+    ]
+  },
+  "keywords": [
+    "baseball",
+    "batting",
+    "hitting",
+    "load",
+    "stride",
+    "swing"
+  ],
+  "sequence": {
+    "id": "BASEBALL_SWING",
+    "phases": [
+      "BASEBALL_BAT_LOAD",
+      "BASEBALL_BAT_CONTACT"
+    ],
+    "order": 1
+  },
+  "athlete": {
+    "height_m": 1.83,
+    "hand": "right",
+    "roles": {
+      "l_arm": "lead arm, bottom hand on the bat",
+      "r_arm": "rear arm, top hand",
+      "l_leg": "stride leg (toward the pitcher)",
+      "r_leg": "rear leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -97,
+      "tilt": 22,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 4,
+      "side": 0,
+      "rot": -9
+    },
+    "head": {
+      "look_at": "pitcher"
+    },
+    "r_arm": {
+      "elev": 67,
+      "plane": 20,
+      "rot": 60,
+      "elbow": 124,
+      "pron": 60,
+      "wrist": -20,
+      "hand": "grip",
+      "reach": {
+        "to": "bat_hand2",
+        "w": 0.4
+      }
+    },
+    "l_arm": {
+      "elev": 60,
+      "plane": 110,
+      "rot": -10,
+      "elbow": 70,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "bat_hand1",
+        "w": 0.4
+      }
+    },
+    "r_leg": {
+      "flex": 50,
+      "abd": 22,
+      "rot": 10,
+      "knee": 55,
+      "ankle": "flat",
+      "reach": {
+        "to": "rear_mark",
+        "point": "ankle",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            35,
+            75
+          ],
+          "flex": [
+            -35,
+            120
+          ],
+          "abd": [
+            -20,
+            60
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 45,
+      "abd": 22,
+      "rot": 15,
+      "knee": 46,
+      "ankle": "flat",
+      "reach": {
+        "to": "lead_mark",
+        "point": "ankle",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            26,
+            66
+          ],
+          "flex": [
+            -35,
+            120
+          ],
+          "abd": [
+            -20,
+            60
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ],
+    "pelvis_z_m": "auto"
+  },
+  "objects": [
+    {
+      "name": "rear_mark",
+      "kind": "point",
+      "at": [
+        -0.42,
+        0.02,
+        0.07137
+      ]
+    },
+    {
+      "name": "lead_mark",
+      "kind": "point",
+      "at": [
+        0.48,
+        0.0,
+        0.07137
+      ]
+    },
+    {
+      "name": "bat",
+      "kind": "bat",
+      "at": "r_shoulder",
+      "offset_m": [
+        0.15,
+        -0.3,
+        -0.15
+      ],
+      "yaw": 200,
+      "pitch": 55,
+      "length_m": 0.85
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "pitcher",
+      "at": [
+        18.0,
+        0.8,
+        1.8
+      ],
+      "text": "Pitcher 18.4 m away toward the direction of play; home plate just in front of the batter's feet."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "pitcher_view",
+      "azimuth": 0,
+      "elevation": 0,
+      "lens_mm": 200,
+      "fill": 0.86,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Broadcast center-field view, telephoto compression, catcher and umpire soft behind."
+    },
+    {
+      "name": "open_side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "From the open side facing the batter's chest, plate in the foreground."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": 150,
+      "height_m": 0.3,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame from behind the catcher's area, stadium lights and field behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "l_knee_flex",
+      "min": 35,
+      "max": 60,
+      "why": "lead knee about 46 deg at stride-foot contact",
+      "src": "OBP-H"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 42,
+      "max": 68,
+      "why": "rear knee about 55 deg",
+      "src": "OBP-H"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "min": 15,
+      "max": 40,
+      "why": "trunk flexed about 27 deg",
+      "src": "OBP-H"
+    },
+    {
+      "m": "hip_shoulder_sep",
+      "min": -25,
+      "max": -5,
+      "why": "shoulders more closed than the hips (about 12-18 deg)",
+      "src": "OBP-H"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 105,
+      "max": 140,
+      "why": "rear elbow about 124 deg",
+      "src": "OBP-H"
+    },
+    {
+      "m": "dist:r_palm:l_palm",
+      "max": 14,
+      "why": "both hands together on the handle",
+      "src": "OBP-H"
+    },
+    {
+      "m": "stride_pct_height",
+      "min": 40,
+      "max": 60,
+      "why": "ankles about 50 % of height apart",
+      "src": "OBP-H"
+    }
+  ],
+  "text": {
+    "action": "a right-handed baseball batter loaded and ready to swing as the stride foot lands",
+    "core": "Side-on to the pitcher, feet about half the body height apart, both knees bent, weight toward the back leg; trunk bent forward over the plate; both hands together on the handle, right hand on top, held high near the rear shoulder; bat angled up and back behind the head; front shoulder closed, chin on the front shoulder.",
+    "gaze": "Both eyes on the pitcher's release point.",
+    "cues": [
+      "shift weight back and coil the trunk",
+      "stride toward the pitcher while the hands stay back",
+      "right hand on top for a right-handed batter"
+    ],
+    "kinetic": [
+      "dust puffing from the landing front foot",
+      "bat still and cocked, tension in the forearms",
+      "helmet reflecting the stadium lights"
+    ],
+    "avoid": [
+      "batter facing the pitcher",
+      "bat passing through the helmet",
+      "hands split apart on the handle",
+      "wrong foot striding",
+      "both feet in the air"
+    ]
+  },
+  "ref_query": "baseball batter stance",
+  "sources": [
+    {
+      "id": "OBP-H",
+      "cite": "Driveline OpenBiomechanics, baseball_hitting (98 hitters, 677 swings): means from the dataset (CC BY-NC-SA 4.0; only summary numbers used here)",
+      "url": "https://github.com/drivelineresearch/openbiomechanics/tree/main/baseball_hitting"
+    },
+    {
+      "id": "WEL95",
+      "cite": "Welch et al. 1995, JOSPT: hitting kinematics (weight shift, stride, sequence)",
+      "url": "https://www.jospt.org/doi/10.2519/jospt.1995.22.5.193"
+    },
+    {
+      "id": "ESC09",
+      "cite": "Escamilla et al. 2009, J Appl Biomech: adult vs youth hitting kinematics",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19827470/"
+    }
+  ]
+}

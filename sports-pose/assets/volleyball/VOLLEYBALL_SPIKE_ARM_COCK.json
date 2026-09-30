@@ -1,0 +1,250 @@
+{
+  "code": "VOLLEYBALL_SPIKE_ARM_COCK",
+  "sport": "volleyball",
+  "technique": "spike",
+  "phase": "arm_cock",
+  "summary": "Right-handed volleyball spike in the air, bow-and-arrow arm cock: hitting elbow high and back, non-hitting arm pointing at the ball, back arched.",
+  "names": {
+    "ko": [
+      "배구 스파이크 백스윙",
+      "스파이크 활시위 자세",
+      "공중 팔 당기기",
+      "스파이크 준비 동작"
+    ],
+    "en": [
+      "volleyball spike arm cock",
+      "bow and arrow",
+      "spike backswing in the air",
+      "attack arm cocking"
+    ]
+  },
+  "keywords": [
+    "volleyball",
+    "spike",
+    "arm cock",
+    "bow and arrow",
+    "airborne",
+    "jump"
+  ],
+  "sequence": {
+    "id": "VOLLEYBALL_SPIKE",
+    "order": 2,
+    "phases": [
+      "VOLLEYBALL_SPIKE_TAKEOFF",
+      "VOLLEYBALL_SPIKE_ARM_COCK",
+      "VOLLEYBALL_SPIKE_CONTACT"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.95,
+    "hand": "right",
+    "roles": {
+      "r_arm": "hitting arm, cocked",
+      "l_arm": "non-hitting arm, pointing at the ball"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -20,
+      "tilt": -5,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -18,
+      "side": 6,
+      "rot": -25
+    },
+    "head": {
+      "look_at": "ball"
+    },
+    "r_arm": {
+      "elev": 105,
+      "plane": -25,
+      "rot": 115,
+      "elbow": 95,
+      "pron": 10,
+      "wrist": -25,
+      "hand": "spread"
+    },
+    "l_arm": {
+      "elev": 132,
+      "plane": 85,
+      "rot": 30,
+      "elbow": 12,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "r_leg": {
+      "flex": 5,
+      "abd": 8,
+      "rot": 5,
+      "knee": 85,
+      "ankle": 35
+    },
+    "l_leg": {
+      "flex": 15,
+      "abd": 6,
+      "rot": 0,
+      "knee": 70,
+      "ankle": 35
+    }
+  },
+  "support": {
+    "airborne_m": 0.5
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.21,
+      "at": "r_shoulder",
+      "offset_m": [
+        0.75,
+        0.05,
+        0.85
+      ],
+      "relate": [
+        "left_fingertip",
+        "forehead"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "net",
+      "x_m": 0.8,
+      "height_m": 2.43,
+      "text": "Net: top tape 2.43 m high, {fwd:net_top:pelvis} cm in front of the hips; the ball is still above and in front of the attacker."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "side_low",
+      "azimuth": -90,
+      "elevation": -15,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Sharp focus on the cocked hitting arm and the arched back."
+    },
+    {
+      "name": "front_three_quarter",
+      "azimuth": -45,
+      "elevation": -12,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Both arms separated clearly: one pointing up at the ball, one drawn back like a bowstring."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 160,
+      "elevation": -10,
+      "lens_mm": 24,
+      "fill": 0.62,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the attacker looking at the net and the blockers."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_arm.rot",
+      "min": 100,
+      "max": 180,
+      "why": "hitting shoulder externally rotated on the way to maximum external rotation (160-180 deg in spikes)",
+      "src": "S1"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 85,
+      "max": 125,
+      "why": "hitting upper arm abducted about 90-120 deg, elbow at or above shoulder height",
+      "src": "S2 (estimate from technique descriptions)"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 75,
+      "max": 115,
+      "why": "hitting elbow bent about 90 deg, hand near the ear",
+      "src": "S2"
+    },
+    {
+      "m": "l_shoulder_elev",
+      "min": 120,
+      "why": "non-hitting arm raised toward the ball",
+      "src": "S3"
+    },
+    {
+      "m": "trunk.flex",
+      "max": -8,
+      "why": "upper back arched before the swing",
+      "src": "S2"
+    },
+    {
+      "m": "hip_shoulder_sep",
+      "max": -10,
+      "why": "hitting shoulder rotated back",
+      "src": "S3"
+    },
+    {
+      "m": "lowest_z",
+      "min": 0.3,
+      "why": "airborne",
+      "src": "S4"
+    }
+  ],
+  "text": {
+    "action": "a volleyball attacker in the air drawing the hitting arm back in a bow-and-arrow position before the spike",
+    "core": "Airborne, feet {lowest_z} m above the floor, knees bent with the shins trailing behind; back arched and hitting shoulder rotated back; right elbow high at shoulder height and bent about 90 degrees, hand beside the ear; left arm straight, pointing up at the ball; chest open toward the ball.",
+    "gaze": "Eyes on the ball above and in front.",
+    "cues": [
+      "non-hitting arm leads and points at the ball",
+      "hitting shoulder rotated back for trunk rotation",
+      "hitting elbow high, hand at ear height"
+    ],
+    "kinetic": [
+      "body at the top of the jump, hair and jersey floating",
+      "slight motion blur on the hitting hand as it cocks back",
+      "chalk-white arena light rim-lighting the arched back"
+    ],
+    "avoid": [
+      "hitting elbow below the shoulder",
+      "non-hitting arm hanging down",
+      "feet touching the floor",
+      "arm bent backwards at the elbow"
+    ]
+  },
+  "ref_query": "volleyball spike jump",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Reeser et al. 2010, Sports Health: maximum external rotation 160-172 deg in spikes and jump serves (search extract)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23015961/"
+    },
+    {
+      "id": "S2",
+      "cite": "Technique descriptions of the bow-and-arrow arm swing, summarised in Giatsis et al. 2022, JSSM",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36157399/"
+    },
+    {
+      "id": "S3",
+      "cite": "FIVB Coaches Manual Level II: left arm leads, right shoulder rotates back",
+      "url": "https://www.fivb.com/wp-content/uploads/2024/03/Coaches_Manual_Level_II_EN.pdf"
+    },
+    {
+      "id": "S4",
+      "cite": "Fuchs et al. 2019, J Sports Sci: elite jump heights 0.37-0.64 m",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/02640414.2019.1639437"
+    }
+  ]
+}

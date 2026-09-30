@@ -1,0 +1,223 @@
+{
+  "code": "BASKETBALL_DUNK",
+  "sport": "basketball",
+  "technique": "dunk",
+  "phase": "above_rim",
+  "summary": "One-hand basketball dunk: airborne with the right arm fully extended, ball above the rim in the right hand, wrist snapping down, left arm out for balance, right knee raised.",
+  "names": {
+    "ko": [
+      "농구 덩크",
+      "원핸드 덩크",
+      "슬램덩크",
+      "림 위 덩크"
+    ],
+    "en": [
+      "basketball dunk",
+      "one-hand slam dunk",
+      "dunk above the rim",
+      "slam"
+    ]
+  },
+  "keywords": [
+    "basketball",
+    "dunk",
+    "slam",
+    "rim",
+    "airborne",
+    "jump"
+  ],
+  "athlete": {
+    "height_m": 1.98,
+    "hand": "right",
+    "roles": {
+      "r_arm": "dunking arm",
+      "l_arm": "balance arm",
+      "r_leg": "knee raised"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 0,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -6,
+      "side": -10,
+      "rot": 10
+    },
+    "head": {
+      "look_at": "rim"
+    },
+    "r_arm": {
+      "elev": 165,
+      "plane": 70,
+      "rot": 40,
+      "elbow": 15,
+      "pron": 60,
+      "wrist": 30,
+      "hand": "ball_hold",
+      "reach": {
+        "to": "ball",
+        "side": [
+          -0.55,
+          0.0,
+          0.84
+        ],
+        "w": 0.3,
+        "range": {
+          "elbow": [
+            0,
+            30
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 70,
+      "plane": 20,
+      "rot": 10,
+      "elbow": 40,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "spread"
+    },
+    "r_leg": {
+      "flex": 70,
+      "abd": 8,
+      "rot": 10,
+      "knee": 95,
+      "ankle": 30
+    },
+    "l_leg": {
+      "flex": 10,
+      "abd": 6,
+      "rot": 5,
+      "knee": 40,
+      "ankle": 40
+    }
+  },
+  "support": {
+    "airborne_m": 1.0
+  },
+  "objects": [
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.24,
+      "at": "rim",
+      "offset_m": [
+        -0.12,
+        0.0,
+        0.18
+      ],
+      "relate": [
+        "rim"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "rim",
+      "x_m": 0.55,
+      "y_m": -0.2,
+      "height_m": 3.05,
+      "text": "Rim 3.05 m high (inner diameter 45 cm, about twice the ball); ball {up:ball:rim} cm above the rim, fingertips {up:r_fingertip:rim} cm above it; backboard behind the rim."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "under_rim",
+      "azimuth": 25,
+      "elevation": -35,
+      "lens_mm": 24,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "From below the rim looking up, backboard and arena lights behind, extreme perspective."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": -5,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Profile: the arm above the rim and the raised knee."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": 140,
+      "elevation": 0,
+      "lens_mm": 28,
+      "fill": 0.62,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide cinematic frame from the key, crowd rising behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "up:r_fingertip:rim",
+      "min": 10,
+      "why": "hand clearly above the rim (dunk contestants reach about 55 cm above it)",
+      "src": "S1"
+    },
+    {
+      "m": "up:ball:rim",
+      "min": 5,
+      "why": "ball above the rim before being thrown down",
+      "src": "S1"
+    },
+    {
+      "m": "r_elbow_flex",
+      "max": 30,
+      "why": "dunking arm extended (estimate from technique descriptions)",
+      "src": "S1"
+    },
+    {
+      "m": "lowest_z",
+      "min": 0.5,
+      "why": "high vertical jump (about 0.8-1.0 m in dunkers)",
+      "src": "S1"
+    }
+  ],
+  "text": {
+    "action": "a basketball player throwing down a one-hand dunk, ball above the rim",
+    "core": "Airborne high above the floor; right arm fully extended overhead, ball palmed in the right hand just above the rim, wrist flexing to push it down through the hoop; left arm out to the side for balance; right knee raised, left leg hanging with toes pointed; trunk slightly arched.",
+    "gaze": "Eyes on the rim.",
+    "cues": [
+      "hand above the rim, fingers spread over the ball",
+      "free arm out for balance",
+      "rim at about 1.6 times the player's height"
+    ],
+    "kinetic": [
+      "net starting to whip upward",
+      "rim flexing under the hand",
+      "camera flashes in the crowd, sweat flying"
+    ],
+    "avoid": [
+      "ball too big or small for the rim",
+      "hand passing through the rim",
+      "rim at the wrong height for the player",
+      "missing net or backboard",
+      "fingers merged with the ball",
+      "both arms mirrored"
+    ]
+  },
+  "ref_query": "basketball dunk",
+  "sources": [
+    {
+      "id": "S1",
+      "cite": "Tong & Wang 2024, PLoS ONE: NBA dunk contest participants, standing reach 258-268 cm, max vertical 95-102 cm",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0299262"
+    }
+  ]
+}

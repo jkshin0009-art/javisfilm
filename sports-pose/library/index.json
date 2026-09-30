@@ -1,0 +1,1009 @@
+{
+ "assets": [
+  {
+   "code": "BASEBALL_BAT_CONTACT",
+   "sport": "baseball",
+   "technique": "swing",
+   "phase": "contact",
+   "summary": "Right-handed batter at bat-ball contact: hips and shoulders square to the pitcher, front leg firm, back shoulder low, rear elbow tucked, barrel about 30 degrees below the hands meeting the ball.",
+   "names": {
+    "ko": [
+     "야구 타격 임팩트",
+     "배트 공 맞는 순간",
+     "타격 순간",
+     "스윙 임팩트"
+    ],
+    "en": [
+     "baseball bat contact",
+     "hitting impact",
+     "bat on ball",
+     "swing contact"
+    ]
+   },
+   "keywords": [
+    "baseball",
+    "batting",
+    "hitting",
+    "contact",
+    "swing",
+    "impact"
+   ],
+   "sequence": {
+    "id": "BASEBALL_SWING",
+    "phases": [
+     "BASEBALL_BAT_LOAD",
+     "BASEBALL_BAT_CONTACT"
+    ],
+    "order": 2
+   },
+   "prompt_md": "baseball/BASEBALL_BAT_CONTACT/prompt.md",
+   "openpose": [
+    "baseball/BASEBALL_BAT_CONTACT/openpose_pitcher_view.png",
+    "baseball/BASEBALL_BAT_CONTACT/openpose_open_side.png",
+    "baseball/BASEBALL_BAT_CONTACT/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "pitcher_view",
+    "open_side",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BASEBALL_BAT_LOAD",
+   "sport": "baseball",
+   "technique": "swing",
+   "phase": "load",
+   "summary": "Right-handed batter loaded at stride-foot contact: side-on to the pitcher, weight back, hands high by the rear shoulder, bat angled up behind the head.",
+   "names": {
+    "ko": [
+     "야구 타격 준비",
+     "타격 로드",
+     "스트라이드 착지 타자",
+     "타자 테이크백"
+    ],
+    "en": [
+     "baseball batting load",
+     "hitter stride foot down",
+     "batter loaded",
+     "swing load"
+    ]
+   },
+   "keywords": [
+    "baseball",
+    "batting",
+    "hitting",
+    "load",
+    "stride",
+    "swing"
+   ],
+   "sequence": {
+    "id": "BASEBALL_SWING",
+    "phases": [
+     "BASEBALL_BAT_LOAD",
+     "BASEBALL_BAT_CONTACT"
+    ],
+    "order": 1
+   },
+   "prompt_md": "baseball/BASEBALL_BAT_LOAD/prompt.md",
+   "openpose": [
+    "baseball/BASEBALL_BAT_LOAD/openpose_pitcher_view.png",
+    "baseball/BASEBALL_BAT_LOAD/openpose_open_side.png",
+    "baseball/BASEBALL_BAT_LOAD/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "pitcher_view",
+    "open_side",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BASEBALL_PITCH_FOOT_CONTACT",
+   "sport": "baseball",
+   "technique": "pitch",
+   "phase": "foot_contact",
+   "summary": "Right-handed baseball pitcher at stride-foot contact: long stride landing slightly closed, hips opening while the shoulders stay closed, throwing arm up in the 90/90 position, glove arm pointing at the plate.",
+   "names": {
+    "ko": [
+     "야구 투구 착지",
+     "스트라이드 착지",
+     "투수 90/90 자세",
+     "코킹 자세"
+    ],
+    "en": [
+     "baseball pitch foot contact",
+     "stride foot plant",
+     "90/90 arm position",
+     "arm cocking"
+    ]
+   },
+   "keywords": [
+    "baseball",
+    "pitching",
+    "stride",
+    "foot contact",
+    "90/90",
+    "arm cocking"
+   ],
+   "sequence": {
+    "id": "BASEBALL_PITCH",
+    "phases": [
+     "BASEBALL_PITCH_LEG_LIFT",
+     "BASEBALL_PITCH_FOOT_CONTACT",
+     "BASEBALL_PITCH_MER",
+     "BASEBALL_PITCH_RELEASE"
+    ],
+    "order": 2
+   },
+   "prompt_md": "baseball/BASEBALL_PITCH_FOOT_CONTACT/prompt.md",
+   "openpose": [
+    "baseball/BASEBALL_PITCH_FOOT_CONTACT/openpose_catcher_view.png",
+    "baseball/BASEBALL_PITCH_FOOT_CONTACT/openpose_first_base_side.png",
+    "baseball/BASEBALL_PITCH_FOOT_CONTACT/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "catcher_view",
+    "first_base_side",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BASEBALL_PITCH_LEG_LIFT",
+   "sport": "baseball",
+   "technique": "pitch",
+   "phase": "leg_lift",
+   "summary": "Right-handed baseball pitcher at the balance point: standing on the right leg on the rubber, left knee lifted above hip height, hands together at the chest, body turned away from the plate.",
+   "names": {
+    "ko": [
+     "야구 투구 레그킥",
+     "투수 다리 들기",
+     "밸런스 포인트",
+     "와인드업 정점"
+    ],
+    "en": [
+     "baseball pitch leg lift",
+     "balance point",
+     "pitcher knee lift",
+     "windup peak"
+    ]
+   },
+   "keywords": [
+    "baseball",
+    "pitching",
+    "windup",
+    "leg lift",
+    "balance point",
+    "pitcher"
+   ],
+   "sequence": {
+    "id": "BASEBALL_PITCH",
+    "phases": [
+     "BASEBALL_PITCH_LEG_LIFT",
+     "BASEBALL_PITCH_FOOT_CONTACT",
+     "BASEBALL_PITCH_MER",
+     "BASEBALL_PITCH_RELEASE"
+    ],
+    "order": 1
+   },
+   "prompt_md": "baseball/BASEBALL_PITCH_LEG_LIFT/prompt.md",
+   "openpose": [
+    "baseball/BASEBALL_PITCH_LEG_LIFT/openpose_catcher_view.png",
+    "baseball/BASEBALL_PITCH_LEG_LIFT/openpose_first_base_side.png",
+    "baseball/BASEBALL_PITCH_LEG_LIFT/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "catcher_view",
+    "first_base_side",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BASEBALL_PITCH_MER",
+   "sport": "baseball",
+   "technique": "pitch",
+   "phase": "max_external_rotation",
+   "summary": "Right-handed baseball pitcher at maximum shoulder external rotation: chest square to the plate, throwing forearm laid back behind the head with the elbow at 90 degrees, front leg braced, trunk tilting to the glove side.",
+   "names": {
+    "ko": [
+     "야구 투구 최대 외회전",
+     "레이백",
+     "팔 뒤로 젖힘",
+     "투구 가속 직전"
+    ],
+    "en": [
+     "baseball pitch max external rotation",
+     "layback",
+     "MER",
+     "arm lay back"
+    ]
+   },
+   "keywords": [
+    "baseball",
+    "pitching",
+    "layback",
+    "external rotation",
+    "MER",
+    "arm acceleration"
+   ],
+   "sequence": {
+    "id": "BASEBALL_PITCH",
+    "phases": [
+     "BASEBALL_PITCH_LEG_LIFT",
+     "BASEBALL_PITCH_FOOT_CONTACT",
+     "BASEBALL_PITCH_MER",
+     "BASEBALL_PITCH_RELEASE"
+    ],
+    "order": 3
+   },
+   "prompt_md": "baseball/BASEBALL_PITCH_MER/prompt.md",
+   "openpose": [
+    "baseball/BASEBALL_PITCH_MER/openpose_catcher_view.png",
+    "baseball/BASEBALL_PITCH_MER/openpose_first_base_side.png",
+    "baseball/BASEBALL_PITCH_MER/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "catcher_view",
+    "first_base_side",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BASEBALL_PITCH_RELEASE",
+   "sport": "baseball",
+   "technique": "pitch",
+   "phase": "release",
+   "summary": "Right-handed baseball pitcher at ball release: trunk flexed forward and tilted to the glove side, throwing arm almost straight out in front of the stride foot, front knee firm, back foot dragging.",
+   "names": {
+    "ko": [
+     "야구 투구 릴리스",
+     "공 놓는 순간",
+     "투구 릴리스 포인트",
+     "강속구 투구"
+    ],
+    "en": [
+     "baseball pitch release",
+     "ball release",
+     "release point",
+     "fastball release"
+    ]
+   },
+   "keywords": [
+    "baseball",
+    "pitching",
+    "release",
+    "fastball",
+    "follow-through"
+   ],
+   "sequence": {
+    "id": "BASEBALL_PITCH",
+    "phases": [
+     "BASEBALL_PITCH_LEG_LIFT",
+     "BASEBALL_PITCH_FOOT_CONTACT",
+     "BASEBALL_PITCH_MER",
+     "BASEBALL_PITCH_RELEASE"
+    ],
+    "order": 4
+   },
+   "prompt_md": "baseball/BASEBALL_PITCH_RELEASE/prompt.md",
+   "openpose": [
+    "baseball/BASEBALL_PITCH_RELEASE/openpose_catcher_view.png",
+    "baseball/BASEBALL_PITCH_RELEASE/openpose_first_base_side.png",
+    "baseball/BASEBALL_PITCH_RELEASE/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "catcher_view",
+    "first_base_side",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "BASKETBALL_DEFENSIVE_STANCE",
+   "sport": "basketball",
+   "technique": "defense",
+   "phase": "stance",
+   "summary": "Basketball on-ball defensive stance: feet wider than the shoulders and flat, knees bent, hips back, one hand low toward the ball, the other up at shoulder height.",
+   "names": {
+    "ko": [
+     "농구 수비 자세",
+     "디펜스 스탠스",
+     "대인 수비 자세",
+     "낮은 수비 자세"
+    ],
+    "en": [
+     "basketball defensive stance",
+     "on-ball defense",
+     "defensive slide stance",
+     "guarding the dribbler"
+    ]
+   },
+   "keywords": [
+    "basketball",
+    "defense",
+    "stance",
+    "guarding",
+    "slide"
+   ],
+   "sequence": null,
+   "prompt_md": "basketball/BASKETBALL_DEFENSIVE_STANCE/prompt.md",
+   "openpose": [
+    "basketball/BASKETBALL_DEFENSIVE_STANCE/openpose_front.png",
+    "basketball/BASKETBALL_DEFENSIVE_STANCE/openpose_side.png",
+    "basketball/BASKETBALL_DEFENSIVE_STANCE/openpose_low_wide.png"
+   ],
+   "cameras": [
+    "front",
+    "side",
+    "low_wide"
+   ]
+  },
+  {
+   "code": "BASKETBALL_DUNK",
+   "sport": "basketball",
+   "technique": "dunk",
+   "phase": "above_rim",
+   "summary": "One-hand basketball dunk: airborne with the right arm fully extended, ball above the rim in the right hand, wrist snapping down, left arm out for balance, right knee raised.",
+   "names": {
+    "ko": [
+     "농구 덩크",
+     "원핸드 덩크",
+     "슬램덩크",
+     "림 위 덩크"
+    ],
+    "en": [
+     "basketball dunk",
+     "one-hand slam dunk",
+     "dunk above the rim",
+     "slam"
+    ]
+   },
+   "keywords": [
+    "basketball",
+    "dunk",
+    "slam",
+    "rim",
+    "airborne",
+    "jump"
+   ],
+   "sequence": null,
+   "prompt_md": "basketball/BASKETBALL_DUNK/prompt.md",
+   "openpose": [
+    "basketball/BASKETBALL_DUNK/openpose_under_rim.png",
+    "basketball/BASKETBALL_DUNK/openpose_side.png",
+    "basketball/BASKETBALL_DUNK/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "under_rim",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "BASKETBALL_JUMP_SHOT_RELEASE",
+   "sport": "basketball",
+   "technique": "jump_shot",
+   "phase": "release",
+   "summary": "Right-handed basketball jump shot at release: airborne near the top of the jump, shooting arm extended high toward the rim, wrist snapped down in a gooseneck follow-through, guide hand up at the side.",
+   "names": {
+    "ko": [
+     "농구 점프슛 릴리스",
+     "슛 팔로스루",
+     "슛 쏘는 순간",
+     "구스넥 팔로스루"
+    ],
+    "en": [
+     "basketball jump shot release",
+     "shot follow-through",
+     "gooseneck",
+     "jumper release"
+    ]
+   },
+   "keywords": [
+    "basketball",
+    "jump shot",
+    "release",
+    "follow-through",
+    "airborne"
+   ],
+   "sequence": {
+    "id": "BASKETBALL_JUMP_SHOT",
+    "order": 2,
+    "phases": [
+     "BASKETBALL_JUMP_SHOT_SET",
+     "BASKETBALL_JUMP_SHOT_RELEASE"
+    ]
+   },
+   "prompt_md": "basketball/BASKETBALL_JUMP_SHOT_RELEASE/prompt.md",
+   "openpose": [
+    "basketball/BASKETBALL_JUMP_SHOT_RELEASE/openpose_front_low.png",
+    "basketball/BASKETBALL_JUMP_SHOT_RELEASE/openpose_side.png",
+    "basketball/BASKETBALL_JUMP_SHOT_RELEASE/openpose_baseline_wide.png"
+   ],
+   "cameras": [
+    "front_low",
+    "side",
+    "baseline_wide"
+   ]
+  },
+  {
+   "code": "BASKETBALL_JUMP_SHOT_SET",
+   "sport": "basketball",
+   "technique": "jump_shot",
+   "phase": "set",
+   "summary": "Right-handed basketball jump shot at the set point: knees bent, ball set above the right eye, shooting elbow under the ball, guide hand on the side, eyes on the rim.",
+   "names": {
+    "ko": [
+     "농구 점프슛 셋",
+     "슛 준비 자세",
+     "슈팅 셋 포인트",
+     "점프슛 준비"
+    ],
+    "en": [
+     "basketball jump shot set",
+     "shot set point",
+     "shooting pocket",
+     "jumper wind-up"
+    ]
+   },
+   "keywords": [
+    "basketball",
+    "jump shot",
+    "shooting",
+    "set point",
+    "BEEF"
+   ],
+   "sequence": {
+    "id": "BASKETBALL_JUMP_SHOT",
+    "order": 1,
+    "phases": [
+     "BASKETBALL_JUMP_SHOT_SET",
+     "BASKETBALL_JUMP_SHOT_RELEASE"
+    ]
+   },
+   "prompt_md": "basketball/BASKETBALL_JUMP_SHOT_SET/prompt.md",
+   "openpose": [
+    "basketball/BASKETBALL_JUMP_SHOT_SET/openpose_front.png",
+    "basketball/BASKETBALL_JUMP_SHOT_SET/openpose_side.png",
+    "basketball/BASKETBALL_JUMP_SHOT_SET/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "front",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "BASKETBALL_LAYUP_TAKEOFF",
+   "sport": "basketball",
+   "technique": "layup",
+   "phase": "takeoff",
+   "summary": "Right-handed basketball layup at takeoff: pushing off the left foot, right knee driven up to hip height, ball carried in both hands up past the right shoulder.",
+   "names": {
+    "ko": [
+     "농구 레이업 도약",
+     "레이업 점프",
+     "레이업 슛",
+     "원스텝 레이업"
+    ],
+    "en": [
+     "basketball layup takeoff",
+     "layup jump",
+     "right-handed layup",
+     "drive to the basket"
+    ]
+   },
+   "keywords": [
+    "basketball",
+    "layup",
+    "takeoff",
+    "drive",
+    "one-foot jump"
+   ],
+   "sequence": null,
+   "prompt_md": "basketball/BASKETBALL_LAYUP_TAKEOFF/prompt.md",
+   "openpose": [
+    "basketball/BASKETBALL_LAYUP_TAKEOFF/openpose_baseline_low.png",
+    "basketball/BASKETBALL_LAYUP_TAKEOFF/openpose_side.png",
+    "basketball/BASKETBALL_LAYUP_TAKEOFF/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "baseline_low",
+    "side",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "SOCCER_GOALKEEPER_DIVE",
+   "sport": "soccer",
+   "technique": "goalkeeper_dive",
+   "phase": "catch",
+   "summary": "Soccer goalkeeper diving to the right at full stretch: body horizontal and side-on to the shooter, both arms reaching past the head, hands spread on the ball.",
+   "names": {
+    "ko": [
+     "골키퍼 다이빙",
+     "골키퍼 선방",
+     "다이빙 세이브",
+     "키퍼 몸 날리기"
+    ],
+    "en": [
+     "goalkeeper dive",
+     "diving save",
+     "full-stretch save",
+     "keeper dive to the right"
+    ]
+   },
+   "keywords": [
+    "soccer",
+    "football",
+    "goalkeeper",
+    "keeper",
+    "dive",
+    "save",
+    "airborne"
+   ],
+   "sequence": null,
+   "prompt_md": "soccer/SOCCER_GOALKEEPER_DIVE/prompt.md",
+   "openpose": [
+    "soccer/SOCCER_GOALKEEPER_DIVE/openpose_shooter_view.png",
+    "soccer/SOCCER_GOALKEEPER_DIVE/openpose_behind_goal.png",
+    "soccer/SOCCER_GOALKEEPER_DIVE/openpose_low_side.png"
+   ],
+   "cameras": [
+    "shooter_view",
+    "behind_goal",
+    "low_side"
+   ]
+  },
+  {
+   "code": "SOCCER_INSTEP_KICK_BACKSWING",
+   "sport": "soccer",
+   "technique": "instep_kick",
+   "phase": "backswing",
+   "summary": "Right-footed soccer instep kick at support-foot plant: left foot planted beside the ball, kicking hip extended and knee folded behind, left arm out wide.",
+   "names": {
+    "ko": [
+     "축구 인스텝 킥 백스윙",
+     "슈팅 디딤발",
+     "강슛 준비 동작",
+     "축구 킥 테이크백"
+    ],
+    "en": [
+     "soccer instep kick backswing",
+     "shot plant foot",
+     "kicking leg cocked",
+     "power shot wind-up"
+    ]
+   },
+   "keywords": [
+    "soccer",
+    "football",
+    "kick",
+    "shot",
+    "instep",
+    "backswing",
+    "plant foot"
+   ],
+   "sequence": {
+    "id": "SOCCER_INSTEP_KICK",
+    "order": 1,
+    "phases": [
+     "SOCCER_INSTEP_KICK_BACKSWING",
+     "SOCCER_INSTEP_KICK_CONTACT"
+    ]
+   },
+   "prompt_md": "soccer/SOCCER_INSTEP_KICK_BACKSWING/prompt.md",
+   "openpose": [
+    "soccer/SOCCER_INSTEP_KICK_BACKSWING/openpose_side_low.png",
+    "soccer/SOCCER_INSTEP_KICK_BACKSWING/openpose_front_three_quarter.png",
+    "soccer/SOCCER_INSTEP_KICK_BACKSWING/openpose_ground_wide.png"
+   ],
+   "cameras": [
+    "side_low",
+    "front_three_quarter",
+    "ground_wide"
+   ]
+  },
+  {
+   "code": "SOCCER_INSTEP_KICK_CONTACT",
+   "sport": "soccer",
+   "technique": "instep_kick",
+   "phase": "contact",
+   "summary": "Right-footed soccer instep kick at ball contact: laces strike the ball centre, toes pointed and ankle locked, support knee bent, body over the ball.",
+   "names": {
+    "ko": [
+     "축구 인스텝 킥 임팩트",
+     "슈팅 순간",
+     "발등 슛",
+     "강슛 임팩트"
+    ],
+    "en": [
+     "soccer instep kick contact",
+     "shot impact",
+     "laces strike",
+     "power shot contact"
+    ]
+   },
+   "keywords": [
+    "soccer",
+    "football",
+    "kick",
+    "shot",
+    "instep",
+    "laces",
+    "impact"
+   ],
+   "sequence": {
+    "id": "SOCCER_INSTEP_KICK",
+    "order": 2,
+    "phases": [
+     "SOCCER_INSTEP_KICK_BACKSWING",
+     "SOCCER_INSTEP_KICK_CONTACT"
+    ]
+   },
+   "prompt_md": "soccer/SOCCER_INSTEP_KICK_CONTACT/prompt.md",
+   "openpose": [
+    "soccer/SOCCER_INSTEP_KICK_CONTACT/openpose_side_low.png",
+    "soccer/SOCCER_INSTEP_KICK_CONTACT/openpose_goal_view.png",
+    "soccer/SOCCER_INSTEP_KICK_CONTACT/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "side_low",
+    "goal_view",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "SOCCER_JUMPING_HEADER",
+   "sport": "soccer",
+   "technique": "header",
+   "phase": "contact",
+   "summary": "Soccer jumping header at contact: airborne after a one-foot takeoff, ball on the forehead, trunk snapping forward, elbows out for balance.",
+   "names": {
+    "ko": [
+     "축구 점프 헤딩",
+     "헤더",
+     "공중볼 헤딩",
+     "헤딩슛"
+    ],
+    "en": [
+     "soccer jumping header",
+     "header",
+     "aerial duel header",
+     "headed goal"
+    ]
+   },
+   "keywords": [
+    "soccer",
+    "football",
+    "header",
+    "heading",
+    "jump",
+    "aerial"
+   ],
+   "sequence": null,
+   "prompt_md": "soccer/SOCCER_JUMPING_HEADER/prompt.md",
+   "openpose": [
+    "soccer/SOCCER_JUMPING_HEADER/openpose_side_low.png",
+    "soccer/SOCCER_JUMPING_HEADER/openpose_front_low.png",
+    "soccer/SOCCER_JUMPING_HEADER/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "side_low",
+    "front_low",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "SOCCER_SIDE_VOLLEY",
+   "sport": "soccer",
+   "technique": "side_volley",
+   "phase": "contact",
+   "summary": "Right-footed soccer side volley at contact: kicking leg swung round near horizontal at hip height, trunk leaning far away from the ball, both arms raised for balance.",
+   "names": {
+    "ko": [
+     "축구 사이드 발리",
+     "발리슛",
+     "논스톱 발리",
+     "옆으로 누운 발리"
+    ],
+    "en": [
+     "soccer side volley",
+     "volley shot",
+     "first-time volley",
+     "side-on volley"
+    ]
+   },
+   "keywords": [
+    "soccer",
+    "football",
+    "volley",
+    "shot",
+    "airborne ball",
+    "side volley"
+   ],
+   "sequence": null,
+   "prompt_md": "soccer/SOCCER_SIDE_VOLLEY/prompt.md",
+   "openpose": [
+    "soccer/SOCCER_SIDE_VOLLEY/openpose_front.png",
+    "soccer/SOCCER_SIDE_VOLLEY/openpose_low_three_quarter.png",
+    "soccer/SOCCER_SIDE_VOLLEY/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "front",
+    "low_three_quarter",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "VOLLEYBALL_BLOCK",
+   "sport": "volleyball",
+   "technique": "block",
+   "phase": "peak",
+   "summary": "Volleyball block at the top of the jump: both arms straight and reaching over the net into the opponent's court, hands wide open, shoulders parallel to the net.",
+   "names": {
+    "ko": [
+     "배구 블로킹",
+     "블록 점프",
+     "네트 위 손 뻗기",
+     "블로커"
+    ],
+    "en": [
+     "volleyball block",
+     "blocking jump",
+     "hands over the net",
+     "blocker"
+    ]
+   },
+   "keywords": [
+    "volleyball",
+    "block",
+    "net",
+    "jump",
+    "penetration",
+    "defense"
+   ],
+   "sequence": null,
+   "prompt_md": "volleyball/VOLLEYBALL_BLOCK/prompt.md",
+   "openpose": [
+    "volleyball/VOLLEYBALL_BLOCK/openpose_attacker_view.png",
+    "volleyball/VOLLEYBALL_BLOCK/openpose_net_profile.png",
+    "volleyball/VOLLEYBALL_BLOCK/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "attacker_view",
+    "net_profile",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "VOLLEYBALL_FOREARM_PASS",
+   "sport": "volleyball",
+   "technique": "forearm_pass",
+   "phase": "contact",
+   "summary": "Volleyball forearm pass (bump / serve receive) at contact: wide stance, knees bent, straight arms joined into a flat platform, ball on the forearms just above the wrists.",
+   "names": {
+    "ko": [
+     "배구 리시브",
+     "언더핸드 패스",
+     "배구 범프",
+     "서브 리시브",
+     "리시브 자세"
+    ],
+    "en": [
+     "volleyball forearm pass",
+     "bump pass",
+     "serve receive",
+     "dig platform",
+     "underhand pass"
+    ]
+   },
+   "keywords": [
+    "volleyball",
+    "pass",
+    "bump",
+    "receive",
+    "platform",
+    "defense"
+   ],
+   "sequence": null,
+   "prompt_md": "volleyball/VOLLEYBALL_FOREARM_PASS/prompt.md",
+   "openpose": [
+    "volleyball/VOLLEYBALL_FOREARM_PASS/openpose_front_low.png",
+    "volleyball/VOLLEYBALL_FOREARM_PASS/openpose_side.png",
+    "volleyball/VOLLEYBALL_FOREARM_PASS/openpose_three_quarter_high.png"
+   ],
+   "cameras": [
+    "front_low",
+    "side",
+    "three_quarter_high"
+   ]
+  },
+  {
+   "code": "VOLLEYBALL_OVERHEAD_SET",
+   "sport": "volleyball",
+   "technique": "overhead_set",
+   "phase": "contact",
+   "summary": "Volleyball overhead set (setter's pass) at contact: ball just above and in front of the forehead, both hands shaped around it with the thumbs toward the eyes.",
+   "names": {
+    "ko": [
+     "배구 토스",
+     "오버핸드 패스",
+     "세터 토스",
+     "배구 세트"
+    ],
+    "en": [
+     "volleyball set",
+     "overhead pass",
+     "setter hands",
+     "front set"
+    ]
+   },
+   "keywords": [
+    "volleyball",
+    "set",
+    "setter",
+    "overhead",
+    "pass",
+    "hands"
+   ],
+   "sequence": null,
+   "prompt_md": "volleyball/VOLLEYBALL_OVERHEAD_SET/prompt.md",
+   "openpose": [
+    "volleyball/VOLLEYBALL_OVERHEAD_SET/openpose_front.png",
+    "volleyball/VOLLEYBALL_OVERHEAD_SET/openpose_side.png",
+    "volleyball/VOLLEYBALL_OVERHEAD_SET/openpose_low_three_quarter.png"
+   ],
+   "cameras": [
+    "front",
+    "side",
+    "low_three_quarter"
+   ]
+  },
+  {
+   "code": "VOLLEYBALL_SPIKE_ARM_COCK",
+   "sport": "volleyball",
+   "technique": "spike",
+   "phase": "arm_cock",
+   "summary": "Right-handed volleyball spike in the air, bow-and-arrow arm cock: hitting elbow high and back, non-hitting arm pointing at the ball, back arched.",
+   "names": {
+    "ko": [
+     "배구 스파이크 백스윙",
+     "스파이크 활시위 자세",
+     "공중 팔 당기기",
+     "스파이크 준비 동작"
+    ],
+    "en": [
+     "volleyball spike arm cock",
+     "bow and arrow",
+     "spike backswing in the air",
+     "attack arm cocking"
+    ]
+   },
+   "keywords": [
+    "volleyball",
+    "spike",
+    "arm cock",
+    "bow and arrow",
+    "airborne",
+    "jump"
+   ],
+   "sequence": {
+    "id": "VOLLEYBALL_SPIKE",
+    "order": 2,
+    "phases": [
+     "VOLLEYBALL_SPIKE_TAKEOFF",
+     "VOLLEYBALL_SPIKE_ARM_COCK",
+     "VOLLEYBALL_SPIKE_CONTACT"
+    ]
+   },
+   "prompt_md": "volleyball/VOLLEYBALL_SPIKE_ARM_COCK/prompt.md",
+   "openpose": [
+    "volleyball/VOLLEYBALL_SPIKE_ARM_COCK/openpose_side_low.png",
+    "volleyball/VOLLEYBALL_SPIKE_ARM_COCK/openpose_front_three_quarter.png",
+    "volleyball/VOLLEYBALL_SPIKE_ARM_COCK/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "side_low",
+    "front_three_quarter",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "VOLLEYBALL_SPIKE_CONTACT",
+   "sport": "volleyball",
+   "technique": "spike",
+   "phase": "contact",
+   "summary": "Right-handed volleyball spike at ball contact: airborne, straight hitting arm high in front of the hitting shoulder.",
+   "names": {
+    "ko": [
+     "배구 스파이크 타점",
+     "스파이크 임팩트",
+     "공격 타구 순간",
+     "배구 공격"
+    ],
+    "en": [
+     "volleyball spike contact",
+     "attack hit",
+     "spike impact",
+     "volleyball attack"
+    ]
+   },
+   "keywords": [
+    "volleyball",
+    "spike",
+    "attack",
+    "jump",
+    "hit",
+    "net"
+   ],
+   "sequence": {
+    "id": "VOLLEYBALL_SPIKE",
+    "order": 4,
+    "phases": [
+     "VOLLEYBALL_SPIKE_TAKEOFF",
+     "VOLLEYBALL_SPIKE_ARM_COCK",
+     "VOLLEYBALL_SPIKE_CONTACT"
+    ]
+   },
+   "prompt_md": "volleyball/VOLLEYBALL_SPIKE_CONTACT/prompt.md",
+   "openpose": [
+    "volleyball/VOLLEYBALL_SPIKE_CONTACT/openpose_low_three_quarter.png",
+    "volleyball/VOLLEYBALL_SPIKE_CONTACT/openpose_across_net.png",
+    "volleyball/VOLLEYBALL_SPIKE_CONTACT/openpose_wide_side.png"
+   ],
+   "cameras": [
+    "low_three_quarter",
+    "across_net",
+    "wide_side"
+   ]
+  },
+  {
+   "code": "VOLLEYBALL_SPIKE_TAKEOFF",
+   "sport": "volleyball",
+   "technique": "spike",
+   "phase": "takeoff",
+   "summary": "Right-handed volleyball spike, final plant of the approach: both feet planted, knees deeply bent, both arms swung far back, just before the jump.",
+   "names": {
+    "ko": [
+     "배구 스파이크 도약",
+     "스파이크 발구름",
+     "스파이크 어프로치 마지막 스텝",
+     "점프 직전 팔 뒤로 젖히기"
+    ],
+    "en": [
+     "volleyball spike takeoff",
+     "spike approach plant",
+     "attack approach final step",
+     "arm backswing before jump"
+    ]
+   },
+   "keywords": [
+    "volleyball",
+    "spike",
+    "approach",
+    "plant",
+    "takeoff",
+    "jump",
+    "arm swing"
+   ],
+   "sequence": {
+    "id": "VOLLEYBALL_SPIKE",
+    "order": 1,
+    "phases": [
+     "VOLLEYBALL_SPIKE_TAKEOFF",
+     "VOLLEYBALL_SPIKE_ARM_COCK",
+     "VOLLEYBALL_SPIKE_CONTACT"
+    ]
+   },
+   "prompt_md": "volleyball/VOLLEYBALL_SPIKE_TAKEOFF/prompt.md",
+   "openpose": [
+    "volleyball/VOLLEYBALL_SPIKE_TAKEOFF/openpose_side_low.png",
+    "volleyball/VOLLEYBALL_SPIKE_TAKEOFF/openpose_front_three_quarter.png",
+    "volleyball/VOLLEYBALL_SPIKE_TAKEOFF/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "side_low",
+    "front_three_quarter",
+    "wide_cinema"
+   ]
+  }
+ ]
+}

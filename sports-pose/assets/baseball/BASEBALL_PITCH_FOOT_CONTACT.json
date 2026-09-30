@@ -1,0 +1,333 @@
+{
+  "code": "BASEBALL_PITCH_FOOT_CONTACT",
+  "sport": "baseball",
+  "technique": "pitch",
+  "phase": "foot_contact",
+  "summary": "Right-handed baseball pitcher at stride-foot contact: long stride landing slightly closed, hips opening while the shoulders stay closed, throwing arm up in the 90/90 position, glove arm pointing at the plate.",
+  "names": {
+    "ko": [
+      "야구 투구 착지",
+      "스트라이드 착지",
+      "투수 90/90 자세",
+      "코킹 자세"
+    ],
+    "en": [
+      "baseball pitch foot contact",
+      "stride foot plant",
+      "90/90 arm position",
+      "arm cocking"
+    ]
+  },
+  "keywords": [
+    "baseball",
+    "pitching",
+    "stride",
+    "foot contact",
+    "90/90",
+    "arm cocking"
+  ],
+  "sequence": {
+    "id": "BASEBALL_PITCH",
+    "phases": [
+      "BASEBALL_PITCH_LEG_LIFT",
+      "BASEBALL_PITCH_FOOT_CONTACT",
+      "BASEBALL_PITCH_MER",
+      "BASEBALL_PITCH_RELEASE"
+    ],
+    "order": 2
+  },
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "r_arm": "throwing arm",
+      "l_arm": "glove arm",
+      "r_leg": "pivot leg on the rubber",
+      "l_leg": "stride leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -65,
+      "tilt": 10,
+      "side": 0
+    },
+    "trunk": {
+      "flex": -8,
+      "side": 8,
+      "rot": -30
+    },
+    "head": {
+      "look_at": "plate"
+    },
+    "r_arm": {
+      "elev": 90,
+      "plane": -25,
+      "rot": 70,
+      "elbow": 95,
+      "pron": 20,
+      "wrist": -20,
+      "hand": "grip"
+    },
+    "l_arm": {
+      "elev": 85,
+      "plane": 35,
+      "rot": -20,
+      "elbow": 35,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "cupped"
+    },
+    "r_leg": {
+      "flex": 5,
+      "abd": 25,
+      "rot": 20,
+      "knee": 48,
+      "ankle": 20,
+      "reach": {
+        "to": "rear_mark",
+        "point": "ball",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            33,
+            63
+          ],
+          "flex": [
+            -35,
+            60
+          ],
+          "abd": [
+            -25,
+            65
+          ],
+          "ankle": [
+            -25,
+            60
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 60,
+      "abd": 10,
+      "rot": 0,
+      "knee": 52,
+      "ankle": "flat",
+      "reach": {
+        "to": "lead_mark",
+        "point": "ankle",
+        "fix": [],
+        "w": 0.5,
+        "range": {
+          "knee": [
+            43,
+            64
+          ],
+          "flex": [
+            10,
+            120
+          ],
+          "abd": [
+            -25,
+            65
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "r_foot",
+      "l_foot"
+    ],
+    "pelvis_z_m": "auto",
+    "root_xy": [
+      0.84,
+      -0.02
+    ]
+  },
+  "objects": [
+    {
+      "name": "rear_mark",
+      "kind": "point",
+      "at": [
+        0.08,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "lead_mark",
+      "kind": "point",
+      "at": [
+        1.48,
+        -0.16,
+        -0.039
+      ]
+    },
+    {
+      "name": "ball",
+      "kind": "ball",
+      "diameter_m": 0.074,
+      "touch": "r_palm",
+      "relate": [
+        "right_palm",
+        "r_shoulder"
+      ]
+    }
+  ],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "plate",
+      "at": [
+        18.44,
+        0,
+        0
+      ],
+      "text": "Pitching from a mound 25 cm high; home plate 18.44 m ahead along the direction of play (the floor here is drawn flat)."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "catcher_view",
+      "azimuth": 0,
+      "elevation": 2,
+      "lens_mm": 200,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Broadcast view from behind the plate, long telephoto compression, sharp focus on the pitcher."
+    },
+    {
+      "name": "first_base_side",
+      "azimuth": 90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Side view from the first-base side: stride and arm path read clearly."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": 35,
+      "height_m": 0.4,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide cinematic frame from the grass in front of the mound, stadium lights behind."
+    }
+  ],
+  "rules": [
+    {
+      "m": "stride_pct_height",
+      "min": 70,
+      "max": 92,
+      "why": "stride about 83 % of height (ankle to ankle 150 +/- 15 cm); the model allows 1.5 SD below the mean",
+      "src": "ISBS10, OBP-P"
+    },
+    {
+      "m": "r_shoulder_elev",
+      "min": 80,
+      "max": 105,
+      "why": "throwing shoulder abducted about 90 deg",
+      "src": "ISBS10, OBP-P"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 80,
+      "max": 115,
+      "why": "elbow flexed about 90-100 deg",
+      "src": "ISBS10, OBP-P"
+    },
+    {
+      "m": "r_arm.rot",
+      "min": 25,
+      "max": 80,
+      "why": "external rotation about 30-56 deg at foot contact",
+      "src": "ISBS10, OBP-P"
+    },
+    {
+      "m": "l_knee_flex",
+      "min": 40,
+      "max": 62,
+      "why": "lead knee about 45-52 deg",
+      "src": "ISBS10, OBP-P"
+    },
+    {
+      "m": "hip_shoulder_sep",
+      "max": -20,
+      "why": "hips open ahead of the closed shoulders (separation about 30 deg)",
+      "src": "OBP-P"
+    },
+    {
+      "m": "l_foot_z",
+      "max": 0.03,
+      "why": "stride foot planted",
+      "src": "CG19"
+    }
+  ],
+  "text": {
+    "action": "a right-handed baseball pitcher landing the stride foot with the throwing arm cocked in the 90/90 position",
+    "core": "Long stride about 83 % of body height, left foot planted slightly closed toward the third-base side of the line, left knee bent about 50 degrees; right pivot foot still on the rubber on its toes; hips opening toward the plate while the shoulders stay closed; right upper arm level with the shoulders and behind the shoulder line, elbow bent 90 degrees, forearm raised and pointing up, ball facing away from the plate; glove arm extended toward home plate.",
+    "gaze": "Eyes locked on the catcher's mitt.",
+    "cues": [
+      "stride about 80-85 % of height, landing slightly closed",
+      "throwing arm up in the 90/90 position",
+      "hips open while the shoulders stay closed",
+      "glove arm points at the target"
+    ],
+    "kinetic": [
+      "dirt spraying from the landing foot",
+      "jersey stretched across the chest by the hip-shoulder separation",
+      "motion blur on the stride leg, face sharp"
+    ],
+    "avoid": [
+      "landing on the right foot",
+      "forearm hanging down",
+      "elbow bent backwards",
+      "short shoulder-width stride",
+      "glove arm missing",
+      "both feet in the air"
+    ]
+  },
+  "ref_query": "baseball pitcher stride",
+  "sources": [
+    {
+      "id": "OBP-P",
+      "cite": "Driveline OpenBiomechanics, baseball_pitching (100 pitchers, 411 fastballs, 1.85 +/- 0.07 m): means computed from the dataset's point-of-interest and full-signal files (CC BY-NC-SA 4.0; only summary numbers used here)",
+      "url": "https://github.com/drivelineresearch/openbiomechanics/tree/main/baseball_pitching"
+    },
+    {
+      "id": "ISBS10",
+      "cite": "Fleisig, ISBS 2010 keynote: stride 83 +/- 4 % of height, lead knee 45 deg, shoulder abduction 93 deg, ER 56 deg, elbow 90 deg at foot contact",
+      "url": "https://ojs.ub.uni-konstanz.de/cpa/article/view/4377"
+    },
+    {
+      "id": "CG19",
+      "cite": "A Clinician's Guide to Analysis of the Pitching Motion (2019): balance point, 90/90 arm position, MER about 170 deg",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6542879/"
+    },
+    {
+      "id": "ASMR22",
+      "cite": "Biomechanical Analysis of the Throwing Athlete, Arthrosc Sports Med Rehabil 2022: stride over 80 % of height, MER 170-180 deg",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8811517/"
+    }
+  ],
+  "ground": {
+    "kind": "mound",
+    "top_x_m": 0.15,
+    "slope": 0.0833,
+    "drop_m": 0.254
+  }
+}
