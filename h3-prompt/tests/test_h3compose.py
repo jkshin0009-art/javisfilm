@@ -159,3 +159,12 @@ def test_kind_beats_a_ledger_gender():
     assert "the robot shown in <Picture 2>" in p and "the man" not in p
     facts = hc.Writer(None).facts(shot(subjects=robot), {})
     assert facts["subjects"][0]["kind"] == "robot" and facts["subjects"][0]["gender"] == ""
+
+
+def test_no_duplicate_definitions():
+    import ast
+    for name in ("h3compose.py", "h3lint.py"):
+        path = os.path.join(os.path.dirname(HERE), name)
+        tree = ast.parse(open(path, encoding="utf-8").read())
+        names = [n.name for n in tree.body if isinstance(n, (ast.FunctionDef, ast.ClassDef))]
+        assert sorted({x for x in names if names.count(x) > 1}) == [], name
