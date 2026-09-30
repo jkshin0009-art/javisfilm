@@ -92,3 +92,40 @@ def test_sample_page_and_score(tmp_path, capsys):
     assert "| legs_ok | 3 | 3 | 0 | 0 | 100%" in text
     assert "clean share: 100%" in text
     assert "feet up" not in text                         # the report carries no gate reasons
+
+
+def test_referee_marks_without_a_person(tmp_path, monkeypatch, capsys):
+    import boardcheck as bc
+    root = make_root(tmp_path)
+    d = root
+    for i in range(3):
+        gate(d, f"cos{i}", "FAIL", {"costume_lock": {"pass": False}})
+    out = tmp_path / "work"
+    assert gr.main(["sample", "--root", str(root), "--out", str(out), "--per-axis", "6",
+                    "--unmeasured", "2", "--passed", "2"]) == 0
+    seen = []
+
+    class FakeBackend:
+        def __init__(self, url, timeout=120.0):
+            self.url = url
+
+        def ok(self, images, state, questions):
+            seen.append((len(images), sorted(questions)))
+            return {k: {"offfloor": 0.9, "legs_ok": 0.1}.get(k, 0.05) if len(questions) == 1 else 0.05
+                    for k in questions}
+
+    monkeypatch.setattr(bc, "LogprobBackend", FakeBackend)
+    monkeypatch.setattr(bc, "prepared", lambda src, cache, side: src)
+    assert gr.main(["referee", "--out", str(out)]) == 0
+    rows = {r["id"]: r for r in json.loads((out / "rows.json").read_text(encoding="utf-8"))["rows"]}
+    import csv as _csv
+    with open(out / "auto_votes.csv", encoding="utf-8-sig") as f:
+        votes = {r["id"]: r for r in _csv.DictReader(f)}
+    for rid, r in rows.items():
+        want = {"offfloor": "defect", "legs_ok": "clean", "costume_lock": "unsure"}.get(r["axis"], "clean")
+        assert votes[rid]["answer"] == want, (r, votes[rid])
+    assert all(n == 1 for n, _ in seen) and sorted(gr.GENERIC) in [q for _, q in seen]
+    text = (out / "GATE_SCORE_AUTO.md").read_text(encoding="utf-8")
+    assert "machine referee" in text and "| offfloor | 6 | 6 | 0 | 0 | 100%" in text
+    assert "| legs_ok | 3 | 0 | 3 | 0 | 0%" in text and "| costume_lock | 3 | 0 | 0 | 3 |" in text
+    assert "referee time" in text

@@ -11,6 +11,9 @@ time, and turns the answers into a per-axis hit rate.
                                  failed; cuts failed only for want of a measurement; cuts that
                                  passed. Writes gate_review.html (keys 1 / 2 / 3) and rows.json
   score   --out DIR --csv FILE   per axis, how often the gate was right, and what to do about it
+  referee --out DIR              no person needed: a second look by the vision model (the 5678
+                                 server, Jev-style probability reading, both answer orders) marks
+                                 every sampled cut, then scores the gate against those marks
 
 Reads the gate files and images only. The page and rows.json hold image paths and
 the gate's reasons and stay in work/; the score report holds axis names and counts.
@@ -229,6 +232,87 @@ sel(0);
     (out / "gate_review.html").write_text(page, encoding="utf-8")
 
 
+# ---------------------------------------------------------------- referee
+# Yes = the defect is there. Axes that need a reference the picture does not carry
+# (costume sheet, seat plan, expected head count, prop layout) are not refereed.
+REFEREE_STATE = "영화 콘티용으로 생성한 그림 한 장이다. 그림만 보고 답한다."
+REFEREE_Q = {
+    "offfloor": "서 있거나 걷는 인물의 발이 바닥이나 땅에 닿지 않고 공중에 떠 있는가? "
+                "앉거나 누운 인물, 발이 화면 밖인 인물은 해당하지 않는다.",
+    "legs_ok": "다리가 더 있거나 없거나, 무릎이 불가능한 방향으로 꺾이거나, 다리 모양이 망가진 인물이 있는가?",
+    "hands_ok": "손가락 수가 이상하거나, 손 모양이 뭉개지거나 녹아내린 손이 있는가? 손이 안 보이면 아니다.",
+    "limbs_ok": "팔이나 다리가 더 있거나 없는 인물이 있는가?",
+    "faces_ok": "일그러지거나 녹아내리거나 뭉개진 얼굴이 있는가? 얼굴이 안 보이면 아니다.",
+    "scale_grounding_ok": "인물의 크기가 주변의 문, 가구, 다른 사람에 비해 어색하게 크거나 작은가?",
+    "joints": "관절이 불가능한 방향으로 꺾인 인물이 있는가?",
+    "identity_unique": "같은 사람이 한 그림에 두 번 나오는 것처럼 복제된 인물이 있는가?",
+    "intruding": "화면에 있어서는 안 될 물체나 다른 사람의 몸 일부가 어색하게 끼어들어 있는가?",
+}
+GENERIC = ("hands_ok", "legs_ok", "faces_ok", "offfloor")     # asked of cuts with no failed axis
+
+
+def referee_vote(p: float, hi: float, lo: float) -> str:
+    if p != p:
+        return "unsure"
+    return "defect" if p >= hi else ("clean" if p <= lo else "unsure")
+
+
+def cmd_referee(a) -> int:
+    import time
+    import boardcheck as bc
+    out = Path(a.out)
+    data = json.loads((out / "rows.json").read_text(encoding="utf-8"))
+    rows = data["rows"]
+    backend = bc.LogprobBackend(a.url, timeout=a.timeout)
+    cache = out / "cache"
+    votes: Dict[str, str] = {}
+    table = []
+    t0 = time.perf_counter()
+    for i, r in enumerate(rows, 1):
+        t1 = time.perf_counter()
+        if r["kind"] == "axis":
+            qs = {r["axis"]: REFEREE_Q[r["axis"]]} if r["axis"] in REFEREE_Q else {}
+        else:
+            qs = {k: REFEREE_Q[k] for k in GENERIC}
+        if not qs:
+            vote, p, note = "unsure", float("nan"), "needs a reference the picture does not carry"
+        else:
+            img = bc.prepared(Path(r["image"]), cache, a.max_side)
+            ps = backend.ok([img], REFEREE_STATE, qs)
+            vals = [v for v in ps.values() if v == v]
+            if r["kind"] == "axis":
+                p = vals[0] if vals else float("nan")
+                vote = referee_vote(p, a.hi, a.lo)
+            else:                                       # any clear defect -> defect; all clearly absent -> clean
+                p = max(vals) if vals else float("nan")
+                vote = ("defect" if vals and p >= a.hi else
+                        "clean" if vals and len(vals) == len(qs) and p <= a.lo else "unsure")
+            note = ""
+        votes[r["id"]] = vote
+        table.append({"id": r["id"], "answer": vote, "p": "" if p != p else round(p, 4), "note": note,
+                      "s": round(time.perf_counter() - t1, 2)})
+        print(f"{r['id']} {r['kind']:10s} {r['axis'] or '-':20s} -> {vote:7s} "
+              f"p={'-' if p != p else f'{p:.2f}'} {table[-1]['s']:.1f}s", flush=True)
+    secs = time.perf_counter() - t0
+    with open(out / "auto_votes.csv", "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["id", "answer", "p", "note", "s"])
+        w.writeheader()
+        w.writerows(table)
+    asked = [t["s"] for t in table if t["note"] == ""]
+    text = score_text(rows, votes, data.get("fail_count"), source=(
+        f"machine referee: {a.url}, probability reading in both answer orders, "
+        f"defect at p>={a.hi}, clean at p<={a.lo}. Same model family as the gate, "
+        f"so this shows which gate verdicts hold up under a second look, not ground truth"))
+    text += (f"\n- referee time: {secs:.0f} s for {len(rows)} cuts; per asked cut median "
+             f"{sorted(asked)[len(asked) // 2] if asked else 0:.1f} s\n")
+    print(text)
+    target = Path(a.report) if a.report else out / "GATE_SCORE_AUTO.md"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(text, encoding="utf-8")
+    print(f"Saved: {target}")
+    return 0
+
+
 # ---------------------------------------------------------------- score
 def advice(right: int, wrong: int) -> str:
     n = right + wrong
@@ -242,7 +326,8 @@ def advice(right: int, wrong: int) -> str:
     return "대부분 오판: 막기에서 빼고 질문·기준을 고칠 것"
 
 
-def score_text(rows: List[Dict], votes: Dict[str, str], stats: Optional[Dict[str, int]] = None) -> str:
+def score_text(rows: List[Dict], votes: Dict[str, str], stats: Optional[Dict[str, int]] = None,
+               source: str = "a person's eye") -> str:
     def tally(rs):
         t = {"defect": 0, "clean": 0, "unsure": 0, "blank": 0}
         for r in rs:
@@ -250,7 +335,7 @@ def score_text(rows: List[Dict], votes: Dict[str, str], stats: Optional[Dict[str
         return t
 
     marked = sum(1 for r in rows if votes.get(r["id"]))
-    lines = ["# frame_gate: how often it is right (person's eye as the answer)", "",
+    lines = ["# frame_gate: how often it is right", "", f"- answer key: {source}",
              f"- rows: {len(rows)}   marked: {marked}", "",
              "## axes that failed a cut", "",
              "| axis | looked at | defect really there (gate right) | clean (gate wrong) | unsure | gate right | advice |",
@@ -365,6 +450,15 @@ def main(argv=None) -> int:
     p.add_argument("--passed", type=int, default=10)
     p.add_argument("--seed", type=int, default=7)
     p.set_defaults(fn=cmd_sample)
+    p = sub.add_parser("referee")
+    p.add_argument("--out", required=True, help="the folder sample wrote")
+    p.add_argument("--url", default="http://127.0.0.1:5678", help="llama-server with --mmproj")
+    p.add_argument("--hi", type=float, default=0.8, help="defect at or above this probability")
+    p.add_argument("--lo", type=float, default=0.2, help="clean at or below this probability")
+    p.add_argument("--max-side", type=int, default=1024)
+    p.add_argument("--timeout", type=float, default=120.0)
+    p.add_argument("--report", default=None)
+    p.set_defaults(fn=cmd_referee)
     p = sub.add_parser("score")
     p.add_argument("--out", required=True)
     p.add_argument("--csv", required=True)
