@@ -18,8 +18,11 @@ only checks a finished prompt string against those rules:
                    motivated camera move rather than a list; later cuts only as
                    "[Shot N] At MM:SS.mmm"; timeline seconds rising and inside the
                    clip; at most 7000 characters; for a clip made of several chunks,
-                   no line of dialogue in the last second of a chunk that is not the last
+                   no line of dialogue in the last second of a chunk that is not the last;
+                   references written as <Picture N>; one subject is not both she and he
 
+  shape  PATH... [--n 3]   the skeleton of a prompt: headings, [Shot N], tags, times and
+         (Nw) for each run of other words, so its structure can be shared without its text
   check  PATH... [--duration S | --frames N] [--chunk-ends 5.0,10.0] [--pictures N]
          [--report FILE] [--details FILE]
          PATH: .txt (one prompt), .json (a string, a list of strings, or objects with a
@@ -66,7 +69,7 @@ SHOT_RE = re.compile(r"\[Shot\s+(\d+)\]", re.I)
 def sections_of(prompt: str) -> List[Tuple[str, str]]:
     """[(heading, body)] for lines of the form 'heading:' at the start of a line."""
     names = "|".join(REF_HEADINGS + BASE_HEADINGS)
-    parts = re.split(rf"(?im)^\s*({names})\s*:\s*$", prompt)
+    parts = re.split(rf"(?im)^\s*({names})\s*:[ \t]*", prompt)
     out = []
     for i in range(1, len(parts) - 1, 2):
         out.append((parts[i].lower(), parts[i + 1].strip()))
@@ -152,11 +155,29 @@ def check(prompt: str, duration: Optional[float] = None, chunk_ends: Sequence[fl
     d_open, d_close = text.count("<d>"), text.count("</d>")
     if d_open != d_close:
         bad["dialogue_tags"] = f"<d> {d_open} vs </d> {d_close}"
-    elif d_open and len(DIALOGUE_OK.findall(text)) != d_open:
-        bad["dialogue_format"] = "a <d> line lacks '<Subject N> (SN): <d>[Language] ...</d>'"
+    elif d_open:
+        no_speaker = no_lang = 0
+        for m in re.finditer(r"<d>(.*?)</d>", text, re.S):
+            if not re.search(r"<Subject\s+\d+>\s*\(S\d+\):\s*$", text[max(0, m.start() - 40):m.start()]):
+                no_speaker += 1
+            if not re.match(r"\s*\[[^\]]+\]", m.group(1)):
+                no_lang += 1
+        if no_speaker or no_lang:
+            bad["dialogue_format"] = (f"{d_open} <d> block(s): {no_speaker} without '<Subject N> (SN):' right before, "
+                                      f"{no_lang} without [Language]")
     outside = re.sub(r"<d>.*?</d>", "", text, flags=re.S)
     if re.search(r"(?:says?|said|shouts?|whispers?|asks?|replies|answers)\s*[,:]?\s*[\"“'][^\"”']{2,}[\"”']", outside, re.I):
         bad["dialogue_untagged"] = "quoted speech outside <d>...</d>"
+
+    # who is who
+    subjects = set(re.findall(r"<Subject\s+(\d+)>", text))
+    fem = len(re.findall(r"\b(?:she|her|hers|herself)\b", text, re.I))
+    male = len(re.findall(r"\b(?:he|him|his|himself)\b", text, re.I))
+    if len(subjects) <= 1 and fem and male:
+        bad["pronoun_mix"] = f"one subject, but {fem} she/her and {male} he/his"
+    bare = re.findall(r"(?<![<\w])(Picture|Audio|Video)\s+\d+(?!\s*>)", text)
+    if bare:
+        bad["bare_reference"] = f"{len(bare)} reference(s) written without <...>, e.g. {bare[0]} N"
 
     # camera
     moves = [name for name, pat in CAMERA_MOVES.items() if re.search(pat, text, re.I)]
@@ -238,6 +259,34 @@ def prompts_from(path: Path) -> Iterable[Tuple[str, str]]:
             yield f"{path}#{i + 1}", p
 
 
+KEEP_TOKEN = re.compile(
+    r"^(?:\w+:|\[Shot\s+\d+\]|\[[A-Za-z][\w +-]*\]|<\/?\w+(?:\s+\d+)?>|\(S\d+\):?|At|Timeline|N/A|"
+    r"\d+(?:[.:]\d+)*s?|\d+(?:\.\d+)?s?-(?:\d+(?:\.\d+)?|end)s?:?|to|-)$", re.I)
+
+
+def shape(prompt: str) -> str:
+    """The prompt's skeleton: headings, markers, tags and times kept, every run of other
+    words replaced by (Nw). Shows the structure without the text."""
+    out = []
+    for line in prompt.splitlines():
+        toks = re.findall(r"<\/?\w+(?:\s+\d+)?>|\[[^\]]*\]|\(S\d+\):?|[^\s<\[(]+|[<\[(]", line)
+        parts, run = [], 0
+        for t in toks:
+            if KEEP_TOKEN.match(t) and not (t.endswith(":") and t[:-1].lower() not in REF_HEADINGS + BASE_HEADINGS
+                                            and not re.match(r"^[\d.]+s?-", t) and t.lower() != "(s1):"
+                                            and not re.match(r"^\(S\d+\):$", t)):
+                if run:
+                    parts.append(f"({run}w)")
+                    run = 0
+                parts.append(t)
+            else:
+                run += 1
+        if run:
+            parts.append(f"({run}w)")
+        out.append(" ".join(parts))
+    return "\n".join(out)
+
+
 def report(results: List[Tuple[str, Dict[str, str]]]) -> str:
     n = len(results)
     modes: Dict[str, int] = {}
@@ -272,7 +321,20 @@ def main(argv=None) -> int:
     p.add_argument("--pictures", type=int, default=None, help="reference pictures connected")
     p.add_argument("--report", default=None)
     p.add_argument("--details", default=None)
+    p = sub.add_parser("shape", help="print the skeleton of the first N prompts (no words)")
+    p.add_argument("paths", nargs="+")
+    p.add_argument("--n", type=int, default=3)
     a = ap.parse_args(argv)
+    if a.cmd == "shape":
+        shown = 0
+        for path in a.paths:
+            for name, prompt in prompts_from(Path(path)):
+                if shown >= a.n:
+                    return 0
+                print(f"===== {Path(name).name} ({len(prompt)} chars)")
+                print(shape(prompt))
+                shown += 1
+        return 0 if shown else 1
     duration = a.duration if a.duration is not None else (a.frames / H3_FPS if a.frames else None)
     ends = [float(x) for x in a.chunk_ends.split(",") if x.strip()]
     results = []

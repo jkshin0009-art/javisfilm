@@ -116,3 +116,21 @@ def test_cli_report(tmp_path, capsys):
     text = rep.read_text(encoding="utf-8")
     assert "prompts: 4   clean: 2" in text and "| no_h3_grammar | 2 |" in text
     assert "Do not move" not in text and "Do not move" not in det.read_text(encoding="utf-8")
+
+
+def test_same_line_headings_pronouns_and_bare_refs():
+    same_line = BASE_OK.replace("integrated_multimodal_description:\n[Shot 1]", "integrated_multimodal_description: [Shot 1]")
+    assert rules(same_line) == set()
+    mixed = BASE_OK.replace("<Subject 2>", "the waitress").replace("stops it with two fingers",
+                                                                     "stops it with his fingers while she nods")
+    assert "pronoun_mix" in rules(mixed)
+    assert "pronoun_mix" not in rules(BASE_OK.replace("stops it with two fingers", "stops it with his fingers while she nods"))
+    assert "bare_reference" in rules("Picture 1 (from Shot 1) aligns with the first frame.\n\n" + BASE_OK)
+    reason = h3lint.check(BASE_OK.replace("<Subject 2> (S2): <d>[English]", "<d>"))["dialogue_format"]
+    assert "1 without '<Subject N> (SN):'" in reason and "1 without [Language]" in reason
+
+
+def test_shape_hides_words():
+    sk = h3lint.shape(REF_OK)
+    assert "subject_definitions:" in sk and "[Shot 1]" in sk and "<d> [Korean]" in sk and "</d>" in sk
+    assert "안녕하세요" not in sk and "performer" not in sk and "w)" in sk
