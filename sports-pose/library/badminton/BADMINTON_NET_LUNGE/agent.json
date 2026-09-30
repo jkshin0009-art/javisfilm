@@ -1,0 +1,78 @@
+{
+ "code": "BADMINTON_NET_LUNGE",
+ "sport": "badminton",
+ "technique": "net_shot",
+ "phase": "lunge",
+ "summary": "Right-handed badminton forehand lunge to the net: long step with the right foot landing heel first, front knee over the ankle, rear leg extended, racket reaching forward with the face nearly level.",
+ "names": {
+  "ko": [
+   "배드민턴 네트 런지",
+   "헤어핀 런지",
+   "네트 앞 런지",
+   "배드민턴 네트샷"
+  ],
+  "en": [
+   "badminton net lunge",
+   "forehand net shot lunge",
+   "hairpin lunge",
+   "lunge to the net"
+  ]
+ },
+ "keywords": [
+  "badminton",
+  "lunge",
+  "net shot",
+  "footwork"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #BADMINTON_NET_LUNGE\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level; face pointing forward and slightly down. Eyes on the shuttle just above the net tape.\n- Torso: trunk line (hips to shoulders) 20 deg forward of vertical; spine flexed 5 deg over the pelvis; shoulders square with the hips.\n- Right arm (racket arm reaching to the net): upper arm raised 75 deg from the side of the trunk, pointing forward and down; elbow slightly bent (15 deg flexion); forearm pointing forward and slightly down; palm facing down and to the athlete's left and slightly forward; wrist extended (cocked back) 25 deg; hand: fingers wrapped firmly around what it holds; fingertips 0.76 m above the floor.\n- Left arm (balance arm): upper arm raised 50 deg from the side of the trunk, pointing backward and slightly to the athlete's left and slightly down; elbow slightly bent (20 deg flexion); forearm pointing down and slightly to the athlete's left and slightly backward; palm facing to the athlete's right and slightly down and slightly backward; wrist neutral; hand: relaxed, fingers softly curled; fingertips 0.64 m above the floor.\n- Right leg (lunging leg): hip flexed 95 deg; knee bent to about a right angle (78 deg flexion); thigh pointing forward, shin pointing down; ankle dorsiflexed 12 deg; heel down, toes raised.\n- Left leg (trailing leg): hip extended 35 deg; knee slightly bent (28 deg flexion); thigh pointing backward and down, shin pointing backward; ankle dorsiflexed 19 deg; on the ball of the foot, heel raised.\n- Base: ankles 121 cm apart (68% of body height, 3.0x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: lunge with the racket foot, toe to the net corner\n- Technique cue: racket arm extended, face nearly parallel to the floor\n- Technique cue: hit and land at the same moment\n\n3. OBJECT_INTERACTION:\n- racket (66 cm long): gripped in the right hand, shaft pointing forward and slightly up, string face turned down and to the athlete's left and slightly forward; head centre 0.93 m above the floor; strings and frame clearly visible, one racket only.\n- shuttle: feathered shuttlecock, cork leading, flying forward and slightly up, 0.98 m above the floor.\n- Net 1.524 m high, 160 cm in front; the racket stays on the player's side of the net.\n- Legal under the BWF rules: no contact with the net; shuttle and racket are on the player's own side of the net.\n\n4. CINEMATIC_CAMERA:\n- net_view: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From across the net, racket strings and shuttle sharp.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view along the net.\n- wide_cinema: high-angle shot looking down, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide frame from behind the player, green court and lines, arena lights.\n\n5. KINETIC_ENERGY:\n- shoe squeaking on the court, slight slide of the front heel\n- shuttle just above the tape\n- sweat on the forearm",
+ "prompt": "{SUBJECT}, a right-handed badminton player lunging to the net to play a forehand net shot. Long lunge with the right foot, heel landing first and toes pointing at the net, right knee bent about 90 degrees directly over the ankle; left leg extended behind on the ball of the foot; trunk upright; right arm reaching forward, racket in front with the face nearly level under the shuttle; left arm back for balance. Lunge with the racket foot, toe to the net corner. Racket arm extended, face nearly parallel to the floor. Hit and land at the same moment. Eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From across the net, racket strings and shuttle sharp. Shoe squeaking on the court, slight slide of the front heel; shuttle just above the tape. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, racket without strings, racket head merged into the hand, shuttle flying feathers first, left-handed player, left foot forward on a forehand lunge, front knee collapsing inward, trunk folded over the knee, racket touching the net, racket reaching over the net, shuttle resting on the strings",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "net_view",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "From across the net, racket strings and shuttle sharp.",
+   "openpose_png": "openpose_net_view.png",
+   "openpose_json": "openpose_net_view.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view along the net.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "high-angle shot looking down, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide frame from behind the player, green court and lines, arena lights.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "BWF",
+ "scene_rules": [
+  "Court 13.40 x 6.10 m with 40 mm white or yellow lines; net 1.524 m high at the centre and 1.55 m at the posts, dark mesh with a 75 mm white top tape. (BWF 1)",
+  "Umpire on a high chair at one end of the net, service judge on a low chair at the opposite post, line judges behind or beside their lines; with the fixed-height rule a 1.15 m service-height device stands by the court. (BWF 17)",
+  "Feathered shuttlecock with 16 white feathers and a cork base; one racket per player, strings in a crossed pattern. (BWF 2, 4)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

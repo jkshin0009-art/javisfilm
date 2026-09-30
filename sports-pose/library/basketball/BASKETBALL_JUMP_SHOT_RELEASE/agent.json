@@ -1,0 +1,89 @@
+{
+ "code": "BASKETBALL_JUMP_SHOT_RELEASE",
+ "sport": "basketball",
+ "technique": "jump_shot",
+ "phase": "release",
+ "summary": "Right-handed basketball jump shot at release: airborne near the top of the jump, shooting arm extended high toward the rim, wrist snapped down in a gooseneck follow-through, guide hand up at the side.",
+ "names": {
+  "ko": [
+   "농구 점프슛 릴리스",
+   "슛 팔로스루",
+   "슛 쏘는 순간",
+   "구스넥 팔로스루"
+  ],
+  "en": [
+   "basketball jump shot release",
+   "shot follow-through",
+   "gooseneck",
+   "jumper release"
+  ]
+ },
+ "keywords": [
+  "basketball",
+  "jump shot",
+  "release",
+  "follow-through",
+  "airborne"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #BASKETBALL_JUMP_SHOT_RELEASE\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level; face pointing forward. Eyes on the rim.\n- Torso: trunk line (hips to shoulders) 4 deg forward of vertical; shoulders square with the hips.\n- Right arm (shooting arm): upper arm raised 135 deg from the side of the trunk, pointing forward and up; elbow slightly bent (22 deg flexion); forearm pointing up and slightly forward and slightly to the athlete's right; palm facing down and to the athlete's left; wrist flexed 65 deg; hand: relaxed, fingers softly curled; fingertips 2.41 m above the floor.\n- Left arm (guide hand, off the ball): upper arm raised 120 deg from the side of the trunk, pointing to the athlete's left and forward and slightly up; elbow bent (45 deg flexion); forearm pointing up; palm facing to the athlete's right and slightly forward; wrist extended (cocked back) 10 deg; hand: open with fingers spread; fingertips 2.49 m above the floor.\n- Right leg: hip flexed 8 deg; knee slightly bent (14 deg flexion); thigh pointing down, shin pointing down; ankle plantar-flexed (toes pointed) 40 deg; foot 20 cm above the floor.\n- Left leg: hip flexed 6 deg; knee slightly bent (16 deg flexion); thigh pointing down, shin pointing down; ankle plantar-flexed (toes pointed) 40 deg; foot 20 cm above the floor.\n- Airborne: lowest point of the body 20 cm above the floor; neither foot touches the ground.\n- Technique cue: high release at or just before the top of the jump\n- Technique cue: gooseneck follow-through, fingers toward the hoop\n- Technique cue: guide hand stays up and quiet\n- Technique cue: land in the same spot\n\n3. OBJECT_INTERACTION:\n- ball (24 cm diameter): center 2.51 m above the floor; surface 4 cm from the right fingertip (forward and up of it).\n- Rim 3.05 m high, 480 cm ahead; the ball has just left the fingertips on a high arc (release angle about 50-55 deg).\n- Legal under the FIBA rules: no body contact with an opponent outside the player's own cylinder; the ball has left the hands while both feet are still in the air; no other player touches the ball on its downward flight above the ring; jersey tucked into the shorts.\n\n4. CINEMATIC_CAMERA:\n- front_low: low-angle shot looking up, from the front (target side), 85mm short telephoto lens, full-body shot. Defender's-eye view from in front, arm and gooseneck wrist sharp.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Profile: extended arm, flexed wrist, ball arcing up.\n- baseline_wide: eye-level shot, three-quarter front view, 28mm wide-angle lens, full-body shot. Wide from the baseline, rim in frame, crowd blurred.\n\n5. KINETIC_ENERGY:\n- ball spinning backward off the fingertips, seams blurred\n- jersey lifted slightly by the jump\n- shadow of the shooter small on the court below",
+ "prompt": "{SUBJECT}, a basketball player releasing a right-handed jump shot at the top of the jump. Airborne with legs straight and toes pointed down; body upright; right shooting arm extended high and forward toward the rim, elbow almost straight; wrist snapped down in a gooseneck, fingers pointing at the rim; ball just off the fingertips; left guide hand still up beside the head, palm facing sideways, not pushing. High release at or just before the top of the jump. Gooseneck follow-through, fingers toward the hoop. Guide hand stays up and quiet. Land in the same spot. Low-angle shot looking up, from the front (target side), 85mm short telephoto lens, full-body shot. Defender's-eye view from in front, arm and gooseneck wrist sharp. Ball spinning backward off the fingertips, seams blurred; jersey lifted slightly by the jump. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, wrist bent back at release, fingers glued together, ball stuck to the hand, guide hand turned over pushing, body drifting far sideways, feet crossed in the air, shooter landing while still holding the ball, untucked jersey, headband wider than 10 cm",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "front_low",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "low-angle shot looking up, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "Defender's-eye view from in front, arm and gooseneck wrist sharp.",
+   "openpose_png": "openpose_front_low.png",
+   "openpose_json": "openpose_front_low.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Profile: extended arm, flexed wrist, ball arcing up.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "baseline_wide",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter front view, 28mm wide-angle lens, full-body shot.",
+   "text": "Wide from the baseline, rim in frame, crowd blurred.",
+   "openpose_png": "openpose_baseline_wide.png",
+   "openpose_json": "openpose_baseline_wide.json"
+  }
+ ],
+ "rulebook": "FIBA",
+ "scene_rules": [
+  "Five players per team on the court. (FIBA Art. 4.2.2)",
+  "Home team in light (preferably white) shirts, visiting team in dark shirts; shirts tucked into the shorts; all sleeves, headbands, wristbands and tape on a team in the same solid colour, headbands at most 10 cm wide. (FIBA Art. 4.3)",
+  "Shirt numbers only 0, 00 or 1-99: at least 20 cm tall on the back and 10 cm on the front. (FIBA Art. 4.3.2)",
+  "A crew chief and one or two umpires in grey officials' shirts on the court; scorer, timer and shot-clock operator at the table. (FIBA Art. 45)",
+  "Shot clocks mounted above and behind each backboard (red digits); backboard 1.80 x 1.05 m with its lower edge 2.90 m up, 1.20 m in from the endline; ring 3.05 m high with a 40-45 cm net. (FIBA Equipment)",
+  "Court 28 x 15 m with 5 cm lines, three-point arc 6.75 m (6.60 m in the corners), free-throw line 5.80 m from the endline, no-charge semi-circle 1.25 m under the basket. (FIBA Art. 2.4)"
+ ],
+ "sequence": {
+  "id": "BASKETBALL_JUMP_SHOT",
+  "order": 2,
+  "phases": [
+   "BASKETBALL_JUMP_SHOT_SET",
+   "BASKETBALL_JUMP_SHOT_RELEASE"
+  ]
+ },
+ "checks_passed": true
+}

@@ -1,0 +1,89 @@
+{
+ "code": "BASKETBALL_JUMP_SHOT_SET",
+ "sport": "basketball",
+ "technique": "jump_shot",
+ "phase": "set",
+ "summary": "Right-handed basketball jump shot at the set point: knees bent, ball set above the right eye, shooting elbow under the ball, guide hand on the side, eyes on the rim.",
+ "names": {
+  "ko": [
+   "농구 점프슛 셋",
+   "슛 준비 자세",
+   "슈팅 셋 포인트",
+   "점프슛 준비"
+  ],
+  "en": [
+   "basketball jump shot set",
+   "shot set point",
+   "shooting pocket",
+   "jumper wind-up"
+  ]
+ },
+ "keywords": [
+  "basketball",
+  "jump shot",
+  "shooting",
+  "set point",
+  "BEEF"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #BASKETBALL_JUMP_SHOT_SET\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 11 deg; face pointing forward. Eyes on the rim, looking under the ball.\n- Torso: trunk line (hips to shoulders) 18 deg forward of vertical; shoulders square with the hips.\n- Right arm (shooting arm, elbow under the ball): upper arm raised 100 deg from the side of the trunk, pointing forward and slightly to the athlete's left; elbow bent to about a right angle (98 deg flexion); forearm pointing up; palm facing up and slightly forward; wrist extended (cocked back) 68 deg; hand: fingers spread around the ball, palm not touching it fully; fingertips 1.69 m above the floor.\n- Left arm (guide hand on the side of the ball): upper arm raised 131 deg from the side of the trunk, pointing forward and slightly up; elbow bent to about a right angle (84 deg flexion); forearm pointing to the athlete's right and up; palm facing to the athlete's right; wrist extended (cocked back) 46 deg; hand: fingers spread around the ball, palm not touching it fully; fingertips 1.91 m above the floor.\n- Right leg (shooting-side foot slightly ahead): hip flexed 42 deg, abducted 15 deg; knee bent (62 deg flexion); thigh pointing down and slightly forward and slightly to the athlete's right, shin pointing down and backward; ankle dorsiflexed 35 deg; foot flat on the floor.\n- Left leg: hip flexed 41 deg, abducted 15 deg; knee bent (62 deg flexion); thigh pointing down and slightly forward and slightly to the athlete's left, shin pointing down and backward; ankle dorsiflexed 36 deg; foot flat on the floor.\n- Base: ankles 43 cm apart (23% of body height, 1.0x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: balance: feet shoulder-width, shooting-side foot slightly ahead\n- Technique cue: elbow under the ball, forearm vertical\n- Technique cue: fingers spread, ball on the finger pads\n- Technique cue: eyes on the rim, not on the ball\n\n3. OBJECT_INTERACTION:\n- ball (24 cm diameter): center 1.78 m above the floor; surface 10 cm from the forehead (forward and up and slightly to the athlete's right of it).\n- Rim 3.05 m high, 480 cm ahead (mid-range shot); the ball is set 14 cm above and 14 cm in front of the forehead.\n- Legal under the FIBA rules: no body contact with an opponent outside the player's own cylinder; no other player touches the ball on its downward flight above the ring; jersey tucked into the shorts.\n\n4. CINEMATIC_CAMERA:\n- front: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From under the basket: shooting elbow directly under the ball, both eyes on the rim.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Profile: vertical forearm, bent knees, ball above the eyes.\n- wide_cinema: eye-level shot, three-quarter rear view, 28mm wide-angle lens, full-body shot. Over-the-shoulder wide shot toward the basket, arena lights and crowd behind.\n\n5. KINETIC_ENERGY:\n- legs loaded, calves tense\n- ball rotation seams sharp and still\n- sweat on the forearm catching the arena lights",
+ "prompt": "{SUBJECT}, a basketball player setting a right-handed jump shot, ball raised above the right eye. Feet shoulder-width and flat, right foot slightly ahead, both toes pointing at the basket, knees bent about 65 degrees; ball set just above and in front of the forehead on the right side; shooting hand under the ball with the wrist bent back so the ball rests on the finger pads, a small gap under the palm; shooting elbow directly under the ball, forearm vertical; left guide hand on the left side of the ball, fingers up. Balance: feet shoulder-width, shooting-side foot slightly ahead. Elbow under the ball, forearm vertical. Fingers spread, ball on the finger pads. Eyes on the rim, not on the ball. Eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From under the basket: shooting elbow directly under the ball, both eyes on the rim. Legs loaded, calves tense; ball rotation seams sharp and still. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, elbow flared out to the side, ball flat in the palm, ball behind the head, guide hand pushing from behind, fingers fused into the ball, heels floating, untucked jersey, headband wider than 10 cm",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "front",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "From under the basket: shooting elbow directly under the ball, both eyes on the rim.",
+   "openpose_png": "openpose_front.png",
+   "openpose_json": "openpose_front.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Profile: vertical forearm, bent knees, ball above the eyes.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter rear view, 28mm wide-angle lens, full-body shot.",
+   "text": "Over-the-shoulder wide shot toward the basket, arena lights and crowd behind.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "FIBA",
+ "scene_rules": [
+  "Five players per team on the court. (FIBA Art. 4.2.2)",
+  "Home team in light (preferably white) shirts, visiting team in dark shirts; shirts tucked into the shorts; all sleeves, headbands, wristbands and tape on a team in the same solid colour, headbands at most 10 cm wide. (FIBA Art. 4.3)",
+  "Shirt numbers only 0, 00 or 1-99: at least 20 cm tall on the back and 10 cm on the front. (FIBA Art. 4.3.2)",
+  "A crew chief and one or two umpires in grey officials' shirts on the court; scorer, timer and shot-clock operator at the table. (FIBA Art. 45)",
+  "Shot clocks mounted above and behind each backboard (red digits); backboard 1.80 x 1.05 m with its lower edge 2.90 m up, 1.20 m in from the endline; ring 3.05 m high with a 40-45 cm net. (FIBA Equipment)",
+  "Court 28 x 15 m with 5 cm lines, three-point arc 6.75 m (6.60 m in the corners), free-throw line 5.80 m from the endline, no-charge semi-circle 1.25 m under the basket. (FIBA Art. 2.4)"
+ ],
+ "sequence": {
+  "id": "BASKETBALL_JUMP_SHOT",
+  "order": 1,
+  "phases": [
+   "BASKETBALL_JUMP_SHOT_SET",
+   "BASKETBALL_JUMP_SHOT_RELEASE"
+  ]
+ },
+ "checks_passed": true
+}

@@ -1,0 +1,78 @@
+{
+ "code": "TENNIS_TWO_HANDED_BACKHAND",
+ "sport": "tennis",
+ "technique": "backhand",
+ "phase": "contact",
+ "summary": "Right-handed tennis two-handed backhand at contact: right foot stepped forward, both hands on the grip (left above right), ball met in front of the front hip at waist height, arms nearly straight.",
+ "names": {
+  "ko": [
+   "테니스 양손 백핸드",
+   "투핸드 백핸드",
+   "백핸드 임팩트",
+   "테니스 백핸드"
+  ],
+  "en": [
+   "two-handed backhand",
+   "tennis backhand contact",
+   "double-handed backhand",
+   "backhand drive"
+  ]
+ },
+ "keywords": [
+  "tennis",
+  "backhand",
+  "two-handed",
+  "groundstroke"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #TENNIS_TWO_HANDED_BACKHAND\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted down 10 deg, turned 6 deg to the athlete's left of the chest line; face pointing forward and slightly down. Eyes on the ball at contact.\n- Torso: trunk line (hips to shoulders) 20 deg forward of vertical; spine flexed 8 deg over the pelvis; shoulder line rotated 9 deg to the right of the hip line (hip-shoulder separation).\n- Right arm (bottom hand): upper arm raised 45 deg from the side of the trunk, pointing down and slightly forward and slightly to the athlete's left; elbow slightly bent (12 deg flexion); forearm pointing down and slightly forward and slightly to the athlete's left; palm facing backward and down and slightly to the athlete's left; wrist extended (cocked back) 10 deg; hand: fingers wrapped firmly around what it holds; fingertips 0.82 m above the floor.\n- Left arm (top hand (drives the stroke)): upper arm raised 53 deg from the side of the trunk, pointing down and slightly forward; elbow straight (2 deg flexion); forearm pointing down and slightly forward; palm facing to the athlete's right and slightly backward and slightly down; wrist extended (cocked back) 15 deg; hand: fingers wrapped firmly around what it holds; fingertips 0.81 m above the floor.\n- Right leg (front leg): hip flexed 25 deg; knee slightly bent (25 deg flexion); thigh pointing down, shin pointing down; ankle dorsiflexed 12 deg; foot flat on the floor.\n- Left leg: hip flexed 5 deg, abducted 12 deg; knee slightly bent (25 deg flexion); thigh pointing down, shin pointing down and slightly backward; ankle neutral; on the ball of the foot, heel raised.\n- Base: ankles 44 cm apart (24% of body height, 1.1x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: left hand drives the stroke\n- Technique cue: hit through the ball in front of the front hip\n- Technique cue: finish high over the right shoulder\n\n3. OBJECT_INTERACTION:\n- racket (68 cm long): gripped in the right hand, shaft pointing to the athlete's left and forward, string face turned up and forward and slightly to the athlete's right; head centre 0.86 m above the floor; strings and frame clearly visible, one racket only.\n- ball (7 cm diameter): center 0.89 m above the floor; touching the racket face; surface 70 cm from the belly (forward and slightly to the athlete's left and slightly down of it).\n- Legal under the ITF rules: the ball touches only the racket strings.\n\n4. CINEMATIC_CAMERA:\n- net_view: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From across the net, telephoto compression, racket strings sharp.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view along the baseline.\n- wide_cinema: eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide frame from behind the player, court lines and net ahead, stadium blurred.\n\n5. KINETIC_ENERGY:\n- ball compressing on the strings\n- racket motion blur\n- shirt twisting with the shoulder turn",
+ "prompt": "{SUBJECT}, a right-handed tennis player hitting a two-handed backhand. Right foot stepped forward toward the net, knees bent; both hands on the grip with the left hand directly above the right; arms nearly straight, racket face meeting the ball in front of the right hip at waist height on the left side of the body; shoulders turned, chin near the right shoulder. Left hand drives the stroke. Hit through the ball in front of the front hip. Finish high over the right shoulder. Eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. From across the net, telephoto compression, racket strings sharp. Ball compressing on the strings; racket motion blur. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, racket without strings, two rackets, ball merged into the strings, left-handed player, hands apart on the grip, only one hand on the racket, ball touching the player's body, ball resting on the racket strings",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "net_view",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "From across the net, telephoto compression, racket strings sharp.",
+   "openpose_png": "openpose_net_view.png",
+   "openpose_json": "openpose_net_view.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view along the baseline.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide frame from behind the player, court lines and net ahead, stadium blurred.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "ITF",
+ "scene_rules": [
+  "Court 23.77 x 8.23 m (doubles 10.97 m wide); net 0.914 m at the centre, held by a white strap, 1.07 m at the posts; baseline up to 10 cm wide. (ITF 1)",
+  "Chair umpire on a raised chair beside a net post; line umpires (or electronic line calling) and ball persons crouched at the net posts and the back corners. (ITF 2)",
+  "One racket per player, with a crossed, evenly strung pattern. (ITF 4)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

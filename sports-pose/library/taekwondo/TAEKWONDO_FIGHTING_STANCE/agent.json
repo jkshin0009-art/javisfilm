@@ -1,0 +1,80 @@
+{
+ "code": "TAEKWONDO_FIGHTING_STANCE",
+ "sport": "taekwondo",
+ "technique": "stance",
+ "phase": "guard",
+ "summary": "Taekwondo sparring stance (closed stance, left foot forward): side-on, feet a long step apart on the balls of the feet, knees soft, fists low in front of the trunk, chin down.",
+ "names": {
+  "ko": [
+   "태권도 겨루기 준비 자세",
+   "태권도 스탠스",
+   "겨루기 자세",
+   "태권도 가드"
+  ],
+  "en": [
+   "taekwondo fighting stance",
+   "sparring stance",
+   "gyeorugi stance",
+   "taekwondo guard"
+  ]
+ },
+ "keywords": [
+  "taekwondo",
+  "stance",
+  "guard",
+  "sparring",
+  "gyeorugi"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #TAEKWONDO_FIGHTING_STANCE\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level, turned 28 deg to the athlete's left of the chest line; face pointing forward and slightly to the athlete's left. Eyes on the opponent over the lead shoulder.\n- Torso: trunk line (hips to shoulders) 10 deg forward of vertical; spine flexed 5 deg over the pelvis; shoulders square with the hips.\n- Right arm (rear arm guard): upper arm raised 25 deg from the side of the trunk, pointing down and slightly forward; elbow fully folded (115 deg flexion); forearm pointing forward and up and slightly to the athlete's left; palm facing to the athlete's left and slightly down; wrist neutral; hand: closed fist; fingertips 1.43 m above the floor.\n- Left arm (lead arm guard): upper arm raised 35 deg from the side of the trunk, pointing down and slightly forward; elbow bent to about a right angle (95 deg flexion); forearm pointing forward and slightly up; palm facing to the athlete's right and slightly down and slightly forward; wrist neutral; hand: closed fist; fingertips 1.40 m above the floor.\n- Right leg (rear leg): hip extended 10 deg; knee slightly bent (12 deg flexion); thigh pointing down and slightly backward, shin pointing down and slightly backward; ankle neutral; on the ball of the foot, heel raised.\n- Left leg (front leg): hip flexed 25 deg; knee slightly bent (20 deg flexion); thigh pointing down and slightly forward, shin pointing down; ankle plantar-flexed (toes pointed) 12 deg; foot flat on the floor.\n- Base: ankles 53 cm apart (29% of body height, 1.3x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: bounce lightly on the balls of the feet\n- Technique cue: hands low enough to block kicks to the trunk\n- Technique cue: keep the rear heel off the mat to kick instantly\n\n3. OBJECT_INTERACTION:\n- Opponent about 2 m away, just out of kicking range.\n- Legal under the WT rules: neither fist is on the opponent's face.\n\n4. CINEMATIC_CAMERA:\n- front: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. Opponent's view, fists low, eyes over the lead shoulder.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Profile: long stance on the balls of the feet.\n- low_cinema: camera 0.6 m above the floor, three-quarter front view, 24mm wide-angle lens, full-body shot. Low wide frame on the mat, arena lights.\n\n5. KINETIC_ENERGY:\n- light bounce in the knees\n- white dobok creasing at the belt\n- sensor socks and trunk protector visible",
+ "prompt": "{SUBJECT}, a taekwondo athlete in a sparring stance. Left foot forward and right foot back a long step apart, both heels slightly raised on the balls of the feet, knees soft; body side-on to the opponent; fists loosely closed in front of the trunk at chest height, lead forearm angled across the body, rear fist near the solar plexus; chin down. Bounce lightly on the balls of the feet. Hands low enough to block kicks to the trunk. Keep the rear heel off the mat to kick instantly. Eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. Opponent's view, fists low, eyes over the lead shoulder. Light bounce in the knees; white dobok creasing at the belt. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, black belt missing, trunk protector missing, kicking with the shin instead of the foot, bare chest, boxing gloves, southpaw stance, punch to the opponent's face, hand grabbing the opponent's dobok, catching the opponent's kicking leg, knee strike, head butt, athlete standing outside the contest area line",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "front",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "Opponent's view, fists low, eyes over the lead shoulder.",
+   "openpose_png": "openpose_front.png",
+   "openpose_json": "openpose_front.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Profile: long stance on the balls of the feet.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "low_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.6 m above the floor, three-quarter front view, 24mm wide-angle lens, full-body shot.",
+   "text": "Low wide frame on the mat, arena lights.",
+   "openpose_png": "openpose_low_cinema.png",
+   "openpose_json": "openpose_low_cinema.json"
+  }
+ ],
+ "rulebook": "WT",
+ "scene_rules": [
+  "White dobok with a belt; electronic trunk protector and headgear in the athlete's colour, red (hong) or blue (chung); forearm and shin guards, gloves, sensor socks, groin guard and mouthguard, all worn under or over the dobok as the rules require. (WT Uniform and protective equipment)",
+  "Flat, non-slip mat; the contest area is marked as an octagon (Olympic events) or a square, with a boundary line. (WT Competition area)",
+  "One referee on the mat in a uniform; judges and a video-replay jury off the mat; coaches seated at the corners. (WT Officials)",
+  "Punches with the knuckles of a tightly clenched fist, only to the trunk protector; kicks with the foot below the ankle bone, to the trunk protector or to the head above the collar bone. (WT Permitted techniques)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

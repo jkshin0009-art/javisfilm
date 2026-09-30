@@ -1,0 +1,78 @@
+{
+ "code": "WRESTLING_NEUTRAL_STANCE",
+ "sport": "wrestling",
+ "technique": "stance",
+ "phase": "neutral",
+ "summary": "Freestyle wrestling neutral stance: staggered feet wider than the shoulders, hips low with the knees bent about 70-75 degrees, back straight and leaning forward, head up, hands in front at knee to waist height, elbows in.",
+ "names": {
+  "ko": [
+   "레슬링 기본 자세",
+   "레슬링 스탠스",
+   "레슬링 준비 자세",
+   "자유형 레슬링 자세"
+  ],
+  "en": [
+   "wrestling stance",
+   "neutral stance",
+   "freestyle wrestling stance",
+   "wrestler ready position"
+  ]
+ },
+ "keywords": [
+  "wrestling",
+  "stance",
+  "neutral",
+  "freestyle"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #WRESTLING_NEUTRAL_STANCE\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 12 deg, turned 7 deg to the athlete's left of the chest line; face pointing forward and slightly down. Eyes up on the opponent's hips and chest.\n- Torso: trunk line (hips to shoulders) 45 deg forward of vertical; spine flexed 15 deg over the pelvis; shoulders square with the hips.\n- Right arm: upper arm raised 45 deg from the side of the trunk, pointing down; elbow bent to about a right angle (80 deg flexion); forearm pointing forward and slightly to the athlete's left; palm facing down and slightly to the athlete's left and slightly backward; wrist neutral; hand: relaxed, fingers softly curled; fingertips 0.68 m above the floor.\n- Left arm: upper arm raised 50 deg from the side of the trunk, pointing down; elbow deeply bent (70 deg flexion); forearm pointing forward and slightly down; palm facing down and slightly backward and slightly to the athlete's right; wrist neutral; hand: relaxed, fingers softly curled; fingertips 0.66 m above the floor.\n- Right leg (rear leg): hip flexed 22 deg; knee bent (60 deg flexion); thigh pointing down, shin pointing backward and slightly down; ankle dorsiflexed 37 deg; on the ball of the foot, heel raised.\n- Left leg (lead leg): hip flexed 75 deg, abducted 12 deg; knee deeply bent (75 deg flexion); thigh pointing forward and down, shin pointing down and slightly backward; ankle dorsiflexed 29 deg; foot flat on the floor.\n- Base: ankles 56 cm apart (32% of body height, 1.4x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: head up, back straight\n- Technique cue: elbows in, hands ready\n- Technique cue: stay low, move with small steps\n\n3. OBJECT_INTERACTION:\n- Opponent about 1.5 m away in the same stance.\n- Legal under the UWW rules: no fist or hand on the opponent's face.\n\n4. CINEMATIC_CAMERA:\n- front: eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. Opponent's view, eyes up, hands ready.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Profile: low hips, straight back leaning forward.\n- low_cinema: camera 0.5 m above the floor, ground-level low angle looking up, three-quarter front view, 24mm wide-angle lens, full-body shot. Low wide frame on the mat, arena lights.\n\n5. KINETIC_ENERGY:\n- singlet stretched across the back\n- sweat on the shoulders under the lights\n- mat squeaking under the shoes",
+ "prompt": "{SUBJECT}, a wrestler in a neutral stance, ready to shoot. Feet wider than the shoulders and staggered with the left foot forward, rear heel up; knees bent about 70-75 degrees with the hips low; back straight and leaning forward from the hips; head up with the eyes forward; hands in front between knee and waist height, elbows in close to the body. Head up, back straight. Elbows in, hands ready. Stay low, move with small steps. Eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot. Opponent's view, eyes up, hands ready. Singlet stretched across the back; sweat on the shoulders under the lights. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, loose clothing instead of a singlet, both wrestlers in the same colour, boxing gloves, street shoes, judogi, standing upright with straight legs, rounded back looking at the floor, hand choking the opponent's throat, full nelson, punching, elbow to the head, wrestler standing outside the circle",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "front",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 85mm short telephoto lens, full-body shot.",
+   "text": "Opponent's view, eyes up, hands ready.",
+   "openpose_png": "openpose_front.png",
+   "openpose_json": "openpose_front.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Profile: low hips, straight back leaning forward.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "low_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.5 m above the floor, ground-level low angle looking up, three-quarter front view, 24mm wide-angle lens, full-body shot.",
+   "text": "Low wide frame on the mat, arena lights.",
+   "openpose_png": "openpose_low_cinema.png",
+   "openpose_json": "openpose_low_cinema.json"
+  }
+ ],
+ "rulebook": "UWW",
+ "scene_rules": [
+  "One-piece singlet, one wrestler in red and one in blue (by draw), wrestling shoes without heels, buckles or metal, laces covered; ear guards optional for seniors; a handkerchief tucked into the singlet; no jewellery; long hair covered. (UWW Wrestler's equipment)",
+  "Circular 9 m competition surface on a square mat: dark-blue 7 m central circle with a 1 m starting circle in the middle, an orange 1 m passivity band around it, a protection area of a contrasting colour outside; red and blue corners diagonally opposite. (UWW Mat)",
+  "Referee on the mat wearing red and blue wristbands, a judge and a mat chairman at the table; coaches seated in the red and blue corners. (UWW Officials)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

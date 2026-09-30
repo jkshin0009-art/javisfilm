@@ -1,0 +1,90 @@
+{
+ "code": "BASEBALL_BAT_LOAD",
+ "sport": "baseball",
+ "technique": "swing",
+ "phase": "load",
+ "summary": "Right-handed batter loaded at stride-foot contact: side-on to the pitcher, weight back, hands high by the rear shoulder, bat angled up behind the head.",
+ "names": {
+  "ko": [
+   "야구 타격 준비",
+   "타격 로드",
+   "스트라이드 착지 타자",
+   "타자 테이크백"
+  ],
+  "en": [
+   "baseball batting load",
+   "hitter stride foot down",
+   "batter loaded",
+   "swing load"
+  ]
+ },
+ "keywords": [
+  "baseball",
+  "batting",
+  "hitting",
+  "load",
+  "stride",
+  "swing"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #BASEBALL_BAT_LOAD\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level, turned 80 deg to the athlete's left of the chest line; face pointing to the athlete's left. Both eyes on the pitcher's release point.\n- Torso: trunk line (hips to shoulders) 26 deg forward of vertical; shoulder line rotated 8 deg to the right of the hip line (hip-shoulder separation).\n- Right arm (rear arm, top hand): upper arm raised 113 deg from the side of the trunk, pointing forward and slightly to the athlete's right; elbow fully folded (118 deg flexion); forearm pointing to the athlete's left; palm facing forward and slightly to the athlete's left; wrist extended (cocked back) 29 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.26 m above the floor.\n- Left arm (lead arm, bottom hand on the bat): upper arm raised 43 deg from the side of the trunk, pointing down and slightly forward; elbow fully folded (114 deg flexion); forearm pointing up and slightly to the athlete's right and slightly forward; palm facing to the athlete's right and forward; wrist extended (cocked back) 34 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.32 m above the floor.\n- Right leg (rear leg): hip flexed 54 deg, abducted 29 deg; knee bent (54 deg flexion); thigh pointing down and slightly to the athlete's right and slightly forward, shin pointing down and slightly backward; ankle dorsiflexed 16 deg; foot flat on the floor.\n- Left leg (stride leg (toward the pitcher)): hip flexed 44 deg, abducted 29 deg; knee bent (46 deg flexion); thigh pointing down and slightly to the athlete's left and slightly forward, shin pointing down and slightly backward and slightly to the athlete's left; ankle dorsiflexed 22 deg; foot flat on the floor.\n- Base: ankles 90 cm apart (49% of body height, 2.2x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: shift weight back and coil the trunk\n- Technique cue: stride toward the pitcher while the hands stay back\n- Technique cue: right hand on top for a right-handed batter\n\n3. OBJECT_INTERACTION:\n- bat (85 cm): gripped at the handle, barrel pointing up and slightly to the athlete's right and slightly forward; sweet spot 1.71 m above the floor.\n- Pitcher 18.4 m away toward the direction of play; home plate just in front of the batter's feet.\n- Home plate (43 cm wide, white) in front of the batter; the batter stands inside the 1.22 x 1.83 m batter's box drawn 15 cm from the plate; catcher and plate umpire behind.\n- Legal under the OBR rules: both feet are inside the batter's box; the batter wears a batting helmet with an ear flap.\n\n4. CINEMATIC_CAMERA:\n- pitcher_view: eye-level shot, from the front (target side), 200mm telephoto lens, full-body shot. Broadcast center-field view, telephoto compression, catcher and umpire soft behind.\n- open_side: eye-level shot, side profile view, 50mm standard lens, full-body shot. From the open side facing the batter's chest, plate in the foreground.\n- low_cinema: camera 0.3 m above the floor, ground-level low angle looking up, three-quarter rear view, 24mm wide-angle lens, full-body shot. Low wide frame from behind the catcher's area, stadium lights and field behind.\n\n5. KINETIC_ENERGY:\n- dust puffing from the landing front foot\n- bat still and cocked, tension in the forearms\n- helmet reflecting the stadium lights",
+ "prompt": "{SUBJECT}, a right-handed baseball batter loaded and ready to swing as the stride foot lands. Side-on to the pitcher, feet about half the body height apart, both knees bent, weight toward the back leg; trunk bent forward over the plate; both hands together on the handle, right hand on top, held high near the rear shoulder; bat angled up and back behind the head; front shoulder closed, chin on the front shoulder. Shift weight back and coil the trunk. Stride toward the pitcher while the hands stay back. Right hand on top for a right-handed batter. Eye-level shot, from the front (target side), 200mm telephoto lens, full-body shot. Broadcast center-field view, telephoto compression, catcher and umpire soft behind. Dust puffing from the landing front foot; bat still and cocked, tension in the forearms. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, batter facing the pitcher, bat passing through the helmet, hands split apart on the handle, wrong foot striding, both feet in the air, batter's foot outside the chalk box, batter without a helmet, batter wearing a cap instead of a helmet",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "pitcher_view",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, from the front (target side), 200mm telephoto lens, full-body shot.",
+   "text": "Broadcast center-field view, telephoto compression, catcher and umpire soft behind.",
+   "openpose_png": "openpose_pitcher_view.png",
+   "openpose_json": "openpose_pitcher_view.json"
+  },
+  {
+   "name": "open_side",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "From the open side facing the batter's chest, plate in the foreground.",
+   "openpose_png": "openpose_open_side.png",
+   "openpose_json": "openpose_open_side.json"
+  },
+  {
+   "name": "low_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.3 m above the floor, ground-level low angle looking up, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Low wide frame from behind the catcher's area, stadium lights and field behind.",
+   "openpose_png": "openpose_low_cinema.png",
+   "openpose_json": "openpose_low_cinema.json"
+  }
+ ],
+ "rulebook": "OBR",
+ "scene_rules": [
+  "Nine fielders per team. (OBR 1.01)",
+  "The catcher crouches directly behind home plate in the catcher's box; the plate umpire (umpire-in-chief) stands behind the catcher; base umpires stand where they see the bases. (OBR 5.02(a), 8.03)",
+  "All fielders except the catcher stand in fair territory; with the pitcher on the rubber, two infielders are on each side of second base with both feet on the infield dirt. (OBR 5.02(c))",
+  "Batters, base runners and base coaches wear batting helmets (ear flap); the catcher wears a helmet and mask. (OBR 3.08)",
+  "The pitcher's glove is not white or grey (piping excepted) and carries no other-coloured material; nothing is attached to the pitching hand, fingers or wrists (no tape, bandage or bracelet). (OBR 3.07(a), 6.02(c)(7))",
+  "Home plate is a white five-sided slab 43 cm wide; the white pitcher's plate (61 x 15 cm) sits on a mound 25 cm above home plate, 18.44 m away. (OBR 2.02, 2.04)"
+ ],
+ "sequence": {
+  "id": "BASEBALL_SWING",
+  "phases": [
+   "BASEBALL_BAT_LOAD",
+   "BASEBALL_BAT_CONTACT"
+  ],
+  "order": 1
+ },
+ "checks_passed": true
+}

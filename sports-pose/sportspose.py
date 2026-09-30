@@ -1810,6 +1810,21 @@ def build_one(a: Dict, out_root: Path = LIBRARY, write: bool = True) -> Tuple[Li
         md += ["", "## Reference photos (not stored here; `fetch_refs.py` downloads them with their licence)", ""]
         md += [f"- {r['url']} ({r.get('license', '?')}, {r.get('author', '?')})" for r in refs]
     (out / "prompt.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    # the same text as structured data, for programs (sportslook.py) that hand it to a prompt agent
+    rb = (gr["rules"] or {}).get("rulebook") or {}
+    agent = {"code": a["code"], "sport": a.get("sport"), "technique": a.get("technique"), "phase": a.get("phase"),
+             "summary": a.get("summary", ""), "names": names, "keywords": a.get("keywords", []),
+             "block": txt["block"], "prompt": txt["prompt"], "negative": txt["negative"],
+             "placeholders": ["{SUBJECT}"] + [f"{{PARTNER_{pid}}}" for pid in sc.partners] + ["{SETTING}"],
+             "partners": [{"id": pid, "role": ps.asset.get("role", pid)} for pid, ps in sc.partners.items()],
+             "cameras": [{"name": cam.name, "size": [cam.W, cam.H], "words": camera_words(cam.spec),
+                          "text": cam.spec.get("text", ""), "openpose_png": f"openpose_{cam.name}.png",
+                          "openpose_json": f"openpose_{cam.name}.json"} for cam, _ in cams],
+             "rulebook": rb.get("short", ""),
+             "scene_rules": [f"{x['text']} ({rb.get('short', '')} {x['rule']})" for x in (gr["rules"] or {}).get("scene") or []],
+             "sequence": a.get("sequence"),
+             "checks_passed": not [m for lv, m in issues if lv == "error"]}
+    (out / "agent.json").write_text(json.dumps(agent, ensure_ascii=False, indent=1), encoding="utf-8")
     return issues, out
 
 
@@ -1879,25 +1894,44 @@ def write_catalog(assets: List[Dict], out_root: Path = LIBRARY) -> Path:
     return p
 
 
-def sequence_text(seq_id: str, assets: List[Dict]) -> str:
-    """The phases of one movement in order, as one motion description for a video prompt."""
+def _sequence_parts(seq_id: str, assets: List[Dict]) -> Tuple[List[Dict], List[Tuple[str, str]]]:
     xs = sorted([a for a in assets if (a.get("sequence") or {}).get("id") == seq_id],
                 key=lambda a: a["sequence"].get("order", 0))
     if not xs:
         raise SystemExit(f"no sequence {seq_id}")
-    out = [f"# {seq_id}: {len(xs)} phases", ""]
-    beats = []
-    for i, a in enumerate(xs, 1):
-        sc = Scene(a)
-        met = Metrics(sc)
+    parts = []
+    for a in xs:
+        met = Metrics(Scene(a))
         t = a.get("text") or {}
-        core = fill(t.get("core", ""), met)
-        out += [f"## {i}. #{a['code']}", "", fill(t.get("action", a.get("summary", "")), met) + ".", "", core, "",
+        parts.append((fill(t.get("action", a.get("summary", "")), met), fill(t.get("core", ""), met)))
+    return xs, parts
+
+
+def _motion(parts: List[Tuple[str, str]]) -> str:
+    return "{SUBJECT}, in one continuous movement. First: " + ". Then: ".join(c.rstrip(".") for _, c in parts) + ". {SETTING}."
+
+
+def sequence_text(seq_id: str, assets: List[Dict]) -> str:
+    """The phases of one movement in order, as one motion description for a video prompt."""
+    xs, parts = _sequence_parts(seq_id, assets)
+    out = [f"# {seq_id}: {len(xs)} phases", ""]
+    for i, (a, (action, core)) in enumerate(zip(xs, parts), 1):
+        out += [f"## {i}. #{a['code']}", "", action + ".", "", core, "",
                 f"control: {a.get('sport')}/{a['code']}/openpose_{(a.get('cameras') or [{}])[0].get('name', 'cam')}.png", ""]
-        beats.append(core.rstrip("."))
-    out += ["## One-paragraph motion (keep the order)", "",
-            "{SUBJECT}, in one continuous movement. First: " + ". Then: ".join(beats) + ". {SETTING}."]
+    out += ["## One-paragraph motion (keep the order)", "", _motion(parts)]
     return "\n".join(out) + "\n"
+
+
+def write_sequences(assets: List[Dict], out_root: Path = LIBRARY) -> Path:
+    """library/sequences.json: each movement's phases in order and its one-paragraph motion (video prompts)."""
+    ids = sorted({(a.get("sequence") or {}).get("id") for a in assets} - {None})
+    seqs = {}
+    for sid in ids:
+        xs, parts = _sequence_parts(sid, assets)
+        seqs[sid] = {"phases": [a["code"] for a in xs], "motion": _motion(parts)}
+    p = out_root / "sequences.json"
+    p.write_text(json.dumps(seqs, ensure_ascii=False, indent=1), encoding="utf-8")
+    return p
 
 
 def search(query: str, rows: List[Dict], k: int = 5) -> List[Tuple[float, Dict]]:
@@ -1941,6 +1975,7 @@ def cmd_build(a) -> int:
     if not a.codes:
         write_index(assets, Path(a.out))
         write_catalog(assets, Path(a.out))
+        write_sequences(assets, Path(a.out))
     print(f"{len(assets)} assets, {bad} with errors -> {a.out}")
     return 1 if bad else 0
 

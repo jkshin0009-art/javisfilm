@@ -1,0 +1,86 @@
+{
+ "code": "SWIMMING_FREESTYLE_BREATH",
+ "sport": "swimming",
+ "technique": "freestyle",
+ "phase": "breath",
+ "summary": "Front crawl breathing to the right: body rolled about 40 degrees, right arm recovering with a high elbow over the water, left arm extended forward under the surface, face turned sideways with the mouth in the bow-wave trough, flutter kick.",
+ "names": {
+  "ko": [
+   "자유형 호흡",
+   "자유형 스트로크",
+   "크롤 영법",
+   "자유형 팔 리커버리"
+  ],
+  "en": [
+   "freestyle breathing",
+   "front crawl breath",
+   "crawl stroke",
+   "freestyle high elbow recovery"
+  ]
+ },
+ "keywords": [
+  "swimming",
+  "freestyle",
+  "front crawl",
+  "breathing",
+  "stroke"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #SWIMMING_FREESTYLE_BREATH\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level, turned 65 deg to the athlete's right of the chest line; face pointing to the athlete's right and slightly up. One eye above the water looking to the side.\n- Torso: trunk line (hips to shoulders) 88 deg forward of vertical; shoulders square with the hips; body rolled 35 deg about its long axis onto the left side.\n- Right arm (recovering arm): upper arm raised 100 deg from the side of the trunk, pointing up; elbow fully folded (125 deg flexion); forearm pointing down and to the athlete's right; palm facing backward and up; wrist flexed 10 deg; hand: relaxed, fingers softly curled; fingertips 0.10 m above the water surface.\n- Left arm (extended arm at the catch): upper arm raised 170 deg from the side of the trunk, pointing forward; elbow slightly bent (15 deg flexion); forearm pointing forward; palm facing to the athlete's right; wrist flexed 15 deg; hand: open, fingers together and straight; fingertips 0.25 m below the water surface.\n- Right leg: hip flexed 0 deg; knee straight (5 deg flexion); thigh pointing backward, shin pointing backward; ankle plantar-flexed (toes pointed) 60 deg; ankle 0.00 m above the water surface.\n- Left leg: hip flexed 20 deg; knee bent (35 deg flexion); thigh pointing backward and slightly down, shin pointing backward; ankle plantar-flexed (toes pointed) 55 deg; ankle 0.26 m below the water surface.\n- In the water: water line at the level of the sacrum; above the surface: back upper, right fingertip, right heel; no contact with the pool floor.\n- Technique cue: keep one goggle in the water when you breathe\n- Technique cue: high elbow, relaxed hand on the recovery\n- Technique cue: roll the body, not just the head\n\n3. OBJECT_INTERACTION:\n- Water surface; the lane rope runs alongside.\n- Legal under the World Aquatics rules: the head, back or recovering arm breaks the surface.\n\n4. CINEMATIC_CAMERA:\n- underwater_side: eye-level shot, side profile view, 28mm wide-angle lens, full-body shot. Underwater side view at the surface line, the body split by the water line, bubbles around the hands.\n- front_above: overhead high-angle shot, from the front (target side), 50mm standard lens, full-body shot. From the end of the lane just above the water, the swimmer coming toward camera.\n- overhead: overhead high-angle shot, side profile view, 35mm standard lens, full-body shot. High angle from the pool deck, blue lane lines on the pool floor.\n\n5. KINETIC_ENERGY:\n- bow wave curling around the head\n- white water and bubbles from the kick\n- water droplets streaming off the recovering arm",
+ "prompt": "{SUBJECT}, a swimmer swimming front crawl, taking a breath to the right. Lying prone at the surface, body rolled about 40 degrees onto the left side; right arm recovering over the water with the elbow high and bent, hand relaxed passing the shoulder near the water; left arm extended forward under the surface, palm down; head turned to the right with one goggle still in the water and the mouth open in the trough of the bow wave; legs long in a narrow flutter kick, toes pointed. Keep one goggle in the water when you breathe. High elbow, relaxed hand on the recovery. Roll the body, not just the head. Eye-level shot, side profile view, 28mm wide-angle lens, full-body shot. Underwater side view at the surface line, the body split by the water line, bubbles around the hands. Bow wave curling around the head; white water and bubbles from the kick. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, swimmer standing on the pool floor, no goggles, body floating high out of the water, wrong number of arms, hair floating without a swim cap, head lifted forward out of the water, straight stiff recovering arm, breathing to the left",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "underwater_side",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, side profile view, 28mm wide-angle lens, full-body shot.",
+   "text": "Underwater side view at the surface line, the body split by the water line, bubbles around the hands.",
+   "openpose_png": "openpose_underwater_side.png",
+   "openpose_json": "openpose_underwater_side.json"
+  },
+  {
+   "name": "front_above",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "overhead high-angle shot, from the front (target side), 50mm standard lens, full-body shot.",
+   "text": "From the end of the lane just above the water, the swimmer coming toward camera.",
+   "openpose_png": "openpose_front_above.png",
+   "openpose_json": "openpose_front_above.json"
+  },
+  {
+   "name": "overhead",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "overhead high-angle shot, side profile view, 35mm standard lens, full-body shot.",
+   "text": "High angle from the pool deck, blue lane lines on the pool floor.",
+   "openpose_png": "openpose_overhead.png",
+   "openpose_json": "openpose_overhead.json"
+  }
+ ],
+ "rulebook": "World Aquatics",
+ "scene_rules": [
+  "50 m pool, lanes 2.5 m wide separated by lane ropes, dark lane lines and end-wall targets on the pool floor; backstroke flags across the pool 5 m from each wall. (World Aquatics FR 2)",
+  "Swimwear of textile only: men's suits reach no higher than the navel and no lower than the knee; women's suits leave the neck and shoulders uncovered and reach no lower than the knee. Up to two caps and goggles are allowed. (World Aquatics GR 5)",
+  "Referee and starter at the end of the pool, stroke judges walking the sides, turn judges at each end of every lane. (World Aquatics SW 2)"
+ ],
+ "sequence": {
+  "id": "SWIMMING_RACE",
+  "order": 2,
+  "phases": [
+   "SWIMMING_START_SET",
+   "SWIMMING_FREESTYLE_BREATH"
+  ]
+ },
+ "checks_passed": true
+}

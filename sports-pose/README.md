@@ -9,11 +9,33 @@
 | `prompt.md` | 5단 영문 자산(SYSTEM_INDEX_CODE, ANATOMICAL_BONES, OBJECT_INTERACTION, CINEMATIC_CAMERA, KINETIC_ENERGY), 바로 쓰는 프롬프트, negative, 규칙 표, 출처 | 프롬프트 에이전트 |
 | `openpose_<카메라>.png` | ControlNet OpenPose 이미지(몸 18점 + 손 21점×2). 카메라마다 한 장 | ComfyUI |
 | `openpose_<카메라>.json` | 같은 점의 OpenPose JSON, 픽셀 좌표 | ComfyUI, OpenPose 편집기 |
+| `agent.json` | `prompt.md`와 같은 내용을 프로그램이 읽는 형식으로(프롬프트 틀, 채울 자리, 카메라별 컨트롤 이미지, 장면 규칙) | `sportslook.py`, 프로젝트 코드 |
 | `preview.png`, `skeleton3d.json` | 세 방향 뼈대 그림(공·네트·림·배트·라켓·낚싯대·마운드·스타트대·수면 포함)과 3D 좌표 | 사람 확인, 3D 도구 |
 
 `prompt.md`에는 **공식 경기 규칙 표**도 들어 있습니다. 그 동작에 걸리는 조항의 번호와 내용, 그리고 이 뼈대에서 잰 검사 결과입니다(예: `FIVB 11.3.1 네트 접촉: OK, 네트까지 4 cm`).
 
 프롬프트 에이전트가 따를 절차는 **[AGENT_GUIDE.md](AGENT_GUIDE.md)** 에 있습니다. 자산 목록은 `library/CATALOG.md`에 있습니다.
+
+## 프로젝트에 연결 (film_assistant)
+
+`sportslook.py`는 표준 라이브러리만 쓰는 파일 하나입니다. 프로젝트에 이 파일만 복사하고, 자산은 이 폴더의 `library/`에서 바로 읽습니다.
+
+- **찾기:** 콘티 컷 설명(한국어·영어)에서 스포츠 동작을 찾습니다. 예: "투수가 공을 던지는 순간" → `BASEBALL_PITCH_RELEASE`.
+  - 일상 장면과 촬영 용어(블로킹, 캐스팅, 파이팅, shot, pitch)는 자산을 부르지 않습니다.
+  - 맞는 자산이 없으면 아무것도 돌려주지 않으므로, 프로젝트는 원래대로 프롬프트를 씁니다.
+- **돌려주는 것:**
+  - 프롬프트 에이전트에게 줄 지시문(`guide`)
+  - 인물·장소를 채운 프롬프트
+  - 컷 설명에 맞는 카메라(측면, 로우앵글, 와이드 ...)와 그 OpenPose 그림 경로
+  - negative, 장면 규칙, 영상용 동작 문단
+- **스위치:** `Hook`이 `sports_modes.json`(off / observe / act)을 읽습니다. 기록에는 자산 코드와 시간만 남습니다.
+- **연결 절차:** PC 실행 담당용 지시서 **[GLM_TASK_SPORTS.md](GLM_TASK_SPORTS.md)** 를 따릅니다(조사 → 허락 → 복사·연결 → observe로 시험).
+
+```
+python sportslook.py match "태권도 선수가 돌려차기를 찬다"
+python sportslook.py pack "유도 업어치기, 측면" --subject "..." --setting "..." --partner "B=..."
+python sportslook.py scan <콘티 폴더>/manifest.json      이 콘티에서 자산을 부를 컷
+python sportslook.py report data/sports_logs/hooks.jsonl
 
 ## 들어 있는 자산 (12종목, 49개)
 
@@ -48,7 +70,7 @@ python sportspose.py show SOCCER_SIDE_VOLLEY 5단 블록과 프롬프트 출력
 python sportspose.py sequence BASEBALL_PITCH 한 동작의 단계를 순서대로 (영상용)
 python sportspose.py rules volleyball       종목의 공식 규칙 요약 (치수, 장면, 반칙)
 python fetch_refs.py -n 4                   참고 사진 받기 (위키미디어 공용, PC에서)
-python -m pytest -q tests                   테스트 48개 (약 6분)
+python -m pytest -q tests                   테스트 89개 (약 6분, sportslook 41개는 1초)
 ```
 
 필요한 것은 Python 3.9 이상과 Pillow입니다. numpy는 쓰지 않습니다.

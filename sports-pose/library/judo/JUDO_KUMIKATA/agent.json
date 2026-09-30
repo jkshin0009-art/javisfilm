@@ -1,0 +1,85 @@
+{
+ "code": "JUDO_KUMIKATA",
+ "sport": "judo",
+ "technique": "kumikata",
+ "phase": "grip",
+ "summary": "Two judoka in the standard right-handed grip (ai-yotsu): each right hand on the partner's left lapel at collarbone height, each left hand on the partner's right sleeve at the elbow, upright natural posture with the right foot slightly forward.",
+ "names": {
+  "ko": [
+   "유도 맞잡기",
+   "유도 기본 잡기",
+   "쿠미카타",
+   "깃잡기 소매잡기"
+  ],
+  "en": [
+   "judo grip",
+   "kumikata",
+   "judo standard grip",
+   "lapel and sleeve grip"
+  ]
+ },
+ "keywords": [
+  "judo",
+  "grip",
+  "kumikata",
+  "standing"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #JUDO_KUMIKATA\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted down 8 deg; face pointing forward and slightly down. Eyes on the partner's chest and shoulders.\n- Torso: trunk line (hips to shoulders) 10 deg forward of vertical; spine flexed 5 deg over the pelvis; shoulders square with the hips.\n- Right arm (lapel hand (tsurite)): upper arm raised 68 deg from the side of the trunk, pointing forward and slightly down and slightly to the athlete's right; elbow bent to about a right angle (92 deg flexion); forearm pointing to the athlete's left and forward; palm facing forward and slightly down; wrist extended (cocked back) 9 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.37 m above the floor.\n- Left arm (sleeve hand (hikite)): upper arm raised 46 deg from the side of the trunk, pointing down and to the athlete's left; elbow fully folded (110 deg flexion); forearm pointing forward and slightly to the athlete's right; palm facing down and forward; wrist extended (cocked back) 25 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.29 m above the floor.\n- Right leg: hip flexed 14 deg; knee slightly bent (18 deg flexion); thigh pointing down, shin pointing down; ankle dorsiflexed 8 deg; foot flat on the floor.\n- Left leg: hip flexed 1 deg; knee slightly bent (8 deg flexion); thigh pointing down, shin pointing down; ankle dorsiflexed 11 deg; foot flat on the floor.\n- Base: ankles 37 cm apart (21% of body height, 0.9x shoulder width); every support foot touches the floor, none floats.\n- B (partner (uke) in the same right-handed grip): 72 cm forward of the main athlete, facing the main athlete; trunk 10 deg forward of vertical; knees 18/8 deg (right/left); elbows 90/121 deg; both feet on the floor. Partner in a blue judogi, mirror-image grip: right hand on the left lapel, left hand on the right sleeve.\n- Technique cue: grip with the little and ring fingers\n- Technique cue: keep the posture upright (shizentai)\n- Technique cue: elbows down, not flared\n\n3. OBJECT_INTERACTION:\n- Legal under the IJF rules: tori's hands are on the jacket and sleeves, away from uke's legs; no hand on the opponent's face.\n\n4. CINEMATIC_CAMERA:\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view across the tatami, both judoka in profile.\n- three_quarter: eye-level shot, three-quarter front view, 35mm standard lens, full-body shot. Three-quarter view, faces and grips sharp.\n- high_cinema: overhead high-angle shot, three-quarter rear view, 24mm wide-angle lens, full-body shot. High wide frame over the tatami, contest area colours and arena lights.\n\n5. KINETIC_ENERGY:\n- judogi fabric pulled taut at the collar\n- belts and jacket skirts swinging\n- tatami squeaking under the feet",
+ "prompt": "{SUBJECT}, two judoka gripping each other in the standard right-handed grip. Opposite the main athlete: {PARTNER_B} as the partner (uke) in the same right-handed grip. Both standing upright in a natural posture, feet about shoulder width apart, knees soft, right foot slightly forward; each right hand grips the partner's left lapel at collarbone height with the knuckles up; each left hand grips the partner's right sleeve just below the elbow; elbows down, arms bent. Grip with the little and ring fingers. Keep the posture upright (shizentai). Elbows down, not flared. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view across the tatami, both judoka in profile. Judogi fabric pulled taut at the collar; belts and jacket skirts swinging. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, judogi without a belt, both athletes in the same colour judogi, bare-chested judoka, boxing gloves, grabbing the legs, sleeves rolled up, grip on the belt, hands on the partner's neck, hands grabbing the opponent's legs, fingers inside the opponent's sleeve, hand pushing the opponent's face, judoka bent over at the waist to defend",
+ "placeholders": [
+  "{SUBJECT}",
+  "{PARTNER_B}",
+  "{SETTING}"
+ ],
+ "partners": [
+  {
+   "id": "B",
+   "role": "partner (uke) in the same right-handed grip"
+  }
+ ],
+ "cameras": [
+  {
+   "name": "side",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view across the tatami, both judoka in profile.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "three_quarter",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, three-quarter front view, 35mm standard lens, full-body shot.",
+   "text": "Three-quarter view, faces and grips sharp.",
+   "openpose_png": "openpose_three_quarter.png",
+   "openpose_json": "openpose_three_quarter.json"
+  },
+  {
+   "name": "high_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "overhead high-angle shot, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "High wide frame over the tatami, contest area colours and arena lights.",
+   "openpose_png": "openpose_high_cinema.png",
+   "openpose_json": "openpose_high_cinema.json"
+  }
+ ],
+ "rulebook": "IJF",
+ "scene_rules": [
+  "One athlete in a white judogi, the other in a blue judogi; the jacket covers the thighs and closes left over right, sleeves reach the wrist, trousers reach the ankle; belt tied with a square knot; women wear a plain white T-shirt under the jacket, men nothing under it. (IJF SOR, judogi)",
+  "No rings, watches, piercings or other hard objects; long hair tied back; nails cut short; barefoot on the tatami. (IJF SOR, hygiene)",
+  "Square contest area 8-10 m across inside a 3 m safety area of a different colour; coach chairs at the corners. (IJF SOR, tatami)",
+  "One referee on the mat; two judges at the table with the video replay (CARE) system; the referee raises one arm straight up for ippon. (IJF Refereeing Rules)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

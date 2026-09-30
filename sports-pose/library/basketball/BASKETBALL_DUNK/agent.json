@@ -1,0 +1,83 @@
+{
+ "code": "BASKETBALL_DUNK",
+ "sport": "basketball",
+ "technique": "dunk",
+ "phase": "above_rim",
+ "summary": "One-hand basketball dunk: airborne with the right arm fully extended, ball above the rim in the right hand, wrist snapping down, left arm out for balance, right knee raised.",
+ "names": {
+  "ko": [
+   "농구 덩크",
+   "원핸드 덩크",
+   "슬램덩크",
+   "림 위 덩크"
+  ],
+  "en": [
+   "basketball dunk",
+   "one-hand slam dunk",
+   "dunk above the rim",
+   "slam"
+  ]
+ },
+ "keywords": [
+  "basketball",
+  "dunk",
+  "slam",
+  "rim",
+  "airborne",
+  "jump"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #BASKETBALL_DUNK\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level, turned 13 deg to the athlete's right of the chest line; face pointing forward. Eyes on the rim.\n- Torso: trunk line (hips to shoulders) 6 deg backward of vertical, leaning 10 deg to the athlete's left; spine arched back (extended) 6 deg over the pelvis; shoulder line rotated 9 deg to the left of the hip line (hip-shoulder separation).\n- Right arm (dunking arm): upper arm raised 137 deg from the side of the trunk, pointing up and slightly forward; elbow slightly bent (12 deg flexion); forearm pointing up and slightly forward; palm facing down and slightly forward; wrist flexed 34 deg; hand: fingers spread around the ball, palm not touching it fully; fingertips 3.43 m above the floor.\n- Left arm (balance arm): upper arm raised 70 deg from the side of the trunk, pointing to the athlete's left and slightly down and slightly forward; elbow bent (40 deg flexion); forearm pointing forward and to the athlete's left; palm facing down; wrist neutral; hand: open with fingers spread; fingertips 2.47 m above the floor.\n- Right leg (knee raised): hip flexed 70 deg; knee bent to about a right angle (95 deg flexion); thigh pointing forward and slightly down, shin pointing down and slightly backward; ankle plantar-flexed (toes pointed) 30 deg; foot 131 cm above the floor.\n- Left leg: hip flexed 10 deg; knee bent (40 deg flexion); thigh pointing down, shin pointing down and slightly backward; ankle plantar-flexed (toes pointed) 40 deg; foot 100 cm above the floor.\n- Airborne: lowest point of the body 100 cm above the floor; neither foot touches the ground.\n- Technique cue: hand above the rim, fingers spread over the ball\n- Technique cue: free arm out for balance\n- Technique cue: rim at about 1.6 times the player's height\n\n3. OBJECT_INTERACTION:\n- ball (24 cm diameter): center 3.23 m above the floor; surface 10 cm from the rim (up and slightly backward of it).\n- Rim 3.05 m high (inner diameter 45 cm, about twice the ball); ball 18 cm above the rim, fingertips 38 cm above it; backboard behind the rim.\n- Legal under the FIBA rules: no body contact with an opponent outside the player's own cylinder; the hand pushes the ball down through the ring and grasps the ring at most momentarily; jersey tucked into the shorts.\n\n4. CINEMATIC_CAMERA:\n- under_rim: extreme low-angle shot looking up, three-quarter front view, 24mm wide-angle lens, full-body shot. From below the rim looking up, backboard and arena lights behind, extreme perspective.\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Profile: the arm above the rim and the raised knee.\n- wide_cinema: eye-level shot, three-quarter rear view, 28mm wide-angle lens, full-body shot. Wide cinematic frame from the key, crowd rising behind.\n\n5. KINETIC_ENERGY:\n- net starting to whip upward\n- rim flexing under the hand\n- camera flashes in the crowd, sweat flying",
+ "prompt": "{SUBJECT}, a basketball player throwing down a one-hand dunk, ball above the rim. Airborne high above the floor; right arm fully extended overhead, ball palmed in the right hand just above the rim, wrist flexing to push it down through the hoop; left arm out to the side for balance; right knee raised, left leg hanging with toes pointed; trunk slightly arched. Hand above the rim, fingers spread over the ball. Free arm out for balance. Rim at about 1.6 times the player's height. Extreme low-angle shot looking up, three-quarter front view, 24mm wide-angle lens, full-body shot. From below the rim looking up, backboard and arena lights behind, extreme perspective. Net starting to whip upward; rim flexing under the hand. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, ball too big or small for the rim, hand passing through the rim, rim at the wrong height for the player, missing net or backboard, fingers merged with the ball, both arms mirrored, player hanging from the ring with full body weight, untucked jersey, headband wider than 10 cm",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "under_rim",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "extreme low-angle shot looking up, three-quarter front view, 24mm wide-angle lens, full-body shot.",
+   "text": "From below the rim looking up, backboard and arena lights behind, extreme perspective.",
+   "openpose_png": "openpose_under_rim.png",
+   "openpose_json": "openpose_under_rim.json"
+  },
+  {
+   "name": "side",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Profile: the arm above the rim and the raised knee.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter rear view, 28mm wide-angle lens, full-body shot.",
+   "text": "Wide cinematic frame from the key, crowd rising behind.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "FIBA",
+ "scene_rules": [
+  "Five players per team on the court. (FIBA Art. 4.2.2)",
+  "Home team in light (preferably white) shirts, visiting team in dark shirts; shirts tucked into the shorts; all sleeves, headbands, wristbands and tape on a team in the same solid colour, headbands at most 10 cm wide. (FIBA Art. 4.3)",
+  "Shirt numbers only 0, 00 or 1-99: at least 20 cm tall on the back and 10 cm on the front. (FIBA Art. 4.3.2)",
+  "A crew chief and one or two umpires in grey officials' shirts on the court; scorer, timer and shot-clock operator at the table. (FIBA Art. 45)",
+  "Shot clocks mounted above and behind each backboard (red digits); backboard 1.80 x 1.05 m with its lower edge 2.90 m up, 1.20 m in from the endline; ring 3.05 m high with a 40-45 cm net. (FIBA Equipment)",
+  "Court 28 x 15 m with 5 cm lines, three-point arc 6.75 m (6.60 m in the corners), free-throw line 5.80 m from the endline, no-charge semi-circle 1.25 m under the basket. (FIBA Art. 2.4)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

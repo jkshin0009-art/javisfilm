@@ -1,0 +1,94 @@
+{
+ "code": "JUDO_IPPON_LANDING",
+ "sport": "judo",
+ "technique": "throw",
+ "phase": "landing",
+ "summary": "The ippon moment after a throw: uke lands flat on the back with the chin tucked and the left arm slapping the mat (ukemi); tori stands over uke, still holding and pulling up uke's right sleeve.",
+ "names": {
+  "ko": [
+   "유도 한판",
+   "유도 낙법 착지",
+   "업어치기 한판",
+   "메치기 착지"
+  ],
+  "en": [
+   "judo ippon landing",
+   "judo throw landing",
+   "breakfall ukemi",
+   "ippon moment"
+  ]
+ },
+ "keywords": [
+  "judo",
+  "ippon",
+  "throw",
+  "landing",
+  "ukemi",
+  "breakfall"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #JUDO_IPPON_LANDING\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted down 14 deg; face pointing down and slightly forward. Tori's eyes on uke.\n- Torso: trunk line (hips to shoulders) 45 deg forward of vertical; spine flexed 25 deg over the pelvis; shoulders square with the hips.\n- Right arm (right arm released): upper arm raised 35 deg from the side of the trunk, pointing down; elbow bent (60 deg flexion); forearm pointing forward and down; palm facing to the athlete's left and slightly down and slightly backward; wrist neutral; hand: relaxed, fingers softly curled; fingertips 0.62 m above the floor.\n- Left arm (pulling hand still on uke's sleeve): upper arm raised 59 deg from the side of the trunk, pointing down and slightly to the athlete's right; elbow slightly bent (10 deg flexion); forearm pointing down and to the athlete's right; palm facing down and backward and slightly to the athlete's left; wrist extended (cocked back) 12 deg; hand: fingers wrapped firmly around what it holds; fingertips 0.65 m above the floor.\n- Right leg: hip flexed 30 deg; knee bent (35 deg flexion); thigh pointing down, shin pointing down and slightly backward; ankle dorsiflexed 23 deg; foot flat on the floor.\n- Left leg: hip flexed 24 deg; knee bent (30 deg flexion); thigh pointing down, shin pointing down and slightly backward; ankle dorsiflexed 24 deg; foot flat on the floor.\n- Base: ankles 42 cm apart (24% of body height, 1.1x shoulder width); every support foot touches the floor, none floats.\n- B (uke, landing on the back): 96 cm forward of the main athlete, with the back to the main athlete; trunk 90 deg backward of vertical; knees 60/40 deg (right/left); elbows 15/3 deg; lying with back upper, sacrum on the mat. Uke in a blue judogi landing flat on the back, chin tucked to the chest so the head does not hit the mat, left arm slapping the tatami at about 45 degrees from the body, legs up from the throw.\n- Technique cue: keep pulling the sleeve so uke lands safely\n- Technique cue: uke: chin to chest, slap the mat\n- Technique cue: the referee raises the arm high for ippon\n\n3. OBJECT_INTERACTION:\n- Legal under the IJF rules: tori's hands are on the jacket and sleeves, away from uke's legs; tori's head is well above the mat; no hand on the opponent's face; uke's head stays off the mat (chin tucked).\n\n4. CINEMATIC_CAMERA:\n- side: high-angle shot looking down, side profile view, 35mm standard lens, full-body shot. Side view at mat level, tori standing over uke.\n- high_three_quarter: overhead high-angle shot, three-quarter front view, 35mm standard lens, full-body shot. High three-quarter view of the landing, the referee's ippon signal behind.\n- low_cinema: camera 0.3 m above the floor, ground-level low angle looking up, three-quarter rear view, 24mm wide-angle lens, full-body shot. Low wide frame from the tatami, uke's slapping hand in the foreground.\n\n5. KINETIC_ENERGY:\n- tatami shock wave and dust at the impact\n- judogi jackets flapping open\n- referee's arm shooting up for ippon",
+ "prompt": "{SUBJECT}, the ippon moment: a judoka's opponent lands flat on the back after a throw. Opposite the main athlete: {PARTNER_B} as the uke, landing on the back. Tori stands over uke with knees bent and trunk leaning forward, the left hand still gripping the end of uke's right sleeve and pulling it up, the right arm released; uke lies flat on the back in front of tori's feet, chin tucked to the chest with the head off the mat, the left arm straight and slapping the tatami at about 45 degrees from the body, legs bent up from the throw. Keep pulling the sleeve so uke lands safely. Uke: chin to chest, slap the mat. The referee raises the arm high for ippon. High-angle shot looking down, side profile view, 35mm standard lens, full-body shot. Side view at mat level, tori standing over uke. Tatami shock wave and dust at the impact; judogi jackets flapping open. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, judogi without a belt, both athletes in the same colour judogi, bare-chested judoka, boxing gloves, grabbing the legs, sleeves rolled up, uke landing on the head, tori letting go of the sleeve, hands grabbing the opponent's legs, thrower's head on the mat, hand pushing the opponent's face, uke landing on the head or neck",
+ "placeholders": [
+  "{SUBJECT}",
+  "{PARTNER_B}",
+  "{SETTING}"
+ ],
+ "partners": [
+  {
+   "id": "B",
+   "role": "uke, landing on the back"
+  }
+ ],
+ "cameras": [
+  {
+   "name": "side",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "high-angle shot looking down, side profile view, 35mm standard lens, full-body shot.",
+   "text": "Side view at mat level, tori standing over uke.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "high_three_quarter",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "overhead high-angle shot, three-quarter front view, 35mm standard lens, full-body shot.",
+   "text": "High three-quarter view of the landing, the referee's ippon signal behind.",
+   "openpose_png": "openpose_high_three_quarter.png",
+   "openpose_json": "openpose_high_three_quarter.json"
+  },
+  {
+   "name": "low_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.3 m above the floor, ground-level low angle looking up, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Low wide frame from the tatami, uke's slapping hand in the foreground.",
+   "openpose_png": "openpose_low_cinema.png",
+   "openpose_json": "openpose_low_cinema.json"
+  }
+ ],
+ "rulebook": "IJF",
+ "scene_rules": [
+  "One athlete in a white judogi, the other in a blue judogi; the jacket covers the thighs and closes left over right, sleeves reach the wrist, trousers reach the ankle; belt tied with a square knot; women wear a plain white T-shirt under the jacket, men nothing under it. (IJF SOR, judogi)",
+  "No rings, watches, piercings or other hard objects; long hair tied back; nails cut short; barefoot on the tatami. (IJF SOR, hygiene)",
+  "Square contest area 8-10 m across inside a 3 m safety area of a different colour; coach chairs at the corners. (IJF SOR, tatami)",
+  "One referee on the mat; two judges at the table with the video replay (CARE) system; the referee raises one arm straight up for ippon. (IJF Refereeing Rules)"
+ ],
+ "sequence": {
+  "id": "JUDO_SEOI_NAGE_THROW",
+  "order": 2,
+  "phases": [
+   "JUDO_SEOI_NAGE",
+   "JUDO_IPPON_LANDING"
+  ]
+ },
+ "checks_passed": true
+}

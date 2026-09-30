@@ -1,0 +1,85 @@
+{
+ "code": "WRESTLING_GRECO_BODY_LOCK",
+ "sport": "wrestling",
+ "technique": "body_lock",
+ "phase": "clinch",
+ "summary": "Greco-Roman body lock: chest to chest, the attacker's arms wrapped around the opponent's waist with the hands locked behind the back, heads side by side, hips close, the opponent's arms over the attacker's shoulders; no holds below the waist.",
+ "names": {
+  "ko": [
+   "그레코로만 바디락",
+   "레슬링 몸통 잡기",
+   "그레코로만형 클린치",
+   "바디 락"
+  ],
+  "en": [
+   "greco-roman body lock",
+   "wrestling body lock",
+   "bear hug clinch",
+   "greco clinch"
+  ]
+ },
+ "keywords": [
+  "wrestling",
+  "greco-roman",
+  "body lock",
+  "clinch",
+  "upper body"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #WRESTLING_GRECO_BODY_LOCK\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level, turned 20 deg to the athlete's right of the chest line; face pointing forward and slightly down and slightly to the athlete's right. Head beside the opponent's head, eyes past the ear.\n- Torso: trunk line (hips to shoulders) 15 deg forward of vertical; spine flexed 5 deg over the pelvis; shoulders square with the hips.\n- Right arm (right arm around the waist): upper arm raised 44 deg from the side of the trunk, pointing down and slightly to the athlete's left and slightly forward; elbow bent (49 deg flexion); forearm pointing forward and slightly to the athlete's left; palm facing to the athlete's left and slightly up; wrist neutral; hand: fingers wrapped firmly around what it holds; fingertips 1.01 m above the floor.\n- Left arm (left arm around the waist): upper arm raised 33 deg from the side of the trunk, pointing down and slightly forward; elbow deeply bent (67 deg flexion); forearm pointing forward; palm facing to the athlete's right and down and slightly forward; wrist extended (cocked back) 30 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.08 m above the floor.\n- Right leg: hip flexed 30 deg, abducted 12 deg; knee bent (35 deg flexion); thigh pointing down and slightly forward, shin pointing down; ankle dorsiflexed 13 deg; foot flat on the floor.\n- Left leg: hip flexed 10 deg; knee slightly bent (28 deg flexion); thigh pointing down, shin pointing down and slightly backward; ankle dorsiflexed 26 deg; foot flat on the floor.\n- Base: ankles 46 cm apart (26% of body height, 1.1x shoulder width); every support foot touches the floor, none floats.\n- B (opponent in the clinch): 46 cm forward of the main athlete, facing the main athlete; trunk 15 deg forward of vertical; knees 35/28 deg (right/left); elbows 99/110 deg; both feet on the floor. Opponent in a blue singlet, arms over the attacker's shoulders, hands on the upper back, hips pushed back to defend.\n- Technique cue: lock the hands above the hips, not below\n- Technique cue: chest to chest, hips in\n- Technique cue: lift and arch for the throw\n\n3. OBJECT_INTERACTION:\n- Legal under the UWW rules: both hands are locked above the opponent's waist; no fist or hand on the opponent's face.\n\n4. CINEMATIC_CAMERA:\n- side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view at mat level, both wrestlers in profile.\n- three_quarter: eye-level shot, three-quarter front view, 35mm standard lens, full-body shot. Three-quarter view, faces and hand positions sharp.\n- low_cinema: camera 0.4 m above the floor, ground-level low angle looking up, three-quarter rear view, 24mm wide-angle lens, full-body shot. Low wide frame on the mat, orange passivity band and arena lights.\n\n5. KINETIC_ENERGY:\n- singlets straining, muscles tense\n- feet pushing into the mat\n- sweat glistening under the lights",
+ "prompt": "{SUBJECT}, two Greco-Roman wrestlers locked chest to chest in a body lock. Opposite the main athlete: {PARTNER_B} as the opponent in the clinch. Chest to chest with the opponent, knees bent and hips in close; both arms wrapped around the opponent's waist above the belt line with the hands locked together behind the back; heads side by side, cheek to cheek; the opponent's arms over the attacker's shoulders with the hands on the upper back. Lock the hands above the hips, not below. Chest to chest, hips in. Lift and arch for the throw. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view at mat level, both wrestlers in profile. Singlets straining, muscles tense; feet pushing into the mat. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, loose clothing instead of a singlet, both wrestlers in the same colour, boxing gloves, street shoes, judogi, hands on the opponent's legs, leg trip in Greco-Roman, hands grabbing the opponent's legs, leg trip, hand choking the opponent's throat, full nelson, punching, elbow to the head",
+ "placeholders": [
+  "{SUBJECT}",
+  "{PARTNER_B}",
+  "{SETTING}"
+ ],
+ "partners": [
+  {
+   "id": "B",
+   "role": "opponent in the clinch"
+  }
+ ],
+ "cameras": [
+  {
+   "name": "side",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view at mat level, both wrestlers in profile.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "three_quarter",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, three-quarter front view, 35mm standard lens, full-body shot.",
+   "text": "Three-quarter view, faces and hand positions sharp.",
+   "openpose_png": "openpose_three_quarter.png",
+   "openpose_json": "openpose_three_quarter.json"
+  },
+  {
+   "name": "low_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.4 m above the floor, ground-level low angle looking up, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Low wide frame on the mat, orange passivity band and arena lights.",
+   "openpose_png": "openpose_low_cinema.png",
+   "openpose_json": "openpose_low_cinema.json"
+  }
+ ],
+ "rulebook": "UWW",
+ "scene_rules": [
+  "One-piece singlet, one wrestler in red and one in blue (by draw), wrestling shoes without heels, buckles or metal, laces covered; ear guards optional for seniors; a handkerchief tucked into the singlet; no jewellery; long hair covered. (UWW Wrestler's equipment)",
+  "Circular 9 m competition surface on a square mat: dark-blue 7 m central circle with a 1 m starting circle in the middle, an orange 1 m passivity band around it, a protection area of a contrasting colour outside; red and blue corners diagonally opposite. (UWW Mat)",
+  "Referee on the mat wearing red and blue wristbands, a judge and a mat chairman at the table; coaches seated in the red and blue corners. (UWW Officials)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

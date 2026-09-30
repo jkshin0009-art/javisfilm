@@ -1,0 +1,94 @@
+{
+ "code": "VOLLEYBALL_SPIKE_TAKEOFF",
+ "sport": "volleyball",
+ "technique": "spike",
+ "phase": "takeoff",
+ "summary": "Right-handed volleyball spike, final plant of the approach: both feet planted, knees deeply bent, both arms swung far back, just before the jump.",
+ "names": {
+  "ko": [
+   "배구 스파이크 도약",
+   "스파이크 발구름",
+   "스파이크 어프로치 마지막 스텝",
+   "점프 직전 팔 뒤로 젖히기"
+  ],
+  "en": [
+   "volleyball spike takeoff",
+   "spike approach plant",
+   "attack approach final step",
+   "arm backswing before jump"
+  ]
+ },
+ "keywords": [
+  "volleyball",
+  "spike",
+  "approach",
+  "plant",
+  "takeoff",
+  "jump",
+  "arm swing"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #VOLLEYBALL_SPIKE_TAKEOFF\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 59 deg, turned 34 deg to the athlete's left of the chest line; face pointing forward and slightly to the athlete's left and slightly up. Eyes up on the incoming set above the net.\n- Torso: trunk line (hips to shoulders) 38 deg forward of vertical; spine flexed 10 deg over the pelvis; shoulders square with the hips.\n- Right arm (swung back): upper arm raised 58 deg from the side of the trunk, pointing backward; elbow slightly bent (12 deg flexion); forearm pointing backward; palm facing to the athlete's left; wrist extended (cocked back) 10 deg; hand: open, fingers together and straight; fingertips 1.23 m above the floor.\n- Left arm (swung back): upper arm raised 55 deg from the side of the trunk, pointing backward; elbow slightly bent (14 deg flexion); forearm pointing backward; palm facing to the athlete's right and slightly backward; wrist extended (cocked back) 10 deg; hand: open, fingers together and straight; fingertips 1.13 m above the floor.\n- Right leg (dominant leg, deeper knee bend): hip flexed 80 deg; knee bent to about a right angle (92 deg flexion); thigh pointing forward and down, shin pointing down and backward; ankle dorsiflexed 33 deg; foot flat on the floor.\n- Left leg (closing step, slightly ahead): hip flexed 90 deg; knee bent (64 deg flexion); thigh pointing forward and slightly down, shin pointing down; ankle neutral; foot flat on the floor.\n- Base: ankles 44 cm apart (23% of body height, 1.0x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: wide, dynamic arm swing loads the jump\n- Technique cue: plant heel-to-toe with the feet ahead of the hips so the body leans back into the jump\n- Technique cue: knees bent deeply, weight low\n\n3. OBJECT_INTERACTION:\n- ball (21 cm diameter): center 3.68 m above the floor; surface 311 cm from the forehead (forward and up and slightly to the athlete's left of it).\n- Net: top tape 2.43 m high, 130 cm in front of the hips; the set ball is still rising toward the attack point above and in front.\n- Legal under the FIVB rules: no part of the body touches the net or the antennae; neither foot is completely past the centre line; the ball rebounds from a brief contact, it is not caught or held; the player is not the Libero (different jersey colour).\n\n4. CINEMATIC_CAMERA:\n- side_low: low-angle shot looking up, side profile view, 35mm standard lens, full-body shot. Sharp focus on the planted feet and the swung-back arms, shallow depth of field.\n- front_three_quarter: eye-level shot, three-quarter front view, 50mm standard lens, full-body shot. Knees and arms read clearly, net tape out of frame above.\n- wide_cinema: eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide cinematic frame from behind the attacker, court lines leading to the net.\n\n5. KINETIC_ENERGY:\n- motion blur on both arms at the end of the backswing\n- shoe soles gripping the court, slight squeak dust at the heels\n- jersey pulled back by the arm swing",
+ "prompt": "{SUBJECT}, a volleyball attacker on the last plant step of the spike approach, just before jumping. Both feet planted flat, left foot slightly ahead; right knee bent to about 90 degrees, left knee about 65 degrees; trunk leaning about 38 degrees forward; both arms swung straight back behind the hips, palms facing back, at the end of the backswing; eyes up on the set ball. Wide, dynamic arm swing loads the jump. Plant heel-to-toe with the feet ahead of the hips so the body leans back into the jump. Knees bent deeply, weight low. Low-angle shot looking up, side profile view, 35mm standard lens, full-body shot. Sharp focus on the planted feet and the swung-back arms, shallow depth of field. Motion blur on both arms at the end of the backswing; shoe soles gripping the court, slight squeak dust at the heels. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, arms swung forward, upright torso, feet crossed, one foot in the air, straight knees, player touching the net, hand or arm pressing into the net mesh, body tangled in the net, foot planted on the opponent's side under the net, ball held or cradled in the hands, ball caught against the body",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "side_low",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "low-angle shot looking up, side profile view, 35mm standard lens, full-body shot.",
+   "text": "Sharp focus on the planted feet and the swung-back arms, shallow depth of field.",
+   "openpose_png": "openpose_side_low.png",
+   "openpose_json": "openpose_side_low.json"
+  },
+  {
+   "name": "front_three_quarter",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, three-quarter front view, 50mm standard lens, full-body shot.",
+   "text": "Knees and arms read clearly, net tape out of frame above.",
+   "openpose_png": "openpose_front_three_quarter.png",
+   "openpose_json": "openpose_front_three_quarter.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide cinematic frame from behind the attacker, court lines leading to the net.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "FIVB",
+ "scene_rules": [
+  "Six players per team on court, three front row and three back row. (FIVB 7.3.1)",
+  "At most one Libero on court, in a jersey of a clearly contrasting dominant colour; the Libero never serves, blocks or attacks a ball entirely above the net. (FIVB 19.2, 19.1.3)",
+  "Jersey numbers 1-20 centred on the chest (at least 15 cm tall) and back (at least 20 cm tall); the captain has an 8 x 2 cm stripe under the chest number. (FIVB 4.3.3)",
+  "Team members wear the same jersey, shorts and socks (Libero excepted); shoes without heels. (FIVB 4.3)",
+  "Red-and-white striped antennae stand 80 cm above the net at each side line; the net is black 10 cm mesh with a 7 cm white top band. (FIVB 2.4, 2.3)",
+  "Court 18 x 9 m, white 5 cm lines; the centre line runs under the net and attack lines are 3 m from it on both sides. (FIVB 1.3)",
+  "First referee stands on a referee's stand at one end of the net, eyes about 50 cm above the net; the second referee stands on the floor near the opposite post. (FIVB 23.1, 24.1)",
+  "Line judges with flags stand in the free zone 1-3 m from the court corners. (FIVB 29.1)"
+ ],
+ "sequence": {
+  "id": "VOLLEYBALL_SPIKE",
+  "order": 1,
+  "phases": [
+   "VOLLEYBALL_SPIKE_TAKEOFF",
+   "VOLLEYBALL_SPIKE_ARM_COCK",
+   "VOLLEYBALL_SPIKE_CONTACT"
+  ]
+ },
+ "checks_passed": true
+}

@@ -1,0 +1,80 @@
+{
+ "code": "FISHING_FIGHT",
+ "sport": "fishing",
+ "technique": "fight",
+ "phase": "pumping",
+ "summary": "Angler fighting a fish with a spinning rod: rod butt against the belly, rod raised about 50-60 degrees and bent deeply, right hand on the fore grip, left hand cranking the reel, knees bent and leaning back.",
+ "names": {
+  "ko": [
+   "낚시 파이팅",
+   "고기 걸린 순간",
+   "낚싯대 휨",
+   "릴링 파이팅"
+  ],
+  "en": [
+   "fighting a fish",
+   "rod bent pumping",
+   "angler reeling in",
+   "fish on"
+  ]
+ },
+ "keywords": [
+  "fishing",
+  "angling",
+  "fight",
+  "reel",
+  "rod bent"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #FISHING_FIGHT\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level; face pointing forward. Eyes on the line where it enters the water.\n- Torso: trunk line (hips to shoulders) 16 deg backward of vertical; spine arched back (extended) 8 deg over the pelvis; shoulders square with the hips.\n- Right arm (rod hand on the fore grip): upper arm raised 58 deg from the side of the trunk, pointing forward and slightly to the athlete's left and slightly down; elbow bent (57 deg flexion); forearm pointing forward and up and slightly to the athlete's left; palm facing to the athlete's left and down; wrist neutral; hand: fingers wrapped firmly around what it holds; fingertips 1.57 m above the floor.\n- Left arm (reel hand on the handle): upper arm raised 36 deg from the side of the trunk, pointing forward and down; elbow bent (63 deg flexion); forearm pointing forward and slightly up and slightly to the athlete's right; palm facing to the athlete's right; wrist extended (cocked back) 8 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.38 m above the floor.\n- Right leg: hip flexed 15 deg, abducted 12 deg; knee slightly bent (30 deg flexion); thigh pointing down and slightly forward, shin pointing down; ankle neutral; foot flat on the floor.\n- Left leg: hip flexed 17 deg; knee bent (32 deg flexion); thigh pointing down and slightly forward, shin pointing down; ankle neutral; foot flat on the floor.\n- Base: ankles 35 cm apart (19% of body height, 0.9x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: keep the rod at 45-60 degrees above the water\n- Technique cue: lift the rod, then reel while lowering it\n- Technique cue: smooth, small pumping strokes, never let the line go slack\n\n3. OBJECT_INTERACTION:\n- rod (2.3 m): spinning reel hanging under the rod; butt section pointing up and forward, tip 2.45 m above the floor, the upper third bent about 75 deg under load; the line runs from the tip down to the water.\n- The line runs taut from the rod tip down into the water about 10 m out where the fish pulls.\n- Legal under the IGFA rules: the angler's own hands hold the rod and turn the reel; the rod butt is tucked against the angler's own belly.\n\n4. CINEMATIC_CAMERA:\n- side: eye-level shot, side profile view, 35mm standard lens, full-body shot. Side view, the whole rod arc in frame against the sky.\n- front_three_quarter: eye-level shot, three-quarter front view, 50mm standard lens, full-body shot. Three-quarter front view from the water side, face and hands sharp.\n- wide_cinema: eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide frame from behind the angler over the water, golden hour light.\n\n5. KINETIC_ENERGY:\n- rod bending into a deep arc\n- line taut and cutting the water, spray where the fish pulls\n- forearm muscles tense",
+ "prompt": "{SUBJECT}, an angler fighting a strong fish, pumping the bent rod. Knees bent and body leaning back; rod butt tucked against the belly, rod raised about 55 degrees and bent deeply toward the fish; right hand on the fore grip above the reel, left hand turning the spinning reel handle under the rod; line taut to the water. Keep the rod at 45-60 degrees above the water. Lift the rod, then reel while lowering it. Smooth, small pumping strokes, never let the line go slack. Eye-level shot, side profile view, 35mm standard lens, full-body shot. Side view, the whole rod arc in frame against the sky. Rod bending into a deep arc; line taut and cutting the water, spray where the fish pulls. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, straight rod while fighting, slack line, line not ending in the water, reel on the wrong side, second person holding the rod, helper pulling the line, rod resting on the railing, rod left in a rod holder during the fight, angler pulling the fishing line by hand, line wrapped around the hand, two fishing lines from one rod, several rods tangled on one fish, electric reel with a power cable, motorised reel",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "side",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, side profile view, 35mm standard lens, full-body shot.",
+   "text": "Side view, the whole rod arc in frame against the sky.",
+   "openpose_png": "openpose_side.png",
+   "openpose_json": "openpose_side.json"
+  },
+  {
+   "name": "front_three_quarter",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, three-quarter front view, 50mm standard lens, full-body shot.",
+   "text": "Three-quarter front view from the water side, face and hands sharp.",
+   "openpose_png": "openpose_front_three_quarter.png",
+   "openpose_json": "openpose_front_three_quarter.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide frame from behind the angler over the water, golden hour light.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "IGFA",
+ "scene_rules": [
+  "One angler per rod: from the strike until the fish is landed or released, only the angler touches the rod, reel and line. (IGFA Angling Regulations)",
+  "Fishing from a boat: helpers may take hold of the leader near the boat and gaff or net the fish, but never touch the rod, reel or main line. (IGFA Angling Regulations)",
+  "Hand-cranked reel only; no electric, hydraulic or motor-driven reel. (IGFA Equipment Regulations, Reels)",
+  "A rod belt (gimbal) or harness may take the butt; the rod does not rest on the gunwale, a rod holder or anything else while the fish is played. (IGFA Equipment Regulations, Harnesses and rod belts)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}

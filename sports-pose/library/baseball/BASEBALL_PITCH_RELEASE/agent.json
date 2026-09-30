@@ -1,0 +1,91 @@
+{
+ "code": "BASEBALL_PITCH_RELEASE",
+ "sport": "baseball",
+ "technique": "pitch",
+ "phase": "release",
+ "summary": "Right-handed baseball pitcher at ball release: trunk flexed forward and tilted to the glove side, throwing arm almost straight out in front of the stride foot, front knee firm, back foot dragging.",
+ "names": {
+  "ko": [
+   "야구 투구 릴리스",
+   "공 놓는 순간",
+   "투구 릴리스 포인트",
+   "강속구 투구"
+  ],
+  "en": [
+   "baseball pitch release",
+   "ball release",
+   "release point",
+   "fastball release"
+  ]
+ },
+ "keywords": [
+  "baseball",
+  "pitching",
+  "release",
+  "fastball",
+  "follow-through"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #BASEBALL_PITCH_RELEASE\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head tilted back 7 deg, turned 14 deg to the athlete's right of the chest line; face pointing forward and slightly to the athlete's right and slightly down. Eyes on the catcher's mitt.\n- Torso: trunk line (hips to shoulders) 30 deg forward of vertical, leaning 19 deg to the athlete's left; spine flexed 14 deg over the pelvis; shoulder line rotated 19 deg to the left of the hip line (hip-shoulder separation).\n- Right arm (throwing arm): upper arm raised 91 deg from the side of the trunk, pointing to the athlete's right; elbow bent (32 deg flexion); forearm pointing to the athlete's right and slightly up; palm facing down and slightly forward; wrist flexed 10 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.40 m above the floor.\n- Left arm (glove arm): upper arm raised 40 deg from the side of the trunk, pointing down and slightly to the athlete's left; elbow bent to about a right angle (100 deg flexion); forearm pointing forward and to the athlete's right; palm facing down and slightly to the athlete's right and slightly backward; wrist neutral; hand: cupped, fingers slightly curled and spread; fingertips 0.75 m above the floor.\n- Right leg (pivot leg on the rubber): hip extended 4 deg; knee bent (57 deg flexion); thigh pointing down and slightly to the athlete's left and slightly backward, shin pointing backward; ankle neutral; on the ball of the foot, heel raised.\n- Left leg (stride leg): hip flexed 68 deg; knee bent (46 deg flexion); thigh pointing forward and down and slightly to the athlete's right, shin pointing down and slightly to the athlete's right; ankle plantar-flexed (toes pointed) 9 deg; foot flat on the floor.\n- Base: ankles 100 cm apart (54% of body height, 2.4x shoulder width); every support foot touches the floor, none floats.\n- Technique cue: release out in front of the stride foot\n- Technique cue: trunk flexes forward and tilts to the glove side\n- Technique cue: front knee firm\n\n3. OBJECT_INTERACTION:\n- ball (7 cm diameter): center 1.30 m above the floor; touching the right palm; surface 138 cm from the left ankle (up and slightly to the athlete's right of it).\n- Pitcher's plate (rubber) 61 x 15 cm, white, on top of a mound 25 cm above home plate; the front edge of the plate is 18.44 m from the rear point of home plate.\n- Legal under the OBR rules: the pivot foot drags from the rubber, it does not hop forward and re-plant; the stride goes straight toward home plate; a dark glove, a bare pitching hand, a clean white ball.\n\n4. CINEMATIC_CAMERA:\n- catcher_view: eye-level shot, from the front (target side), 200mm telephoto lens, full-body shot. Broadcast view from behind the plate, long telephoto compression, sharp focus on the pitcher.\n- first_base_side: eye-level shot, side profile view, 50mm standard lens, full-body shot. Side view from the first-base side: stride and arm path read clearly.\n- low_cinema: camera 0.4 m above the floor, ground-level low angle looking up, three-quarter front view, 24mm wide-angle lens, full-body shot. Low wide cinematic frame from the grass in front of the mound, stadium lights behind.\n\n5. KINETIC_ENERGY:\n- ball leaving the fingertips with a white motion streak\n- cap and jersey whipping forward\n- dust cloud from the dragging back foot",
+ "prompt": "{SUBJECT}, a right-handed baseball pitcher releasing a fastball. Trunk flexed forward about 35 degrees and tilted toward the glove side; throwing arm nearly straight and out in front, hand at about eye level just in front of the stride foot, fingers behind the ball; glove pulled in to the chest; left front leg planted and firm; right leg trailing behind, foot dragging on its toes. Release out in front of the stride foot. Trunk flexes forward and tilts to the glove side. Front knee firm. Eye-level shot, from the front (target side), 200mm telephoto lens, full-body shot. Broadcast view from behind the plate, long telephoto compression, sharp focus on the pitcher. Ball leaving the fingertips with a white motion streak; cap and jersey whipping forward. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, elbow bent backwards, ball stuck to the palm, ball floating far from the fingertips, back foot flat on the rubber, front knee collapsed, left-handed layout, pitcher hopping forward and re-planting the back foot, white or grey pitcher's glove, tape or bandage on the pitching hand, bracelet on the pitching wrist",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "catcher_view",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, from the front (target side), 200mm telephoto lens, full-body shot.",
+   "text": "Broadcast view from behind the plate, long telephoto compression, sharp focus on the pitcher.",
+   "openpose_png": "openpose_catcher_view.png",
+   "openpose_json": "openpose_catcher_view.json"
+  },
+  {
+   "name": "first_base_side",
+   "size": [
+    1152,
+    896
+   ],
+   "words": "eye-level shot, side profile view, 50mm standard lens, full-body shot.",
+   "text": "Side view from the first-base side: stride and arm path read clearly.",
+   "openpose_png": "openpose_first_base_side.png",
+   "openpose_json": "openpose_first_base_side.json"
+  },
+  {
+   "name": "low_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "camera 0.4 m above the floor, ground-level low angle looking up, three-quarter front view, 24mm wide-angle lens, full-body shot.",
+   "text": "Low wide cinematic frame from the grass in front of the mound, stadium lights behind.",
+   "openpose_png": "openpose_low_cinema.png",
+   "openpose_json": "openpose_low_cinema.json"
+  }
+ ],
+ "rulebook": "OBR",
+ "scene_rules": [
+  "Nine fielders per team. (OBR 1.01)",
+  "The catcher crouches directly behind home plate in the catcher's box; the plate umpire (umpire-in-chief) stands behind the catcher; base umpires stand where they see the bases. (OBR 5.02(a), 8.03)",
+  "All fielders except the catcher stand in fair territory; with the pitcher on the rubber, two infielders are on each side of second base with both feet on the infield dirt. (OBR 5.02(c))",
+  "Batters, base runners and base coaches wear batting helmets (ear flap); the catcher wears a helmet and mask. (OBR 3.08)",
+  "The pitcher's glove is not white or grey (piping excepted) and carries no other-coloured material; nothing is attached to the pitching hand, fingers or wrists (no tape, bandage or bracelet). (OBR 3.07(a), 6.02(c)(7))",
+  "Home plate is a white five-sided slab 43 cm wide; the white pitcher's plate (61 x 15 cm) sits on a mound 25 cm above home plate, 18.44 m away. (OBR 2.02, 2.04)"
+ ],
+ "sequence": {
+  "id": "BASEBALL_PITCH",
+  "phases": [
+   "BASEBALL_PITCH_LEG_LIFT",
+   "BASEBALL_PITCH_FOOT_CONTACT",
+   "BASEBALL_PITCH_MER",
+   "BASEBALL_PITCH_RELEASE"
+  ],
+  "order": 4
+ },
+ "checks_passed": true
+}

@@ -1,0 +1,85 @@
+{
+ "code": "VOLLEYBALL_BLOCK",
+ "sport": "volleyball",
+ "technique": "block",
+ "phase": "peak",
+ "summary": "Volleyball block at the top of the jump: both arms straight and reaching over the net into the opponent's court, hands wide open, shoulders parallel to the net.",
+ "names": {
+  "ko": [
+   "배구 블로킹",
+   "블록 점프",
+   "네트 위 손 뻗기",
+   "블로커"
+  ],
+  "en": [
+   "volleyball block",
+   "blocking jump",
+   "hands over the net",
+   "blocker"
+  ]
+ },
+ "keywords": [
+  "volleyball",
+  "block",
+  "net",
+  "jump",
+  "penetration",
+  "defense"
+ ],
+ "block": "1. SYSTEM_INDEX_CODE: #VOLLEYBALL_BLOCK\n\n2. ANATOMICAL_BONES:\n- Gaze & head: head level; face pointing forward. Eyes on the attacker's hitting arm across the net.\n- Torso: trunk line (hips to shoulders) 14 deg forward of vertical; spine flexed 8 deg over the pelvis; shoulders square with the hips.\n- Right arm: upper arm raised 161 deg from the side of the trunk, pointing up and slightly forward; elbow slightly bent (15 deg flexion); forearm pointing up and slightly forward; palm facing forward and down; wrist flexed 25 deg; hand: open with fingers spread; fingertips 3.19 m above the floor.\n- Left arm: upper arm raised 161 deg from the side of the trunk, pointing up and slightly forward; elbow slightly bent (15 deg flexion); forearm pointing up and slightly forward; palm facing forward and down; wrist flexed 25 deg; hand: open with fingers spread; fingertips 3.19 m above the floor.\n- Right leg: hip flexed 14 deg; knee slightly bent (18 deg flexion); thigh pointing down, shin pointing down; ankle plantar-flexed (toes pointed) 45 deg; foot 72 cm above the floor.\n- Left leg: hip flexed 14 deg; knee slightly bent (18 deg flexion); thigh pointing down, shin pointing down; ankle plantar-flexed (toes pointed) 45 deg; foot 72 cm above the floor.\n- Airborne: lowest point of the body 72 cm above the floor; neither foot touches the ground.\n- Technique cue: penetrate the hands over the net, do not just reach up\n- Technique cue: pelvis and shoulders parallel to the net\n- Technique cue: thumbs up, fingers spread and strong\n\n3. OBJECT_INTERACTION:\n- Net: top tape 2.43 m high, 32 cm in front of the hips; fingertips 76 cm above the tape and 26 cm past the net plane into the opponent's court; body stays on its own side.\n- Legal under the FIVB rules: no part of the body touches the net or the antennae; neither foot is completely past the centre line; the hands are above the top of the net; the blocker reaches over the net only against the opponent's attack hit; the player is not the Libero (different jersey colour).\n\n4. CINEMATIC_CAMERA:\n- attacker_view: low-angle shot looking up, from the front (target side), 50mm standard lens, full-body shot. From the attacker's side of the net: a wall of hands above the tape.\n- net_profile: eye-level shot, side profile view, 35mm standard lens, full-body shot. Profile along the net shows the arms penetrating over it.\n- wide_cinema: eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot. Wide from behind the blocker, attacker and ball beyond the net.\n\n5. KINETIC_ENERGY:\n- net mesh flexing slightly next to the arms\n- hands firm against an incoming spike\n- sweat on the forearms catching the arena light",
+ "prompt": "{SUBJECT}, a volleyball blocker at the top of the jump pressing both hands over the net. Airborne with legs nearly straight and toes pointed down; trunk upright and slightly piked; shoulders square to the net; both arms straight, reaching up and forward over the tape into the opponent's court; hands wide open, fingers spread, palms facing down toward the opponent's floor. Penetrate the hands over the net, do not just reach up. Pelvis and shoulders parallel to the net. Thumbs up, fingers spread and strong. Low-angle shot looking up, from the front (target side), 50mm standard lens, full-body shot. From the attacker's side of the net: a wall of hands above the tape. Net mesh flexing slightly next to the arms; hands firm against an incoming spike. {SETTING}.",
+ "negative": "extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra arms, extra legs, backward-bending elbow, backward-bending knee, twisted torso, floating feet, feet sinking into the floor, distorted hands, deformed anatomy, duplicated athlete, hands on the blocker's own side, arms bent at 90 degrees, arms spread so wide the ball passes between them, body passing through the net, feet on the floor, player touching the net, hand or arm pressing into the net mesh, body tangled in the net, foot planted on the opponent's side under the net, blocker's hands below the net tape",
+ "placeholders": [
+  "{SUBJECT}",
+  "{SETTING}"
+ ],
+ "partners": [],
+ "cameras": [
+  {
+   "name": "attacker_view",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "low-angle shot looking up, from the front (target side), 50mm standard lens, full-body shot.",
+   "text": "From the attacker's side of the net: a wall of hands above the tape.",
+   "openpose_png": "openpose_attacker_view.png",
+   "openpose_json": "openpose_attacker_view.json"
+  },
+  {
+   "name": "net_profile",
+   "size": [
+    896,
+    1152
+   ],
+   "words": "eye-level shot, side profile view, 35mm standard lens, full-body shot.",
+   "text": "Profile along the net shows the arms penetrating over it.",
+   "openpose_png": "openpose_net_profile.png",
+   "openpose_json": "openpose_net_profile.json"
+  },
+  {
+   "name": "wide_cinema",
+   "size": [
+    1344,
+    768
+   ],
+   "words": "eye-level shot, three-quarter rear view, 24mm wide-angle lens, full-body shot.",
+   "text": "Wide from behind the blocker, attacker and ball beyond the net.",
+   "openpose_png": "openpose_wide_cinema.png",
+   "openpose_json": "openpose_wide_cinema.json"
+  }
+ ],
+ "rulebook": "FIVB",
+ "scene_rules": [
+  "Six players per team on court, three front row and three back row. (FIVB 7.3.1)",
+  "At most one Libero on court, in a jersey of a clearly contrasting dominant colour; the Libero never serves, blocks or attacks a ball entirely above the net. (FIVB 19.2, 19.1.3)",
+  "Jersey numbers 1-20 centred on the chest (at least 15 cm tall) and back (at least 20 cm tall); the captain has an 8 x 2 cm stripe under the chest number. (FIVB 4.3.3)",
+  "Team members wear the same jersey, shorts and socks (Libero excepted); shoes without heels. (FIVB 4.3)",
+  "Red-and-white striped antennae stand 80 cm above the net at each side line; the net is black 10 cm mesh with a 7 cm white top band. (FIVB 2.4, 2.3)",
+  "Court 18 x 9 m, white 5 cm lines; the centre line runs under the net and attack lines are 3 m from it on both sides. (FIVB 1.3)",
+  "First referee stands on a referee's stand at one end of the net, eyes about 50 cm above the net; the second referee stands on the floor near the opposite post. (FIVB 23.1, 24.1)",
+  "Line judges with flags stand in the free zone 1-3 m from the court corners. (FIVB 29.1)"
+ ],
+ "sequence": null,
+ "checks_passed": true
+}
