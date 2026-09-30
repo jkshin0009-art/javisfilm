@@ -58,3 +58,13 @@ frame_gate는 339컷 중 312컷을 실패시킨다. 사람 판정과 연결된 �
 3. 그다음 이 도구를 최종 검수로 씁니다. 이 도구도 같은 방식으로 정확도를 잰 뒤에만 믿습니다.
 
 컷 그림, 콘티 내용, 대사는 `work\`에만 둡니다(`.gitignore`). 올리는 것은 개수만 담은 `summary.md`와 조사 보고서뿐입니다.
+
+## One picture before it is used
+
+`one` checks a single picture against its cut before it becomes a video's first frame:
+the aspect ratio measured on the file itself, plus the same vision questions (overall match,
+action, place, people count, defects). Exit 0 = pass, 1 = a check failed, 2 = the model
+could not be asked. A picture never passes silently.
+
+    python boardcheck.py one --image scene.png --action "조종석에 앉아 조종간을 잡고 있다" \
+        --location "로봇 조종석" --cast "김철" --aspect 16:9

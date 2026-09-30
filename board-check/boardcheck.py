@@ -24,6 +24,10 @@ Two backends:
   map       MANIFEST              draft the field mapping (board_map.json) from the manifest keys
   run       --board DIR           review every panel, write review.json + review.html
   feedback  --review DIR --csv    precision per check from the marks a person made
+  one       --image FILE          check one picture against its cut before it is used
+                                  (e.g. as a video's first frame): the same questions plus
+                                  the aspect ratio; exit 1 when a check fails, 2 when the
+                                  model could not be asked
 """
 from __future__ import annotations
 
@@ -65,7 +69,7 @@ LABELS = {
     "matches_spec": "콘티와 맞음", "people_count": "인물 수", "shot_size": "샷 크기", "action_ok": "행동",
     "place_ok": "장소", "mood_ok": "표정·감정", "hands_ok": "손", "face_ok": "얼굴", "body_ok": "몸·팔다리",
     "no_text": "글자·말풍선", "no_duplicates": "복제 인물", "framing_ok": "잘림", "identity": "인물 얼굴",
-    "continuity": "앞 컷과 옷·머리",
+    "continuity": "앞 컷과 옷·머리", "aspect_ok": "화면비",
 }
 
 # (name, group, question with {field} slots, fields it needs)
@@ -431,6 +435,52 @@ def review_panel(backend, img: Path, spec: Dict[str, str], prev: Optional[Tuple[
     return checks
 
 
+def aspect_check(img: Path, want: str) -> Dict:
+    """want like "16:9". Measured on the file itself, so a picture squeezed into the
+    wrong frame fails no matter what any report says."""
+    from PIL import Image
+    with Image.open(img) as im:
+        w, h = im.size
+    a, b = (float(x) for x in want.split(":"))
+    off = abs((w / h) / (a / b) - 1.0)
+    return {"group": "context", "p_bad": 1.0 if off > 0.03 else 0.0, "note": f"expected {want}, got {w}x{h}"}
+
+
+def cmd_one(a) -> int:
+    img = Path(a.image)
+    if not img.is_file():
+        print(f"no such image: {img}")
+        return 2
+    spec = {k: v for k, v in (("shot", a.shot), ("cast", a.cast), ("action", a.action),
+                              ("location", a.location), ("emotion", a.emotion),
+                              ("description", a.description)) if v}
+    checks: Dict[str, Dict] = {}
+    if a.aspect:
+        checks["aspect_ok"] = aspect_check(img, a.aspect)
+    backend = DecisionBackend(a.url, a.timeout) if a.backend == "decision" else \
+        LogprobBackend(a.url, "adaptive", a.timeout)
+    err = ""
+    try:
+        small = prepared(img, HERE / "work" / "one_cache", a.max_side)
+        checks.update(review_panel(backend, small, spec))
+    except LLMError as e:
+        err = str(e)
+    worst = max((c["p_bad"] for c in checks.values() if c["p_bad"] == c["p_bad"]), default=float("nan"))
+    st = status_of(worst, a.bad, a.check)
+    for k, c in sorted(checks.items(), key=lambda kv: -(kv[1]["p_bad"] if kv[1]["p_bad"] == kv[1]["p_bad"] else 1)):
+        p = c["p_bad"]
+        mark = status_of(p, a.bad, a.check)
+        print(f"{mark:5s} {LABELS.get(k, k)} ({k}) {'?' if p != p else f'{p:.0%}'}  {c.get('note', '')}".rstrip())
+    if err:
+        print(f"ERROR {err}")
+    print(f"RESULT {st}" + ("  (the model was not asked)" if err else ""))
+    if a.out:
+        Path(a.out).write_text(json.dumps({"image": str(img.resolve()), "spec": spec, "checks": checks,
+                                           "status": st, "error": err}, ensure_ascii=False, indent=1),
+                               encoding="utf-8")
+    return 2 if err else (1 if st == "bad" else 0)
+
+
 def cmd_map(a) -> int:
     manifest = json.loads(Path(a.manifest).read_text(encoding="utf-8-sig"))
     panels = find_panels(manifest, a.panels)
@@ -726,6 +776,24 @@ def main(argv=None) -> int:
     p.add_argument("--force", action="store_true")
     p.add_argument("--timeout", type=float, default=120.0)
     p.set_defaults(fn=cmd_run)
+
+    p = sub.add_parser("one", help="check one picture against its cut, before it becomes a first frame")
+    p.add_argument("--image", required=True)
+    p.add_argument("--action", default="", help="what the person does, e.g. 'sits at the controls'")
+    p.add_argument("--location", default="")
+    p.add_argument("--shot", default="")
+    p.add_argument("--cast", default="", help="names, comma separated (people count)")
+    p.add_argument("--emotion", default="")
+    p.add_argument("--description", default="")
+    p.add_argument("--aspect", default="", help="expected ratio, e.g. 16:9")
+    p.add_argument("--url", default="http://127.0.0.1:5678")
+    p.add_argument("--backend", choices=("logprobs", "decision"), default="logprobs")
+    p.add_argument("--max-side", type=int, default=1024)
+    p.add_argument("--bad", type=float, default=0.7)
+    p.add_argument("--check", type=float, default=0.4)
+    p.add_argument("--timeout", type=float, default=120.0)
+    p.add_argument("--out", default=None)
+    p.set_defaults(fn=cmd_one)
 
     p = sub.add_parser("feedback")
     p.add_argument("--review", required=True, help="the run's output folder")

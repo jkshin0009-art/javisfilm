@@ -180,3 +180,32 @@ def test_core_checks_in_parallel(tmp_path, mock):
     assert "shot_size" not in r["p01"]["checks"] and "body_ok" not in r["p01"]["checks"]
     # one reading per question by default: 5 core questions, no second order
     assert len(mock.requests) == 5 + 5 + 4          # p01: 4 yes/no + count, p02: same, p03: 4 yes/no
+
+
+def test_one_catches_a_squeezed_picture(tmp_path, mock, capsys):
+    tall = tmp_path / "tall.png"
+    PIL.new("RGB", (480, 640), (60, 60, 60)).save(tall)
+    out = tmp_path / "one.json"
+    rc = bc.main(["one", "--image", str(tall), "--action", "앉아서 조종간을 잡는다", "--location", "조종석",
+                  "--cast", "김철", "--aspect", "16:9", "--url", mock.url, "--out", str(out)])
+    assert rc == 1
+    r = json.loads(out.read_text(encoding="utf-8"))
+    assert r["status"] == "bad" and r["checks"]["aspect_ok"]["p_bad"] == 1.0
+    assert "got 480x640" in r["checks"]["aspect_ok"]["note"]
+    assert {"matches_spec", "action_ok", "place_ok", "people_count"} <= set(r["checks"])
+    assert "RESULT bad" in capsys.readouterr().out
+
+
+def test_one_passes_a_matching_picture(tmp_path, mock):
+    wide = tmp_path / "wide.png"
+    PIL.new("RGB", (1536, 864), (60, 60, 60)).save(wide)
+    assert bc.main(["one", "--image", str(wide), "--action", "앉아서 조종간을 잡는다", "--cast", "김철",
+                    "--aspect", "16:9", "--url", mock.url]) == 0
+
+
+def test_one_never_passes_silently(tmp_path, capsys):
+    wide = tmp_path / "wide.png"
+    PIL.new("RGB", (1536, 864), (60, 60, 60)).save(wide)
+    rc = bc.main(["one", "--image", str(wide), "--action", "앉는다", "--url", "http://127.0.0.1:9", "--timeout", "2"])
+    assert rc == 2 and "the model was not asked" in capsys.readouterr().out
+    assert bc.main(["one", "--image", str(tmp_path / "missing.png")]) == 2
