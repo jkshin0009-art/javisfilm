@@ -19,7 +19,8 @@ only checks a finished prompt string against those rules:
                    "[Shot N] At MM:SS.mmm"; timeline seconds rising and inside the
                    clip; at most 7000 characters; for a clip made of several chunks,
                    no line of dialogue in the last second of a chunk that is not the last;
-                   references written as <Picture N>; one subject is not both she and he
+                   references written as <Picture N>; one subject is not both she and he;
+                   no heading label or repeated sentence pasted inside a section
 
   shape  PATH... [--n 3]   the skeleton of a prompt: headings, [Shot N], tags, times and
          (Nw) for each run of other words, so its structure can be shared without its text
@@ -184,12 +185,30 @@ def check(prompt: str, duration: Optional[float] = None, chunk_ends: Sequence[fl
     if len(moves) > 2:
         bad["camera_moves"] = f"{len(moves)} kinds: {', '.join(moves)}"
 
-    # cuts
-    shots = [int(n) for n in SHOT_RE.findall(re.sub(r"\(from \[Shot\s+\d+\]\)", "", text, flags=re.I))]
+    # a heading or a block pasted into another section
+    heading_names = "|".join(REF_HEADINGS + BASE_HEADINGS)
+    nested = [h for h, part in secs if re.search(rf"(?i)\b(?:{heading_names})\s*:", part)]
+    if nested:
+        bad["nested_heading"] = f"a heading label inside {', '.join(sorted(set(nested)))}"
+    seen: Dict[str, int] = {}
+    for sent in sentences(text):
+        key = re.sub(rf"(?i)^(?:(?:{heading_names})\s*:\s*)?(?:\[Shot\s+\d+\]\s*)?", "", sent.strip())
+        key = re.sub(r"\s+", " ", key).strip().lower()
+        if len(key.split()) >= 8:
+            seen[key] = seen.get(key, 0) + 1
+    repeats = sum(1 for n in seen.values() if n > 1)
+    if repeats:
+        bad["repeated_text"] = f"{repeats} sentence(s) of 8+ words appear more than once"
+
+    # cuts: count markers only where the shots are described, not where retention points at them
+    described = "\n".join(part for h, part in secs if h in ("detailed_description", "integrated_multimodal_description")) \
+        if secs else text
+    described = re.sub(rf"(?is)\b(?:{heading_names})\s*:.*", "", described)     # ignore a pasted copy
+    shots = [int(n) for n in SHOT_RE.findall(re.sub(r"\(from \[Shot\s+\d+\]\)", "", described, flags=re.I))]
     if shots and (shots[0] != 1 or shots != sorted(shots) or len(set(shots)) != len(shots)):
         bad["shot_numbers"] = f"[Shot] markers {shots}"
-    for m in re.finditer(r"\[Shot\s+(\d+)\]", text, re.I):
-        if int(m.group(1)) > 1 and not re.match(r"\s*At\s+\d{1,2}:\d{2}(?:\.\d+)?", text[m.end():], re.I):
+    for m in re.finditer(r"\[Shot\s+(\d+)\]", described, re.I):
+        if int(m.group(1)) > 1 and not re.match(r"\s*At\s+\d{1,2}:\d{2}(?:\.\d+)?", described[m.end():], re.I):
             bad["cut_format"] = "a later [Shot N] is not followed by 'At MM:SS.mmm'"
             break
 

@@ -18,12 +18,12 @@ IAMCCS-nodes(GPL-3.0, `iamccs_prompter.py`, `iamccs_minimax_h3_shotboard_core.py
 
 ## `h3lint.py`
 
-프롬프트가 위 규격을 지키는지 검사한다. 한 인물을 she와 he로 섞어 부르는지, 참조를 `<Picture 1>`이 아니라 `Picture 1`로 쓰는지도 본다. 어긴 규칙 이름과 개수만 보고하고, 프롬프트 문장은 보고서에 넣지 않는다. IAMCCS 조립기로 만든 공식 예제 4개는 모두 통과한다.
+프롬프트가 위 규격을 지키는지 검사한다. 한 인물을 she와 he로 섞어 부르는지, 참조를 `<Picture 1>`이 아니라 `Picture 1`로 쓰는지, 조립하다 제목(`detailed_description:`)이나 같은 문장이 본문 안에 한 번 더 붙었는지도 본다. `[Shot N]` 표시는 장면을 설명하는 칸에서만 센다(`retention_analysis`가 `[Shot 1]`을 가리키는 것은 세지 않는다). 어긴 규칙 이름과 개수만 보고하고, 프롬프트 문장은 보고서에 넣지 않는다. IAMCCS 조립기로 만든 공식 예제 4개는 모두 통과한다.
 
 ```powershell
 python h3lint.py check work\h3_prompts.jsonl --frames 90 --chunk-ends 3.75,7.5 --report reports\H3LINT_CURRENT.md --details work\h3lint_details.jsonl
 python h3lint.py shape work\h3_prompts.jsonl --n 3      # 글자 없이 뼈대만: 제목, [Shot N], 태그, 시각, (N단어)
-python -m pytest -q tests      # 9 passed
+python -m pytest -q tests      # 10 passed
 ```
 
 입력은 `.txt`(프롬프트 하나), `.json`(문자열 목록이나 `prompt` 키가 있는 객체), `.jsonl`, 또는 이런 파일이 든 폴더다.

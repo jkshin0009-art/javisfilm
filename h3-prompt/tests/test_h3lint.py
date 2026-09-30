@@ -134,3 +134,16 @@ def test_shape_hides_words():
     sk = h3lint.shape(REF_OK)
     assert "subject_definitions:" in sk and "[Shot 1]" in sk and "<d> [Korean]" in sk and "</d>" in sk
     assert "안녕하세요" not in sk and "performer" not in sk and "w)" in sk
+
+
+def test_pasted_copy_and_retention_references():
+    retention_refs = REF_OK.replace("<Subject 1>: fully_preserved - preserve identity from <Picture 1>.",
+                                    "<Subject 1> as seen in [Shot 1]: fully_preserved - preserve identity from <Picture 1>.")
+    assert "shot_numbers" not in rules(retention_refs)
+    pasted = REF_OK.replace(
+        "[Shot 1] <Subject 1> faces the camera at eye level.",
+        "[Shot 1] <Subject 1> faces the camera at eye level while the room light stays warm and even. "
+        "<Audio 1>: fully_copy - reuse. detailed_description: [Shot 1] <Subject 1> faces the camera at eye level "
+        "while the room light stays warm and even.")
+    r = rules(pasted)
+    assert "nested_heading" in r and "repeated_text" in r and "shot_numbers" not in r
