@@ -86,3 +86,20 @@ def test_rebake_after_fix_keeps_reason(tmp_path):
     qclabel.record("redo", p, source="rebake", root=root)
     (r,) = gr.read_labels(root)
     assert r["source"] == "rebake" and r["note"] == "손가락"
+
+
+def test_default_folder_is_under_the_project_root(tmp_path, monkeypatch):
+    import importlib.util
+    import shutil
+    proj = tmp_path / "film_assistant"
+    (proj / "core").mkdir(parents=True)
+    (proj / "data").mkdir()
+    shutil.copy(qclabel.__file__, proj / "core" / "qclabel.py")
+    spec = importlib.util.spec_from_file_location("qclabel_copy", proj / "core" / "qclabel.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    monkeypatch.delenv("FJ_QC_LABELS_DIR", raising=False)
+    monkeypatch.chdir(tmp_path)                                  # the working folder does not matter
+    assert mod.root_dir() == proj / "data" / "qc_labels"
+    monkeypatch.setenv("FJ_QC_LABELS_DIR", str(tmp_path / "elsewhere"))
+    assert mod.root_dir() == tmp_path / "elsewhere"

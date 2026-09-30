@@ -7,9 +7,10 @@ JSON line, so the answer key survives cleanups and any checker can be scored aga
 it later (gatereview.py labels).
 
 Call it BEFORE the picture is discarded or overwritten. It never raises and never
-blocks for long; FJ_QC_LABELS=off turns it off, FJ_QC_LABELS_DIR moves it
-(default data/qc_labels, relative to the working folder). Self-contained: copy this
-file into the project as it is.
+blocks for long; FJ_QC_LABELS=off turns it off, FJ_QC_LABELS_DIR moves it. By default
+it writes to data/qc_labels under the project root (the folder above the one this
+file sits in, e.g. film_assistant/ for film_assistant/core/qclabel.py), whatever the
+working folder is. Self-contained: copy this file into the project as it is.
 """
 from __future__ import annotations
 
@@ -21,7 +22,7 @@ import threading
 import time
 import uuid
 from pathlib import Path
-from typing import Iterable, List, Optional
+from typing import Optional
 
 DEFAULT_DIR = "data/qc_labels"
 MAX_SIDE = 1024
@@ -36,7 +37,10 @@ def enabled() -> bool:
 
 
 def root_dir(root=None) -> Path:
-    return Path(root or os.environ.get("FJ_QC_LABELS_DIR") or DEFAULT_DIR)
+    if root or os.environ.get("FJ_QC_LABELS_DIR"):
+        return Path(root or os.environ["FJ_QC_LABELS_DIR"])
+    project = Path(__file__).resolve().parent.parent
+    return project / DEFAULT_DIR if (project / "data").is_dir() else Path(DEFAULT_DIR)
 
 
 def _verdict(v) -> str:
@@ -115,8 +119,3 @@ def record(verdict, image, *, slug: str = "", look: str = "", panel=None, source
         return lid
     except Exception:
         return None
-
-
-def record_many(verdict, images: Iterable, **kw) -> List[Optional[str]]:
-    """The same verdict for several pictures (e.g. every panel of the look that was picked)."""
-    return [record(verdict, img, **kw) for img in images]
