@@ -73,7 +73,8 @@ Rules:
 4. One camera move only, and it must fit the framing: a wide reveal is not a push toward a face.
 5. Do not write dialogue words; the given lines are inserted verbatim. Make the acting match when each line is spoken.
 6. If "continues_previous" is true, the first 1.0 s continues the previous motion with ambience only. If "final_chunk" is false, the last 1.0 s holds the motion with ambience only.
-7. Be concise: the whole clip in under 350 words."""
+7. Be concise: the whole clip in under 350 words.
+8. If the facts hold "sports_sequence" (a technique's phases in order, each with a checked body description from the sports pose library), the beats go through those phases in that order, one beat per phase, and each beat keeps that phase's body mechanics (joint angles, feet, hands, contact with ball or opponent) as written."""
 
 
 # ---------------------------------------------------------------- helpers

@@ -23,7 +23,7 @@ IAMCCS-nodes(GPL-3.0, `iamccs_prompter.py`, `iamccs_minimax_h3_shotboard_core.py
 ```powershell
 python h3lint.py check work\h3_prompts.jsonl --frames 90 --chunk-ends 3.75,7.5 --report reports\H3LINT_CURRENT.md --details work\h3lint_details.jsonl
 python h3lint.py shape work\h3_prompts.jsonl --n 3      # 글자 없이 뼈대만: 제목, [Shot N], 태그, 시각, (N단어)
-python -m pytest -q tests      # 18 passed (h3lint 11 + h3compose 7)
+python -m pytest -q tests      # 19 passed (h3lint 11 + h3compose 8)
 ```
 
 일부러 다른 형식을 쓰는 곳(예: MV의 대사 형식과 사고 방지 부정 조항)은 `--ignore dialogue_format,negative_language`로 빼고 회귀 검사로 쓴다.
@@ -40,6 +40,8 @@ python -m pytest -q tests      # 18 passed (h3lint 11 + h3compose 7)
 | `LipsyncClip(ReferenceClip)` | `<Audio 1>` 1:1 재사용과 입 모양 맞춤 문장 | `definitions()`, `retention()`, `body_parts()`에 한 줄씩 더함 |
 | `Checker` | 클립 규칙 + h3lint + Jev 뜻 질문 | 경로마다 일부러 유지하는 규칙은 `ignore`로 (`MVChecker`) |
 | `Writer` | LLM에 내용 칸을 받아 조립·검사·재시도 | 경로(실행기, 콘티 애니매틱, 대화 앱, MV)는 `facts()`만 바꿔 상속 |
+
+운동 동작 컷은 `sports-pose`의 연속 동작(`library/sequences.json`, 예: 배구 스파이크 = 도약 → 팔 젖히기 → 타격)을 `facts["sports_sequence"]`로 넘긴다. 작가는 단계 순서대로 동작 줄을 만들고, 단계마다 검사를 통과한 몸 동작(관절 각도, 발, 손, 공 접촉)을 그대로 쓴다.
 
 프로젝트의 H3 작가 10곳은 새로 만들지 않고, 각각 `Writer`를 상속해 `facts()`만 채우는 얇은 어댑터로 바꾼다. 곳마다 따로 있던 틀과 검사 함수는 옮긴 뒤 지운다.
 

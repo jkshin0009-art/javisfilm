@@ -143,3 +143,11 @@ def test_components_and_inheritance():
     clip = hc.clip_for(shot())
     assert "negative_language" in hc.Checker().check(clip, neg)
     assert "negative_language" not in hc.MVChecker().check(clip, neg)
+
+
+def test_sports_sequence_reaches_the_writer():
+    assert "sports_sequence" in hc.WRITER_SYSTEM
+    llm = FakeLLM([content()])
+    seq = {"code": "VOLLEYBALL_SPIKE", "phases": [{"code": "VOLLEYBALL_SPIKE_TAKEOFF", "body": "both feet planted"}]}
+    hc.Writer(llm).write(shot(), {"beat": "spike", "sports_sequence": seq})
+    assert json.loads(llm.calls[0][1]["content"])["facts"]["sports_sequence"]["code"] == "VOLLEYBALL_SPIKE"
