@@ -25,7 +25,8 @@ prompt and the pose image cannot disagree.
 
 Frames. World: x = direction of play (toward the net / goal / plate / basket), y = left of
 that, z = up, metres, floor at z = 0. Angles in degrees.
-  pelvis  yaw (+ = turned left), tilt (+ = leaning forward), side (+ = leaning to the right)
+  pelvis  yaw (+ = turned left), tilt (+ = leaning forward), side (+ = leaning to the right),
+          roll (about the body's long axis, + = turning left; for swimmers and athletes lying down)
   trunk   thorax on pelvis: flex (+ forward, - arched back), side (+ bend right), rot (+ turn left)
   head    on thorax: flex (+ chin down, - looking up), side (+ tilt right), rot (+ turn left),
           or look_at: a point or object name
@@ -187,7 +188,7 @@ FACE = {
 SIDES = {"r": -1.0, "l": 1.0}          # sign of the body's y axis for that side
 
 POSE_DEFAULTS = {
-    "pelvis": {"yaw": 0.0, "tilt": 0.0, "side": 0.0},
+    "pelvis": {"yaw": 0.0, "tilt": 0.0, "side": 0.0, "roll": 0.0},
     "trunk": {"flex": 0.0, "side": 0.0, "rot": 0.0},
     "head": {"flex": 0.0, "side": 0.0, "rot": 0.0},
     "arm": {"elev": 10.0, "plane": 20.0, "rot": 0.0, "elbow": 10.0, "pron": 30.0, "wrist": 0.0,
@@ -255,7 +256,7 @@ class Body:
         pts.clear()
         vecs.clear()
         pel = Frame.identity().then(rot(Z, p["pelvis"]["yaw"])).then(rot(Y, p["pelvis"]["tilt"])).then(
-            rot(X, p["pelvis"]["side"]))
+            rot(X, p["pelvis"]["side"])).then(rot(Z, p["pelvis"]["roll"]))   # roll: about the body's long axis
         tr = p["trunk"]
         thx = pel.then(euler_fsr(tr["flex"], tr["side"], tr["rot"]))
         self.frames.update(pelvis=pel, thorax=thx)
@@ -285,6 +286,9 @@ class Body:
             P[s + "_lapel"] = comb((1, P["neck"]), (0.065 * H, thx.x), (-0.05 * H, thx.z), (sg * 0.05 * H, thx.y))
             P[s + "_ribs"] = comb((1, P["pelvis"]), (0.45, spine), (sg * 0.085 * H, thx.y))
             P[s + "_side"] = comb((1, P["pelvis"]), (0.2, spine), (sg * 0.09 * H, thx.y))
+            # seat and outer hip: what rests on the mat when sitting or lying on the side
+            P[s + "_buttock"] = comb((1, P["pelvis"]), (-0.06 * H, pel.x), (sg * 0.045 * H, pel.y), (-0.035 * H, pel.z))
+            P[s + "_hip_side"] = comb((1, P["pelvis"]), (sg * 0.1 * H, pel.y), (-0.02 * H, pel.z))
 
     def _head(self, look: Optional[Vec] = None) -> None:
         p = self.pose["head"]
@@ -369,6 +373,7 @@ class Body:
         self.points[s + "_palm"] = add(add(wr, mul(hand_dir, 0.36 * hl)), mul(pn2, 0.012 * self.h))
         self.points[s + "_fingertip"] = add(wr, mul(hand_dir, hl))
         self.points[s + "_sleeve"] = add(el_pt, mul(w, 0.15 * self.L("forearm")))
+        self.points[s + "_upper_sleeve"] = add(sh, mul(u, 0.55 * self.L("upper_arm")))   # mid upper arm
         self.points[s + "_knuckles"] = add(wr, mul(hand_dir, 0.5 * hl))
         self.vecs[s + "_upper_arm"] = u
         self.vecs[s + "_forearm"] = w
@@ -450,6 +455,14 @@ class Body:
         self.points[s + "_knee_back"] = add(knee, mul(pel.to_world(a_t), -0.035 * self.h))
         self.points[s + "_knee_front"] = add(knee, mul(pel.to_world(a_t), 0.03 * self.h))
         self.points[s + "_thigh_mid"] = add(hip, mul(t, 0.5 * self.L("thigh")))
+        lat = unit(cross(t, pel.to_world(a_t)))    # outward from the knee, for kneeling and lying on the side
+        if dot(lat, pel.y) * SIDES[s] < 0:
+            lat = mul(lat, -1)
+        self.points[s + "_knee_out"] = add(knee, mul(lat, 0.035 * self.h))
+        self.points[s + "_knee_in"] = add(knee, mul(lat, -0.035 * self.h))
+        self.points[s + "_thigh_out"] = add(self.points[s + "_thigh_mid"], mul(lat, 0.045 * self.h))
+        # front of the upper shin (tibial tuberosity): what rests on the mat when kneeling
+        self.points[s + "_shin_front"] = comb((1, knee), (0.04 * self.h, shank), (0.025 * self.h, pel.to_world(a_s)))
         self.vecs[s + "_thigh"] = t
         self.vecs[s + "_shank"] = shank
         self.vecs[s + "_foot"] = foot
@@ -723,9 +736,11 @@ class Scene:
         """Pelvis height at which both feet reach their targets with the knees closest to the given angles."""
         import copy
         saved = copy.deepcopy(self.body.pose)
-        best = (1e9, 0.9)
+        xy = (self.asset.get("support") or {}).get("root_xy", [0.0, 0.0])
+        z0 = self.ground((float(xy[0]), float(xy[1]), 0.0))   # standing on a block or mound: search from its top
+        best = (1e9, z0 + 0.9)
         for i in range(40):
-            self._pel_z = 0.45 + 0.02 * i
+            self._pel_z = z0 + 0.45 + 0.02 * i
             self.body.pose = copy.deepcopy(saved)
             self.body.build()
             self._support()
@@ -777,6 +792,8 @@ class Scene:
             c, r = o["center"], o.get("diameter_m", 0.0) / 2
         else:
             c, r = self.point(ref), 0.0
+        if spec.get("offset_m"):                   # a spot next to the reference point (world metres)
+            c = add(c, tuple(float(v) for v in spec["offset_m"]))  # type: ignore[arg-type]
         if kind == "arm":
             eff, nrm, keys0, rng = s + "_palm", s + "_palm_normal", ("elev", "plane", "rot", "elbow", "pron", "wrist"), \
                 ARM_SOLVE_RANGE
@@ -859,6 +876,8 @@ class Scene:
             c, r = o["center"], o.get("diameter_m", 0.0) / 2
         else:
             c, r = self.point(spec["to"]), 0.0
+        if spec.get("offset_m"):
+            c = add(c, tuple(float(v) for v in spec["offset_m"]))  # type: ignore[arg-type]
         e = b.points[s + "_palm"] if kind == "arm" else b.points[s + "_" + spec.get("point", "instep")]
         if spec.get("side"):
             return length(sub(e, add(c, mul(unit(tuple(spec["side"])), r))))  # type: ignore[arg-type]
@@ -985,8 +1004,11 @@ class Metrics:
         """Horizontal direction the chest faces (for arms and head)."""
         t = self.sc.body.frames["thorax"]
         v = (t.x[0], t.x[1], 0.0)
-        if length(v) < 0.3:                        # chest facing the floor or the sky: use the head-to-hips line
-            v = (-t.z[0], -t.z[1], 0.0) if t.x[2] < 0 else (t.z[0], t.z[1], 0.0)
+        if abs(t.x[2]) > 0.5 and length((t.z[0], t.z[1], 0.0)) > 0.3:
+            # chest turned to the floor (bent over, swimming prone): forward is where the head points;
+            # chest to the sky (leaning back, lying supine): forward is toward the feet. Either way
+            # the athlete's left stays on the left.
+            v = (t.z[0], t.z[1], 0.0) if t.x[2] < 0 else (-t.z[0], -t.z[1], 0.0)
         return unit(v) if length(v) > 1e-6 else self.facing()
 
     def get(self, name: str) -> float:
@@ -1462,6 +1484,13 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
     t = a.get("text") or {}
     roles = (a.get("athlete") or {}).get("roles") or {}
     F = lambda x: fill(x, met)  # noqa: E731
+    water = a.get("water_m")
+
+    def height(z: float) -> str:                   # in the pool, heights are told from the water surface
+        if water is None:
+            return f"{z:.2f} m above the floor"
+        d = z - float(water)
+        return f"{abs(d):.2f} m {'above' if d >= 0 else 'below'} the water surface"
     lines: List[str] = [f"1. SYSTEM_INDEX_CODE: #{a['code']}", "", "2. ANATOMICAL_BONES:"]
     hp = b.pose["head"]
     head = (f"- Gaze & head: head {'tilted back' if hp['flex'] < -5 else 'tilted down' if hp['flex'] > 5 else 'level'}"
@@ -1482,6 +1511,9 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
              + (f"; shoulder line rotated {abs(m['hip_shoulder_sep']):.0f} deg to the "
                 f"{'left' if m['hip_shoulder_sep'] > 0 else 'right'} of the hip line (hip-shoulder separation)"
                 if abs(m['hip_shoulder_sep']) >= 8 else "; shoulders square with the hips")
+             + (f"; body rolled {abs(b.pose['pelvis']['roll']):.0f} deg about its long axis onto the "
+                f"{'left' if b.pose['pelvis']['roll'] < 0 else 'right'} side"
+                if abs(b.pose["pelvis"].get("roll", 0)) >= 5 else "")
              + ".")
     if t.get("torso"):
         torso += " " + F(t["torso"])
@@ -1498,7 +1530,7 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
                + f"; hand: {HAND_WORDS.get(ar.get('hand', 'relaxed'), ar.get('hand', 'relaxed'))}"
                + (f"; upper arm externally rotated {ar['rot']:.0f} deg (forearm laid back)"
                   if ar["rot"] >= 60 and m[s + "_elbow_flex"] >= 40 else "")
-               + f"; fingertips {P[s + '_fingertip'][2]:.2f} m above the floor.")
+               + f"; fingertips {height(P[s + '_fingertip'][2])}.")
         if t.get(s + "_arm"):
             txt += " " + F(t[s + "_arm"])
         lines.append(txt)
@@ -1511,7 +1543,8 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
         state = ("foot flat on the floor" if fz < 0.03 and abs(pitch) < 12 else
                  "on the ball of the foot, heel raised" if fz < 0.03 and pitch > 0 else
                  "heel down, toes raised" if fz < 0.03 else
-                 f"foot {fz * 100:.0f} cm above the floor")
+                 f"foot {fz * 100:.0f} cm above the floor" if water is None else
+                 f"ankle {height(P[s + '_ankle'][2])}")
         txt = (f"- {nm} leg{role}: hip {'flexed' if g['flex'] >= 0 else 'extended'} {abs(g['flex']):.0f} deg"
                + (f", abducted {g['abd']:.0f} deg" if g["abd"] >= 12 else "")
                + f"; knee {flex_word(m[s + '_knee_flex'])} ({m[s + '_knee_flex']:.0f} deg flexion); "
@@ -1601,7 +1634,10 @@ def prompt_text(sc: Scene, issues) -> Dict[str, str]:
     def sentence(x: str) -> str:
         x = x.strip()
         return x if not x or x[-1] in ".!?" else x + "."
-    gen = " ".join(["{SUBJECT},", sentence(F(t.get("action", a.get("summary", "")))), sentence(F(t.get("core", ""))),
+    # every other athlete in the picture gets a slot for their look: {PARTNER_B} ...
+    others = " ".join(sentence(f"Opposite the main athlete: {{PARTNER_{pid}}} as the {ps.asset.get('role', pid)}")
+                      for pid, ps in sc.partners.items())
+    gen = " ".join(["{SUBJECT},", sentence(F(t.get("action", a.get("summary", "")))), others, sentence(F(t.get("core", ""))),
                     " ".join(sentence(F(c)[:1].upper() + F(c)[1:]) for c in t.get("cues") or []),
                     sentence(camera_words(cam0)[:1].upper() + camera_words(cam0)[1:]), sentence(cam0.get("text") or ""),
                     sentence("; ".join(F(k) for k in (t.get("kinetic") or [])[:2])[:1].upper()
@@ -1730,7 +1766,9 @@ def build_one(a: Dict, out_root: Path = LIBRARY, write: bool = True) -> Tuple[Li
     if names:
         md += [f"- 이름(ko): {', '.join(names.get('ko', []))}", f"- names (en): {', '.join(names.get('en', []))}", ""]
     md += ["## Asset (5 sections)", "", "```", txt["block"], "```", "",
-           "## Prompt (fill {SUBJECT} and {SETTING}; keep the body mechanics as written)", "", "```", txt["prompt"],
+           "## Prompt (fill {SUBJECT}"
+           + "".join(f", {{PARTNER_{pid}}}" for pid in sc.partners)
+           + " and {SETTING}; keep the body mechanics as written)", "", "```", txt["prompt"],
            "```", "", "## Negative prompt", "", "```", txt["negative"], "```", "",
            "## Control images", ""]
     for cam, _ in cams:

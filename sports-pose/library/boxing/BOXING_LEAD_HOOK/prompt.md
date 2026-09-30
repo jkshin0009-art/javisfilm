@@ -37,10 +37,10 @@ Orthodox boxer landing a left hook: elbow bent about 90 degrees with the forearm
 - crowd flashes
 ```
 
-## Prompt (fill {SUBJECT} and {SETTING}; keep the body mechanics as written)
+## Prompt (fill {SUBJECT}, {PARTNER_B} and {SETTING}; keep the body mechanics as written)
 
 ```
-{SUBJECT}, an orthodox boxer landing a left hook on the opponent's jaw. Left arm bent about 90 degrees with the forearm horizontal at shoulder height, fist landing on the side of the opponent's jaw; pivoting on the ball of the left foot, heel turning out; trunk turning to the right; right glove at the right cheek. Turn on the lead ball of the foot. Elbow at shoulder height, 90-degree arm. Keep the rear hand at the chin. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Ringside view across the ropes, both boxers in profile. Opponent's head turning with the impact, sweat and water spray; motion blur along the arc of the hook. {SETTING}.
+{SUBJECT}, an orthodox boxer landing a left hook on the opponent's jaw. Opposite the main athlete: {PARTNER_B} as the opponent in orthodox guard. Left arm bent about 90 degrees with the forearm horizontal at shoulder height, fist landing on the side of the opponent's jaw; pivoting on the ball of the left foot, heel turning out; trunk turning to the right; right glove at the right cheek. Turn on the lead ball of the foot. Elbow at shoulder height, 90-degree arm. Keep the rear hand at the chin. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Ringside view across the ropes, both boxers in profile. Opponent's head turning with the impact, sweat and water spray; motion blur along the arc of the hook. {SETTING}.
 ```
 
 ## Negative prompt

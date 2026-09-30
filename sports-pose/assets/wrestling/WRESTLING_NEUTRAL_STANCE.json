@@ -1,0 +1,211 @@
+{
+  "code": "WRESTLING_NEUTRAL_STANCE",
+  "technique": "stance",
+  "phase": "neutral",
+  "summary": "Freestyle wrestling neutral stance: staggered feet wider than the shoulders, hips low with the knees bent about 70-75 degrees, back straight and leaning forward, head up, hands in front at knee to waist height, elbows in.",
+  "names": {
+    "ko": [
+      "레슬링 기본 자세",
+      "레슬링 스탠스",
+      "레슬링 준비 자세",
+      "자유형 레슬링 자세"
+    ],
+    "en": [
+      "wrestling stance",
+      "neutral stance",
+      "freestyle wrestling stance",
+      "wrestler ready position"
+    ]
+  },
+  "keywords": [
+    "wrestling",
+    "stance",
+    "neutral",
+    "freestyle"
+  ],
+  "athlete": {
+    "height_m": 1.75,
+    "hand": "right",
+    "roles": {
+      "l_leg": "lead leg",
+      "r_leg": "rear leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": -15,
+      "tilt": 30
+    },
+    "trunk": {
+      "flex": 15,
+      "side": 0,
+      "rot": 5
+    },
+    "head": {
+      "look_at": "opponent"
+    },
+    "r_arm": {
+      "elev": 45,
+      "plane": 80,
+      "rot": -10,
+      "elbow": 80,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "l_arm": {
+      "elev": 50,
+      "plane": 80,
+      "rot": -10,
+      "elbow": 70,
+      "pron": 60,
+      "wrist": 0,
+      "hand": "relaxed"
+    },
+    "l_leg": {
+      "flex": 75,
+      "abd": 12,
+      "rot": 10,
+      "knee": 75,
+      "ankle": "flat"
+    },
+    "r_leg": {
+      "flex": 25,
+      "abd": 18,
+      "rot": 15,
+      "knee": 70,
+      "ankle": "toes:30",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            60,
+            110
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "objects": [],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "opponent",
+      "at": [
+        1.5,
+        0.0,
+        1.1
+      ],
+      "text": "Opponent about 1.5 m away in the same stance."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "front",
+      "azimuth": 0,
+      "elevation": 0,
+      "lens_mm": 85,
+      "fill": 0.86,
+      "size": [
+        896,
+        1152
+      ],
+      "text": "Opponent's view, eyes up, hands ready."
+    },
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Profile: low hips, straight back leaning forward."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -40,
+      "height_m": 0.5,
+      "lens_mm": 24,
+      "fill": 0.7,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame on the mat, arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "min": 55,
+      "max": 110,
+      "why": "knees bent, hips low",
+      "src": "EST"
+    },
+    {
+      "m": "trunk_lean_fwd",
+      "min": 30,
+      "max": 65,
+      "why": "back straight, leaning forward from the hips",
+      "src": "EST"
+    },
+    {
+      "m": "stance_over_shoulders",
+      "min": 1.1,
+      "max": 2.2,
+      "why": "feet wider than the shoulders, staggered",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a wrestler in a neutral stance, ready to shoot",
+    "core": "Feet wider than the shoulders and staggered with the left foot forward, rear heel up; knees bent about 70-75 degrees with the hips low; back straight and leaning forward from the hips; head up with the eyes forward; hands in front between knee and waist height, elbows in close to the body.",
+    "gaze": "Eyes up on the opponent's hips and chest.",
+    "cues": [
+      "head up, back straight",
+      "elbows in, hands ready",
+      "stay low, move with small steps"
+    ],
+    "kinetic": [
+      "singlet stretched across the back",
+      "sweat on the shoulders under the lights",
+      "mat squeaking under the shoes"
+    ],
+    "avoid": [
+      "loose clothing instead of a singlet",
+      "both wrestlers in the same colour",
+      "boxing gloves",
+      "street shoes",
+      "judogi",
+      "standing upright with straight legs",
+      "rounded back looking at the floor"
+    ]
+  },
+  "ref_query": "wrestling stance",
+  "sources": [
+    {
+      "id": "UWW",
+      "cite": "UWW International Wrestling Rules: singlet, mat, cautions, Greco-Roman leg restrictions (secondary summaries read this session; uww.org itself not reachable)",
+      "url": "https://uww.org/governance/rules"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard wrestling coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "wrestling"
+}

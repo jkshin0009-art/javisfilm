@@ -1,0 +1,326 @@
+{
+  "code": "WRESTLING_GRECO_BODY_LOCK",
+  "technique": "body_lock",
+  "phase": "clinch",
+  "summary": "Greco-Roman body lock: chest to chest, the attacker's arms wrapped around the opponent's waist with the hands locked behind the back, heads side by side, hips close, the opponent's arms over the attacker's shoulders; no holds below the waist.",
+  "names": {
+    "ko": [
+      "그레코로만 바디락",
+      "레슬링 몸통 잡기",
+      "그레코로만형 클린치",
+      "바디 락"
+    ],
+    "en": [
+      "greco-roman body lock",
+      "wrestling body lock",
+      "bear hug clinch",
+      "greco clinch"
+    ]
+  },
+  "keywords": [
+    "wrestling",
+    "greco-roman",
+    "body lock",
+    "clinch",
+    "upper body"
+  ],
+  "athlete": {
+    "height_m": 1.78,
+    "hand": "right",
+    "roles": {
+      "r_arm": "right arm around the waist",
+      "l_arm": "left arm around the waist"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 10
+    },
+    "trunk": {
+      "flex": 5,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "flex": 5,
+      "side": 20,
+      "rot": -20
+    },
+    "r_arm": {
+      "elev": 45,
+      "plane": 60,
+      "rot": -30,
+      "elbow": 100,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "B.belt_back",
+        "offset_m": [
+          0.0,
+          -0.04,
+          0.08
+        ],
+        "w": 0.3,
+        "tol_m": 0.05,
+        "range": {
+          "wrist": [
+            -30,
+            30
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 45,
+      "plane": 60,
+      "rot": -30,
+      "elbow": 100,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "B.belt_back",
+        "offset_m": [
+          0.0,
+          0.04,
+          0.08
+        ],
+        "w": 0.3,
+        "tol_m": 0.05,
+        "range": {
+          "wrist": [
+            -30,
+            30
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 30,
+      "abd": 12,
+      "rot": 10,
+      "knee": 35,
+      "ankle": "flat"
+    },
+    "l_leg": {
+      "flex": 10,
+      "abd": 12,
+      "rot": 10,
+      "knee": 30,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            15,
+            50
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "partners": [
+    {
+      "id": "B",
+      "role": "opponent in the clinch",
+      "athlete": {
+        "height_m": 1.78
+      },
+      "support": {
+        "contacts": [
+          "l_foot",
+          "r_foot"
+        ],
+        "root_from": "A.pelvis",
+        "root_offset": [
+          0.45,
+          0.1
+        ]
+      },
+      "pose": {
+        "pelvis": {
+          "yaw": 180,
+          "tilt": 10
+        },
+        "trunk": {
+          "flex": 5
+        },
+        "head": {
+          "flex": 5,
+          "side": 20,
+          "rot": -20
+        },
+        "r_arm": {
+          "elev": 80,
+          "plane": 70,
+          "rot": 0,
+          "elbow": 80,
+          "pron": 20,
+          "wrist": 0,
+          "hand": "grip",
+          "reach": {
+            "to": "A.back_upper",
+            "offset_m": [
+              -0.05,
+              0.08,
+              0.05
+            ],
+            "w": 0.3,
+            "tol_m": 0.06
+          }
+        },
+        "l_arm": {
+          "elev": 80,
+          "plane": 70,
+          "rot": 0,
+          "elbow": 80,
+          "pron": 20,
+          "wrist": 0,
+          "hand": "grip",
+          "reach": {
+            "to": "A.back_upper",
+            "offset_m": [
+              -0.05,
+              -0.08,
+              0.05
+            ],
+            "w": 0.3,
+            "tol_m": 0.06
+          }
+        },
+        "r_leg": {
+          "flex": 30,
+          "abd": 12,
+          "rot": 10,
+          "knee": 35,
+          "ankle": "flat"
+        },
+        "l_leg": {
+          "flex": 10,
+          "abd": 12,
+          "rot": 10,
+          "knee": 30,
+          "ankle": "flat",
+          "reach": {
+            "to": "floor",
+            "point": "heel",
+            "fix": [
+              "rot"
+            ],
+            "range": {
+              "knee": [
+                15,
+                50
+              ]
+            }
+          }
+        }
+      },
+      "text": "Opponent in a blue singlet, arms over the attacker's shoulders, hands on the upper back, hips pushed back to defend."
+    }
+  ],
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Side view at mat level, both wrestlers in profile."
+    },
+    {
+      "name": "three_quarter",
+      "azimuth": -40,
+      "elevation": 5,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Three-quarter view, faces and hand positions sharp."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -130,
+      "height_m": 0.4,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame on the mat, orange passivity band and arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_elbow_flex",
+      "min": 40,
+      "why": "arms wrapped around the waist, elbows bent",
+      "src": "EST"
+    },
+    {
+      "m": "dist:r_palm:l_palm",
+      "max": 12,
+      "why": "hands locked together behind the opponent's back",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "two Greco-Roman wrestlers locked chest to chest in a body lock",
+    "core": "Chest to chest with the opponent, knees bent and hips in close; both arms wrapped around the opponent's waist above the belt line with the hands locked together behind the back; heads side by side, cheek to cheek; the opponent's arms over the attacker's shoulders with the hands on the upper back.",
+    "gaze": "Head beside the opponent's head, eyes past the ear.",
+    "cues": [
+      "lock the hands above the hips, not below",
+      "chest to chest, hips in",
+      "lift and arch for the throw"
+    ],
+    "kinetic": [
+      "singlets straining, muscles tense",
+      "feet pushing into the mat",
+      "sweat glistening under the lights"
+    ],
+    "avoid": [
+      "loose clothing instead of a singlet",
+      "both wrestlers in the same colour",
+      "boxing gloves",
+      "street shoes",
+      "judogi",
+      "hands on the opponent's legs",
+      "leg trip in Greco-Roman"
+    ]
+  },
+  "ref_query": "greco roman wrestling body lock",
+  "sources": [
+    {
+      "id": "UWW",
+      "cite": "UWW International Wrestling Rules: singlet, mat, cautions, Greco-Roman leg restrictions (secondary summaries read this session; uww.org itself not reachable)",
+      "url": "https://uww.org/governance/rules"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard wrestling coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "wrestling"
+}

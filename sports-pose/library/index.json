@@ -1056,6 +1056,157 @@
    ]
   },
   {
+   "code": "JUDO_IPPON_LANDING",
+   "sport": "judo",
+   "technique": "throw",
+   "phase": "landing",
+   "summary": "The ippon moment after a throw: uke lands flat on the back with the chin tucked and the left arm slapping the mat (ukemi); tori stands over uke, still holding and pulling up uke's right sleeve.",
+   "names": {
+    "ko": [
+     "유도 한판",
+     "유도 낙법 착지",
+     "업어치기 한판",
+     "메치기 착지"
+    ],
+    "en": [
+     "judo ippon landing",
+     "judo throw landing",
+     "breakfall ukemi",
+     "ippon moment"
+    ]
+   },
+   "keywords": [
+    "judo",
+    "ippon",
+    "throw",
+    "landing",
+    "ukemi",
+    "breakfall"
+   ],
+   "sequence": {
+    "id": "JUDO_SEOI_NAGE_THROW",
+    "order": 2,
+    "phases": [
+     "JUDO_SEOI_NAGE",
+     "JUDO_IPPON_LANDING"
+    ]
+   },
+   "game_rules": [
+    "IJF Refereeing Rules, prohibited acts leg_grab",
+    "IJF Refereeing Rules, prohibited acts (hansoku-make) head_dive",
+    "IJF Refereeing Rules, prohibited acts face_touch",
+    "IJF Refereeing Rules, ippon safe_landing"
+   ],
+   "prompt_md": "judo/JUDO_IPPON_LANDING/prompt.md",
+   "openpose": [
+    "judo/JUDO_IPPON_LANDING/openpose_side.png",
+    "judo/JUDO_IPPON_LANDING/openpose_high_three_quarter.png",
+    "judo/JUDO_IPPON_LANDING/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "high_three_quarter",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "JUDO_KUMIKATA",
+   "sport": "judo",
+   "technique": "kumikata",
+   "phase": "grip",
+   "summary": "Two judoka in the standard right-handed grip (ai-yotsu): each right hand on the partner's left lapel at collarbone height, each left hand on the partner's right sleeve at the elbow, upright natural posture with the right foot slightly forward.",
+   "names": {
+    "ko": [
+     "유도 맞잡기",
+     "유도 기본 잡기",
+     "쿠미카타",
+     "깃잡기 소매잡기"
+    ],
+    "en": [
+     "judo grip",
+     "kumikata",
+     "judo standard grip",
+     "lapel and sleeve grip"
+    ]
+   },
+   "keywords": [
+    "judo",
+    "grip",
+    "kumikata",
+    "standing"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "IJF Refereeing Rules, prohibited acts leg_grab",
+    "IJF Refereeing Rules, gripping grip_rules",
+    "IJF Refereeing Rules, prohibited acts face_touch",
+    "IJF Refereeing Rules, prohibited acts (shido) defensive_posture"
+   ],
+   "prompt_md": "judo/JUDO_KUMIKATA/prompt.md",
+   "openpose": [
+    "judo/JUDO_KUMIKATA/openpose_side.png",
+    "judo/JUDO_KUMIKATA/openpose_three_quarter.png",
+    "judo/JUDO_KUMIKATA/openpose_high_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "three_quarter",
+    "high_cinema"
+   ]
+  },
+  {
+   "code": "JUDO_SEOI_NAGE",
+   "sport": "judo",
+   "technique": "seoi_nage",
+   "phase": "kake",
+   "summary": "Ippon seoi nage at the moment of lifting: tori turned in with the back against uke's chest, knees deeply bent with the hips below uke's hips, right upper arm locked under uke's right armpit, left hand pulling uke's right sleeve forward and down; uke bent over tori's back on the toes.",
+   "names": {
+    "ko": [
+     "유도 업어치기",
+     "외깃 업어치기",
+     "이폰 세오이나게",
+     "업어치기 들어가기"
+    ],
+    "en": [
+     "judo seoi nage",
+     "ippon seoi nage",
+     "shoulder throw",
+     "judo shoulder throw lift"
+    ]
+   },
+   "keywords": [
+    "judo",
+    "throw",
+    "seoi nage",
+    "shoulder throw",
+    "nage waza"
+   ],
+   "sequence": {
+    "id": "JUDO_SEOI_NAGE_THROW",
+    "order": 1,
+    "phases": [
+     "JUDO_SEOI_NAGE",
+     "JUDO_IPPON_LANDING"
+    ]
+   },
+   "game_rules": [
+    "IJF Refereeing Rules, prohibited acts leg_grab",
+    "IJF Refereeing Rules, prohibited acts (hansoku-make) head_dive",
+    "IJF Refereeing Rules, prohibited acts face_touch"
+   ],
+   "prompt_md": "judo/JUDO_SEOI_NAGE/prompt.md",
+   "openpose": [
+    "judo/JUDO_SEOI_NAGE/openpose_side.png",
+    "judo/JUDO_SEOI_NAGE/openpose_three_quarter.png",
+    "judo/JUDO_SEOI_NAGE/openpose_high_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "three_quarter",
+    "high_cinema"
+   ]
+  },
+  {
    "code": "SOCCER_GOALKEEPER_DIVE",
    "sport": "soccer",
    "technique": "goalkeeper_dive",
@@ -1300,6 +1451,335 @@
     "front",
     "low_three_quarter",
     "wide_cinema"
+   ]
+  },
+  {
+   "code": "SWIMMING_BREASTSTROKE_BREATH",
+   "sport": "swimming",
+   "technique": "breaststroke",
+   "phase": "breath",
+   "summary": "Breaststroke at the breath: head and shoulders up out of the water, hands together under the chin after the insweep with the elbows under the surface, heels drawn toward the buttocks with the feet flexed and turned out for the kick.",
+   "names": {
+    "ko": [
+     "평영 호흡",
+     "평영 스트로크",
+     "평영 킥 준비",
+     "평영"
+    ],
+    "en": [
+     "breaststroke breath",
+     "breaststroke insweep",
+     "breaststroke kick recovery",
+     "breaststroke"
+    ]
+   },
+   "keywords": [
+    "swimming",
+    "breaststroke",
+    "breath",
+    "frog kick",
+    "stroke"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "World Aquatics SW 7.3 breast_elbows",
+    "World Aquatics SW 7.3, 7.5 breast_simultaneous",
+    "World Aquatics SW 7.4 breast_head"
+   ],
+   "prompt_md": "swimming/SWIMMING_BREASTSTROKE_BREATH/prompt.md",
+   "openpose": [
+    "swimming/SWIMMING_BREASTSTROKE_BREATH/openpose_underwater_side.png",
+    "swimming/SWIMMING_BREASTSTROKE_BREATH/openpose_front_above.png",
+    "swimming/SWIMMING_BREASTSTROKE_BREATH/openpose_overhead.png"
+   ],
+   "cameras": [
+    "underwater_side",
+    "front_above",
+    "overhead"
+   ]
+  },
+  {
+   "code": "SWIMMING_BUTTERFLY_RECOVERY",
+   "sport": "swimming",
+   "technique": "butterfly",
+   "phase": "recovery",
+   "summary": "Butterfly at mid-recovery: both arms swinging forward together low over the water with straight elbows, head back down between the arms, chest pressing, hips at the surface, feet together in the dolphin kick.",
+   "names": {
+    "ko": [
+     "접영 리커버리",
+     "접영 팔 돌리기",
+     "버터플라이",
+     "접영 스트로크"
+    ],
+    "en": [
+     "butterfly recovery",
+     "butterfly stroke arms over the water",
+     "fly stroke",
+     "butterfly swim"
+    ]
+   },
+   "keywords": [
+    "swimming",
+    "butterfly",
+    "fly",
+    "stroke",
+    "dolphin kick"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "World Aquatics SW 8.2 fly_arms",
+    "World Aquatics SW 8.3 fly_legs"
+   ],
+   "prompt_md": "swimming/SWIMMING_BUTTERFLY_RECOVERY/prompt.md",
+   "openpose": [
+    "swimming/SWIMMING_BUTTERFLY_RECOVERY/openpose_underwater_side.png",
+    "swimming/SWIMMING_BUTTERFLY_RECOVERY/openpose_front_above.png",
+    "swimming/SWIMMING_BUTTERFLY_RECOVERY/openpose_overhead.png"
+   ],
+   "cameras": [
+    "underwater_side",
+    "front_above",
+    "overhead"
+   ]
+  },
+  {
+   "code": "SWIMMING_FREESTYLE_BREATH",
+   "sport": "swimming",
+   "technique": "freestyle",
+   "phase": "breath",
+   "summary": "Front crawl breathing to the right: body rolled about 40 degrees, right arm recovering with a high elbow over the water, left arm extended forward under the surface, face turned sideways with the mouth in the bow-wave trough, flutter kick.",
+   "names": {
+    "ko": [
+     "자유형 호흡",
+     "자유형 스트로크",
+     "크롤 영법",
+     "자유형 팔 리커버리"
+    ],
+    "en": [
+     "freestyle breathing",
+     "front crawl breath",
+     "crawl stroke",
+     "freestyle high elbow recovery"
+    ]
+   },
+   "keywords": [
+    "swimming",
+    "freestyle",
+    "front crawl",
+    "breathing",
+    "stroke"
+   ],
+   "sequence": {
+    "id": "SWIMMING_RACE",
+    "order": 2,
+    "phases": [
+     "SWIMMING_START_SET",
+     "SWIMMING_FREESTYLE_BREATH"
+    ]
+   },
+   "game_rules": [
+    "World Aquatics SW 5.3 free_surface"
+   ],
+   "prompt_md": "swimming/SWIMMING_FREESTYLE_BREATH/prompt.md",
+   "openpose": [
+    "swimming/SWIMMING_FREESTYLE_BREATH/openpose_underwater_side.png",
+    "swimming/SWIMMING_FREESTYLE_BREATH/openpose_front_above.png",
+    "swimming/SWIMMING_FREESTYLE_BREATH/openpose_overhead.png"
+   ],
+   "cameras": [
+    "underwater_side",
+    "front_above",
+    "overhead"
+   ]
+  },
+  {
+   "code": "SWIMMING_START_SET",
+   "sport": "swimming",
+   "technique": "start",
+   "phase": "take_your_marks",
+   "summary": "Swimmer in the 'take your marks' position of a kick start on the block: left foot at the front edge with toes over it, right foot on the raised back plate, hands gripping the front edge, hips high, head down.",
+   "names": {
+    "ko": [
+     "수영 스타트 자세",
+     "스타트대 준비",
+     "킥 스타트",
+     "출발 준비 자세"
+    ],
+    "en": [
+     "swimming start set",
+     "take your marks",
+     "kick start on the block",
+     "track start"
+    ]
+   },
+   "keywords": [
+    "swimming",
+    "start",
+    "block",
+    "dive",
+    "take your marks"
+   ],
+   "sequence": {
+    "id": "SWIMMING_RACE",
+    "order": 1,
+    "phases": [
+     "SWIMMING_START_SET",
+     "SWIMMING_FREESTYLE_BREATH"
+    ]
+   },
+   "game_rules": [
+    "World Aquatics SW 4.1 front_foot",
+    "World Aquatics SW 4.4 false_start"
+   ],
+   "prompt_md": "swimming/SWIMMING_START_SET/prompt.md",
+   "openpose": [
+    "swimming/SWIMMING_START_SET/openpose_side.png",
+    "swimming/SWIMMING_START_SET/openpose_from_the_water.png",
+    "swimming/SWIMMING_START_SET/openpose_wide_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "from_the_water",
+    "wide_cinema"
+   ]
+  },
+  {
+   "code": "TAEKWONDO_BACK_KICK",
+   "sport": "taekwondo",
+   "technique": "back_kick",
+   "phase": "impact",
+   "summary": "Taekwondo back kick (dwit chagi) at impact: back turned to the opponent, looking over the right shoulder, right leg thrust straight back with the heel and sole on the opponent's trunk protector, body leaning forward over the support leg.",
+   "names": {
+    "ko": [
+     "태권도 뒤차기",
+     "뒤차기 임팩트",
+     "태권도 뒤돌아차기",
+     "몸통 뒤차기"
+    ],
+    "en": [
+     "taekwondo back kick",
+     "dwit chagi",
+     "spinning back kick",
+     "back kick impact"
+    ]
+   },
+   "keywords": [
+    "taekwondo",
+    "kick",
+    "back kick",
+    "spinning",
+    "dwit chagi"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "WT Permitted techniques and areas foot_technique",
+    "WT Prohibited acts (gam-jeom): attacking below the waist below_waist",
+    "WT Prohibited acts (gam-jeom): hitting the head with the hand hand_to_head",
+    "WT Prohibited acts (gam-jeom): grabbing, holding, pushing grab_push",
+    "WT Prohibited acts (gam-jeom): knee and head attacks knee_head"
+   ],
+   "prompt_md": "taekwondo/TAEKWONDO_BACK_KICK/prompt.md",
+   "openpose": [
+    "taekwondo/TAEKWONDO_BACK_KICK/openpose_side.png",
+    "taekwondo/TAEKWONDO_BACK_KICK/openpose_front_three_quarter.png",
+    "taekwondo/TAEKWONDO_BACK_KICK/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "front_three_quarter",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "TAEKWONDO_FIGHTING_STANCE",
+   "sport": "taekwondo",
+   "technique": "stance",
+   "phase": "guard",
+   "summary": "Taekwondo sparring stance (closed stance, left foot forward): side-on, feet a long step apart on the balls of the feet, knees soft, fists low in front of the trunk, chin down.",
+   "names": {
+    "ko": [
+     "태권도 겨루기 준비 자세",
+     "태권도 스탠스",
+     "겨루기 자세",
+     "태권도 가드"
+    ],
+    "en": [
+     "taekwondo fighting stance",
+     "sparring stance",
+     "gyeorugi stance",
+     "taekwondo guard"
+    ]
+   },
+   "keywords": [
+    "taekwondo",
+    "stance",
+    "guard",
+    "sparring",
+    "gyeorugi"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "WT Prohibited acts (gam-jeom): hitting the head with the hand hand_to_head",
+    "WT Prohibited acts (gam-jeom): grabbing, holding, pushing grab_push",
+    "WT Prohibited acts (gam-jeom): knee and head attacks knee_head",
+    "WT Prohibited acts (gam-jeom): crossing the boundary line boundary"
+   ],
+   "prompt_md": "taekwondo/TAEKWONDO_FIGHTING_STANCE/prompt.md",
+   "openpose": [
+    "taekwondo/TAEKWONDO_FIGHTING_STANCE/openpose_front.png",
+    "taekwondo/TAEKWONDO_FIGHTING_STANCE/openpose_side.png",
+    "taekwondo/TAEKWONDO_FIGHTING_STANCE/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "front",
+    "side",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "TAEKWONDO_ROUNDHOUSE_KICK",
+   "sport": "taekwondo",
+   "technique": "roundhouse_kick",
+   "phase": "impact",
+   "summary": "Taekwondo roundhouse kick (dollyeo chagi) to the trunk at impact: pivoting on the ball of the left foot with the heel toward the opponent, hips turned over, right leg snapped out with the instep on the opponent's trunk protector.",
+   "names": {
+    "ko": [
+     "태권도 돌려차기",
+     "돌려차기 임팩트",
+     "몸통 돌려차기",
+     "반달차기"
+    ],
+    "en": [
+     "taekwondo roundhouse kick",
+     "dollyeo chagi",
+     "turning kick to the body",
+     "roundhouse kick impact"
+    ]
+   },
+   "keywords": [
+    "taekwondo",
+    "kick",
+    "roundhouse",
+    "dollyeo chagi"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "WT Permitted techniques and areas foot_technique",
+    "WT Prohibited acts (gam-jeom): attacking below the waist below_waist",
+    "WT Prohibited acts (gam-jeom): hitting the head with the hand hand_to_head",
+    "WT Prohibited acts (gam-jeom): grabbing, holding, pushing grab_push",
+    "WT Prohibited acts (gam-jeom): knee and head attacks knee_head"
+   ],
+   "prompt_md": "taekwondo/TAEKWONDO_ROUNDHOUSE_KICK/prompt.md",
+   "openpose": [
+    "taekwondo/TAEKWONDO_ROUNDHOUSE_KICK/openpose_side.png",
+    "taekwondo/TAEKWONDO_ROUNDHOUSE_KICK/openpose_front_three_quarter.png",
+    "taekwondo/TAEKWONDO_ROUNDHOUSE_KICK/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "front_three_quarter",
+    "low_cinema"
    ]
   },
   {
@@ -1803,6 +2283,141 @@
     "side_low",
     "front_three_quarter",
     "wide_cinema"
+   ]
+  },
+  {
+   "code": "WRESTLING_DOUBLE_LEG",
+   "sport": "wrestling",
+   "technique": "double_leg",
+   "phase": "penetration",
+   "summary": "Freestyle double-leg takedown at the penetration step: attacker's right knee on the mat between the opponent's feet, left leg driving back on the toes, head up on the opponent's side, chest against the thighs, both arms wrapped behind the opponent's knees.",
+   "names": {
+    "ko": [
+     "레슬링 양다리 태클",
+     "더블렉 태클",
+     "레슬링 태클",
+     "양발 태클"
+    ],
+    "en": [
+     "wrestling double leg takedown",
+     "double leg shot",
+     "penetration step",
+     "wrestling tackle"
+    ]
+   },
+   "keywords": [
+    "wrestling",
+    "takedown",
+    "double leg",
+    "shot",
+    "freestyle"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "UWW Freestyle: legs may be attacked legs_freestyle",
+    "UWW Cautions: illegal holds illegal_holds",
+    "UWW Cautions and disqualification: brutality roughness",
+    "UWW Cautions: fleeing the mat or the hold fleeing"
+   ],
+   "prompt_md": "wrestling/WRESTLING_DOUBLE_LEG/prompt.md",
+   "openpose": [
+    "wrestling/WRESTLING_DOUBLE_LEG/openpose_side.png",
+    "wrestling/WRESTLING_DOUBLE_LEG/openpose_three_quarter.png",
+    "wrestling/WRESTLING_DOUBLE_LEG/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "three_quarter",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "WRESTLING_GRECO_BODY_LOCK",
+   "sport": "wrestling",
+   "technique": "body_lock",
+   "phase": "clinch",
+   "summary": "Greco-Roman body lock: chest to chest, the attacker's arms wrapped around the opponent's waist with the hands locked behind the back, heads side by side, hips close, the opponent's arms over the attacker's shoulders; no holds below the waist.",
+   "names": {
+    "ko": [
+     "그레코로만 바디락",
+     "레슬링 몸통 잡기",
+     "그레코로만형 클린치",
+     "바디 락"
+    ],
+    "en": [
+     "greco-roman body lock",
+     "wrestling body lock",
+     "bear hug clinch",
+     "greco clinch"
+    ]
+   },
+   "keywords": [
+    "wrestling",
+    "greco-roman",
+    "body lock",
+    "clinch",
+    "upper body"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "UWW Greco-Roman: holds below the waist greco_below_waist",
+    "UWW Cautions: illegal holds illegal_holds",
+    "UWW Cautions and disqualification: brutality roughness"
+   ],
+   "prompt_md": "wrestling/WRESTLING_GRECO_BODY_LOCK/prompt.md",
+   "openpose": [
+    "wrestling/WRESTLING_GRECO_BODY_LOCK/openpose_side.png",
+    "wrestling/WRESTLING_GRECO_BODY_LOCK/openpose_three_quarter.png",
+    "wrestling/WRESTLING_GRECO_BODY_LOCK/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "side",
+    "three_quarter",
+    "low_cinema"
+   ]
+  },
+  {
+   "code": "WRESTLING_NEUTRAL_STANCE",
+   "sport": "wrestling",
+   "technique": "stance",
+   "phase": "neutral",
+   "summary": "Freestyle wrestling neutral stance: staggered feet wider than the shoulders, hips low with the knees bent about 70-75 degrees, back straight and leaning forward, head up, hands in front at knee to waist height, elbows in.",
+   "names": {
+    "ko": [
+     "레슬링 기본 자세",
+     "레슬링 스탠스",
+     "레슬링 준비 자세",
+     "자유형 레슬링 자세"
+    ],
+    "en": [
+     "wrestling stance",
+     "neutral stance",
+     "freestyle wrestling stance",
+     "wrestler ready position"
+    ]
+   },
+   "keywords": [
+    "wrestling",
+    "stance",
+    "neutral",
+    "freestyle"
+   ],
+   "sequence": null,
+   "game_rules": [
+    "UWW Cautions: illegal holds illegal_holds",
+    "UWW Cautions and disqualification: brutality roughness",
+    "UWW Cautions: fleeing the mat or the hold fleeing"
+   ],
+   "prompt_md": "wrestling/WRESTLING_NEUTRAL_STANCE/prompt.md",
+   "openpose": [
+    "wrestling/WRESTLING_NEUTRAL_STANCE/openpose_front.png",
+    "wrestling/WRESTLING_NEUTRAL_STANCE/openpose_side.png",
+    "wrestling/WRESTLING_NEUTRAL_STANCE/openpose_low_cinema.png"
+   ],
+   "cameras": [
+    "front",
+    "side",
+    "low_cinema"
    ]
   }
  ]

@@ -1,0 +1,306 @@
+{
+  "code": "SWIMMING_START_SET",
+  "technique": "start",
+  "phase": "take_your_marks",
+  "summary": "Swimmer in the 'take your marks' position of a kick start on the block: left foot at the front edge with toes over it, right foot on the raised back plate, hands gripping the front edge, hips high, head down.",
+  "names": {
+    "ko": [
+      "수영 스타트 자세",
+      "스타트대 준비",
+      "킥 스타트",
+      "출발 준비 자세"
+    ],
+    "en": [
+      "swimming start set",
+      "take your marks",
+      "kick start on the block",
+      "track start"
+    ]
+  },
+  "keywords": [
+    "swimming",
+    "start",
+    "block",
+    "dive",
+    "take your marks"
+  ],
+  "sequence": {
+    "id": "SWIMMING_RACE",
+    "order": 1,
+    "phases": [
+      "SWIMMING_START_SET",
+      "SWIMMING_FREESTYLE_BREATH"
+    ]
+  },
+  "athlete": {
+    "height_m": 1.85,
+    "hand": "right",
+    "roles": {
+      "l_leg": "front foot at the edge",
+      "r_leg": "back foot on the kick plate"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 65,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 45,
+      "side": 0,
+      "rot": 0
+    },
+    "head": {
+      "flex": 20,
+      "side": 0,
+      "rot": 0
+    },
+    "r_arm": {
+      "elev": 100,
+      "plane": 95,
+      "rot": 0,
+      "elbow": 15,
+      "pron": 70,
+      "wrist": 20,
+      "hand": "grip",
+      "reach": {
+        "to": "edge_r",
+        "w": 0.3,
+        "range": {
+          "elbow": [
+            0,
+            60
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 100,
+      "plane": 95,
+      "rot": 0,
+      "elbow": 15,
+      "pron": 70,
+      "wrist": 20,
+      "hand": "grip",
+      "reach": {
+        "to": "edge_l",
+        "w": 0.3,
+        "range": {
+          "elbow": [
+            0,
+            60
+          ]
+        }
+      }
+    },
+    "l_leg": {
+      "flex": 115,
+      "abd": 5,
+      "rot": 5,
+      "knee": 65,
+      "ankle": "flat",
+      "reach": {
+        "to": "front_mark",
+        "point": "ball",
+        "w": 0.3,
+        "range": {
+          "knee": [
+            25,
+            95
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 35,
+      "abd": 5,
+      "rot": 5,
+      "knee": 110,
+      "ankle": "toes:35",
+      "reach": {
+        "to": "wedge",
+        "point": "ball",
+        "w": 0.3,
+        "range": {
+          "knee": [
+            60,
+            125
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "pelvis_z_m": "auto",
+    "root_xy": [
+      -0.4,
+      0.0
+    ]
+  },
+  "ground": {
+    "kind": "block",
+    "x": [
+      -0.74,
+      0.0
+    ],
+    "y": [
+      -0.26,
+      0.26
+    ],
+    "height_m": 0.75,
+    "slope_deg": 5,
+    "depth_m": 2.5
+  },
+  "water_m": 0.0,
+  "objects": [],
+  "environment": [
+    {
+      "kind": "point",
+      "name": "front_mark",
+      "at": [
+        -0.07,
+        0.1,
+        0.69
+      ],
+      "text": "Starting block about 0.7 m above the water, top sloping toward the pool."
+    },
+    {
+      "kind": "point",
+      "name": "wedge",
+      "at": [
+        -0.55,
+        -0.1,
+        0.8
+      ],
+      "text": "Raised back plate (kick plate) at the rear of the block."
+    },
+    {
+      "kind": "point",
+      "name": "edge_r",
+      "at": [
+        0.01,
+        -0.12,
+        0.69
+      ]
+    },
+    {
+      "kind": "point",
+      "name": "edge_l",
+      "at": [
+        0.01,
+        0.12,
+        0.69
+      ]
+    },
+    {
+      "kind": "point",
+      "name": "surface",
+      "at": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "text": "Water surface; the lane rope runs alongside."
+    }
+  ],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.85,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Side view along the pool end, block and water line in frame."
+    },
+    {
+      "name": "from_the_water",
+      "azimuth": 20,
+      "elevation": -8,
+      "lens_mm": 50,
+      "fill": 0.8,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Low from the water in front of the block, the swimmer's cap and shoulders facing camera."
+    },
+    {
+      "name": "wide_cinema",
+      "azimuth": -140,
+      "elevation": 10,
+      "lens_mm": 24,
+      "fill": 0.55,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Wide frame from behind the blocks, the lanes stretching to the far wall, arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "l_knee_flex",
+      "min": 25,
+      "max": 95,
+      "why": "front knee bent, shin angled forward",
+      "src": "EST"
+    },
+    {
+      "m": "r_knee_flex",
+      "min": 65,
+      "max": 125,
+      "why": "back knee bent about 90 deg on the kick plate",
+      "src": "EST"
+    },
+    {
+      "m": "up:head:pelvis",
+      "max": 0,
+      "why": "hips high, head below the hips looking down",
+      "src": "EST"
+    }
+  ],
+  "text": {
+    "action": "a swimmer set on the starting block in the take-your-marks position",
+    "core": "Crouched on the starting block: left foot at the front edge with the toes curled over it, right foot back on the raised kick plate with the heel up; both hands gripping the front edge of the block; hips high above the head, back rounded forward; head down, eyes on the water just in front of the block.",
+    "gaze": "Eyes down at the water in front of the block.",
+    "cues": [
+      "weight slightly back, ready to pull and push",
+      "one foot at the front edge (the rule)",
+      "absolutely still until the start signal"
+    ],
+    "kinetic": [
+      "perfectly still, tension in the hamstrings",
+      "water flat below the block",
+      "starting light on the block"
+    ],
+    "avoid": [
+      "swimmer standing on the pool floor",
+      "no goggles",
+      "body floating high out of the water",
+      "wrong number of arms",
+      "hair floating without a swim cap",
+      "both feet side by side at the back of the block",
+      "hands off the block",
+      "swimmer already diving"
+    ]
+  },
+  "ref_query": "swimming start block",
+  "sources": [
+    {
+      "id": "WA",
+      "cite": "World Aquatics Swimming Rules SW 4 (start), SW 5 (freestyle), SW 7 (breaststroke), SW 8 (butterfly) and Facilities Rules FR 2 - general knowledge, not re-checked this session",
+      "url": "https://www.worldaquatics.com/rules/competition-regulations"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard swimming coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "swimming"
+}

@@ -171,3 +171,39 @@ def test_fetch_refs_keeps_only_free_licences(tmp_path, monkeypatch):
     assert (tmp_path / "volleyball" / "VOLLEYBALL_SPIKE_CONTACT" / "1.jpg").read_bytes() == b"JPEGDATA"
     credits = fr.write_attribution(tmp_path).read_text()
     assert "by Kim, CC BY-SA 4.0" in credits
+
+
+def test_partners_grip_each_other_and_are_drawn(built):
+    out, _, _ = built
+    a = sp.load_asset("JUDO_KUMIKATA")
+    sc = sp.Scene(a)
+    b = sc.partners["B"]
+    for limb in ("r_arm", "l_arm"):
+        assert abs(sc.reach_gap(limb, a["pose"][limb]["reach"])) < 0.03
+        assert abs(b.reach_gap(limb, b.asset["pose"][limb]["reach"])) < 0.03
+    j = json.loads((out / "judo" / "JUDO_KUMIKATA" / "openpose_side.json").read_text())
+    assert len(j["people"]) == 2
+
+
+def test_bodies_may_not_pass_through_each_other():
+    a = sp.load_asset("JUDO_KUMIKATA")
+    a["partners"][0]["support"]["root_offset"] = [0.1, 0.0]   # partner standing inside the athlete
+    msgs = [m for lv, m in sp.validate(sp.Scene(a)) if lv == "error"]
+    assert any("bodies pass through each other" in m for m in msgs)
+
+
+def test_swimmer_roll_and_water_relative_text():
+    b = sp.Body({"pelvis": {"tilt": 90, "roll": -40}})
+    assert b.points["r_shoulder"][2] > b.points["l_shoulder"][2] + 0.1     # roll -: right shoulder up
+    sc = sp.Scene(sp.load_asset("SWIMMING_FREESTYLE_BREATH"))
+    block = sp.prompt_text(sc, sp.validate(sc))["block"]
+    left_arm = next(line for line in block.splitlines() if line.startswith("- Left arm"))
+    assert "pointing forward" in left_arm and "below the water surface" in left_arm
+    assert "above the floor" not in block
+
+
+def test_block_and_pool_ground():
+    sc = sp.Scene(sp.load_asset("SWIMMING_START_SET"))
+    assert sc.ground((-0.74, 0, 0)) == pytest.approx(0.75)
+    assert sc.ground((1.0, 0, 0)) == pytest.approx(-2.5)                  # past the block: the pool floor
+    assert sc.body.points["pelvis"][2] > 1.2                                # crouched on top of the block

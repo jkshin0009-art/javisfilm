@@ -15,8 +15,8 @@ Right-handed baseball pitcher at stride-foot contact: long stride landing slight
 - Torso: trunk line (hips to shoulders) 2 deg forward of vertical, leaning 8 deg to the athlete's right; spine arched back (extended) 8 deg over the pelvis; shoulder line rotated 30 deg to the right of the hip line (hip-shoulder separation).
 - Right arm (throwing arm): upper arm raised 90 deg from the side of the trunk, pointing to the athlete's right and slightly backward; elbow bent to about a right angle (95 deg flexion); forearm pointing forward and up and slightly to the athlete's right; palm facing forward and to the athlete's right and slightly down; wrist extended (cocked back) 20 deg; hand: fingers wrapped firmly around what it holds; upper arm externally rotated 70 deg (forearm laid back); fingertips 1.41 m above the floor.
 - Left arm (glove arm): upper arm raised 85 deg from the side of the trunk, pointing to the athlete's left and forward; elbow bent (35 deg flexion); forearm pointing forward and slightly to the athlete's left; palm facing to the athlete's left and down and slightly backward; wrist neutral; hand: cupped, fingers slightly curled and spread; fingertips 1.13 m above the floor.
-- Right leg (pivot leg on the rubber): hip flexed 6 deg, abducted 42 deg; knee bent (58 deg flexion); thigh pointing down and to the athlete's right, shin pointing backward and slightly to the athlete's right and slightly down; ankle dorsiflexed 25 deg; on the ball of the foot, heel raised.
-- Left leg (stride leg): hip flexed 66 deg, abducted 25 deg; knee bent (43 deg flexion); thigh pointing forward and slightly down and slightly to the athlete's left, shin pointing down and slightly to the athlete's left; ankle plantar-flexed (toes pointed) 12 deg; foot flat on the floor.
+- Right leg (pivot leg on the rubber): hip flexed 6 deg, abducted 41 deg; knee bent (59 deg flexion); thigh pointing down and to the athlete's right, shin pointing backward and slightly to the athlete's right and slightly down; ankle dorsiflexed 24 deg; on the ball of the foot, heel raised.
+- Left leg (stride leg): hip flexed 66 deg, abducted 27 deg; knee bent (43 deg flexion); thigh pointing forward and slightly down and slightly to the athlete's left, shin pointing down and slightly to the athlete's left; ankle plantar-flexed (toes pointed) 14 deg; foot flat on the floor.
 - Base: ankles 137 cm apart (74% of body height, 3.3x shoulder width); every support foot touches the floor, none floats.
 - Technique cue: stride about 80-85 % of height, landing slightly closed
 - Technique cue: throwing arm up in the 90/90 position
@@ -65,7 +65,7 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 
 | metric | value | allowed | why | source |
 |---|---|---|---|---|
-| stride_pct_height | 74.3 | 70..92 | stride about 83 % of height (ankle to ankle 150 +/- 15 cm); the model allows 1.5 SD below the mean | ISBS10, OBP-P |
+| stride_pct_height | 74.2 | 70..92 | stride about 83 % of height (ankle to ankle 150 +/- 15 cm); the model allows 1.5 SD below the mean | ISBS10, OBP-P |
 | r_shoulder_elev | 90.0 | 80..105 | throwing shoulder abducted about 90 deg | ISBS10, OBP-P |
 | r_elbow_flex | 95.0 | 80..115 | elbow flexed about 90-100 deg | ISBS10, OBP-P |
 | r_arm.rot | 70.0 | 25..80 | external rotation about 30-56 deg at foot contact | ISBS10, OBP-P |

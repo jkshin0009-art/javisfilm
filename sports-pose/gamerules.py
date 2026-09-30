@@ -1,6 +1,7 @@
 """gamerules: official game rules for the pose assets.
 
-rules/<sport>.json holds, from the sport's rulebook (FIVB, IFAB, MLB, FIBA):
+rules/<sport>.json holds, from the sport's rulebook (FIVB, IFAB, MLB, FIBA, ITF, BWF, IGFA, World Boxing,
+WT, World Aquatics, IJF, UWW):
 
   dimensions   field and equipment sizes, with the rule number
   equipment    checks that the asset's net, rim, ball, bat, mound match those sizes
@@ -20,10 +21,15 @@ Check kinds (all measured on the placed skeleton):
   on_floor         the listed feet touch the floor
   higher_than      at least one of the points is above a reference point
   all_above        every listed point is above a reference point (e.g. a punch above the belt)
-  near             a point lies within max_m of a target point (a kick landing on the trunk protector)
+  near             a point lies within max_m of a target point (a kick landing on the trunk protector);
+                   point and target may be lists, and the closest pair counts
+  apart            the reverse of near: every listed point stays at least min_m from the targets
+                   (no fist on the opponent's head in taekwondo)
   max_height       a point (plus its half size extent_m) stays below max_m above the floor
   hand_shape       a hand has one of the allowed finger shapes (a punch lands with a closed fist)
   both_touch       every listed body point lies on the object's surface (within tol_m) at once
+  paired           each left/right pair of points is level along the given axes (arms or legs
+                   moving together, not alternating)
 """
 from __future__ import annotations
 
@@ -115,6 +121,13 @@ def _point_or_object(sc, ref: str) -> Tuple[Tuple, float]:
     return sc.point(ref), 0.0
 
 
+def _name(ref) -> str:
+    """How a check's reference reads in a note: 'the B.belt front', or a height for [x, y, z]."""
+    if isinstance(ref, (list, tuple)):
+        return f"a height of {float(ref[2]):.2f} m"
+    return "the " + ref.replace("_", " ")
+
+
 def _area(sc, spec: Dict) -> Tuple[float, float, float, float]:
     c = sc.point(spec["around"]) if spec.get("around") else (0.0, 0.0, 0.0)
     x0, x1 = spec["x"]
@@ -182,20 +195,35 @@ def run_check(sc, foul: Dict, rules: Dict) -> Tuple[Optional[bool], str]:
         if kind == "higher_than":
             ref = sc.point(ck["ref"])[2]
             top = max(sc.point(x)[2] for x in ck["points"])
-            return top > ref, f"highest of {'/'.join(ck['points'])} {100 * (top - ref):+.0f} cm against the {ck['ref'].replace('_', ' ')}"
+            return top > ref, f"highest of {'/'.join(ck['points'])} {100 * (top - ref):+.0f} cm against {_name(ck['ref'])}"
         if kind == "all_above":
             ref = sc.point(ck["ref"])[2] + ck.get("tol_m", 0.0)
             low = min(sc.point(x)[2] for x in ck["points"])
-            return low >= ref, f"lowest of {'/'.join(ck['points'])} {100 * (low - ref):+.0f} cm against the {ck['ref'].replace('_', ' ')}"
+            return low >= ref, f"lowest of {'/'.join(ck['points'])} {100 * (low - ref):+.0f} cm against {_name(ck['ref'])}"
         if kind == "hand_shape":
             shape = sc.body.pose[ck["hand"] + "_arm"].get("hand", "relaxed")
             return shape in ck["allowed"], f"{ck['hand']} hand is {shape}"
         if kind == "max_height":
             top = sc.point(ck["point"])[2] + ck.get("extent_m", 0.0)
             return top <= ck["max_m"], f"top of the {ck['point']} {top:.2f} m (limit {ck['max_m']} m)"
-        if kind == "near":
-            d = _dist(sc.point(ck["point"]), sc.point(ck["target"]))
-            return d <= ck["max_m"], f"{ck['point'].replace('_', ' ')} {d * 100:.0f} cm from {ck['target'].replace('_', ' ')}"
+        if kind in ("near", "apart"):              # point / target may be lists: the closest pair counts
+            pts = ck["point"] if isinstance(ck["point"], list) else [ck["point"]]
+            tgs = ck["target"] if isinstance(ck["target"], list) else [ck["target"]]
+            d, p_, t_ = min((_dist(sc.point(p), sc.point(t)), p, t) for p in pts for t in tgs)
+            note = f"{p_.replace('_', ' ')} {d * 100:.0f} cm from {t_.replace('_', ' ')}"
+            return (d <= ck["max_m"], note) if kind == "near" else (d >= ck["min_m"], note)
+        if kind == "paired":                       # left and right move together (butterfly, breaststroke)
+            axes = ck.get("axes", "xyz")
+            bad, worst = [], 0.0
+            for a_, b_ in ck["pairs"]:
+                pa, pb = sc.point(a_), sc.point(b_)
+                for ax in axes:
+                    i = "xyz".index(ax)
+                    d = abs(pa[i] - pb[i])
+                    worst = max(worst, d)
+                    if d > ck.get("max_m", 0.08):
+                        bad.append(f"{a_}/{b_} {d * 100:.0f} cm apart in {ax}")
+            return (not bad), ("; ".join(bad) or f"pairs level, largest difference {worst * 100:.0f} cm")
         if kind == "both_touch":
             c, r = _point_or_object(sc, ck["object"])
             gaps = [_dist(sc.point(x), c) - r for x in ck["points"]]

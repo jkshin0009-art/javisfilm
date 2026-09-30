@@ -1,0 +1,294 @@
+{
+  "code": "TAEKWONDO_BACK_KICK",
+  "technique": "back_kick",
+  "phase": "impact",
+  "summary": "Taekwondo back kick (dwit chagi) at impact: back turned to the opponent, looking over the right shoulder, right leg thrust straight back with the heel and sole on the opponent's trunk protector, body leaning forward over the support leg.",
+  "names": {
+    "ko": [
+      "태권도 뒤차기",
+      "뒤차기 임팩트",
+      "태권도 뒤돌아차기",
+      "몸통 뒤차기"
+    ],
+    "en": [
+      "taekwondo back kick",
+      "dwit chagi",
+      "spinning back kick",
+      "back kick impact"
+    ]
+  },
+  "keywords": [
+    "taekwondo",
+    "kick",
+    "back kick",
+    "spinning",
+    "dwit chagi"
+  ],
+  "athlete": {
+    "height_m": 1.8,
+    "hand": "right",
+    "roles": {
+      "r_leg": "kicking leg",
+      "l_leg": "support leg"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 180,
+      "tilt": 58,
+      "side": 0
+    },
+    "trunk": {
+      "flex": 5,
+      "side": 15,
+      "rot": -50
+    },
+    "head": {
+      "look_at": "B.chest"
+    },
+    "l_arm": {
+      "elev": 30,
+      "plane": 90,
+      "rot": -10,
+      "elbow": 110,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "fist"
+    },
+    "r_arm": {
+      "elev": 25,
+      "plane": 80,
+      "rot": -20,
+      "elbow": 110,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "fist"
+    },
+    "l_leg": {
+      "flex": 63,
+      "abd": 5,
+      "rot": 5,
+      "knee": 25,
+      "ankle": "flat",
+      "reach": {
+        "to": "floor",
+        "point": "heel",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            10,
+            45
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": -25,
+      "abd": 5,
+      "rot": 0,
+      "knee": 8,
+      "ankle": -10,
+      "reach": {
+        "to": "B.belly",
+        "point": "heel",
+        "w": 0.3,
+        "range": {
+          "knee": [
+            0,
+            30
+          ],
+          "ankle": [
+            -25,
+            10
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot"
+    ]
+  },
+  "partners": [
+    {
+      "id": "B",
+      "role": "opponent in fighting stance",
+      "athlete": {
+        "height_m": 1.8
+      },
+      "support": {
+        "contacts": [
+          "l_foot",
+          "r_foot"
+        ],
+        "root_from": "A.pelvis",
+        "root_offset": [
+          1.05,
+          0.0
+        ]
+      },
+      "pose": {
+        "pelvis": {
+          "yaw": 125,
+          "tilt": 5
+        },
+        "trunk": {
+          "flex": 5,
+          "rot": 5
+        },
+        "head": {
+          "flex": 5,
+          "rot": 50
+        },
+        "l_arm": {
+          "elev": 35,
+          "plane": 75,
+          "rot": 10,
+          "elbow": 95,
+          "pron": 20,
+          "wrist": 0,
+          "hand": "fist"
+        },
+        "r_arm": {
+          "elev": 25,
+          "plane": 95,
+          "rot": -25,
+          "elbow": 115,
+          "pron": 20,
+          "wrist": 0,
+          "hand": "fist"
+        },
+        "l_leg": {
+          "flex": 25,
+          "abd": 5,
+          "rot": 5,
+          "knee": 20,
+          "ankle": "toes:12"
+        },
+        "r_leg": {
+          "flex": -20,
+          "abd": 10,
+          "rot": 30,
+          "knee": 16,
+          "ankle": "toes:22",
+          "reach": {
+            "to": "floor",
+            "point": "ball",
+            "fix": [
+              "rot"
+            ],
+            "range": {
+              "knee": [
+                12,
+                35
+              ]
+            }
+          }
+        }
+      },
+      "text": "Opponent in a closed fighting stance (left foot forward), guard up, electronic trunk protector on."
+    }
+  ],
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Side view across the contest area, both athletes in profile."
+    },
+    {
+      "name": "front_three_quarter",
+      "azimuth": -45,
+      "elevation": -5,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Three-quarter front view of the kicker, low and dynamic."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -120,
+      "height_m": 0.5,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame from the mat, octagon edge and arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "max": 30,
+      "why": "kicking leg driven straight back",
+      "src": "KUK, EST"
+    },
+    {
+      "m": "z:r_heel",
+      "min": 0.8,
+      "max": 1.35,
+      "why": "heel lands on the trunk protector",
+      "src": "WT"
+    }
+  ],
+  "text": {
+    "action": "a taekwondo athlete landing a spinning back kick on the opponent's trunk protector",
+    "core": "Back turned to the opponent, head turned to look over the right shoulder; body leaning forward over the bent left support leg; right leg thrust straight back at trunk height, foot flexed with the toes pointing down, heel and sole driving into the opponent's trunk protector; fists tucked in close to the chest.",
+    "gaze": "Eyes on the target over the right shoulder.",
+    "cues": [
+      "look before you kick",
+      "kick in a straight line, heel first",
+      "toes point down, not to the side"
+    ],
+    "kinetic": [
+      "opponent folding at the waist on impact",
+      "dobok jacket swinging with the spin",
+      "trunk protector sensor lights"
+    ],
+    "avoid": [
+      "black belt missing",
+      "trunk protector missing",
+      "kicking with the shin instead of the foot",
+      "bare chest",
+      "boxing gloves",
+      "southpaw stance",
+      "kicking foot turned sideways like a side kick",
+      "not looking at the target"
+    ]
+  },
+  "ref_query": "taekwondo back kick",
+  "sources": [
+    {
+      "id": "WT",
+      "cite": "World Taekwondo Competition Rules & Interpretation: permitted techniques (knuckles of a clenched fist; foot below the ankle bone), permitted areas (trunk protector; head above the collar bone by foot only) - general knowledge, not re-checked this session",
+      "url": "https://www.worldtaekwondo.org/rules-wt/rules.html"
+    },
+    {
+      "id": "KUK",
+      "cite": "Kukkiwon Taekwondo Textbook: fighting stance (gyeorugi junbi), dollyeo chagi and dwit chagi descriptions - general knowledge, not re-checked this session",
+      "url": "https://www.kukkiwon.or.kr"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard taekwondo coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "taekwondo"
+}

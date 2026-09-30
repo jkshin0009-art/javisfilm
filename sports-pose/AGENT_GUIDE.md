@@ -27,12 +27,17 @@ python sportspose.py find "goalkeeper dive" --full     (파일 경로까지)
 
 - `{SUBJECT}`: 인물 묘사. h3-multicast의 캐스트 `look`을 그대로 넣습니다. 예: `a woman in her late twenties with a short silver bob, wearing a red volleyball jersey`
 - `{SETTING}`: 장소와 빛. 예: `Indoor arena, evening match, warm spotlights, packed stands`
+- `{PARTNER_B}`: 두 사람 자산(권투, 태권도, 유도, 레슬링)에만 있습니다. 상대 선수의 외모를 캐스트 `look`으로 넣습니다.
+  - 예: `a tall man in his thirties with a shaved head, wearing a blue judogi`
+  - 두 사람의 유니폼 색은 규칙이 정한 대로 다르게 합니다. 유도는 흰색과 파란색, 레슬링·태권도·권투는 빨간색과 파란색입니다.
 
 반드시 지킬 것:
 
 - **몸 동작 문장은 고치지 않습니다.** 각도, 거리, 좌우, 손 모양, 발 접지는 검사를 통과한 값입니다. 다른 말로 바꾸면 뼈대 이미지와 어긋납니다.
 - 자세를 바꾸는 말을 덧붙이지 않습니다. 예: "dynamic pose", "arms raised" 같은 말을 추가하지 않습니다.
-- 자산은 **오른손잡이, 오른발잡이** 기준입니다. 왼손잡이 장면은 아직 좌우 반전 자산이 없으니 보고합니다.
+- 자산은 **오른손잡이, 오른발잡이** 기준입니다. 왼손잡이 장면은 아직 좌우 반전 자산이 없으니 보고합니다. 권투·태권도·레슬링은 왼발이 앞인 자세(오소독스)입니다.
+- **두 사람 장면:** `2. ANATOMICAL_BONES`의 `- B (...)` 줄이 상대 선수의 위치와 자세입니다. 이 줄도 고치지 않습니다. 잡는 손(깃, 소매, 무릎 뒤)과 맞는 부위(턱, 몸통 보호대)는 검사를 통과한 위치입니다.
+- **수영:** 높이는 수면 기준으로 적혀 있습니다(예: "fingertips 0.25 m below the water surface"). 물 위와 물 아래가 나뉘는 장면이니 카메라 문구(수중, 수면 위)를 바꾸지 않습니다.
 - 더 자세한 지시가 필요하면 5단 블록(`## Asset (5 sections)`)에서 해당 줄을 그대로 가져다 붙입니다.
 - **Negative prompt:** SDXL 계열에만 넣습니다. Flux dev는 negative를 쓰지 않으므로, 본문에 이미 올바른 해부 구조가 적혀 있는 것으로 충분합니다.
 
@@ -43,11 +48,12 @@ python sportspose.py find "goalkeeper dive" --full     (파일 경로까지)
 - `3. OBJECT_INTERACTION`의 `Legal under the … rules:` 줄은 그대로 둡니다.
 - 여러 명이 나오는 장면(경기 전체, 관중석에서 본 장면)은 `python sportspose.py rules <종목>`의 **Scene** 목록을 따릅니다.
   - 예: 배구는 한 팀 6명에 리베로 1명(다른 색 유니폼), 축구는 골키퍼 유니폼 색이 달라야 하고 장신구를 쓰지 않습니다. 야구는 타자와 주자가 헬멧을 씁니다.
+  - 격투기와 수영의 예: 권투는 마우스피스, 태권도는 전자 몸통 보호대와 헤드기어(빨강·파랑), 유도는 흰색·파란색 도복, 레슬링은 빨강·파랑 싱글렛, 수영은 무릎 위까지 오는 수영복입니다.
 - 반칙 장면이 필요한 연출(일부러 반칙하는 장면)이 아니라면, 규칙 표의 반칙 모습이 들어가지 않게 합니다. negative에 이미 들어 있습니다.
 
 ## 4. ComfyUI 연결 (정지 이미지)
 
-1. `Load Image` 노드로 `openpose_<카메라>.png`를 불러옵니다. 이미 뼈대 그림이므로 전처리기(DWPose 등)를 거치지 않습니다.
+1. `Load Image` 노드로 `openpose_<카메라>.png`를 불러옵니다. 이미 뼈대 그림이므로 전처리기(DWPose 등)를 거치지 않습니다. 두 사람 자산은 한 장에 두 뼈대가 모두 들어 있습니다.
 2. `Apply ControlNet`에 연결합니다. OpenPose ControlNet이나 Union 계열을 openpose 모드로 씁니다.
 3. 강도와 적용 구간의 출발점:
 
@@ -70,7 +76,7 @@ python sportspose.py find "goalkeeper dive" --full     (파일 경로까지)
 
   출력 맨 아래의 한 문단("First: … Then: …")을 H3 `detailed_description`에 넣고, `{SUBJECT}` 자리는 `<Subject N>` 표기로 바꿉니다.
 - 몸 동작이 정확해야 하는 컷은 먼저 4번 방식으로 핵심 단계(예: 타점)의 정지 이미지를 만듭니다. 그 이미지를 인물 참조나 시작 장면으로 넣으면 영상이 그 자세에서 벗어나지 않습니다.
-- 동작 순서: `VOLLEYBALL_SPIKE`, `SOCCER_INSTEP_KICK`, `BASEBALL_PITCH`, `BASEBALL_SWING`, `BASKETBALL_JUMP_SHOT` (전체는 `library/CATALOG.md`).
+- 동작 순서: `VOLLEYBALL_SPIKE`, `SOCCER_INSTEP_KICK`, `BASEBALL_PITCH`, `BASEBALL_SWING`, `BASKETBALL_JUMP_SHOT`, `TENNIS_SERVE`, `FISHING_CAST`, `BOXING_ONE_TWO`, `SWIMMING_RACE`, `JUDO_SEOI_NAGE_THROW` (전체는 `library/CATALOG.md`).
 
 ## 6. 결과 확인
 

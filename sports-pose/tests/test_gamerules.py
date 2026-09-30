@@ -12,7 +12,8 @@ pytest.importorskip("PIL.Image")
 import gamerules as gr  # noqa: E402
 import sportspose as sp  # noqa: E402
 
-SPORTS = ("volleyball", "soccer", "baseball", "basketball", "tennis", "badminton", "fishing", "boxing")
+SPORTS = ("volleyball", "soccer", "baseball", "basketball", "tennis", "badminton", "fishing", "boxing",
+          "taekwondo", "swimming", "judo", "wrestling")
 
 
 def result(asset, rule_id):
@@ -159,3 +160,104 @@ def test_mound_must_follow_the_rulebook():
         a["ground"]["slope"] = 0.2
     ev = gr.evaluate(sp.Scene(variant("BASEBALL_PITCH_RELEASE", steep)))
     assert any("mound_slope" in e for e in ev["errors"])
+
+
+def test_tennis_foot_fault_is_caught():
+    ok, note, _ = result(sp.load_asset("TENNIS_SERVE_TROPHY"), "foot_fault")
+    assert ok, note
+
+    def line_behind(a):
+        for e in a["environment"]:
+            if e.get("name") == "baseline":
+                e["at"] = [-0.3, 0, 0]                 # the baseline is now under the server's feet
+    ok, _, _ = result(variant("TENNIS_SERVE_TROPHY", line_behind), "foot_fault")
+    assert ok is False
+
+
+def test_badminton_service_must_be_below_115_cm():
+    ok, note, _ = result(sp.load_asset("BADMINTON_BACKHAND_SERVE"), "service_height")
+    assert ok, note
+
+    def high(a):
+        a["objects"][1]["offset_m"] = [0.07, 0, 0.4]   # shuttle struck 40 cm higher
+    ok, _, _ = result(variant("BADMINTON_BACKHAND_SERVE", high), "service_height")
+    assert ok is False
+
+
+def test_angler_holds_the_rod_and_the_rod_meets_igfa():
+    ok, note, _ = result(sp.load_asset("FISHING_FIGHT"), "angler_alone")
+    assert ok, note
+
+    def let_go(a):
+        a["pose"]["r_arm"] = {"elev": 10, "plane": 20, "elbow": 10}
+    ok, _, _ = result(variant("FISHING_FIGHT", let_go), "angler_alone")
+    assert ok is False
+
+    def short_rod(a):
+        a["objects"][0]["length_m"] = 1.2             # 0.85 m tip: shorter than the 40 in minimum
+    ev = gr.evaluate(sp.Scene(variant("FISHING_FIGHT", short_rod)))
+    assert any("rod_tip_length" in e for e in ev["errors"])
+
+
+def test_boxing_punch_below_the_belt_is_caught():
+    ok, note, _ = result(sp.load_asset("BOXING_JAB"), "below_belt")
+    assert ok, note
+
+    def low(a):
+        a["partners"][0]["support"]["root_offset"] = [0.7, -0.1]     # in close, punching to the groin
+        a["pose"]["l_arm"]["reach"].update({"to": "B.belt_front", "offset_m": [0, 0, -0.15]})
+        a["pose"]["l_arm"]["reach"].pop("range", None)
+    ok, _, _ = result(variant("BOXING_JAB", low), "below_belt")
+    assert ok is False
+
+
+def test_taekwondo_kick_must_land_on_the_trunk_protector():
+    ok, note, _ = result(sp.load_asset("TAEKWONDO_ROUNDHOUSE_KICK"), "foot_technique")
+    assert ok, note
+
+    def to_the_knee(a):
+        a["pose"]["r_leg"]["reach"].update({"to": "B.l_knee", "range": {}})
+    ok, _, ev = result(variant("TAEKWONDO_ROUNDHOUSE_KICK", to_the_knee), "foot_technique")
+    assert ok is False and any("below the waist" in e.lower() for e in ev["errors"])
+
+
+def test_swimming_stroke_rules():
+    ok, note, _ = result(sp.load_asset("SWIMMING_BREASTSTROKE_BREATH"), "breast_elbows")
+    assert ok, note
+
+    def high(a):
+        a["support"]["float"]["depth_m"] = -0.35      # whole body lifted: elbows out of the water
+    ok, _, _ = result(variant("SWIMMING_BREASTSTROKE_BREATH", high), "breast_elbows")
+    assert ok is False
+
+    ok, note, _ = result(sp.load_asset("SWIMMING_BUTTERFLY_RECOVERY"), "fly_arms")
+    assert ok, note
+
+    def one_arm_back(a):
+        a["pose"]["l_arm"].update({"elev": 30, "plane": -40})
+    ok, _, _ = result(variant("SWIMMING_BUTTERFLY_RECOVERY", one_arm_back), "fly_arms")
+    assert ok is False
+
+    ok, note, _ = result(sp.load_asset("SWIMMING_START_SET"), "front_foot")
+    assert ok, note
+
+
+def test_judo_leg_grab_is_caught():
+    ok, note, _ = result(sp.load_asset("JUDO_KUMIKATA"), "leg_grab")
+    assert ok, note
+
+    def grab_leg(a):
+        a["pose"]["trunk"]["flex"] = 45                               # bend down and grab the thigh
+        a["pose"]["l_arm"]["reach"] = {"to": "B.r_thigh_mid", "w": 0.3}
+    ok, _, _ = result(variant("JUDO_KUMIKATA", grab_leg), "leg_grab")
+    assert ok is False
+
+
+def test_greco_roman_holds_stay_above_the_waist():
+    ok, note, _ = result(sp.load_asset("WRESTLING_GRECO_BODY_LOCK"), "greco_below_waist")
+    assert ok, note
+
+    def thigh(a):
+        a["pose"]["r_arm"]["reach"] = {"to": "B.l_thigh_mid", "w": 0.3}
+    ok, _, _ = result(variant("WRESTLING_GRECO_BODY_LOCK", thigh), "greco_below_waist")
+    assert ok is False

@@ -37,10 +37,10 @@ Orthodox boxer landing a right cross: rear heel up and pivoting, hips and should
 - canvas dust under the pivoting foot
 ```
 
-## Prompt (fill {SUBJECT} and {SETTING}; keep the body mechanics as written)
+## Prompt (fill {SUBJECT}, {PARTNER_B} and {SETTING}; keep the body mechanics as written)
 
 ```
-{SUBJECT}, an orthodox boxer landing a right cross to the opponent's chin. Rear right foot pivoting on the ball with the heel up and knee turned in; hips and shoulders turned square to the opponent; right arm fully extended, fist palm down on the chin; right shoulder raised; left glove pulled back to the left cheek; weight shifting onto the front leg. Rear heel up, turn the hip. Rear shoulder covers the chin. Lead hand back to the chin. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Ringside view across the ropes, both boxers in profile. Opponent's head snapping back, sweat spray; motion blur on the punching arm. {SETTING}.
+{SUBJECT}, an orthodox boxer landing a right cross to the opponent's chin. Opposite the main athlete: {PARTNER_B} as the opponent in orthodox guard. Rear right foot pivoting on the ball with the heel up and knee turned in; hips and shoulders turned square to the opponent; right arm fully extended, fist palm down on the chin; right shoulder raised; left glove pulled back to the left cheek; weight shifting onto the front leg. Rear heel up, turn the hip. Rear shoulder covers the chin. Lead hand back to the chin. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Ringside view across the ropes, both boxers in profile. Opponent's head snapping back, sweat spray; motion blur on the punching arm. {SETTING}.
 ```
 
 ## Negative prompt

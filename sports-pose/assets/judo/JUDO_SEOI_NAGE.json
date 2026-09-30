@@ -1,0 +1,363 @@
+{
+  "code": "JUDO_SEOI_NAGE",
+  "technique": "seoi_nage",
+  "phase": "kake",
+  "sequence": {
+    "id": "JUDO_SEOI_NAGE_THROW",
+    "order": 1,
+    "phases": [
+      "JUDO_SEOI_NAGE",
+      "JUDO_IPPON_LANDING"
+    ]
+  },
+  "summary": "Ippon seoi nage at the moment of lifting: tori turned in with the back against uke's chest, knees deeply bent with the hips below uke's hips, right upper arm locked under uke's right armpit, left hand pulling uke's right sleeve forward and down; uke bent over tori's back on the toes.",
+  "names": {
+    "ko": [
+      "유도 업어치기",
+      "외깃 업어치기",
+      "이폰 세오이나게",
+      "업어치기 들어가기"
+    ],
+    "en": [
+      "judo seoi nage",
+      "ippon seoi nage",
+      "shoulder throw",
+      "judo shoulder throw lift"
+    ]
+  },
+  "keywords": [
+    "judo",
+    "throw",
+    "seoi nage",
+    "shoulder throw",
+    "nage waza"
+  ],
+  "athlete": {
+    "height_m": 1.75,
+    "hand": "right",
+    "roles": {
+      "r_arm": "right arm locked under uke's armpit",
+      "l_arm": "pulling hand on uke's sleeve"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 0,
+      "tilt": 20
+    },
+    "trunk": {
+      "flex": 20,
+      "side": 0,
+      "rot": 5
+    },
+    "head": {
+      "flex": 10,
+      "side": 0,
+      "rot": 30
+    },
+    "r_arm": {
+      "elev": 95,
+      "plane": 90,
+      "rot": 70,
+      "elbow": 140,
+      "pron": 30,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "B.r_upper_sleeve",
+        "w": 0.3,
+        "tol_m": 0.08,
+        "range": {
+          "elev": [
+            70,
+            130
+          ],
+          "plane": [
+            60,
+            120
+          ],
+          "elbow": [
+            100,
+            145
+          ],
+          "rot": [
+            0,
+            120
+          ],
+          "wrist": [
+            -40,
+            40
+          ]
+        }
+      }
+    },
+    "l_arm": {
+      "elev": 40,
+      "plane": 60,
+      "rot": -20,
+      "elbow": 60,
+      "pron": 40,
+      "wrist": 0,
+      "hand": "grip",
+      "reach": {
+        "to": "B.r_sleeve",
+        "w": 0.3,
+        "range": {
+          "elbow": [
+            20,
+            130
+          ],
+          "wrist": [
+            -35,
+            35
+          ],
+          "rot": [
+            -70,
+            60
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 60,
+      "abd": 10,
+      "rot": 10,
+      "knee": 100,
+      "ankle": "toes:25"
+    },
+    "l_leg": {
+      "flex": 60,
+      "abd": 10,
+      "rot": 10,
+      "knee": 100,
+      "ankle": "toes:25",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            60,
+            120
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot",
+      "r_foot"
+    ]
+  },
+  "partners": [
+    {
+      "id": "B",
+      "role": "uke, being loaded onto tori's back",
+      "athlete": {
+        "height_m": 1.78
+      },
+      "support": {
+        "contacts": [
+          "l_foot",
+          "r_foot"
+        ],
+        "root_from": "A.pelvis",
+        "root_offset": [
+          -0.25,
+          0.0
+        ]
+      },
+      "pose": {
+        "pelvis": {
+          "yaw": 0,
+          "tilt": 33
+        },
+        "trunk": {
+          "flex": 22
+        },
+        "head": {
+          "flex": -10,
+          "rot": 0
+        },
+        "r_arm": {
+          "elev": 125,
+          "plane": 90,
+          "rot": 0,
+          "elbow": 80,
+          "pron": 30,
+          "wrist": 0,
+          "hand": "relaxed",
+          "reach": {
+            "to": "A.chest",
+            "offset_m": [
+              0.1,
+              -0.08,
+              -0.08
+            ],
+            "w": 0.3,
+            "tol_m": 0.06,
+            "range": {
+              "elev": [
+                110,
+                150
+              ],
+              "plane": [
+                60,
+                120
+              ],
+              "elbow": [
+                40,
+                130
+              ]
+            }
+          }
+        },
+        "l_arm": {
+          "elev": 45,
+          "plane": 20,
+          "rot": 0,
+          "elbow": 35,
+          "pron": 30,
+          "wrist": 0,
+          "hand": "relaxed"
+        },
+        "r_leg": {
+          "flex": 10,
+          "abd": 6,
+          "rot": 5,
+          "knee": 10,
+          "ankle": "toes:35"
+        },
+        "l_leg": {
+          "flex": -10,
+          "abd": 6,
+          "rot": 5,
+          "knee": 12,
+          "ankle": "toes:30",
+          "reach": {
+            "to": "floor",
+            "point": "ball",
+            "fix": [
+              "rot"
+            ],
+            "range": {
+              "knee": [
+                0,
+                40
+              ]
+            }
+          }
+        }
+      },
+      "text": "Uke in a blue judogi, pulled forward onto tori's back and up on the toes; uke's right arm drawn over tori's right shoulder, the forearm hanging in front of tori's chest."
+    }
+  ],
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Side view across the tatami, both judoka in profile."
+    },
+    {
+      "name": "three_quarter",
+      "azimuth": -45,
+      "elevation": 5,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Three-quarter view, faces and grips sharp."
+    },
+    {
+      "name": "high_cinema",
+      "azimuth": -120,
+      "elevation": 30,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "High wide frame over the tatami, contest area colours and arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "min": 60,
+      "max": 125,
+      "why": "knees deeply bent to drop the hips below uke's",
+      "src": "KOD, EST"
+    },
+    {
+      "m": "up:B.pelvis:pelvis",
+      "min": 10,
+      "why": "tori's hips below uke's hips (the loading position)",
+      "src": "KOD"
+    },
+    {
+      "m": "r_elbow_flex",
+      "min": 80,
+      "why": "right arm bent and locked under uke's armpit",
+      "src": "KOD, EST"
+    }
+  ],
+  "text": {
+    "action": "a judoka loading the opponent onto the back for an ippon seoi nage",
+    "core": "Tori has turned in with the back against uke's chest, feet between uke's feet on the balls of the feet, knees deeply bent so the hips are below uke's; trunk bent forward; right arm bent with the upper arm locked up under uke's right armpit, the right hand gripping uke's upper sleeve; left hand pulling uke's right sleeve forward and down past the left hip; uke bent over tori's back, up on the toes.",
+    "gaze": "Head turned to the left, eyes looking forward and down in the direction of the throw.",
+    "cues": [
+      "turn in with the hips below uke's",
+      "pull the sleeve hand to your hip",
+      "straighten the legs and bow forward to throw"
+    ],
+    "kinetic": [
+      "uke's feet about to leave the mat",
+      "judogi jackets twisting and pulled open",
+      "dust off the tatami"
+    ],
+    "avoid": [
+      "judogi without a belt",
+      "both athletes in the same colour judogi",
+      "bare-chested judoka",
+      "boxing gloves",
+      "grabbing the legs",
+      "sleeves rolled up",
+      "tori standing upright with straight legs",
+      "tori's back not touching uke"
+    ]
+  },
+  "ref_query": "judo seoi nage",
+  "sources": [
+    {
+      "id": "IJF",
+      "cite": "IJF Sport and Organisation Rules / Refereeing Rules: judogi, gripping, penalties (secondary summary of the SOR read this session; the IJF PDF itself not reachable)",
+      "url": "https://www.ijf.org/documents"
+    },
+    {
+      "id": "KOD",
+      "cite": "Kodokan judo technique descriptions (kumikata, ippon seoi nage, kesa gatame) - general knowledge, not re-checked this session",
+      "url": "https://kodokanjudoinstitute.org/en/waza/"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard judo coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "judo"
+}

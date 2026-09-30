@@ -1,0 +1,295 @@
+{
+  "code": "TAEKWONDO_ROUNDHOUSE_KICK",
+  "technique": "roundhouse_kick",
+  "phase": "impact",
+  "summary": "Taekwondo roundhouse kick (dollyeo chagi) to the trunk at impact: pivoting on the ball of the left foot with the heel toward the opponent, hips turned over, right leg snapped out with the instep on the opponent's trunk protector.",
+  "names": {
+    "ko": [
+      "태권도 돌려차기",
+      "돌려차기 임팩트",
+      "몸통 돌려차기",
+      "반달차기"
+    ],
+    "en": [
+      "taekwondo roundhouse kick",
+      "dollyeo chagi",
+      "turning kick to the body",
+      "roundhouse kick impact"
+    ]
+  },
+  "keywords": [
+    "taekwondo",
+    "kick",
+    "roundhouse",
+    "dollyeo chagi"
+  ],
+  "athlete": {
+    "height_m": 1.8,
+    "hand": "right",
+    "roles": {
+      "r_leg": "kicking leg",
+      "l_leg": "support leg",
+      "l_arm": "lead arm",
+      "r_arm": "rear arm swinging down"
+    }
+  },
+  "pose": {
+    "pelvis": {
+      "yaw": 95,
+      "tilt": 0,
+      "side": -30
+    },
+    "trunk": {
+      "flex": -10,
+      "side": -10,
+      "rot": -25
+    },
+    "head": {
+      "look_at": "B.chest"
+    },
+    "l_arm": {
+      "elev": 40,
+      "plane": 80,
+      "rot": 10,
+      "elbow": 100,
+      "pron": 20,
+      "wrist": 0,
+      "hand": "fist"
+    },
+    "r_arm": {
+      "elev": 30,
+      "plane": 20,
+      "rot": -20,
+      "elbow": 40,
+      "pron": 10,
+      "wrist": 0,
+      "hand": "fist"
+    },
+    "l_leg": {
+      "flex": 10,
+      "abd": 5,
+      "rot": 40,
+      "knee": 15,
+      "ankle": "toes:15",
+      "reach": {
+        "to": "floor",
+        "point": "ball",
+        "fix": [
+          "rot"
+        ],
+        "range": {
+          "knee": [
+            5,
+            35
+          ]
+        }
+      }
+    },
+    "r_leg": {
+      "flex": 50,
+      "abd": 55,
+      "rot": -10,
+      "knee": 20,
+      "ankle": 55,
+      "reach": {
+        "to": "B.belly",
+        "point": "instep",
+        "w": 0.3,
+        "range": {
+          "knee": [
+            0,
+            45
+          ],
+          "ankle": [
+            40,
+            75
+          ]
+        }
+      }
+    }
+  },
+  "support": {
+    "contacts": [
+      "l_foot"
+    ]
+  },
+  "partners": [
+    {
+      "id": "B",
+      "role": "opponent in fighting stance",
+      "athlete": {
+        "height_m": 1.8
+      },
+      "support": {
+        "contacts": [
+          "l_foot",
+          "r_foot"
+        ],
+        "root_from": "A.pelvis",
+        "root_offset": [
+          1.1,
+          0.0
+        ]
+      },
+      "pose": {
+        "pelvis": {
+          "yaw": 125,
+          "tilt": 5
+        },
+        "trunk": {
+          "flex": 5,
+          "rot": 5
+        },
+        "head": {
+          "flex": 5,
+          "rot": 50
+        },
+        "l_arm": {
+          "elev": 35,
+          "plane": 75,
+          "rot": 10,
+          "elbow": 95,
+          "pron": 20,
+          "wrist": 0,
+          "hand": "fist"
+        },
+        "r_arm": {
+          "elev": 25,
+          "plane": 95,
+          "rot": -25,
+          "elbow": 115,
+          "pron": 20,
+          "wrist": 0,
+          "hand": "fist"
+        },
+        "l_leg": {
+          "flex": 25,
+          "abd": 5,
+          "rot": 5,
+          "knee": 20,
+          "ankle": "toes:12"
+        },
+        "r_leg": {
+          "flex": -20,
+          "abd": 10,
+          "rot": 30,
+          "knee": 16,
+          "ankle": "toes:22",
+          "reach": {
+            "to": "floor",
+            "point": "ball",
+            "fix": [
+              "rot"
+            ],
+            "range": {
+              "knee": [
+                12,
+                35
+              ]
+            }
+          }
+        }
+      },
+      "text": "Opponent in a closed fighting stance (left foot forward), guard up, electronic trunk protector on."
+    }
+  ],
+  "objects": [],
+  "environment": [],
+  "cameras": [
+    {
+      "name": "side",
+      "azimuth": -90,
+      "elevation": 0,
+      "lens_mm": 50,
+      "fill": 0.86,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Side view across the contest area, both athletes in profile."
+    },
+    {
+      "name": "front_three_quarter",
+      "azimuth": -45,
+      "elevation": -5,
+      "lens_mm": 35,
+      "fill": 0.84,
+      "size": [
+        1152,
+        896
+      ],
+      "text": "Three-quarter front view of the kicker, low and dynamic."
+    },
+    {
+      "name": "low_cinema",
+      "azimuth": -120,
+      "height_m": 0.5,
+      "lens_mm": 24,
+      "fill": 0.66,
+      "size": [
+        1344,
+        768
+      ],
+      "text": "Low wide frame from the mat, octagon edge and arena lights."
+    }
+  ],
+  "rules": [
+    {
+      "m": "r_knee_flex",
+      "max": 45,
+      "why": "kicking knee nearly extended at impact (snap)",
+      "src": "KUK, EST"
+    },
+    {
+      "m": "z:r_ankle",
+      "min": 0.8,
+      "max": 1.4,
+      "why": "kick lands on the trunk protector (from the belt to the armpits)",
+      "src": "WT"
+    }
+  ],
+  "text": {
+    "action": "a taekwondo athlete landing a roundhouse kick on the opponent's trunk protector",
+    "core": "Balanced on the ball of the left foot, which has pivoted so the heel points at the opponent; hips turned over sideways; right leg raised to the side at trunk height with the knee snapping straight, instep and top of the foot striking the side of the opponent's trunk protector; body leaning back and away for balance; right arm swinging down beside the hip, left fist guarding the chest.",
+    "gaze": "Eyes on the target over the lead shoulder.",
+    "cues": [
+      "pivot the support foot so the heel faces the target",
+      "chamber the knee, then snap",
+      "hit with the instep, toes pointed"
+    ],
+    "kinetic": [
+      "dobok trousers flaring with the kick",
+      "sensor socks lighting the trunk protector on impact",
+      "motion blur along the arc of the foot"
+    ],
+    "avoid": [
+      "black belt missing",
+      "trunk protector missing",
+      "kicking with the shin instead of the foot",
+      "bare chest",
+      "boxing gloves",
+      "southpaw stance",
+      "support foot pointing at the opponent",
+      "kicking with the toes"
+    ]
+  },
+  "ref_query": "taekwondo roundhouse kick",
+  "sources": [
+    {
+      "id": "WT",
+      "cite": "World Taekwondo Competition Rules & Interpretation: permitted techniques (knuckles of a clenched fist; foot below the ankle bone), permitted areas (trunk protector; head above the collar bone by foot only) - general knowledge, not re-checked this session",
+      "url": "https://www.worldtaekwondo.org/rules-wt/rules.html"
+    },
+    {
+      "id": "KUK",
+      "cite": "Kukkiwon Taekwondo Textbook: fighting stance (gyeorugi junbi), dollyeo chagi and dwit chagi descriptions - general knowledge, not re-checked this session",
+      "url": "https://www.kukkiwon.or.kr"
+    },
+    {
+      "id": "EST",
+      "cite": "Estimate from standard taekwondo coaching (no measured joint angle checked this session)",
+      "url": ""
+    }
+  ],
+  "sport": "taekwondo"
+}

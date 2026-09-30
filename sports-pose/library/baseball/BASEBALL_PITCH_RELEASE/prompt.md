@@ -11,19 +11,19 @@ Right-handed baseball pitcher at ball release: trunk flexed forward and tilted t
 1. SYSTEM_INDEX_CODE: #BASEBALL_PITCH_RELEASE
 
 2. ANATOMICAL_BONES:
-- Gaze & head: head tilted back 7 deg, turned 14 deg to the athlete's right of the chest line; face pointing forward and slightly down. Eyes on the catcher's mitt.
+- Gaze & head: head tilted back 7 deg, turned 14 deg to the athlete's right of the chest line; face pointing forward and slightly to the athlete's right and slightly down. Eyes on the catcher's mitt.
 - Torso: trunk line (hips to shoulders) 30 deg forward of vertical, leaning 19 deg to the athlete's left; spine flexed 14 deg over the pelvis; shoulder line rotated 19 deg to the left of the hip line (hip-shoulder separation).
-- Right arm (throwing arm): upper arm raised 91 deg from the side of the trunk, pointing to the athlete's right; elbow bent (32 deg flexion); forearm pointing to the athlete's right and slightly up and slightly forward; palm facing down and forward; wrist flexed 10 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.42 m above the floor.
-- Left arm (glove arm): upper arm raised 40 deg from the side of the trunk, pointing down and slightly to the athlete's left; elbow bent to about a right angle (100 deg flexion); forearm pointing forward and slightly to the athlete's right; palm facing down and slightly to the athlete's right; wrist neutral; hand: cupped, fingers slightly curled and spread; fingertips 0.77 m above the floor.
-- Right leg (pivot leg on the rubber): hip extended 4 deg; knee bent (54 deg flexion); thigh pointing down and slightly to the athlete's left and slightly backward, shin pointing backward; ankle neutral; on the ball of the foot, heel raised.
-- Left leg (stride leg): hip flexed 65 deg; knee bent (42 deg flexion); thigh pointing forward and down and slightly to the athlete's right, shin pointing down and slightly to the athlete's right; ankle neutral; foot flat on the floor.
+- Right arm (throwing arm): upper arm raised 91 deg from the side of the trunk, pointing to the athlete's right; elbow bent (32 deg flexion); forearm pointing to the athlete's right and slightly up; palm facing down and slightly forward; wrist flexed 10 deg; hand: fingers wrapped firmly around what it holds; fingertips 1.40 m above the floor.
+- Left arm (glove arm): upper arm raised 40 deg from the side of the trunk, pointing down and slightly to the athlete's left; elbow bent to about a right angle (100 deg flexion); forearm pointing forward and to the athlete's right; palm facing down and slightly to the athlete's right and slightly backward; wrist neutral; hand: cupped, fingers slightly curled and spread; fingertips 0.75 m above the floor.
+- Right leg (pivot leg on the rubber): hip extended 4 deg; knee bent (57 deg flexion); thigh pointing down and slightly to the athlete's left and slightly backward, shin pointing backward; ankle neutral; on the ball of the foot, heel raised.
+- Left leg (stride leg): hip flexed 68 deg; knee bent (46 deg flexion); thigh pointing forward and down and slightly to the athlete's right, shin pointing down and slightly to the athlete's right; ankle plantar-flexed (toes pointed) 9 deg; foot flat on the floor.
 - Base: ankles 100 cm apart (54% of body height, 2.4x shoulder width); every support foot touches the floor, none floats.
 - Technique cue: release out in front of the stride foot
 - Technique cue: trunk flexes forward and tilts to the glove side
 - Technique cue: front knee firm
 
 3. OBJECT_INTERACTION:
-- ball (7 cm diameter): center 1.31 m above the floor; touching the right palm; surface 139 cm from the left ankle (up and slightly to the athlete's right of it).
+- ball (7 cm diameter): center 1.30 m above the floor; touching the right palm; surface 138 cm from the left ankle (up and slightly to the athlete's right of it).
 - Pitcher's plate (rubber) 61 x 15 cm, white, on top of a mound 25 cm above home plate; the front edge of the plate is 18.44 m from the rear point of home plate.
 - Legal under the OBR rules: the pivot foot drags from the rubber, it does not hop forward and re-plant; the stride goes straight toward home plate; a dark glove, a bare pitching hand, a clean white ball.
 
@@ -68,8 +68,8 @@ extra fingers, missing fingers, fused fingers, extra limbs, missing limbs, extra
 | r_shoulder_elev | 91.0 | 80..105 | shoulder abduction about 91 deg | OBP-P |
 | trunk_lean_fwd | 30.0 | 20..50 | trunk forward tilt about 35 deg | OBP-P |
 | trunk_lean_right | -19.4 | ..-8 | trunk tilted toward the glove side about 17 deg | OBP-P |
-| l_knee_flex | 42.2 | 25..55 | front knee firm or extending (about 40 deg) | OBP-P, CG19 |
-| fwd:ball:l_ankle | 42.9 | 0..45 | release about 21 cm in front of the lead ankle | OBP-P |
+| l_knee_flex | 46.0 | 25..55 | front knee firm or extending (about 40 deg) | OBP-P, CG19 |
+| fwd:ball:l_ankle | 42.8 | 0..45 | release about 21 cm in front of the lead ankle | OBP-P |
 | l_foot_z | -0.0 | ..0.03 | stride foot planted | OBP-P |
 
 ## Official game rules (MLB Official Baseball Rules (2025 edition; values unchanged for many seasons))

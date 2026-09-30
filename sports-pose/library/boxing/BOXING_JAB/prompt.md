@@ -37,10 +37,10 @@ Orthodox boxer landing a jab: lead arm extended at shoulder height, fist turned 
 - ring lights flaring
 ```
 
-## Prompt (fill {SUBJECT} and {SETTING}; keep the body mechanics as written)
+## Prompt (fill {SUBJECT}, {PARTNER_B} and {SETTING}; keep the body mechanics as written)
 
 ```
-{SUBJECT}, an orthodox boxer landing a stiff jab on the opponent's face. Left lead arm fully extended at shoulder height, fist turned palm down, knuckles on the opponent's face; left shoulder raised against the chin; right glove held at the right cheek; feet staggered, rear heel up. Turn the jab over, palm down. Lead shoulder protects the chin. Return the punch along the line it went out. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Ringside view across the ropes, both boxers in profile. Sweat spraying off the opponent's head at impact; glove slightly compressed on contact. {SETTING}.
+{SUBJECT}, an orthodox boxer landing a stiff jab on the opponent's face. Opposite the main athlete: {PARTNER_B} as the opponent in orthodox guard. Left lead arm fully extended at shoulder height, fist turned palm down, knuckles on the opponent's face; left shoulder raised against the chin; right glove held at the right cheek; feet staggered, rear heel up. Turn the jab over, palm down. Lead shoulder protects the chin. Return the punch along the line it went out. Eye-level shot, side profile view, 50mm standard lens, full-body shot. Ringside view across the ropes, both boxers in profile. Sweat spraying off the opponent's head at impact; glove slightly compressed on contact. {SETTING}.
 ```
 
 ## Negative prompt

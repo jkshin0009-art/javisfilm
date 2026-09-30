@@ -11,9 +11,9 @@ Right-handed volleyball spike, final plant of the approach: both feet planted, k
 1. SYSTEM_INDEX_CODE: #VOLLEYBALL_SPIKE_TAKEOFF
 
 2. ANATOMICAL_BONES:
-- Gaze & head: head tilted back 59 deg, turned 34 deg to the athlete's left of the chest line; face pointing forward and to the athlete's left and slightly up. Eyes up on the incoming set above the net.
+- Gaze & head: head tilted back 59 deg, turned 34 deg to the athlete's left of the chest line; face pointing forward and slightly to the athlete's left and slightly up. Eyes up on the incoming set above the net.
 - Torso: trunk line (hips to shoulders) 38 deg forward of vertical; spine flexed 10 deg over the pelvis; shoulders square with the hips.
-- Right arm (swung back): upper arm raised 58 deg from the side of the trunk, pointing backward; elbow slightly bent (12 deg flexion); forearm pointing backward; palm facing to the athlete's left and slightly backward; wrist extended (cocked back) 10 deg; hand: open, fingers together and straight; fingertips 1.23 m above the floor.
+- Right arm (swung back): upper arm raised 58 deg from the side of the trunk, pointing backward; elbow slightly bent (12 deg flexion); forearm pointing backward; palm facing to the athlete's left; wrist extended (cocked back) 10 deg; hand: open, fingers together and straight; fingertips 1.23 m above the floor.
 - Left arm (swung back): upper arm raised 55 deg from the side of the trunk, pointing backward; elbow slightly bent (14 deg flexion); forearm pointing backward; palm facing to the athlete's right and slightly backward; wrist extended (cocked back) 10 deg; hand: open, fingers together and straight; fingertips 1.13 m above the floor.
 - Right leg (dominant leg, deeper knee bend): hip flexed 80 deg; knee bent to about a right angle (92 deg flexion); thigh pointing forward and down, shin pointing down and backward; ankle dorsiflexed 33 deg; foot flat on the floor.
 - Left leg (closing step, slightly ahead): hip flexed 90 deg; knee bent (64 deg flexion); thigh pointing forward and slightly down, shin pointing down; ankle neutral; foot flat on the floor.
@@ -23,7 +23,7 @@ Right-handed volleyball spike, final plant of the approach: both feet planted, k
 - Technique cue: knees bent deeply, weight low
 
 3. OBJECT_INTERACTION:
-- ball (21 cm diameter): center 3.68 m above the floor; surface 311 cm from the forehead (up and forward and slightly to the athlete's left of it).
+- ball (21 cm diameter): center 3.68 m above the floor; surface 311 cm from the forehead (forward and up and slightly to the athlete's left of it).
 - Net: top tape 2.43 m high, 130 cm in front of the hips; the set ball is still rising toward the attack point above and in front.
 - Legal under the FIVB rules: no part of the body touches the net or the antennae; neither foot is completely past the centre line; the ball rebounds from a brief contact, it is not caught or held; the player is not the Libero (different jersey colour).
 
