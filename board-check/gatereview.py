@@ -14,6 +14,8 @@ time, and turns the answers into a per-axis hit rate.
   referee --out DIR              no person needed: a second look by the vision model (the 5678
                                  server, Jev-style probability reading, both answer orders) marks
                                  every sampled cut, then scores the gate against those marks
+  labels  --labels DIR           score the gate against the person's own verdicts that qclabel.py
+                                 records during normal work (redo / ok per cut)
   calibrate --list FILE --out DIR  can the referee see a real defect at all? Runs it on cuts a
                                  person already marked bad (CSV: image,kinds) and reports how many
                                  it catches, next to its probabilities on the gate-failed cuts
@@ -399,6 +401,87 @@ def cmd_calibrate(a) -> int:
     return 0
 
 
+# ---------------------------------------------------------------- labels (qclabel.py)
+def read_labels(folder: Path) -> List[Dict]:
+    """labels.jsonl, one record per picture: the last verdict wins for the same picture
+    (same bytes), so a panel marked ok and later sent back counts once, as redo."""
+    last: Dict[str, Dict] = {}
+    path = folder / "labels.jsonl"
+    if not path.is_file():
+        return []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        if r.get("verdict") not in ("redo", "ok"):
+            continue
+        last[r.get("sha1") or r.get("id")] = r
+    return list(last.values())
+
+
+def labels_text(recs: List[Dict]) -> str:
+    redo = [r for r in recs if r["verdict"] == "redo"]
+    ok = [r for r in recs if r["verdict"] == "ok"]
+    gated = [r for r in recs if r.get("gate_verdict")]
+    sources: Dict[str, int] = {}
+    for r in recs:
+        sources[r.get("source") or "-"] = sources.get(r.get("source") or "-", 0) + 1
+
+    def cat(r):
+        if r.get("gate_verdict") == "PASS":
+            return "PASS"
+        if r.get("gate_verdict") == "FAIL":
+            return "FAIL defect" if r.get("gate_fails") else "FAIL unmeasured only"
+        return "no gate"
+
+    cats = ("FAIL defect", "FAIL unmeasured only", "PASS", "no gate")
+    lines = ["# frame_gate against the person's own verdicts", "",
+             f"- pictures judged by the person: {len(recs)} (sent back {len(redo)}, kept {len(ok)})",
+             f"- with a gate verdict: {len(gated)}",
+             "- where the verdicts came from: " + ", ".join(f"{k} {v}" for k, v in sorted(sources.items())), "",
+             "| gate said | person sent back | person kept |", "|---|---|---|"]
+    for c in cats:
+        lines.append(f"| {c} | {sum(cat(r) == c for r in redo)} | {sum(cat(r) == c for r in ok)} |")
+    g_redo = [r for r in redo if r.get("gate_verdict")]
+    g_ok = [r for r in ok if r.get("gate_verdict")]
+    if g_redo:
+        caught = sum(r["gate_verdict"] == "FAIL" for r in g_redo)
+        lines.append(f"\n- of the pictures the person sent back, the gate failed {caught}/{len(g_redo)}")
+    if g_ok:
+        alarms = sum(r["gate_verdict"] == "FAIL" for r in g_ok)
+        lines.append(f"- of the pictures the person kept, the gate failed {alarms}/{len(g_ok)} (false alarms)")
+    axes = sorted({a for r in gated for a in r.get("gate_fails", [])})
+    if axes:
+        lines += ["", "| axis | failed, person sent back | failed, person kept | gate right | advice |",
+                  "|---|---|---|---|---|"]
+        for ax in sorted(axes, key=lambda a: -sum(a in r.get("gate_fails", []) for r in gated)):
+            a_redo = sum(ax in r.get("gate_fails", []) for r in g_redo)
+            a_ok = sum(ax in r.get("gate_fails", []) for r in g_ok)
+            n = a_redo + a_ok
+            lines.append(f"| {ax} | {a_redo} | {a_ok} | {a_redo / n:.0%} | {advice(a_redo, a_ok)} |")
+        lines += ["", "\"gate right\" counts a failed axis as right when the person also sent the picture back, "
+                      "for whatever reason, so it is an upper bound for that axis."]
+    if len(gated) < len(recs):
+        lines += ["", f"- {len(recs) - len(gated)} judged pictures have no gate verdict; the gate never ran on "
+                      "them. Their copies are in img/ for a later batch run of any checker."]
+    return "\n".join(lines) + "\n"
+
+
+def cmd_labels(a) -> int:
+    recs = read_labels(Path(a.labels))
+    if not recs:
+        print(f"no labels in {a.labels} yet")
+        return 1
+    text = labels_text(recs)
+    print(text)
+    if a.report:
+        Path(a.report).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.report).write_text(text, encoding="utf-8")
+        print(f"Saved: {a.report}")
+    return 0
+
+
 # ---------------------------------------------------------------- score
 def advice(right: int, wrong: int) -> str:
     n = right + wrong
@@ -545,6 +628,10 @@ def main(argv=None) -> int:
     p.add_argument("--timeout", type=float, default=120.0)
     p.add_argument("--report", default=None)
     p.set_defaults(fn=cmd_referee)
+    p = sub.add_parser("labels")
+    p.add_argument("--labels", required=True, help="the qc_labels folder qclabel.py writes (data/qc_labels)")
+    p.add_argument("--report", default=None)
+    p.set_defaults(fn=cmd_labels)
     p = sub.add_parser("calibrate")
     p.add_argument("--list", required=True, help="CSV with columns image,kinds (kinds: axis names, blank = any)")
     p.add_argument("--out", required=True, help="the folder sample/referee wrote (for the comparison)")
